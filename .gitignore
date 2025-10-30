@@ -1,0 +1,55 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Virtual environments
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+
+#uploads
+static/uploads/
+
+# Flask instance folder for config and secrets
+instance/
+
+# Pytest cache
+.pytest_cache/
+
+# Mypy cache
+.mypy_cache/
+
+# IDE and editor settings
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Environment variables file
+.env
+
+# Database dump or local files (MySQL typically no local files, pero por si acaso)
+*.sql
+*.sqlite3
+
+# TailwindCSS and Node dependencies
+node_modules/
+dist/
+build/
+
+# Logs
+*.log
+
+# macOS system files
+.DS_Store
+
+# Optional: npm/yarn lock files
+package-lock.json
+yarn.lock

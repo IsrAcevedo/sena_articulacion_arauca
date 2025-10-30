@@ -1,0 +1,112 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f9f9f9;
+  color: #333;
+}
+
+main {
+  flex: 1;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #009b3a;
+  color: white;
+  padding: 1rem 2rem;
+}
+
+header .logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+header .logo img {
+  width: 60px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin-left: 1.5rem;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+.hero {
+  position: relative;
+  height: 60vh;
+  background: url('https://picsum.photos/1200/600?blur=2') center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.hero .overlay {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 3rem;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.hero h2 {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+}
+
+#colegios, #proyectos {
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.colegio-list, .project-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.colegio-card, .project-card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 1.5rem;
+  width: 280px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  text-align: left;
+}
+
+.colegio-card:hover, .project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.project-card img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+footer {
+  background: #003b15;
+  color: white;
+  text-align: center;
+  padding: 1.2rem;
+  margin-top: auto;
+}

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='style/styleFellizola.css')}}">
+</head>
+
+<body>
+    <!-- NAV -->
+    <nav>
+        <div class="logo">SENA Arauca</div>
+        <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+        <ul id="menu">
+            <li><a href="{{url_for('inicio')}}" class="active">Inicio</a></li>
+            <li><a href="{{url_for('proyectos')}}">Proyectos</a></li>
+            <li><a href="{{url_for('colegios')}}">Colegios</a></li>
+            <li><a href="{{url_for('municipios')}}">Municipios</a></li>
+            <li><a href="#instructores">Instructores</a></li>
+        </ul>
+    </nav>
+
+
+    <!-- HERO -->
+    <header class="hero-colegios" id="hero-colegios">
+        <div class="contenido-hero"></div>
+        <h1>Colegios de Arauca</h1>
+        <p>Conoce las instituciones educativas vinculadas con los programas del Sena.</p>
+        <a href="#colegios" class="btn-colegio">Ver Colegios</a>
+        </div>
+    </header>
+
+    <!-- CONTENIDO -->
+    <section id="colegios" class="colegios">
+        <h2>Instituciones Educativas</h2>
+
+        <h3>Saravena</h3>
+        <div class="colegios-grid">
+
+            <a href="colegio.html">
+                <div class="tarjeta-colegio">
+                    <img src="{{url_for('static', filename='uploads/frontera.jpeg')}}" alt="logo FRONTERA">
+                    <h3>Institución Educativa La Frontera</h3>
+                    <p>Saravena</p>
+                </div>
+            </a>
+            <a href="#">
+                <div class="tarjeta-colegio">
+                    <img src="./img/l-pombo.jpeg" alt="logo POMBO">
+                    <h3>Institución Educativa Rafael Pombo</h3>
+                    <p>Saravena</p>
+                </div>
+            </a>
+        </div>
+
+
+
+    </section>
+    <script src="./scripts/main.js"></script>
+
+</body>
+
+</html>
+
+</body>
+
+</html>

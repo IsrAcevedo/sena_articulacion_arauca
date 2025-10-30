@@ -1,0 +1,468 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+    font-family: poppins, sans-serif;
+    scroll-behavior: smooth;
+    text-decoration: none;
+}
+
+h1{font-size: 3.5em;
+text-transform: capitalize;
+    font-family: 'Montserrat', sans-serif;}
+h2{font-size: 2.7em;
+text-transform: capitalize;
+    font-family: 'Montserrat', sans-serif;}
+h3{font-size: 2em;
+text-transform: capitalize;
+    font-family: 'Montserrat', sans-serif;}
+p{font-size: 1.25em;}
+
+/*Color acentado*/
+.color-acento{
+    color: #2e7d32;
+}
+
+/*Botones*/
+
+.button{
+    background-color:#2e7d32; 
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 22px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 50px;
+}
+.button:hover{
+    background-color:#269136;
+}
+
+
+/* NAV GENERAL */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1a1a1a;
+    padding: 15px 30px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+
+/* LOGO */
+nav .logo {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+/* LISTA NAV */
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+/* LINKS NAV */
+nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 6px;
+    transition: all 0.3s ease-in-out; /* 👈 Transición suave */
+}
+
+/* EFECTO HOVER */
+nav ul li a:hover {
+    background: rgba(255,255,255,0.2) ;  /* Naranja */
+    color: #fff;
+    transform: translateY(-3px); /* 👈 efecto de levantar */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* ENLACE ACTIVO */
+nav ul li a.active {
+    background: #28a745; /* Verde para activo */
+    color: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* BOTÓN HAMBURGUESA */
+.menu-toggle {
+    display: none;
+    font-size: 1.8rem;
+    color: white;
+    cursor: pointer;
+}
+
+/*Hero*/
+
+.container{
+    max-width: 1400px;
+    margin: auto;
+}
+
+#hero{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    height: 90vh;
+    color: white;
+    background-image:linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5))
+    ,url(../img/michael-marsh-U0dBV_QeiYk-unsplash\ \(1\).jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    text-transform: capitalize;
+}
+
+
+/*Info colegio*/
+
+#info-colegio .container{
+    text-align: center;
+    padding: 200px 12px;
+}
+
+.img-colegio{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.img-colegio img{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+    margin-bottom: 20px;
+}
+
+/*info tecnicos*/
+
+#nuestros-tecnicos {
+    background-color: rgb(30, 30, 30);
+    color: white;
+    text-align: center;
+    padding: 100px 0;
+}
+
+#nuestros-tecnicos .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    padding: 0 12px;
+}
+
+#nuestros-tecnicos h2 {
+    margin-top: 0;
+    font-size: 3em;
+}
+
+#nuestros-tecnicos p {
+    margin-bottom: 40px;
+    font-size: 1.3em;
+    display: block;
+}
+
+.tecnicos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+.carta-tecnico {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    padding: 50px 30px;
+    margin: 0;
+    border-radius: 16px;
+    width: 300px;
+    color: white;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    min-height: 400px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.carta-tecnico:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 15px rgba(0,0,0,0.15);}
+
+.carta-tecnico:first-child {
+    background-image:linear-gradient(0deg, rgba(0,0,0,0.5), rgba(0,0,0,0.5)),url(../img/scott-graham-5fNmWej4tAA-unsplash\ \(1\).jpg)
+}
+
+.carta-tecnico:nth-child(2) {
+    background-image: linear-gradient(0deg, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(../img/scott-graham-5fNmWej4tAA-unsplash\ \(1\).jpg);
+}
+
+.carta-tecnico:nth-child(3) {
+    background-image: linear-gradient(0deg, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(../img/scott-graham-5fNmWej4tAA-unsplash\ \(1\).jpg);
+}
+
+
+/*Carrucel*/
+
+.carrucel{
+    max-height: none;
+    overflow-x: auto;
+    overflow-y: visible;
+    display: flex;
+    margin: 48px 25px 48px 25px;
+}
+
+.carrucel::-webkit-scrollbar{
+    width: 0;
+}
+
+.carrucel .proyectos{
+    min-width: 255px;
+    height: 255px;
+    line-height: 440px;
+    text-align: center;
+    margin-right: 15px;
+    position: relative;
+    display: inline-block;
+    overflow: visible; 
+}
+
+.proyectos img{
+    width: 100%;
+    height: 100%;
+    transition: transform 0.3s;
+    display: block;
+    position: relative; 
+    left: 0;
+    top: 0;
+    z-index: 2;
+}
+
+.proyectos .btn{
+    position: absolute;
+    top: 110%;
+    left: 20%;
+    transform: translate(-50%, -50%);
+}
+
+.cartelera h2{
+    color: #111111;
+    font-size: 32px;
+    margin: 100px 48px 20px 48px;
+
+}
+
+.carrucel .proyectos:hover img{
+    transform: scale(1.1);
+    z-index: 3; 
+}
+
+.carrucel .proyectos{
+    color: #c7c3c3;
+    position: relative;
+    transition: 0.5s;
+    overflow: visible;
+}
+
+.carrucel:hover .proyectos:not(:hover) {
+    filter: blur(5px);
+}
+
+/*Instructores*/
+
+#instructores {
+    background: #f9f9f9;
+    padding: 60px 0;
+    text-align: center;
+}
+
+
+.instructores-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 40px 0;
+}
+
+.carta-instructor {
+    background: white;
+    width: 260px;
+    border-radius: 20px;
+    text-align: center;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: 0.3s ease;
+}
+
+.carta-instructor:hover {
+    transform: scale(1.05);
+}
+
+.carta-instructor img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+.carta-instructor h3 {
+    color: var(--color-secundario);
+}
+
+.carta-instructor p {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* Footer */
+.footer{ background:#111; color:#fff; padding:22px 18px; text-align:center; }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    nav ul {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background: #1a1a1a;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 0;
+    display: none;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.3s ease-in-out;
+    }
+
+    nav ul li a:hover {
+    background: none;
+    }
+
+    nav ul.show {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0); /* 👈 animación al bajar */
+    }
+
+    .menu-toggle {
+    display: block;
+    }
+}
+
+
+
+        /*Pagina de todos los colegios*/    
+
+/* HERO */
+#hero-colegios {
+    background-image:linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5))
+    ,url(../img/kalen-emsley-Bkci_8qcdvQ-unsplash\ \(1\).jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    text-transform: capitalize;
+    color: white;
+    text-align: center;
+    padding: 120px 20px;
+}
+
+#hero-colegios h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+#hero-colegios p {
+    max-width: 600px;
+    margin: 0 auto 20px;
+    font-size: 1.1rem;
+}
+
+.btn-colegio {
+    background: #2e7d32;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.btn-colegio:hover {
+    background: #269136;
+    color: white;
+}
+
+/* SECCIÓN COLEGIOS */
+#colegios {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+#colegios h2 {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--azul-oscuro);
+    margin-bottom: 40px;
+}
+
+#colegios h3 {
+    margin-bottom: 20px;
+}
+
+.colegios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.tarjeta-colegio {
+    background: rgb(255, 255, 255);
+    border-radius: 16px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+.tarjeta-colegio:hover {
+    transform: translateY(-5px);
+}
+
+.tarjeta-colegio img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;      
+    margin: 20px auto 10px;  
+    display: block;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12); 
+}
+
+.tarjeta-colegio h3 {
+    font-family: 'Montserrat', sans-serif;
+    margin: 15px 0 5px;
+    color: black;
+}
+
+.tarjeta-colegio p {
+    color: #555;
+    margin-bottom: 20px;
+}

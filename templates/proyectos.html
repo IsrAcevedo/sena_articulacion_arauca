@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proyectos SENA</title>
+  <link rel="stylesheet" href="{{url_for('static', filename='style/styleRincon.css')}}">
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">
+      <img src="{{url_for('static', filename='img/logo_sena.png')}}" alt="Logo SENA">
+      <h1>Proyectos SENA</h1>
+    </div>
+    <nav>
+      <a href="{{url_for('inicio')}}" class="active">Inicio</a>
+      <a href="{{url_for('proyectos')}}">Proyectos</a>
+      <a href="{{url_for('colegios')}}">Colegios</a>
+      <a href="{{url_for('municipios')}}">Municipios</a>
+      <a href="#instructores">Instructores</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="overlay">
+        <h2>Innovación y talento que transforman el futuro</h2>
+        <p>Descubre los proyectos de los aprendices del SENA y colegios articulados.</p>
+      </div>
+    </section>
+
+    <section id="colegios">
+      <h2>Colegios Participantes</h2>
+      <div class="colegio-list">
+        {%for colegio in colegios %}
+        <div class="colegio-card">
+          <h3>{{colegio.nombre}}</h3>
+          <p>Programas de desarrollo de software y robótica educativa.</p>
+        </div>
+        {%endfor%}
+      </div>
+    </section>
+
+    <section id="proyectos" class="tecnicos-section">
+      <h2>Proyectos Destacados</h2>
+      <div class="project-grid">
+        <div class="project-card">
+          <img src="https://picsum.photos/400/250?random=1" alt="Proyecto 1">
+          <h3>Aplicación de Control Ambiental</h3>
+          <p>Una app creada por aprendices para medir la calidad del aire local.</p>
+        </div>
+        <div class="project-card">
+          <img src="https://picsum.photos/400/250?random=2" alt="Proyecto 2">
+          <h3>Robot Asistente Escolar</h3>
+          <p>Robot diseñado por estudiantes de articulación para tareas educativas.</p>
+        </div>
+        <div class="project-card">
+          <img src="https://picsum.photos/400/250?random=3" alt="Proyecto 3">
+          <h3>Sistema de Riego Inteligente</h3>
+          <p>Proyecto de automatización agrícola impulsado por sensores IoT.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contacto">
+    <p>© 2025 Servicio Nacional de Aprendizaje SENA | Todos los derechos reservados</p>
+  </footer>
+
+</body>
+
+</html>

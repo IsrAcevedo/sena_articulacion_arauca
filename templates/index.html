@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Emprendimientos SENA</title>
+  <link rel="stylesheet" href="{{url_for('static', filename='style/styleYenary.css')}}">
+</head>
+
+<body>
+  <!-- NAV -->
+  <nav>
+    <div class="logo">SENA Arauca</div>
+    <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+    <ul id="menu">
+      <li><a href="{{url_for('inicio')}}" class="active">Inicio</a></li>
+      <li><a href="{{url_for('proyectos')}}">Proyectos</a></li>
+      <li><a href="{{url_for('colegios')}}">Colegios</a></li>
+      <li><a href="{{url_for('municipios')}}">Municipios</a></li>
+      <li><a href="#instructores">Instructores</a></li>
+    </ul>
+  </nav>
+
+  <!-- HEADER -->
+  <header id="inicio" class="hero">
+    <div class="hero-inner">
+      <h1 class="flash-text">ARTICULACION SENA ARAUCA</h1>
+      <p class="hero-sub">Conectando proyectos de colegios y municipios SENA Arauca</p>
+      <a class="btn" href="#emprendimientos">Explorar</a>
+    </div>
+  </header>
+
+  <!-- EMPRENDIMIENTOS (DISEÑO VERDE) -->
+  <section id="emprendimientos" class="section emprendimientos">
+    <div class="container">
+      <h2>Emprendimientos</h2>
+      <div class="cards">
+        <article class="card">
+          <img src="https://picsum.photos/640/400?random=1" alt="Proyecto 1">
+          <h3>Proyecto 1</h3>
+          <p>Emprendimiento en tecnología y sostenibilidad.</p>
+        </article>
+        <article class="card">
+          <img src="https://picsum.photos/640/400?random=2" alt="Proyecto 2">
+          <h3>Proyecto 2</h3>
+          <p>Propuesta innovadora en gastronomía local.</p>
+        </article>
+        <article class="card">
+          <img src="https://picsum.photos/640/400?random=3" alt="Proyecto 3">
+          <h3>Proyecto 3</h3>
+          <p>Aplicación móvil desarrollada por estudiantes.</p>
+        </article>
+        <article class="card">
+          <img src="https://picsum.photos/640/400?random=4" alt="Proyecto 4">
+          <h3>Proyecto 4</h3>
+          <p>Iniciativa de reciclaje y economía circular.</p>
+        </article>
+        <article class="card">
+          <img src="https://picsum.photos/640/400?random=5" alt="Proyecto 5">
+          <h3>Proyecto 5</h3>
+          <p>Startup enfocada en turismo y cultura araucana.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- COLEGIOS (DISEÑO NARANJA) -->
+  <section id="colegios" class="section colegios">
+    <div class="container">
+      <h2>Colegios</h2>
+      <div class="cards">
+        <article class="card">
+          <img src="https://picsum.photos/640/400?random=6" alt="Colegio 1">
+          <h3>Colegio Nacional Arauca</h3>
+          <p>Innovación educativa en tecnología.</p>
+        </article>
+        <article class="card">
+          <img src="https://picsum.photos/640/400?random=7" alt="Colegio 2">
+          <h3>Instituto Técnico Tame</h3>
+          <p>Formación técnica en agroindustria.</p>
+        </article>
+        <article class="card">
+          <img src="https://picsum.photos/640/400?random=8" alt="Colegio 3">
+          <h3>Colegio Simón Bolívar</h3>
+          <p>Proyectos en robótica y ciencias.</p>
+        </article>
+        <article class="card">
+          <img src="https://picsum.photos/640/400?random=9" alt="Colegio 4">
+          <h3>Colegio de Arauquita</h3>
+          <p>Programación, arte y cultura.</p>
+        </article>
+        <article class="card">
+          <img src="https://picsum.photos/640/400?random=10" alt="Colegio 5">
+          <h3>Colegio Técnico Saravena</h3>
+          <p>Innovación en sostenibilidad.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- MUNICIPIOS (DISEÑO GRIS/AZUL) -->
+  <section id="municipios" class="section municipios">
+    <div class="container">
+      <h2>Municipios</h2>
+      <div class="cards">
+        <article class="card">
+          <img src="https://picsum.photos/640/400?random=11" alt="Arauca">
+          <h3>Arauca</h3>
+          <p>Emprendimiento juvenil y cultural.</p>
+        </article>
+        <article class="card">
+          <img src="https://picsum.photos/640/400?random=12" alt="Tame">
+          <h3>Tame</h3>
+          <p>Colegios técnicos articulados.</p>
+        </article>
+        <article class="card">
+          <img src="https://picsum.photos/640/400?random=13" alt="Arauquita">
+          <h3>Arauquita</h3>
+          <p>Proyectos agroindustriales.</p>
+        </article>
+        <article class="card">
+          <img src="https://picsum.photos/640/400?random=14" alt="Saravena">
+          <h3>Saravena</h3>
+          <p>Innovación en educación.</p>
+        </article>
+        <article class="card">
+          <img src="https://picsum.photos/640/400?random=15" alt="Fortul">
+          <h3>Fortul</h3>
+          <p>Turismo sostenible y cultura.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTRUCTORES (DISEÑO OSCURO) -->
+  <section id="instructores" class="section instructores">
+    <div class="container">
+      <h2>Instructores</h2>
+      <div class="cards">
+        <article class="card">
+          <img src="https://picsum.photos/640/400?random=16" alt="Instructor 1">
+          <h3>Instructor 1</h3>
+          <p>Especialista en programación.</p>
+        </article>
+        <article class="card">
+          <img src="https://picsum.photos/640/400?random=17" alt="Instructor 2">
+          <h3>Instructor 2</h3>
+          <p>Agroindustria y turismo.</p>
+        </article>
+        <article class="card">
+          <img src="https://picsum.photos/640/400?random=18" alt="Instructor 3">
+          <h3>Instructor 3</h3>
+          <p>Gestión de proyectos SENA.</p>
+        </article>
+        <article class="card">
+          <img src="https://picsum.photos/640/400?random=19" alt="Instructor 4">
+          <h3>Instructor 4</h3>
+          <p>Robótica y ciencias básicas.</p>
+        </article>
+        <article class="card">
+          <img src="https://picsum.photos/640/400?random=20" alt="Instructor 5">
+          <h3>Instructor 5</h3>
+          <p>Innovación y cultura digital.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 SENA Arauca - Todos los derechos reservados</p>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+
+</html>
