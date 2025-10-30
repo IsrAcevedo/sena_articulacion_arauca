@@ -27,3 +27,8 @@ def colegios():
 
 
 
+@app.route('/colegio')
+def colegio():
+   
+    return render_template('colegio.html')
+
