@@ -27,4 +27,3 @@ def colegios():
 
 
 
-app.run(debug=True)
