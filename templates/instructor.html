@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>instructor</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='style/styleEvelyn.css')}}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Alan+Sans:wght@300..900&family=Inconsolata:wght@200..900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header class="header_instructores">
+        <div class="logoxbtnMenu">
+            <div class="logo_artsenar">
+                <img src="./img/LOGO SENART.png" alt="logo">
+            </div>
+            <button id="btnMenu" class="menu-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-list"
+                    viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
+                </svg>
+            </button>
+        </div>
+
+        <nav class="navegador_instructores no_navbar" id="navbar">
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#proyectos">Proyectos</a></li>
+                <li><a href="./intructores.html">Instructores</a></li>
+                <li><a href="#colegios">Colegios</a></li>
+                <li><a href="#contacto">Municipios</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="perfil">
+
+        <div class="img_instructor">
+            <img src="./img/josue.jpg" alt="josue" class="instructor_foto">
+
+            <h1 class="nombre_instructor">Josue Bentura</h1>
+            <div class="botones_instructor">
+                <a href="intr_proyectos" class="btn_inst">Proyectos</a>
+                <a href="#colegios" class="btn_inst">Colegios</a>
+                <a href=".titulo-perfil" class="btn_inst2">perfil</a>
+            </div>
+
+        </div>
+        <div class="infogeneral_inst">
+            <div class="caja_infor">
+                <header class="encabezado">
+                    <h1 class="titulo-perfil">Perfil Profesional</h1>
+                    <h2>Josue Antanacio Ventura Meaurry</h2>
+                    <p class="cargo_p">Instructor Agroindustrial</p>
+                    <div class="descripcion">
+                        <p>
+                            Josue Antanacio Ventura Meaury, de 45 años, es Ingeniero Agroindustrial egresado de
+                            la
+                            Universidad del Tolima, con especialización en Gestión de la Calidad e Inocuidad
+                            Alimentaria
+                            del SENA. Ha complementado su formación con cursos en buenas prácticas agrícolas,
+                            transformación de alimentos y sostenibilidad rural.<br></p>
+
+                        <p>Con más de 15 años de experiencia en el sector agropecuario, ha trabajado en plantas
+                            de
+                            procesamiento, proyectos de innovación alimentaria y asistencia técnica a pequeños
+                            productores. Actualmente se desempeña como instructor del SENA en el área de
+                            Agroindustria,
+                            donde forma aprendices en procesos productivos sostenibles, transformación de
+                            materias
+                            primas y emprendimiento rural.<br></p>
+
+                        <h2>Áreas de experiencia:</h2>
+                        <p>transformación agroindustrial, control de calidad, producción
+                            avícola,
+                            buenas prácticas de manufactura y sostenibilidad agroalimentaria.
+                        </p>
+                    </div>
+                </header>
+            </div>
+        </div>
+
+    </div>
+    <div class="caja_instructor">
+
+        <div class="intr_proyectos">
+            <div class="titulo-proyectos"><img
+                    src="./img/Logo_geométrico_para_producción_audiovisual-removebg-preview.png" alt="proyectos_logo">
+            </div>
+            <div class="carrusel_proyectos">
+                <button class="flecha izq">&#10094;</button>
+
+                <div class="lista_proyectos">
+                    <div class="item">
+                        <img src="./img/palmera-con-platanos-verdes.jpg" alt="column_proyectosinstr">
+                        <div class="column_proyectosinstr">
+                            <p>Sabores del Campo</p>
+                            <p>“Del campo a tu mesa, con sabor y tradición.”</p>
+                        </div>
+
+                    </div>
+
+                    <div class="item">
+                        <img src="./img/yogur.jpg" alt="Lácteos del Campo">
+                        <div class="column_proyectosinstr">
+                            <p>Lácteos del Campo</p>
+                            <p>Producción de yogurt artesanal y bebidas fermentadas</p>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="./img/e2d4a483-6295-490b-8ffc-03afd3e27704.jpg" alt="column_proyectosinstr">
+                        <div class="column_proyectosinstr">
+                            <p>Sabores del Cacao</p>
+                            <p>Transformación del grano en chocolate artesanal y derivados.</p>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="./img/plano-pone-deliciosa-mermelada-en-pan.jpg" alt="Sabores Naturales">
+                        <div class="column_proyectosinstr">
+                            <p>Sabores Naturales</p>
+                            <p>Elaboración de mermeladas y salsas naturales</p>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="img/batidos-verdes-y-rojos-en-un-frasco-con-lima-kiwi.jpg" alt="Energía Verde">
+                        <div class="column_proyectosinstr">
+                            <p>Energía Verde</p>
+                            <p>Desarrollo de bebidas funcionales y nutritivas a base de productos agrícolas.</p>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="./img/manos-sosteniendo-dulces-mexicanos.jpg" alt="Snacks Saludables">
+                        <div class="column_proyectosinstr">
+                            <p>Snacks Saludables SENA</p>
+                            <p>Elaboración de pasabocas horneados a base de yuca, plátano o maíz.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="flecha der">&#10095;</button>
+            </div>
+        </div>
+        <div class="inst_colegios">
+
+            <div class="titulo-colegios"><img src="./img/colegios.png" alt="colegios"></div>
+            <div class="proyectos_inst">
+
+                <div class="lista_colegios">
+                    <div class="item_colegios">
+                        <img src="./img/villamaga.jpg" alt="la frontera">
+                        <h2>institucion educativa la frontera</h2>
+                    </div>
+
+                    <div class="item_colegios">
+                        <img src="./img/sede educativa seis de octubre.png" alt="Seis de octubre">
+                        <h2>sede educativa seis de octubre</h2>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <footer class="footer_instructor">
+        <p>Todos los derechos reservados &copy; Tecnico en programacion de software</p>
+    </footer>
+    <script>
+
+        document.getElementById("btnMenu").addEventListener("click", function () {
+
+            let menu = document.getElementById("navbar");
+
+            if (menu.classList.contains("navbar")) {
+                menu.classList.remove("navbar");
+                menu.classList.add("no_navbar");
+            } else {
+                menu.classList.remove("no_navbar");
+                menu.classList.add("navbar");
+            }
+
+        });
+
+        const carruseles = document.querySelectorAll('.carrusel_proyectos');
+
+        carruseles.forEach(carrusel => {
+            const lista = carrusel.querySelector('.lista_proyectos');
+            const flechaIzq = carrusel.querySelector('.flecha.izq');
+            const flechaDer = carrusel.querySelector('.flecha.der');
+
+
+            if (lista && flechaIzq && flechaDer) {
+                flechaDer.addEventListener('click', () => {
+                    lista.scrollBy({ left: 300, behavior: 'smooth' });
+                });
+
+                flechaIzq.addEventListener('click', () => {
+                    lista.scrollBy({ left: -300, behavior: 'smooth' });
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

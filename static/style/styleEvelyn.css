@@ -1,0 +1,925 @@
+:root {
+
+    --color-texto: #000000;
+    --color-fondo: #05140d;
+    --color-TEXTO: white;
+    --color-primario: #122820;
+    --color-secundario: #1a3a2a;
+    --color-tarjeta: #1f4634;
+    --fuente_lato: "Lato", sans-serif;
+    --fuente_alansans: "Alan Sans", sans-serif;
+    --fuente_poppins: 'Roboto', sans-serif;
+    --fuente_prueba: "Inconsolata", monospace;
+    --color_verde1: rgb(24, 90, 24);
+    --color_verde2: #00e676;
+
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+.btn_inst2 {
+    display: none;
+}
+
+.menu-btn {
+    display: none;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--color-fondo);
+    color: var(--color-TEXTO);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+}
+
+.infogeneral_inst {
+    width: 80%;
+    margin-top: 8rem;
+
+}
+
+
+
+.encabezado {
+    margin-right: 4rem;
+    padding: 1rem;
+    font-size: 1.5rem;
+    text-align: left;
+    color: var(--color-tarjeta);
+}
+
+.encabezado h2 {
+    font-size: 2.2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0;
+    color: var(--color-TEXTO);
+}
+
+.cargo_p {
+    color: #00c853;
+    font-size: 1.6rem;
+    margin-top: 0.7rem;
+}
+
+.titulo-perfil {
+    background-color: transparent;
+    text-align: left;
+    margin-bottom: 15px;
+    font-size: 5rem;
+    color: #00e676;
+
+}
+
+
+
+
+
+
+.inf_instructor {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 0.5rem;
+}
+
+.inf_instructor h3 {
+    font-size: 1.5rem;
+}
+
+.inf_instructor h4 {
+    font-size: 1.3rem;
+}
+
+.col_tec {
+    margin: 1.5rem;
+}
+
+.img_instructor {
+    display: grid;
+    padding: 2rem;
+    margin: 8rem;
+    margin-right: 0;
+    border-radius: 2rem;
+    width: 20%;
+    backdrop-filter: blur(6px);
+    text-align: center;
+    box-shadow: 0px 0px 11px 0px rgba(0, 0, 0, 0.75);
+}
+
+
+
+.caja_instructor {
+    display: flex;
+    flex-direction: column;
+    margin: 6rem;
+
+}
+
+.perfil {
+    display: flex;
+    flex-direction: row;
+    background: linear-gradient(rgba(0, 0, 0, 0.5),
+            rgba(0, 0, 0, 0.8)),
+        url("../img/paisaje-soleado-de-pradera.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    justify-content: center;
+    gap: 4rem;
+    padding-right: 8.5rem;
+    padding-left: 8.5rem;
+
+}
+
+
+
+
+.inst_colegios {
+    flex-direction: row-reverse;
+    align-items: center;
+    background-color: var(--color-TEXTO);
+}
+
+.intr_proyectos {
+    display: flex;
+    align-items: center;
+    background-color: var(--color_verde1);
+    height: 74rem;
+}
+
+.column_proyectosinstr {
+    display: grid;
+    margin-top: 2rem;
+    justify-items: center;
+}
+
+.column_proyectosinstr p {
+    margin: 1rem;
+    font-weight: bold;
+    font-size: 1.6rem;
+    color: var(--color-fondo);
+}
+
+
+.titulo-proyectos {
+    padding: 1rem;
+    margin-top: 3rem;
+    font-size: 3rem;
+    text-align: center;
+    color: var(--color-tarjeta);
+}
+
+.titulo-colegios {
+    padding: 1rem;
+    margin-top: 3rem;
+    font-size: 3rem;
+    text-align: center;
+    color: var(--color-tarjeta);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.titulo-colegios img {
+    width: 40%;
+    display: flex;
+}
+
+
+.titulo-proyectos img {
+    width: 100%;
+}
+
+
+
+.instructor_foto {
+    width: 100%;
+    border-radius: 2rem;
+}
+
+.botones_instructor {
+    display: grid;
+}
+
+.botones_instructor a:hover {
+    color: var(--color_verde2);
+    transition: 0.3s;
+    background-color: var(--color-texto);
+}
+
+.botones_instructor a {
+    color: var(--color-texto);
+    text-decoration: none;
+    margin: 0.8rem;
+    font-size: 1.5rem;
+    font-family: var(--fuente_poppins);
+    font-weight: 600;
+    background-color: var(--color_verde2);
+    padding: 1rem;
+
+    border-radius: 1rem;
+}
+
+.nombre_instructor {
+    font-size: 2.5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-family: var(--fuente_alansans);
+    font-style: var(--fuente_alansans);
+    display: flex;
+    justify-content: center;
+}
+
+.titulo-pelicula {
+    margin-top: 0.5rem;
+}
+
+.footer_instructor {
+    background-color: var(--color-texto);
+    color: var(--color-TEXTO);
+    text-align: center;
+    padding: 3rem;
+    margin-top: 2rem;
+    height: 10rem;
+    margin-block-start: auto;
+}
+
+.footer_instructor p {
+    margin: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+
+
+.descripcion {
+    color: var(--color-TEXTO);
+    font-family: var(--fuente_lato);
+    font-size: 1.4rem;
+    margin-top: 1rem;
+}
+
+
+.descripcion p {
+    font-size: 1.7rem;
+    line-height: 2.3rem;
+    margin-bottom: 1.5rem;
+    font-family: var(--fuente_poppins);
+    text-align: left;
+}
+
+
+.header_instructores {
+    background: var(--color-texto);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 3rem;
+}
+
+.logo_artsenar {
+    display: flex;
+    width: 50%;
+}
+
+.logo_artsenar img {
+    width: 100%;
+}
+
+.menu_instructores {
+    display: none;
+}
+
+.logoxbtnMenu {
+    width: 50%;
+    height: auto;
+}
+
+
+
+
+
+.navegador_instructores.no_navbar ul {
+    display: flex;
+    gap: 3rem;
+    list-style: none;
+    width: 100%;
+    justify-content: space-around;
+
+
+}
+
+.navegador_instructores.no_navbar a {
+    color: var(--color-TEXTO);
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 1.8rem;
+}
+
+.navegador_instructores.no_navbar a:hover {
+    color: var(--color_verde2);
+}
+
+.navegador_instructores.no_navbar {
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    width: 80%;
+}
+
+.proyectos_inst {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 2rem auto;
+}
+
+.carrusel_proyectos {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 60%;
+    margin: 20px auto;
+}
+
+.flecha {
+    background-color: rgba(0, 0, 0, 0.6);
+    border: none;
+    color: white;
+    font-size: 30px;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 10;
+    transition: background 0.3s;
+}
+
+.flecha:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.lista_proyectos {
+    display: flex;
+    width: 100%;
+
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    align-items: center;
+}
+
+.lista_colegios {
+    display: flex;
+    justify-content: center;
+    gap: 5rem;
+    width: 100%;
+    height: 35rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    align-items: center;
+}
+
+.lista_proyectos::-webkit-scrollbar {
+    display: none;
+}
+
+.lista_colegios::-webkit-scrollbar {
+    display: none;
+}
+
+
+.item {
+    position: relative;
+    flex: 0 0 auto;
+    width: 50%;
+    height: 50rem;
+    margin: 0 2rem;
+    background: rgb(255, 255, 255);
+    border-radius: 10px;
+    padding: 3rem;
+    transition: transform 0.1s;
+}
+
+.item_colegios {
+    position: relative;
+    display: grid;
+    width: 23%;
+    align-items: center;
+    margin: 1rem;
+    border-radius: 100%;
+    height: auto;
+    background: var(--color-secundario);
+    padding: 3rem;
+    transition: transform 0.1s;
+}
+
+.item_colegios:hover {
+    transform: scale(1.05);
+}
+
+.item_colegios img {
+    border-radius: 20rem;
+    width: 100%;
+    display: grid;
+}
+
+.item_colegios p {
+    margin: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    color: var(--color-TEXTO);
+}
+
+.item_colegios h2 {
+    display: none;
+}
+
+
+.item:hover {
+    transform: scale(1.05);
+}
+
+.item img {
+    width: 65%;
+    height: 48%;
+    margin: 2rem;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+}
+
+
+
+/* resposive desig */
+@media (max-width: 768px) {
+
+
+
+    body {
+        font-size: 1.5rem;
+        overflow-x: hidden;
+    }
+
+    .header_instructores {
+        flex-direction: column;
+        align-items: center;
+        padding: 1.5rem 0;
+        display: flex;
+    }
+
+    .logoxbtnMenu {
+        display: flex;
+        width: 100%;
+        align-items: center;
+    }
+
+    .logo_artsenar {
+        width: 60%;
+        justify-content: center;
+    }
+
+    .navegador_instructores {
+        display: none;
+    }
+
+    .navegador_instructores ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .navegador_instructores a {
+        font-size: 1.8rem;
+    }
+
+    .menu-btn {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        width: 40%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .menu-btn svg {
+        width: 38px;
+        height: 38px;
+        display: flex;
+        color: white;
+    }
+
+    .navegador_instructores {
+        height: auto;
+        background: var(--color-texto);
+        padding: 2rem 1.5rem;
+        transition: right .35s ease;
+        z-index: 2500;
+    }
+
+    .navegador_instructores ul {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1.8rem;
+    }
+
+    .navegador_instructores a {
+        color: white;
+        font-size: 1.6rem;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .navegador_instructores.navbar {
+        right: 0;
+        display: flex;
+        width: 100%;
+        justify-content: center
+    }
+
+    .navegador_instructores.no_navbar {
+        right: -100%;
+        display: none;
+    }
+
+
+
+    .perfil {
+        flex-direction: column;
+        align-items: center;
+        padding: 0rem;
+        gap: 2rem;
+        background: linear-gradient(rgba(0, 0, 0, 0.3),), url(../img/paisaje-soleado-de-pradera.jpg);
+    }
+
+    .img_instructor {
+        background-color: var(--color-texto);
+        width: 100%;
+        margin: 0;
+        justify-items: center;
+        padding: 4rem;
+        border-radius: 0;
+        backdrop-filter: blur(3rem);
+        background: linear-gradient(none);
+    }
+
+    .instructor_foto {
+        width: 60%;
+        margin: 2rem;
+    }
+
+    .nombre_instructor {
+        font-size: 3.5rem;
+        text-align: center;
+    }
+
+    .botones_instructor {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        margin-top: 1.5rem;
+    }
+
+    .btn_inst2 {
+        display: grid;
+    }
+
+    .botones_instructor a {
+        width: 90%;
+        font-size: 1.6rem;
+        padding: 1rem;
+    }
+
+    .infogeneral_inst {
+        width: 90%;
+        margin: 0;
+        text-align: center;
+    }
+
+    .titulo-perfil {
+        font-size: 3rem;
+        text-align: center;
+    }
+
+    .encabezado {
+        text-align: center;
+        margin: 0;
+        padding: 0;
+    }
+
+    .encabezado h2 {
+        margin-bottom: 1rem;
+    }
+
+    .descripcion {
+        font-size: 1.6rem;
+        padding: 0 1rem;
+    }
+
+    .descripcion p {
+        font-size: 1.6rem;
+        line-height: 2.3rem;
+        text-align: justify;
+    }
+
+
+
+    .footer_instructor {
+        font-size: 1.4rem;
+        height: auto;
+        padding: 2rem 1rem;
+    }
+
+    .footer_instructor p {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+
+    .intr_proyectos {
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem;
+        height: auto;
+    }
+
+    .titulo-proyectos {
+        margin: 0;
+        padding: 0;
+        padding-top: 1.5rem;
+    }
+
+    .titulo-proyectos img {
+        width: 100%;
+        margin-bottom: 0rem;
+        border-radius: 100%;
+    }
+
+    .column_proyectosinstr {
+        display: grid;
+        margin-top: 0;
+    }
+
+    .column_proyectosinstr p {
+        font-size: 1rem;
+    }
+
+    .carrusel_proyectos {
+        width: 100%;
+        display: flex;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        gap: 1rem;
+        padding: 1.5rem;
+        margin: 0;
+        justify-content: flex-start;
+    }
+
+    .carrusel {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .item {
+        flex: 0 0 200px;
+        width: 100%;
+        border-radius: 1rem;
+        padding: 1rem;
+        height: 10rem;
+        margin: 0;
+        display: flex;
+    }
+
+    .item img {
+        width: 25%;
+        height: auto;
+        object-fit: cover;
+        border-radius: 10px;
+        margin-bottom: 0.6rem;
+    }
+
+
+
+    .inst_colegios {
+        flex-direction: column;
+        align-items: center;
+        padding: 1.5rem 0;
+
+    }
+
+    .titulo-colegios {
+        margin: 0;
+        padding: 0;
+    }
+
+    .titulo-colegios img {
+        width: 100%;
+        margin-bottom: 0rem;
+        border-radius: 100%;
+
+    }
+
+    .lista_proyectos {
+        display: grid;
+        gap: 1.5rem;
+    }
+
+    .lista_colegios {
+        display: grid;
+        overflow-x: auto;
+        gap: 1rem;
+        height: auto;
+        width: 100%;
+        padding: 2rem;
+        justify-content: flex-start;
+    }
+
+    .flecha {
+        display: none;
+    }
+
+    .item_colegios {
+        height: auto;
+        width: 100%;
+        overflow: hidden;
+        padding: 1rem;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        gap: 2rem;
+        border-radius: 0;
+        margin: 0;
+
+    }
+
+    .item_colegios h2 {
+        font-size: 1.3rem;
+        display: flex;
+    }
+
+    .item_colegios img {
+        width: 25%;
+        display: flex;
+
+    }
+
+    .caja_instructor {
+        margin: 0;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* }}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}PAHINA INTRUCTORES -----------------------------------------*/
+
+.body_instructores {
+    background-color: #1b1b1b;
+    font-family: "Alan Sans", Arial, sans-serif;
+    color: #fff;
+}
+
+
+
+
+.caja_instructores {
+    width: 90%;
+    margin: 3rem auto;
+}
+
+
+.instructores {
+    text-align: center;
+    font-size: 2rem;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    background-color: #111;
+    padding: 0.8rem 0;
+    border-radius: 8px;
+}
+
+.carrusel_instructores {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 4rem;
+}
+
+.lista_instructores {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    gap: 1rem;
+    padding: 1rem 0;
+}
+
+.lista_::-webkit-scrollbar {
+    display: none;
+}
+
+
+
+
+.item_instructores {
+    flex: 0 0 auto;
+    width: 300px;
+    background-color: #222;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+
+.item_instructores:hover {
+    transform: scale(1.05);
+}
+
+.item_instructores img,
+.item_instructores img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.item_instructores p,
+.item_instructores p {
+    text-align: center;
+    font-weight: bold;
+    padding: 0.8rem 0;
+    background-color: #111;
+    margin: 0;
+}
+
+
+.flecha_instructores {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: transparent;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: background 0.3s;
+    z-index: 10;
+}
+
+.flecha_instructores:hover {
+    background-color: black;
+    opacity: 0.2;
+}
+
+.flecha_instructores.izq {
+    left: 0;
+}
+
+.flecha_instructores.der {
+    right: 0;
+}
+
+
+
+
+
+
+
+
+
+
