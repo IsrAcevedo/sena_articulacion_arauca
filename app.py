@@ -91,7 +91,7 @@ def admin():
 @app.route('/crear_cuenta', methods=['GET', 'POST'])
 def crear_cuenta():
     if request.method == 'POST':
-        aprendices={'1157963293','1094267349','1094267349', '1157963279','1127622165'}
+        aprendices={'1157963293','1115732838','1094267349', '1157963279','1127622165'}
         doc = request.form.get('id')
         nombres = request.form.get('name')
         usuario = request.form.get('usuario')
