@@ -17,7 +17,6 @@ def obtener_conexion():
         
       
         if conexion.is_connected():
-            print("Conexión exitosa a la base de datos.")
             return conexion
         else:
             print("No se pudo establecer la conexión.")

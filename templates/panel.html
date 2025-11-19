@@ -64,7 +64,8 @@
                 </div>
                 <div class="flex items-center space-x-4">
                     <span class="text-gray-700">{{session.get('user')}}</span>
-                    <img src="https://via.placeholder.com/40" alt="Perfil" class="rounded-full border border-gray-300">
+                    <img src="{{url_for('static', filename='uploads'+'')}}" alt="Perfil"
+                        class="rounded-full border border-gray-300">
                 </div>
             </header>
 
@@ -76,25 +77,30 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     <div class="bg-white p-4 rounded-lg shadow hover:shadow-md transition">
                         <h3 class="text-gray-500 text-sm">Colegios</h3>
-                        <p class="text-3xl font-bold text-senaGreen mt-2">12</p>
-                    </div>
-                    <div class="bg-white p-4 rounded-lg shadow hover:shadow-md transition">
-                        <h3 class="text-gray-500 text-sm">Instructores</h3>
-                        <p class="text-3xl font-bold text-senaGreen mt-2">35</p>
+                        <p class="text-3xl font-bold text-senaGreen mt-2">{{registros[0][0].colegios}}</p>
                     </div>
                     <div class="bg-white p-4 rounded-lg shadow hover:shadow-md transition">
                         <h3 class="text-gray-500 text-sm">Proyectos</h3>
-                        <p class="text-3xl font-bold text-senaGreen mt-2">48</p>
+                        <p class="text-3xl font-bold text-senaGreen mt-2">{{registros[1][0].proyectos}}</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow hover:shadow-md transition">
+                        <h3 class="text-gray-500 text-sm">Instructores</h3>
+                        <p class="text-3xl font-bold text-senaGreen mt-2">{{registros[2][0].instructores}}</p>
                     </div>
                     <div class="bg-white p-4 rounded-lg shadow hover:shadow-md transition">
                         <h3 class="text-gray-500 text-sm">Blogs</h3>
-                        <p class="text-3xl font-bold text-senaGreen mt-2">12</p>
+                        <p class="text-3xl font-bold text-senaGreen mt-2">0</p>
                     </div>
                 </div>
 
                 <!-- Tabla de ejemplo -->
                 <div class="mt-10 bg-white p-6 rounded-lg shadow">
-                    <h3 class="text-xl font-semibold text-senaGreen mb-4">Últimos Proyectos</h3>
+                    <div class="flex gap-5 items-center">
+                        <h3 class="text-xl font-semibold text-senaGreen ">Colegios</h3>
+                        <a href="{{url_for('agregar_colegio')}}"
+                            class=" bg-senaGreen hover:bg-senaDark text-white rounded-md transition font-semibold p-2 mb-2">Añadir
+                            Nuevo</a>
+                    </div>
                     <table class="w-full text-left border-collapse">
                         <thead>
                             <tr class="bg-senaGreen text-white">

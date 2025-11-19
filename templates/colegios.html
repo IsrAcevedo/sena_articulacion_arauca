@@ -39,20 +39,22 @@
         <h3>Saravena</h3>
         <div class="colegios-grid">
 
-            <a href="{{url_for('colegio')}}">
+            {%if colegios%}
+            {%for colegio in colegios%}
+            <a href="{{url_for('colegio',id=colegio.id)}}">
                 <div class="tarjeta-colegio">
-                    <img src="{{url_for('static', filename='uploads/frontera.jpeg')}}" alt="logo FRONTERA">
-                    <h3>Institución Educativa La Frontera</h3>
-                    <p>Saravena</p>
+                    <img src="{{url_for('static', filename='uploads/'+ colegio.logo)}}" alt="logo del colegio">
+                    <h3>{{colegio.colegio}}</h3>
+                    <p>{{colegio.municipio}}</p>
                 </div>
             </a>
-            <a href="{{url_for('colegio')}}">
-                <div class="tarjeta-colegio">
-                    <img src="./img/l-pombo.jpeg" alt="logo POMBO">
-                    <h3>Institución Educativa Rafael Pombo</h3>
-                    <p>Saravena</p>
-                </div>
-            </a>
+
+            {%endfor%}
+            {%endif%}
+
+
+
+
         </div>
 
 

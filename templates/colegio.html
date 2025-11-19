@@ -22,7 +22,7 @@
         </ul>
     </nav>
     <section id="hero">
-        <h1>Institucion Educativa <br>La frontera</h1>
+        <h1>{{colegio[0].nombre}}</h1>
         <a href="#nuestros-tecnicos" class="button">
             Nuestros Tecnicos
         </a>
@@ -31,7 +31,7 @@
     <div id="info-colegio">
         <div class="container">
             <div class="img-colegio">
-                <img src="./static/img/lse-library-ddNkplRhzv0-unsplash (1).jpg" alt="logo">
+                <img src="{{url_for('static', filename='uploads/'+ colegio[0].logo)}}" alt="logo del colegio">
                 <h2>Institucion educativa <span class="color-acento">la frontera</span></h2>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum debitis eos repellendus cupiditate
                     id, molestias deserunt molestiae officia ex amet repudiandae aliquam commodi rerum. Porro omnis

@@ -22,6 +22,21 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 def nombre_imagen(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+def guardar_imagen(file, carpeta_destino):
+   
+    if file and nombre_imagen(file.filename):
+        filename = secure_filename(file.filename)
+        extension = filename.rsplit('.', 1)[1].lower()
+
+        nuevo_nombre = f"{uuid.uuid4().hex}.{extension}"
+        ruta_completa = os.path.join(carpeta_destino, nuevo_nombre)
+
+        file.save(ruta_completa)
+
+        return nuevo_nombre  
+
+    return None
+
 @app.route('/')
 def inicio():
     # query='SELECT * FROM municipios'
@@ -42,15 +57,17 @@ def municipios():
 
 @app.route('/colegios')
 def colegios():
-   # query="SELECT nombre FROM colegios"
-    #colegios = consulta(query)
-    return render_template('colegios.html')
+    query = 'SELECT c.id_colegios AS id, c.nombre AS colegio, c.logo AS logo, m.nombre AS municipio FROM colegios c INNER JOIN municipios m ON m.id_municipios = c.id_municipios'
+    colegios = consulta(query)
+    return render_template('colegios.html', colegios= colegios)
 
 
-@app.route('/colegio')
-def colegio():
-   
-    return render_template('colegio.html')
+@app.route('/colegio<id>')
+def colegio(id):
+    query = 'SELECT nombre, logo FROM colegios WHERE id_colegios= %s'
+    parametros = id,
+    colegio = consulta(query, parametros)
+    return render_template('colegio.html', colegio=colegio)
 
 
 @app.route('/instructor')
@@ -62,7 +79,14 @@ def instructor():
 @login_requerido
 def admin():
     
-    return render_template('panel.html')
+    query1 ="SELECT COUNT(*) AS colegios FROM colegios"
+    query2 ="SELECT COUNT(*) AS proyectos FROM proyectos "
+    query3 ="SELECT COUNT(*) AS instructores FROM instructor "
+    colegios= consulta(query1)
+    proyectos= consulta(query2)
+    instructores= consulta(query3)
+    registros= [colegios,proyectos,instructores]
+    return render_template('panel.html', registros = registros )
 
 @app.route('/crear_cuenta', methods=['GET', 'POST'])
 def crear_cuenta():
@@ -102,6 +126,27 @@ def crear_cuenta():
             return redirect(request.url)
     
     return render_template('crear_cuenta.html')
+
+@app.route('/agregar_colegio', methods=['GET','POST'])
+def agregar_colegio():
+    if request.method == 'POST':
+        colegio = request.form.get('colegio')
+        logo = request.files.get('logo')
+        municipio = request.form.get('municipio')
+        nombre_logo = guardar_imagen(logo, app.config['UPLOAD_FOLDER'])
+        if not nombre_logo:
+            flash('formato de imagen no permitido', 'error')
+            return redirect(request.url)
+        query = 'INSERT INTO colegios (id_municipios, nombre, logo) VALUES (%s,%s,%s)'
+        parametros = (municipio, colegio, nombre_logo)
+        guardar = insertar(query, parametros)
+        if guardar:
+            flash(guardar)
+            return redirect(request.url)
+    query = 'SELECT id_municipios AS id, nombre FROM municipios'
+    municipios = consulta(query)    
+    return render_template('agregar_colegio.html', municipios = municipios)
+
 
 @app.route('/login', methods=['GET','POST'])
 def login():
