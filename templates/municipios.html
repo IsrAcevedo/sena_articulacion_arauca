@@ -1,15 +1,5 @@
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal de Municipios - Arauca</title>
-    <link rel="stylesheet" href="{{url_for('static', filename='style/estilos.css')}}">
-</head>
-
-<body>
-
+{% extends "base.html" %}
+{% block content %}
     <header>
         <h1>Portal de Municipios del Departamento de Arauca</h1>
     </header>
@@ -55,10 +45,4 @@
         </section>
     </main>
 
-    <footer>
-        <p>Proyecto SENA - 2025 | Portal de Municipios de Arauca</p>
-    </footer>
-
-</body>
-
-</html>
+{% endblock %}

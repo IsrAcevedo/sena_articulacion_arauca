@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Emprendimientos SENA</title>
+  <link rel="stylesheet" href="{{url_for('static', filename='style/styleYenary.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='style/estilos.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='style/styleEvelin.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='style/styleRincon.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='style/styleFellizola.css')}}">
+</head>
+
+<body>
+
+    <!-- barra de navegacion -->
+    {% include 'componentes/barra_navegacion.html' %}
+
+    <!-- Contenido de la pagina -->
+    {% block content %}{% endblock %}
+
+   
+    {% include 'componentes/footer.html' %}
+    <script src="{{url_for('static', filename='js/scriptYenary.js')}}"></script>
+</body>
+
+</html>

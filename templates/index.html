@@ -1,28 +1,6 @@
-<!DOCTYPE html>
-<html lang="es">
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Emprendimientos SENA</title>
-  <link rel="stylesheet" href="{{url_for('static', filename='style/styleYenary.css')}}">
-</head>
-
-<body>
-  <!-- NAV -->
-  <nav>
-    <div class="logo">SENA Arauca</div>
-    <div class="menu-toggle" id="menu-toggle">&#9776;</div>
-    <ul id="menu">
-      <li><a href="{{url_for('inicio')}}" class="active">Inicio</a></li>
-      <li><a href="{{url_for('proyectos')}}">Proyectos</a></li>
-      <li><a href="{{url_for('colegios')}}">Colegios</a></li>
-      <li><a href="{{url_for('municipios')}}">Municipios</a></li>
-      <li><a href="#instructores">Instructores</a></li>
-    </ul>
-  </nav>
-
-  <!-- HEADER -->
+{% extends "base.html" %}
+{% block content %}
   <header id="inicio" class="hero">
     <div class="hero-inner">
       <h1 class="flash-text">ARTICULACION SENA ARAUCA</h1>
@@ -140,7 +118,7 @@
       <h2>Instructores</h2>
       <div class="cards">
         <article class="card">
-          <a href="{{url_for('instructor')}}">
+          <a href="{{url_for('main.instructor')}}">
             <img src="https://picsum.photos/640/400?random=16" alt="Instructor 1">
             <h3>Instructor 1</h3>
             <p>Especialista en programación.</p>
@@ -169,15 +147,8 @@
       </div>
     </div>
   </section>
+{% endblock %}
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container">
-      <p>&copy; 2025 SENA Arauca - Todos los derechos reservados</p>
-    </div>
-  </footer>
+ 
 
-  <script src="{{url_for('static', filename='js/scriptYenary.js')}}"></script>
-</body>
 
-</html>
