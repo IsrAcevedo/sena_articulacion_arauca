@@ -36,7 +36,7 @@
         </ul>
         {% endif %}
         {% endwith %}
-        <form method="POST" class="space-y-5">
+        <form  method="POST" class="space-y-5">
             <div>
                 <label class="block text-gray-700 font-medium mb-1" for="documento">Identificacion</label>
                 <input type="text" id="documento" name="documento" required
@@ -62,7 +62,7 @@
 
         <p class="text-center text-gray-600 mt-6">
             ¿No tienes una cuenta?
-            <a href="{{url_for('crear_cuenta')}}" class="text-senaGreen font-semibold hover:underline">Crear cuenta</a>
+            <a href="{{url_for('admin.crear_cuenta')}}" class="text-senaGreen font-semibold hover:underline">Crear cuenta</a>
         </p>
     </div>
 

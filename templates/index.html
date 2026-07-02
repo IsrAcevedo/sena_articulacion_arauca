@@ -1,154 +1,94 @@
-
 {% extends "base.html" %}
 {% block content %}
-  <header id="inicio" class="hero">
-    <div class="hero-inner">
-      <h1 class="flash-text">ARTICULACION SENA ARAUCA</h1>
-      <p class="hero-sub">Conectando proyectos de colegios y municipios SENA Arauca</p>
-      <a class="btn" href="#emprendimientos">Explorar</a>
+<header id="inicio" class="hero">
+  <div class="hero-inner">
+    <h1 class="flash-text">ARTICULACION SENA ARAUCA</h1>
+    <p class="hero-sub">Conectando proyectos de colegios y municipios SENA Arauca</p>
+    <a class="btn" href="#emprendimientos">Explorar</a>
+  </div>
+</header>
+
+<!-- EMPRENDIMIENTOS (DISEÑO VERDE) -->
+{%if proyectos%}
+<section id="proyectos" class="section emprendimientos">
+  <div class="container">
+    <h2>Proyectos Productivos</h2>
+    {%for proyecto in proyectos%}
+    <div class="cards">
+      <a href="{{url_for('main.proyecto', id = proyecto.id)}}">
+        <article class="card">
+          <img src="{{ url_for('static', filename='uploads/' + proyecto.foto) }}" alt="foto {{ proyecto.nombre }}">
+          <h3>{{proyecto.nombre}}</h3>
+          <p>{{proyecto.descripcion}}</p>
+        </article>
+      </a>
+      {%endfor%}
     </div>
-  </header>
+  </div>
+</section>
+{%endif%}
 
-  <!-- EMPRENDIMIENTOS (DISEÑO VERDE) -->
-  <section id="emprendimientos" class="section emprendimientos">
-    <div class="container">
-      <h2>Emprendimientos</h2>
-      <div class="cards">
+{%if colegios%}
+<!-- COLEGIOS (DISEÑO NARANJA) -->
+<section id="colegios" class="section colegios">
+  <div class="container">
+    <h2>Colegios</h2>
+    <div class="cards">
+      {%for colegio in colegios%}
+      <a href="{{url_for('main.colegio', id = colegio.id)}}">
         <article class="card">
-          <img src="https://picsum.photos/640/400?random=1" alt="Proyecto 1">
-          <h3>Proyecto 1</h3>
-          <p>Emprendimiento en tecnología y sostenibilidad.</p>
+          <img src="{{url_for('static', filename='uploads/'+ colegio.logo)}}" alt="{{colegio.nombre}}">
+          <h3>{{colegio.nombre}}</h3>
+          <p>{{ colegio.slogan if colegio.slogan }}</p>
         </article>
-        <article class="card">
-          <img src="https://picsum.photos/640/400?random=2" alt="Proyecto 2">
-          <h3>Proyecto 2</h3>
-          <p>Propuesta innovadora en gastronomía local.</p>
-        </article>
-        <article class="card">
-          <img src="https://picsum.photos/640/400?random=3" alt="Proyecto 3">
-          <h3>Proyecto 3</h3>
-          <p>Aplicación móvil desarrollada por estudiantes.</p>
-        </article>
-        <article class="card">
-          <img src="https://picsum.photos/640/400?random=4" alt="Proyecto 4">
-          <h3>Proyecto 4</h3>
-          <p>Iniciativa de reciclaje y economía circular.</p>
-        </article>
-        <article class="card">
-          <img src="https://picsum.photos/640/400?random=5" alt="Proyecto 5">
-          <h3>Proyecto 5</h3>
-          <p>Startup enfocada en turismo y cultura araucana.</p>
-        </article>
-
-      </div>
+      </a>
+      {%endfor%}
     </div>
-  </section>
+  </div>
+  <a href="{{url_for('main.colegios')}}">Ver todos los colegios</a>
+</section>
 
-  <!-- COLEGIOS (DISEÑO NARANJA) -->
-  <section id="colegios" class="section colegios">
-    <div class="container">
-      <h2>Colegios</h2>
-      <div class="cards">
+{%endif%}
+<!-- MUNICIPIOS (DISEÑO GRIS/AZUL) -->
+{%if municipios%}
+<section id="municipios" class="section municipios">
+  <div class="container">
+    <h2>Municipios</h2>
+    <div class="cards">
+      {%for municipio in municipios %}
+      <a href="{{url_for('main.municipio', id = municipio.id)}}">
         <article class="card">
-          <img src="https://picsum.photos/640/400?random=6" alt="Colegio 1">
-          <h3>Colegio Nacional Arauca</h3>
-          <p>Innovación educativa en tecnología.</p>
-        </article>
-        <article class="card">
-          <img src="https://picsum.photos/640/400?random=7" alt="Colegio 2">
-          <h3>Instituto Técnico Tame</h3>
-          <p>Formación técnica en agroindustria.</p>
-        </article>
-        <article class="card">
-          <img src="https://picsum.photos/640/400?random=8" alt="Colegio 3">
-          <h3>Colegio Simón Bolívar</h3>
-          <p>Proyectos en robótica y ciencias.</p>
-        </article>
-        <article class="card">
-          <img src="https://picsum.photos/640/400?random=9" alt="Colegio 4">
-          <h3>Colegio de Arauquita</h3>
-          <p>Programación, arte y cultura.</p>
-        </article>
-        <article class="card">
-          <img src="https://picsum.photos/640/400?random=10" alt="Colegio 5">
-          <h3>Colegio Técnico Saravena</h3>
-          <p>Innovación en sostenibilidad.</p>
-        </article>
-      </div>
-    </div>
-  </section>
 
-  <!-- MUNICIPIOS (DISEÑO GRIS/AZUL) -->
-  <section id="municipios" class="section municipios">
-    <div class="container">
-      <h2>Municipios</h2>
-      <div class="cards">
-        <article class="card">
-          <img src="https://picsum.photos/640/400?random=11" alt="Arauca">
-          <h3>Arauca</h3>
+          <img src="{{url_for('static', filename='uploads/' + municipio.foto)}}" alt="foto {{municipio.nombre}}">
+          <h3>{{municipio.nombre}}</h3>
           <p>Emprendimiento juvenil y cultural.</p>
         </article>
-        <article class="card">
-          <img src="https://picsum.photos/640/400?random=12" alt="Tame">
-          <h3>Tame</h3>
-          <p>Colegios técnicos articulados.</p>
-        </article>
-        <article class="card">
-          <img src="https://picsum.photos/640/400?random=13" alt="Arauquita">
-          <h3>Arauquita</h3>
-          <p>Proyectos agroindustriales.</p>
-        </article>
-        <article class="card">
-          <img src="https://picsum.photos/640/400?random=14" alt="Saravena">
-          <h3>Saravena</h3>
-          <p>Innovación en educación.</p>
-        </article>
-        <article class="card">
-          <img src="https://picsum.photos/640/400?random=15" alt="Fortul">
-          <h3>Fortul</h3>
-          <p>Turismo sostenible y cultura.</p>
-        </article>
-      </div>
+      </a>
+      {%endfor%}
     </div>
-  </section>
+  </div>
+</section>
+{%endif%}
 
-  <!-- INSTRUCTORES (DISEÑO OSCURO) -->
-  <section id="instructores" class="section instructores">
-    <div class="container">
-      <h2>Instructores</h2>
-      <div class="cards">
+
+<!-- INSTRUCTORES (DISEÑO OSCURO) -->
+{%if instructores%}
+<section id="instructores" class="section instructores">
+  <div class="container">
+    <h2>Instructores</h2>
+    <div class="cards">
+      {%for instructor in instructores%}
+      <a href="{{url_for('main.instructor', id= instructor.id)}}">
         <article class="card">
-          <a href="{{url_for('main.instructor')}}">
-            <img src="https://picsum.photos/640/400?random=16" alt="Instructor 1">
-            <h3>Instructor 1</h3>
-            <p>Especialista en programación.</p>
-          </a>
+          <img src="{{url_for('static', filename='uploads/'+ instructor.foto)}}" alt="Instructor 1">
+          <h3>{{instructor.nombres + " "+ instructor.apellidos}}</h3>
+          <p>profesional en: {{instructor.id_cargo}}</p>
         </article>
-        <article class="card">
-          <img src="https://picsum.photos/640/400?random=17" alt="Instructor 2">
-          <h3>Instructor 2</h3>
-          <p>Agroindustria y turismo.</p>
-        </article>
-        <article class="card">
-          <img src="https://picsum.photos/640/400?random=18" alt="Instructor 3">
-          <h3>Instructor 3</h3>
-          <p>Gestión de proyectos SENA.</p>
-        </article>
-        <article class="card">
-          <img src="https://picsum.photos/640/400?random=19" alt="Instructor 4">
-          <h3>Instructor 4</h3>
-          <p>Robótica y ciencias básicas.</p>
-        </article>
-        <article class="card">
-          <img src="https://picsum.photos/640/400?random=20" alt="Instructor 5">
-          <h3>Instructor 5</h3>
-          <p>Innovación y cultura digital.</p>
-        </article>
-      </div>
+      </a>
+      {%endfor%}
     </div>
-  </section>
+  </div>
+</section>
+
+{%endif%}
 {% endblock %}
-
- 
-
-

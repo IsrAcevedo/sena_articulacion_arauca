@@ -1,11 +1,11 @@
-  <nav>
-    <div class="logo">SENA Arauca</div>
-    <div class="menu-toggle" id="menu-toggle">&#9776;</div>
-    <ul id="menu">
-      <li><a href="{{url_for('main.inicio')}}" class="active">Inicio</a></li>
-      <li><a href="{{url_for('main.proyectos')}}">Proyectos</a></li>
-      <li><a href="{{url_for('main.colegios')}}">Colegios</a></li>
-      <li><a href="{{url_for('main.municipios')}}">Municipios</a></li>
-      <li><a href="#instructores">Instructores</a></li>
-    </ul>
-  </nav>
+<nav>
+  <div class="logo">SENA Arauca</div>
+  <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+  <ul id="menu">
+    <li><a href="{{url_for('main.inicio')}}" class="active">Inicio</a></li>
+    <li><a href="{{url_for('main.inicio')}}#proyectos">Proyectos</a></li>
+    <li><a href="{{url_for('main.inicio')}}#colegios">Colegios</a></li>
+    <li><a href="{{url_for('main.inicio')}}#municipios">Municipios</a></li>
+    <li><a href="{{url_for('main.inicio')}}#instructores">Instructores</a></li>
+  </ul>
+</nav>

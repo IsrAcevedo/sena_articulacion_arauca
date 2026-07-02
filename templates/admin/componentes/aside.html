@@ -1,0 +1,40 @@
+<!-- Sidebar -->
+<aside class="bg-senaGreen text-white w-64 hidden md:flex flex-col justify-between">
+    <div>
+        <div class="p-4 text-2xl font-bold text-center border-b border-white/20">
+            SENARTAR
+        </div>
+        <nav class="mt-6">
+            <ul>
+                <a href="{{url_for('admin.dashboard')}}">
+                    <li class="px-6 py-3 hover:bg-senaDark cursor-pointer transition">🏠 Inicio</li>
+                </a>
+                <a href="{{url_for('admin.proyectos')}}">
+                    <li class="px-6 py-3 hover:bg-senaDark cursor-pointer transition">📁 Proyectos</li>
+                </a>
+                <a href="{{url_for('admin.programas')}}">
+                    <li class="px-6 py-3 hover:bg-senaDark cursor-pointer transition">📕 Programas</li>
+                </a>
+                <a href="{{url_for('admin.colegios')}}">
+                    <li class="px-6 py-3 hover:bg-senaDark cursor-pointer transition">🏫 Colegios</li>
+                </a>
+                <a href="{{url_for('admin.instructores')}}">
+                    <li class="px-6 py-3 hover:bg-senaDark cursor-pointer transition">🧑‍🏫 Instructores</li>
+                </a>
+                 <a href="{{url_for('admin.aprendices')}}">
+                    <li class="px-6 py-3 hover:bg-senaDark cursor-pointer transition">🧑 aprendices</li>
+                </a>
+                <a href="{{url_for('admin.municipios')}}">
+                    <li class="px-6 py-3 hover:bg-senaDark cursor-pointer transition">🏢Municipios</li>
+                </a>
+                
+            </ul>
+        </nav>
+    </div>
+    <div class="p-4 border-t border-white/20">
+        <a href="{{url_for('admin.logout')}}"><button
+                class="w-full bg-white text-senaGreen py-2 rounded-md hover:bg-gray-200 transition font-semibold">
+                Cerrar sesión
+            </button></a>
+    </div>
+</aside>

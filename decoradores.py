@@ -6,7 +6,7 @@ def login_requerido(f):
     def decorada(*args, **kwargs):
         if 'documento' not in session:
             flash('Iniciar Sesion', 'error')
-            return redirect(url_for('login'))
+            return redirect(url_for('admin.login'))
         return f(*args, **kwargs)
     return decorada
 
@@ -16,11 +16,11 @@ def rol_requerido(rol_necesario):
         def decorada(*args, **kwargs):
             if 'documento' not in session or 'rol' not in session:
                 flash('Iniciar Sesion', 'error')
-                return redirect(url_for('login'))
+                return redirect(url_for('admin.login'))
 
             if session['rol'] != rol_necesario:
                 flash('No tienes permiso para acceder a esta sección.', 'error')
-                return redirect(url_for('inicio'))  
+                return redirect(url_for('main.inicio'))  
 
             return f(*args, **kwargs)
         return decorada

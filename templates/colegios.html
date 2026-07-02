@@ -1,71 +1,41 @@
-<!DOCTYPE html>
-<html lang="es">
+{% extends "base.html" %}
+{% block content %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="{{url_for('static', filename='style/styleFellizola.css')}}">
-</head>
+<!-- HERO -->
+<header class="hero-colegios" id="hero-colegios">
+    <div class="contenido-hero"></div>
+    <h1>Colegios de Arauca</h1>
+    <p>Conoce las instituciones educativas vinculadas con los programas del Sena.</p>
+    <a href="#colegios" class="btn-colegio">Ver Colegios</a>
+    </div>
+</header>
 
-<body>
-    <!-- NAV -->
-    <nav>
-        <div class="logo">SENA Arauca</div>
-        <div class="menu-toggle" id="menu-toggle">&#9776;</div>
-        <ul id="menu">
-            <li><a href="{{url_for('main.inicio')}}" class="active">Inicio</a></li>
-            <li><a href="{{url_for('main.proyectos')}}">Proyectos</a></li>
-            <li><a href="{{url_for('main.colegios')}}">Colegios</a></li>
-            <li><a href="{{url_for('main.municipios')}}">Municipios</a></li>
-            <li><a href="#instructores">Instructores</a></li>
-        </ul>
-    </nav>
+<!-- CONTENIDO -->
+<section id="colegios" class="colegios">
+    <h2>Instituciones Educativas</h2>
 
+    <h3>Saravena</h3>
+    <div class="colegios-grid">
 
-    <!-- HERO -->
-    <header class="hero-colegios" id="hero-colegios">
-        <div class="contenido-hero"></div>
-        <h1>Colegios de Arauca</h1>
-        <p>Conoce las instituciones educativas vinculadas con los programas del Sena.</p>
-        <a href="#colegios" class="btn-colegio">Ver Colegios</a>
-        </div>
-    </header>
+        {%if colegios%}
+        {%for colegio in colegios%}
+        <a href="{{url_for('main.colegio',id=colegio.id)}}">
+            <div class="tarjeta-colegio">
+                <img src="{{url_for('static', filename='uploads/'+ colegio.logo)}}" alt="logo del colegio">
+                <h3>{{colegio.colegio}}</h3>
+                <p>{{colegio.municipio}}</p>
+            </div>
+        </a>
 
-    <!-- CONTENIDO -->
-    <section id="colegios" class="colegios">
-        <h2>Instituciones Educativas</h2>
-
-        <h3>Saravena</h3>
-        <div class="colegios-grid">
-
-            {%if colegios%}
-            {%for colegio in colegios%}
-            <a href="{{url_for('main.colegio',id=colegio.id)}}">
-                <div class="tarjeta-colegio">
-                    <img src="{{url_for('static', filename='uploads/'+ colegio.logo)}}" alt="logo del colegio">
-                    <h3>{{colegio.colegio}}</h3>
-                    <p>{{colegio.municipio}}</p>
-                </div>
-            </a>
-
-            {%endfor%}
-            {%endif%}
+        {%endfor%}
+        {%endif%}
 
 
 
 
-        </div>
+    </div>
 
 
 
-    </section>
-    <script src="{{url_for('static', filename='js/scriptFelizzola.js')}}"></script>
-
-</body>
-
-</html>
-
-</body>
-
-</html>
+</section>
+{%endblock%}

@@ -14,15 +14,16 @@
 
 <body>
 
-    <!-- barra de navegacion -->
-    {% include 'componentes/barra_navegacion.html' %}
+  <!-- barra de navegacion -->
+  {% include 'componentes/barra_navegacion.html' %}
 
-    <!-- Contenido de la pagina -->
-    {% block content %}{% endblock %}
+  <!-- Contenido de la pagina -->
+  {% block content %}{% endblock %}
 
-   
-    {% include 'componentes/footer.html' %}
-    <script src="{{url_for('static', filename='js/scriptYenary.js')}}"></script>
+
+  {% include 'componentes/footer.html' %}
+  <script src="{{url_for('static', filename='js/scriptYenary.js')}}"></script>
+  <script src="{{url_for('static', filename='js/scriptFelizzola.js')}}"></script>
 </body>
 
 </html>

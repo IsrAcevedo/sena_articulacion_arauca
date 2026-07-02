@@ -1,0 +1,160 @@
+{%extends "admin/dashboard.html" %}
+
+{% block content %}
+<main class="mt-10 bg-white p-6 rounded-lg shadow">
+    <div class="flex gap-5 items-center">
+        <h3 class="text-xl font-semibold text-senaGreen ">Municipios</h3>
+        <button id="btnAbrirNuevo"
+            class="bg-senaGreen hover:bg-senaDark text-white rounded-md transition font-semibold p-2 mb-2">Añadir
+            Nuevo</button>
+    </div>
+    <table class="w-full text-left border-collapse">
+        <thead>
+            <tr class="bg-senaGreen text-white">
+                <th class="p-3">#</th>
+                <th class="p-3">Nombre</th>
+                <th class="p-3">N° Colegios</th>
+                <th class="p-3">N° proyectos</th>
+                <th class="p-3">Acciones</th>
+            </tr>
+        </thead>
+        {%if municipios%}
+        <tbody>
+            {%for municipio in municipios%}
+            <tr class="border-b hover:bg-gray-50">
+                <td class="p-3">{{loop.index}}</td>
+                <td class="p-3">{{municipio.nombre}}</td>
+                <td class="p-3">{{municipio.num_colegios}}</td>
+                <td class="p-3">{{municipio.num_proyectos}}</td>
+                <td class="p-3">
+                    <button class="text-senaGreen font-semibold hover:underline">Editar</button>
+                </td>
+            </tr>
+            {%endfor%}
+        </tbody>
+        {%else%}
+        no existen municipios registrados
+        {%endif%}
+    </table>
+
+    <!-- Modal para municipios -->
+    <dialog class="modal" id="modalMunicipio">
+        <div class="modal__contenedor">
+            <header class="modal__encabezado">
+                <h2 class="modal__titulo" id="modalTitulo">Municipio</h2>
+                <button class="modal__boton-cerrar" id="btnCerrarModal">&times;</button>
+            </header>
+            <div class="modal__cuerpo">
+                <form id="formMunicipio" enctype="multipart/form-data">
+                    <input type="hidden" id="municipioId" name="id">
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="municipioNombre">Nombre</label>
+                        <input type="text" class="modal__campo" id="municipioNombre" name="nombre" required>
+                    </div>
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="municipioFoto">Foto</label>
+                        <input type="file" class="modal__campo" id="municipioFoto" name="foto" accept=".webp">
+                    </div>
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="municipioActivo">Activo</label>
+                        <select class="modal__campo" id="municipioActivo" name="activo">
+                            <option value="1">Sí</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <footer class="modal__pie">
+                <button type="button" class="modal__boton modal__boton--secundario" id="btnCancelar">Cancelar</button>
+                <button type="submit" form="formMunicipio" class="modal__boton modal__boton--primario">Guardar</button>
+            </footer>
+        </div>
+    </dialog>
+
+    <script>
+        const modal = document.getElementById('modalMunicipio');
+        const btnAbrirNuevo = document.getElementById('btnAbrirNuevo');
+        const btnCerrarModal = document.getElementById('btnCerrarModal');
+        const btnCancelar = document.getElementById('btnCancelar');
+        const formMunicipio = document.getElementById('formMunicipio');
+        const modalTitulo = document.getElementById('modalTitulo');
+        const municipioId = document.getElementById('municipioId');
+        const municipioNombre = document.getElementById('municipioNombre');
+        const municipioFoto = document.getElementById('municipioFoto');
+        const municipioActivo = document.getElementById('municipioActivo');
+        const botonesEditar = document.querySelectorAll('button');
+
+        function abrirModal(titulo, id = '', nombre = '', activo = '1') {
+            modalTitulo.textContent = titulo;
+            municipioId.value = id;
+            municipioNombre.value = nombre;
+            municipioActivo.value = activo;
+            municipioFoto.value = '';
+            modal.classList.add('modal--activo');
+        }
+
+        function cerrarModal() {
+            modal.classList.remove('modal--activo');
+            formMunicipio.reset();
+            municipioId.value = '';
+        }
+
+        btnAbrirNuevo.addEventListener('click', (e) => {
+            e.preventDefault();
+            abrirModal('Nuevo Municipio');
+        });
+
+        btnCerrarModal.addEventListener('click', cerrarModal);
+        btnCancelar.addEventListener('click', cerrarModal);
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                cerrarModal();
+            }
+        });
+
+        botonesEditar.forEach(boton => {
+            if (boton.textContent.trim() === 'Editar') {
+                boton.addEventListener('click', function() {
+                    const fila = this.closest('tr');
+                    const id = fila.querySelector('td:nth-child(1)').textContent;
+                    const nombre = fila.querySelector('td:nth-child(2)').textContent;
+                    abrirModal('Editar Municipio', id, nombre, '1');
+                });
+            }
+        });
+
+        formMunicipio.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const fotoInput = municipioFoto;
+            if (fotoInput.files.length > 0) {
+                const archivo = fotoInput.files[0];
+                const extension = archivo.name.split('.').pop().toLowerCase();
+                if (extension !== 'webp') {
+                    alert('Solo se permiten archivos .webp');
+                    return;
+                }
+            }
+            
+            const formData = new FormData(formMunicipio);
+            const url = municipioId.value 
+                ? `/admin/municipios/editar/${municipioId.value}`
+                : '/admin/municipios/crear';
+            
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    body: formData
+                });
+                if (response.ok) {
+                    cerrarModal();
+                    location.reload();
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    </script>
+
+    {% endblock %}

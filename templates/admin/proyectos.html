@@ -1,0 +1,216 @@
+{%extends "admin/dashboard.html" %}
+
+{% block content %}
+<main class="mt-10 bg-white p-6 rounded-lg shadow">
+    <div class="flex gap-5 items-center">
+        <h3 class="text-xl font-semibold text-senaGreen ">Proyectos</h3>
+        <button id="btnAbrirNuevo"
+            class="bg-senaGreen hover:bg-senaDark text-white rounded-md transition font-semibold p-2 mb-2">Añadir
+            Nuevo</button>
+    </div>
+    <table class="w-full text-left border-collapse">
+        <thead>
+            <tr class="bg-senaGreen text-white">
+                <th class="p-3">#</th>
+                <th class="p-3">Nombre</th>
+                <th class="p-3">Descripcion</th>
+                <th class="p-3">Tecnico</th>
+                <th class="p-3">Fecha Inicio</th>
+                <th class="p-3">Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {%if proyectos%}
+            {%for proyecto in proyectos%}
+            <tr class="border-b hover:bg-gray-50">
+                <td class="p-3">{{loop.index}}</td>
+                <td class="p-3">{{proyecto.nombre}}</td>
+                <td class="p-3">{{proyecto.descripcion}}</td>
+                <td class="p-3">{{proyecto.tecnico}}</td>
+
+                <td class="p-3">{{proyecto.fecha_inicio}}</td>
+                <td class="p-3">
+                    <button class="text-senaGreen font-semibold hover:underline">Editar</button>
+                </td>
+            </tr>
+            {%endfor%}
+            {%else%}
+            No exiten proyectos registrados
+            {%endif%}
+        </tbody>
+    </table>
+
+    <!-- Modal para proyectos -->
+    <dialog class="modal" id="modalProyecto">
+        <div class="modal__contenedor">
+            <header class="modal__encabezado">
+                <h2 class="modal__titulo" id="modalTitulo">Proyecto</h2>
+                <button class="modal__boton-cerrar" id="btnCerrarModal">&times;</button>
+            </header>
+            <div class="modal__cuerpo">
+                <form id="formProyecto" enctype="multipart/form-data">
+                    <input type="hidden" id="proyectoId" name="id">
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="proyectoNombre">Nombre</label>
+                        <input type="text" class="modal__campo" id="proyectoNombre" name="nombre" required>
+                    </div>
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="proyectoDescripcionCorta">Descripción Corta</label>
+                        <input type="text" class="modal__campo" id="proyectoDescripcionCorta" name="descripcion_corta" required>
+                    </div>
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="proyectoDescripcionLarga">Descripción Larga</label>
+                        <textarea class="modal__campo" id="proyectoDescripcionLarga" name="descripcion_larga" required></textarea>
+                    </div>
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="proyectoObjetivo">Objetivo</label>
+                        <input type="text" class="modal__campo" id="proyectoObjetivo" name="objetivo">
+                    </div>
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="proyectoResultado">Resultado</label>
+                        <input type="text" class="modal__campo" id="proyectoResultado" name="resultado">
+                    </div>
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="proyectoTecnico">Técnico</label>
+                        <select class="modal__campo" id="proyectoTecnico" name="tecnico" required>
+                            {% for tecnico in lista_tecnicos %}
+                            <option value="{{ tecnico.id }}">{{ tecnico.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="proyectoFoto">Foto Principal</label>
+                        <input type="file" class="modal__campo" id="proyectoFoto" name="foto_principal" accept=".webp">
+                    </div>
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="proyectoVideo">Video Intro (YouTube)</label>
+                        <input type="text" class="modal__campo" id="proyectoVideo" name="video_intro">
+                    </div>
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="proyectoFechaInicio">Fecha Inicio</label>
+                        <input type="date" class="modal__campo" id="proyectoFechaInicio" name="fecha_inicio">
+                    </div>
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="proyectoFechaFin">Fecha Fin</label>
+                        <input type="date" class="modal__campo" id="proyectoFechaFin" name="fecha_fin">
+                    </div>
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="proyectoActivo">Activo</label>
+                        <select class="modal__campo" id="proyectoActivo" name="activo">
+                            <option value="1">Sí</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <footer class="modal__pie">
+                <button type="button" class="modal__boton modal__boton--secundario" id="btnCancelar">Cancelar</button>
+                <button type="submit" form="formProyecto" class="modal__boton modal__boton--primario">Guardar</button>
+            </footer>
+        </div>
+    </dialog>
+
+    <script>
+        const modal = document.getElementById('modalProyecto');
+        const btnAbrirNuevo = document.getElementById('btnAbrirNuevo');
+        const btnCerrarModal = document.getElementById('btnCerrarModal');
+        const btnCancelar = document.getElementById('btnCancelar');
+        const formProyecto = document.getElementById('formProyecto');
+        const modalTitulo = document.getElementById('modalTitulo');
+        const proyectoId = document.getElementById('proyectoId');
+        const proyectoNombre = document.getElementById('proyectoNombre');
+        const proyectoDescripcionCorta = document.getElementById('proyectoDescripcionCorta');
+        const proyectoDescripcionLarga = document.getElementById('proyectoDescripcionLarga');
+        const proyectoObjetivo = document.getElementById('proyectoObjetivo');
+        const proyectoResultado = document.getElementById('proyectoResultado');
+        const proyectoTecnico = document.getElementById('proyectoTecnico');
+        const proyectoFoto = document.getElementById('proyectoFoto');
+        const proyectoVideo = document.getElementById('proyectoVideo');
+        const proyectoFechaInicio = document.getElementById('proyectoFechaInicio');
+        const proyectoFechaFin = document.getElementById('proyectoFechaFin');
+        const proyectoActivo = document.getElementById('proyectoActivo');
+        const botonesEditar = document.querySelectorAll('button');
+
+        function abrirModal(titulo, id = '', nombre = '', descripcionCorta = '', descripcionLarga = '', objetivo = '', resultado = '', tecnico = '', video = '', fechaInicio = '', fechaFin = '', activo = '1') {
+            modalTitulo.textContent = titulo;
+            proyectoId.value = id;
+            proyectoNombre.value = nombre;
+            proyectoDescripcionCorta.value = descripcionCorta;
+            proyectoDescripcionLarga.value = descripcionLarga;
+            proyectoObjetivo.value = objetivo;
+            proyectoResultado.value = resultado;
+            proyectoTecnico.value = tecnico;
+            proyectoVideo.value = video;
+            proyectoFechaInicio.value = fechaInicio;
+            proyectoFechaFin.value = fechaFin;
+            proyectoActivo.value = activo;
+            proyectoFoto.value = '';
+            modal.classList.add('modal--activo');
+        }
+
+        function cerrarModal() {
+            modal.classList.remove('modal--activo');
+            formProyecto.reset();
+            proyectoId.value = '';
+        }
+
+        btnAbrirNuevo.addEventListener('click', (e) => {
+            e.preventDefault();
+            abrirModal('Nuevo Proyecto');
+        });
+
+        btnCerrarModal.addEventListener('click', cerrarModal);
+        btnCancelar.addEventListener('click', cerrarModal);
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                cerrarModal();
+            }
+        });
+
+        botonesEditar.forEach(boton => {
+            if (boton.textContent.trim() === 'Editar') {
+                boton.addEventListener('click', function() {
+                    const fila = this.closest('tr');
+                    const id = fila.querySelector('td:nth-child(1)').textContent;
+                    const nombre = fila.querySelector('td:nth-child(2)').textContent;
+                    abrirModal('Editar Proyecto', id, nombre, '', '', '', '', '', '', '', '1');
+                });
+            }
+        });
+
+        formProyecto.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const fotoInput = proyectoFoto;
+            if (fotoInput.files.length > 0) {
+                const archivo = fotoInput.files[0];
+                const extension = archivo.name.split('.').pop().toLowerCase();
+                if (extension !== 'webp') {
+                    alert('Solo se permiten archivos .webp');
+                    return;
+                }
+            }
+            
+            const formData = new FormData(formProyecto);
+            const url = proyectoId.value 
+                ? `/admin/proyectos/editar/${proyectoId.value}`
+                : '/admin/proyectos/crear';
+            
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    body: formData
+                });
+                if (response.ok) {
+                    cerrarModal();
+                    location.reload();
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    </script>
+
+    {% endblock %}

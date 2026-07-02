@@ -1,0 +1,19 @@
+<header class="header">
+    <div class="header__contenedor">
+        <button id="menu-toggle" class="header__boton-menu">
+            ☰
+        </button>
+        <h1 class="header__titulo">Panel de Administración</h1>
+    </div>
+    <div class="header__usuario">
+        <span class="header__nombre">{{session.get('user')}}</span>
+        {% set foto_perfil = session.get('foto_perfil') %}
+        {% if foto_perfil %}
+        <img src="{{url_for('static', filename='uploads/' + foto_perfil)}}" alt="Perfil"
+            class="header__foto">
+        {% else %}
+        <img src="{{url_for('static', filename='uploads/imagen.webp')}}" alt="Perfil"
+            class="header__foto">
+        {% endif %}
+    </div>
+</header>

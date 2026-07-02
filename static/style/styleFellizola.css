@@ -1,4 +1,4 @@
-*{
+* {
     margin: 0;
     box-sizing: border-box;
     font-family: poppins, sans-serif;
@@ -6,26 +6,37 @@
     text-decoration: none;
 }
 
-h1{font-size: 3.5em;
-text-transform: capitalize;
-    font-family: 'Montserrat', sans-serif;}
-h2{font-size: 2.7em;
-text-transform: capitalize;
-    font-family: 'Montserrat', sans-serif;}
-h3{font-size: 2em;
-text-transform: capitalize;
-    font-family: 'Montserrat', sans-serif;}
-p{font-size: 1.25em;}
+h1 {
+    font-size: 3.5em;
+    text-transform: capitalize;
+    font-family: 'Montserrat', sans-serif;
+}
+
+h2 {
+    font-size: 2.7em;
+    text-transform: capitalize;
+    font-family: 'Montserrat', sans-serif;
+}
+
+h3 {
+    font-size: 2em;
+    text-transform: capitalize;
+    font-family: 'Montserrat', sans-serif;
+}
+
+p {
+    font-size: 1.25em;
+}
 
 /*Color acentado*/
-.color-acento{
+.color-acento {
     color: #2e7d32;
 }
 
 /*Botones*/
 
-.button{
-    background-color:#2e7d32; 
+.button {
+    background-color: #2e7d32;
     color: white;
     padding: 15px 32px;
     text-align: center;
@@ -36,8 +47,9 @@ p{font-size: 1.25em;}
     cursor: pointer;
     border-radius: 50px;
 }
-.button:hover{
-    background-color:#269136;
+
+.button:hover {
+    background-color: #269136;
 }
 
 
@@ -51,7 +63,7 @@ nav {
     position: sticky;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
 }
 
 /* LOGO */
@@ -75,22 +87,26 @@ nav ul li a {
     font-weight: 600;
     padding: 8px 14px;
     border-radius: 6px;
-    transition: all 0.3s ease-in-out; /* 👈 Transición suave */
+    transition: all 0.3s ease-in-out;
+    /* 👈 Transición suave */
 }
 
 /* EFECTO HOVER */
 nav ul li a:hover {
-    background: rgba(255,255,255,0.2) ;  /* Naranja */
+    background: rgba(255, 255, 255, 0.2);
+    /* Naranja */
     color: #fff;
-    transform: translateY(-3px); /* 👈 efecto de levantar */
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transform: translateY(-3px);
+    /* 👈 efecto de levantar */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 /* ENLACE ACTIVO */
 nav ul li a.active {
-    background: #28a745; /* Verde para activo */
+    background: #28a745;
+    /* Verde para activo */
     color: white;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* BOTÓN HAMBURGUESA */
@@ -103,12 +119,12 @@ nav ul li a.active {
 
 /*Hero*/
 
-.container{
+.container {
     max-width: 1400px;
     margin: auto;
 }
 
-#hero{
+#hero {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -116,8 +132,7 @@ nav ul li a.active {
     flex-direction: column;
     height: 90vh;
     color: white;
-    background-image:linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5))
-    ,url(../img/michael-marsh-U0dBV_QeiYk-unsplash\ \(1\).jpg);
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
@@ -127,23 +142,23 @@ nav ul li a.active {
 
 /*Info colegio*/
 
-#info-colegio .container{
+#info-colegio .container {
     text-align: center;
     padding: 200px 12px;
 }
 
-.img-colegio{
+.img-colegio {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.img-colegio img{
+.img-colegio img {
     width: 200px;
     height: 200px;
     border-radius: 50%;
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
     margin-bottom: 20px;
 }
 
@@ -191,7 +206,7 @@ nav ul li a.active {
     border-radius: 16px;
     width: 300px;
     color: white;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -202,24 +217,25 @@ nav ul li a.active {
 
 .carta-tecnico:hover {
     transform: translateY(-5px);
-    box-shadow: 0px 6px 15px rgba(0,0,0,0.15);}
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.15);
+}
 
 .carta-tecnico:first-child {
-    background-image:linear-gradient(0deg, rgba(0,0,0,0.5), rgba(0,0,0,0.5)),url(../img/scott-graham-5fNmWej4tAA-unsplash\ \(1\).jpg)
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/scott-graham-5fNmWej4tAA-unsplash\ \(1\).jpg)
 }
 
 .carta-tecnico:nth-child(2) {
-    background-image: linear-gradient(0deg, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(../img/scott-graham-5fNmWej4tAA-unsplash\ \(1\).jpg);
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/scott-graham-5fNmWej4tAA-unsplash\ \(1\).jpg);
 }
 
 .carta-tecnico:nth-child(3) {
-    background-image: linear-gradient(0deg, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(../img/scott-graham-5fNmWej4tAA-unsplash\ \(1\).jpg);
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/scott-graham-5fNmWej4tAA-unsplash\ \(1\).jpg);
 }
 
 
 /*Carrucel*/
 
-.carrucel{
+.carrucel {
     max-height: none;
     overflow-x: auto;
     overflow-y: visible;
@@ -227,11 +243,11 @@ nav ul li a.active {
     margin: 48px 25px 48px 25px;
 }
 
-.carrucel::-webkit-scrollbar{
+.carrucel::-webkit-scrollbar {
     width: 0;
 }
 
-.carrucel .proyectos{
+.carrucel .proyectos {
     min-width: 255px;
     height: 255px;
     line-height: 440px;
@@ -239,40 +255,40 @@ nav ul li a.active {
     margin-right: 15px;
     position: relative;
     display: inline-block;
-    overflow: visible; 
+    overflow: visible;
 }
 
-.proyectos img{
+.proyectos img {
     width: 100%;
     height: 100%;
     transition: transform 0.3s;
     display: block;
-    position: relative; 
+    position: relative;
     left: 0;
     top: 0;
     z-index: 2;
 }
 
-.proyectos .btn{
+.proyectos .btn {
     position: absolute;
     top: 110%;
     left: 20%;
     transform: translate(-50%, -50%);
 }
 
-.cartelera h2{
+.cartelera h2 {
     color: #111111;
     font-size: 32px;
     margin: 100px 48px 20px 48px;
 
 }
 
-.carrucel .proyectos:hover img{
+.carrucel .proyectos:hover img {
     transform: scale(1.1);
-    z-index: 3; 
+    z-index: 3;
 }
 
-.carrucel .proyectos{
+.carrucel .proyectos {
     color: #c7c3c3;
     position: relative;
     transition: 0.5s;
@@ -306,7 +322,7 @@ nav ul li a.active {
     border-radius: 20px;
     text-align: center;
     padding: 20px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     transition: 0.3s ease;
 }
 
@@ -331,49 +347,54 @@ nav ul li a.active {
 }
 
 /* Footer */
-.footer{ background:#111; color:#fff; padding:22px 18px; text-align:center; }
+.footer {
+    background: #111;
+    color: #fff;
+    padding: 22px 18px;
+    text-align: center;
+}
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
     nav ul {
-    position: absolute;
-    top: 60px;
-    left: 0;
-    width: 100%;
-    background: #1a1a1a;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    padding: 15px 0;
-    display: none;
-    opacity: 0;
-    transform: translateY(-20px);
-    transition: all 0.3s ease-in-out;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: #1a1a1a;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        padding: 15px 0;
+        display: none;
+        opacity: 0;
+        transform: translateY(-20px);
+        transition: all 0.3s ease-in-out;
     }
 
     nav ul li a:hover {
-    background: none;
+        background: none;
     }
 
     nav ul.show {
-    display: flex;
-    opacity: 1;
-    transform: translateY(0); /* 👈 animación al bajar */
+        display: flex;
+        opacity: 1;
+        transform: translateY(0);
+        /* 👈 animación al bajar */
     }
 
     .menu-toggle {
-    display: block;
+        display: block;
     }
 }
 
 
 
-        /*Pagina de todos los colegios*/    
+/*Pagina de todos los colegios*/
 
 /* HERO */
 #hero-colegios {
-    background-image:linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5))
-    ,url(../img/kalen-emsley-Bkci_8qcdvQ-unsplash\ \(1\).jpg);
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/kalen-emsley-Bkci_8qcdvQ-unsplash\ \(1\).jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
@@ -437,7 +458,7 @@ nav ul li a.active {
 .tarjeta-colegio {
     background: rgb(255, 255, 255);
     border-radius: 16px;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     transition: 0.3s;
 }
@@ -450,10 +471,10 @@ nav ul li a.active {
     width: 120px;
     height: 120px;
     object-fit: cover;
-    border-radius: 50%;      
-    margin: 20px auto 10px;  
+    border-radius: 50%;
+    margin: 20px auto 10px;
     display: block;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.12); 
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
 }
 
 .tarjeta-colegio h3 {

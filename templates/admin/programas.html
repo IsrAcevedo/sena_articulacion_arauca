@@ -1,0 +1,46 @@
+{%extends "admin/dashboard.html" %}
+
+{% block content %}
+<main class="mt-10 bg-white p-6 rounded-lg shadow">
+    <div class="flex gap-5 items-center">
+        <h3 class="text-xl font-semibold text-senaGreen ">Programas de formacion</h3>
+        <button id="btnAbrirNuevo"
+            class="bg-senaGreen hover:bg-senaDark text-white rounded-md transition font-semibold p-2 mb-2">Añadir
+            Nuevo</button>
+    </div>
+    <table class="w-full text-left border-collapse">
+        <thead>
+            <tr class="bg-senaGreen text-white">
+                <th class="p-3">#</th>
+                <th class="p-3">Nombre</th>
+                <th class="p-3">Instructor</th>
+                <th class="p-3">Colegio</th>
+                <th class="p-3">N° de aprendices</th>
+                <th class="p-3">N° de proyectos</th>
+                <th class="p-3">Acciones</th>
+            </tr>
+        </thead>
+        {%if programas %}
+        <tbody>
+            {%for programa in programas%}
+            <tr class="border-b hover:bg-gray-50">
+                <td class="p-3">{{loop.index}}</td>
+                <td class="p-3">{{programa.nombre}}</td>
+                <td class="p-3">{{programa.instructor}}</td>
+                <td class="p-3">{{programa.colegio}}</td>
+                <td class="p-3">{{programa.num_aprendices}}</td>
+                <td class="p-3">{{programa.num_proyectos}}</td>
+                <td class="p-3 flex flex-col">
+                    <button class="text-senaGreen font-semibold hover:underline">Editar</button>
+                    <button class="text-senaGreen font-semibold hover:underline">ELiminar</button>
+                </td>
+            </tr>
+            {%endfor%}
+
+        </tbody>
+        {%else%}
+        No existen programas de formacion registrados
+        {%endif%}
+    </table>
+</main>
+{% endblock %}

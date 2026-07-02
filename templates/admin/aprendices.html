@@ -1,0 +1,187 @@
+{%extends "admin/dashboard.html" %}
+
+{% block content %}
+<main class="mt-10 bg-white p-6 rounded-lg shadow">
+    <div class="flex gap-5 items-center">
+        <h3 class="text-xl font-semibold text-senaGreen ">Aprendices</h3>
+        <button id="btnAbrirNuevo"
+            class="bg-senaGreen hover:bg-senaDark text-white rounded-md transition font-semibold p-2 mb-2">Añadir
+            Nuevo</button>
+    </div>
+    <table class="w-full text-left border-collapse">
+        <thead>
+            <tr class="bg-senaGreen text-white">
+                <th class="p-3">#</th>
+                <th class="p-3">Nombre</th>
+                <th class="p-3">Tecnico</th>
+                <th class="p-3">Colegio</th>
+                <th class="p-3">Proyecto</th>
+                <th class="p-3">Estado</th>
+                <th class="p-3">Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {%if aprendices%}
+            {%for aprendiz in aprendices%}
+            <tr class="border-b hover:bg-gray-50">
+                <td class="p-3">{{loop.index}}</td>
+                <td class="p-3">{{aprendiz.nombre}}</td>
+                <td class="p-3">{{aprendiz.tecnico}}</td>
+                <td class="p-3">{{aprendiz.colegio}}</td>
+                <td class="p-3">{{aprendiz.proyecto}}</td>
+                <td class="p-3">{{'Activo' if aprendiz.estado == 1 else 'Inactivo'}}</td>
+                <td class="p-3">
+                    <button class="text-senaGreen font-semibold hover:underline">Editar</button>
+                </td>
+            </tr>
+            {%endfor%}
+            {%else%}
+            No exiten aprendices registrados
+            {%endif%}
+        </tbody>
+    </table>
+
+    <!-- Modal para aprendices -->
+    <dialog class="modal" id="modalAprendiz">
+        <div class="modal__contenedor">
+            <header class="modal__encabezado">
+                <h2 class="modal__titulo" id="modalTitulo">Aprendiz</h2>
+                <button class="modal__boton-cerrar" id="btnCerrarModal">&times;</button>
+            </header>
+            <div class="modal__cuerpo">
+                <form id="formAprendiz" enctype="multipart/form-data">
+                    <input type="hidden" id="aprendizId" name="id">
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="aprendizNombres">Nombres</label>
+                        <input type="text" class="modal__campo" id="aprendizNombres" name="nombres" required>
+                    </div>
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="aprendizApellidos">Apellidos</label>
+                        <input type="text" class="modal__campo" id="aprendizApellidos" name="apellidos" required>
+                    </div>
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="aprendizIdentificacion">Número Identificación</label>
+                        <input type="text" class="modal__campo" id="aprendizIdentificacion" name="numero_identificacion" required>
+                    </div>
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="aprendizTecnico">Técnico</label>
+                        <select class="modal__campo" id="aprendizTecnico" name="tecnico" required>
+                            {% for tecnico in lista_tecnicos %}
+                            <option value="{{ tecnico.id }}">{{ tecnico.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="aprendizFoto">Foto</label>
+                        <input type="file" class="modal__campo" id="aprendizFoto" name="foto" accept=".webp">
+                    </div>
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="aprendizActivo">Activo</label>
+                        <select class="modal__campo" id="aprendizActivo" name="activo">
+                            <option value="1">Sí</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <footer class="modal__pie">
+                <button type="button" class="modal__boton modal__boton--secundario" id="btnCancelar">Cancelar</button>
+                <button type="submit" form="formAprendiz" class="modal__boton modal__boton--primario">Guardar</button>
+            </footer>
+        </div>
+    </dialog>
+
+    <script>
+        const modal = document.getElementById('modalAprendiz');
+        const btnAbrirNuevo = document.getElementById('btnAbrirNuevo');
+        const btnCerrarModal = document.getElementById('btnCerrarModal');
+        const btnCancelar = document.getElementById('btnCancelar');
+        const formAprendiz = document.getElementById('formAprendiz');
+        const modalTitulo = document.getElementById('modalTitulo');
+        const aprendizId = document.getElementById('aprendizId');
+        const aprendizNombres = document.getElementById('aprendizNombres');
+        const aprendizApellidos = document.getElementById('aprendizApellidos');
+        const aprendizIdentificacion = document.getElementById('aprendizIdentificacion');
+        const aprendizTecnico = document.getElementById('aprendizTecnico');
+        const aprendizFoto = document.getElementById('aprendizFoto');
+        const aprendizActivo = document.getElementById('aprendizActivo');
+        const botonesEditar = document.querySelectorAll('button');
+
+        function abrirModal(titulo, id = '', nombres = '', apellidos = '', identificacion = '', tecnico = '', activo = '1') {
+            modalTitulo.textContent = titulo;
+            aprendizId.value = id;
+            aprendizNombres.value = nombres;
+            aprendizApellidos.value = apellidos;
+            aprendizIdentificacion.value = identificacion;
+            aprendizTecnico.value = tecnico;
+            aprendizActivo.value = activo;
+            aprendizFoto.value = '';
+            modal.classList.add('modal--activo');
+        }
+
+        function cerrarModal() {
+            modal.classList.remove('modal--activo');
+            formAprendiz.reset();
+            aprendizId.value = '';
+        }
+
+        btnAbrirNuevo.addEventListener('click', (e) => {
+            e.preventDefault();
+            abrirModal('Nuevo Aprendiz');
+        });
+
+        btnCerrarModal.addEventListener('click', cerrarModal);
+        btnCancelar.addEventListener('click', cerrarModal);
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                cerrarModal();
+            }
+        });
+
+        botonesEditar.forEach(boton => {
+            if (boton.textContent.trim() === 'Editar') {
+                boton.addEventListener('click', function() {
+                    const fila = this.closest('tr');
+                    const id = fila.querySelector('td:nth-child(1)').textContent;
+                    const nombre = fila.querySelector('td:nth-child(2)').textContent;
+                    abrirModal('Editar Aprendiz', id, nombre, '', '', '', '1');
+                });
+            }
+        });
+
+        formAprendiz.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const fotoInput = aprendizFoto;
+            if (fotoInput.files.length > 0) {
+                const archivo = fotoInput.files[0];
+                const extension = archivo.name.split('.').pop().toLowerCase();
+                if (extension !== 'webp') {
+                    alert('Solo se permiten archivos .webp');
+                    return;
+                }
+            }
+            
+            const formData = new FormData(formAprendiz);
+            const url = aprendizId.value 
+                ? `/admin/aprendices/editar/${aprendizId.value}`
+                : '/admin/aprendices/crear';
+            
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    body: formData
+                });
+                if (response.ok) {
+                    cerrarModal();
+                    location.reload();
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    </script>
+</main>
+{% endblock %}

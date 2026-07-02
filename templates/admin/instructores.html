@@ -1,0 +1,181 @@
+{%extends "admin/dashboard.html" %}
+
+{% block content %}
+<main class="mt-10 bg-white p-6 rounded-lg shadow">
+    <div class="flex gap-5 items-center">
+        <h3 class="text-xl font-semibold text-senaGreen ">Instructores</h3>
+        <button id="btnAbrirNuevo"
+            class="bg-senaGreen hover:bg-senaDark text-white rounded-md transition font-semibold p-2 mb-2">Añadir
+            Nuevo</button>
+    </div>
+    <table class="w-full text-left border-collapse">
+        <thead>
+            <tr class="bg-senaGreen text-white">
+                <th class="p-3">#</th>
+                <th class="p-3">Nombres</th>
+                <th class="p-3">Profesion</th>
+                <th class="p-3">N° proyectos</th>
+                <th class="p-3">Acciones</th>
+            </tr>
+        </thead>
+        {%if instructores %}
+        <tbody>
+            {%for instructor in instructores%}
+            <tr class="border-b hover:bg-gray-50">
+                <td class="p-3">{{loop.index}}</td>
+                <td class="p-3">{{instructor.nombres}} {{instructor.apellidos}}</td>
+                <td class="p-3">{{instructor.profesion}}</td>
+                <td class="p-3">{{instructor.num_proyectos}}</td>
+                <td class="p-3 flex flex-col">
+                    <button class="text-senaGreen font-semibold hover:underline">Editar</button>
+                    <button class="text-senaGreen font-semibold hover:underline">ELiminar</button>
+                </td>
+            </tr>
+            {%endfor%}
+
+        </tbody>
+        {%else%}
+        No existen instructores registrados
+        {%endif%}
+    </table>
+
+    <!-- Modal para instructores -->
+    <dialog class="modal" id="modalInstructor">
+        <div class="modal__contenedor">
+            <header class="modal__encabezado">
+                <h2 class="modal__titulo" id="modalTitulo">Instructor</h2>
+                <button class="modal__boton-cerrar" id="btnCerrarModal">&times;</button>
+            </header>
+            <div class="modal__cuerpo">
+                <form id="formInstructor" enctype="multipart/form-data">
+                    <input type="hidden" id="instructorId" name="id">
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="instructorNombres">Nombres</label>
+                        <input type="text" class="modal__campo" id="instructorNombres" name="nombres" required>
+                    </div>
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="instructorApellidos">Apellidos</label>
+                        <input type="text" class="modal__campo" id="instructorApellidos" name="apellidos" required>
+                    </div>
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="instructorProfesion">Profesión</label>
+                        <select class="modal__campo" id="instructorProfesion" name="profesion" required>
+                            {% for profesion in lista_profesiones %}
+                            <option value="{{ profesion.id }}">{{ profesion.nombre_profesion }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="instructorFoto">Foto</label>
+                        <input type="file" class="modal__campo" id="instructorFoto" name="foto" accept=".webp">
+                    </div>
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="instructorActivo">Activo</label>
+                        <select class="modal__campo" id="instructorActivo" name="activo">
+                            <option value="1">Sí</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <footer class="modal__pie">
+                <button type="button" class="modal__boton modal__boton--secundario" id="btnCancelar">Cancelar</button>
+                <button type="submit" form="formInstructor" class="modal__boton modal__boton--primario">Guardar</button>
+            </footer>
+        </div>
+    </dialog>
+
+    <script>
+        const modal = document.getElementById('modalInstructor');
+        const btnAbrirNuevo = document.getElementById('btnAbrirNuevo');
+        const btnCerrarModal = document.getElementById('btnCerrarModal');
+        const btnCancelar = document.getElementById('btnCancelar');
+        const formInstructor = document.getElementById('formInstructor');
+        const modalTitulo = document.getElementById('modalTitulo');
+        const instructorId = document.getElementById('instructorId');
+        const instructorNombres = document.getElementById('instructorNombres');
+        const instructorApellidos = document.getElementById('instructorApellidos');
+        const instructorProfesion = document.getElementById('instructorProfesion');
+        const instructorFoto = document.getElementById('instructorFoto');
+        const instructorActivo = document.getElementById('instructorActivo');
+        const botonesEditar = document.querySelectorAll('button');
+
+        function abrirModal(titulo, id = '', nombres = '', apellidos = '', profesion = '', activo = '1') {
+            modalTitulo.textContent = titulo;
+            instructorId.value = id;
+            instructorNombres.value = nombres;
+            instructorApellidos.value = apellidos;
+            instructorProfesion.value = profesion;
+            instructorActivo.value = activo;
+            instructorFoto.value = '';
+            modal.classList.add('modal--activo');
+        }
+
+        function cerrarModal() {
+            modal.classList.remove('modal--activo');
+            formInstructor.reset();
+            instructorId.value = '';
+        }
+
+        btnAbrirNuevo.addEventListener('click', (e) => {
+            e.preventDefault();
+            abrirModal('Nuevo Instructor');
+        });
+
+        btnCerrarModal.addEventListener('click', cerrarModal);
+        btnCancelar.addEventListener('click', cerrarModal);
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                cerrarModal();
+            }
+        });
+
+        botonesEditar.forEach(boton => {
+            if (boton.textContent.trim() === 'Editar') {
+                boton.addEventListener('click', function() {
+                    const fila = this.closest('tr');
+                    const id = fila.querySelector('td:nth-child(1)').textContent;
+                    const nombreCompleto = fila.querySelector('td:nth-child(2)').textContent.trim();
+                    const partes = nombreCompleto.split(' ');
+                    const nombres = partes[0] || '';
+                    const apellidos = partes.slice(1).join(' ') || '';
+                    abrirModal('Editar Instructor', id, nombres, apellidos, '', '1');
+                });
+            }
+        });
+
+        formInstructor.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const fotoInput = instructorFoto;
+            if (fotoInput.files.length > 0) {
+                const archivo = fotoInput.files[0];
+                const extension = archivo.name.split('.').pop().toLowerCase();
+                if (extension !== 'webp') {
+                    alert('Solo se permiten archivos .webp');
+                    return;
+                }
+            }
+            
+            const formData = new FormData(formInstructor);
+            const url = instructorId.value 
+                ? `/admin/instructores/editar/${instructorId.value}`
+                : '/admin/instructores/crear';
+            
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    body: formData
+                });
+                if (response.ok) {
+                    cerrarModal();
+                    location.reload();
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    </script>
+
+    {% endblock %}
