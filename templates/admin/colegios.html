@@ -23,7 +23,9 @@
         <tbody>
 
             {%for colegio in colegios%}
-            <tr class="border-b hover:bg-gray-50">
+            <tr class="border-b hover:bg-gray-50" data-id="{{colegio.id}}" data-nombre="{{colegio.nombre}}"
+                data-slogan="{{colegio.slogan}}" data-municipio="{{colegio.id_municipios}}"
+                data-activo="{{colegio.activo}}">
                 <td class="p-3">{{loop.index}}</td>
                 <td class="p-3">{{colegio.nombre}}</td>
                 <td class="p-3">{{colegio.municipio}}</td>
@@ -31,6 +33,10 @@
                 <td class="p-3">{{colegio.num_proyectos}}</td>
                 <td class="p-3">
                     <button class="text-senaGreen font-semibold hover:underline">Editar</button>
+                    {%if session.get('rol') == "super_admin" %}
+                    <a href="{{url_for('admin.eliminar_colegio', id=colegio.id)}}"
+                        class="text-senaGreen font-semibold hover:underline">Eliminar</a>
+                    {%endif%}
                 </td>
             </tr>
             {%endfor%}
@@ -135,18 +141,21 @@
 
         botonesEditar.forEach(boton => {
             if (boton.textContent.trim() === 'Editar') {
-                boton.addEventListener('click', function() {
+                boton.addEventListener('click', function () {
                     const fila = this.closest('tr');
-                    const id = fila.querySelector('td:nth-child(1)').textContent;
-                    const nombre = fila.querySelector('td:nth-child(2)').textContent;
-                    abrirModal('Editar Colegio', id, nombre, '', '', '1');
+                    const id = fila.dataset.id;
+                    const nombre = fila.dataset.nombre;
+                    const slogan = fila.dataset.slogan || '';
+                    const municipio = fila.dataset.municipio || '';
+                    const activo = fila.dataset.activo || '1';
+                    abrirModal('Editar Colegio', id, nombre, slogan, municipio, activo);
                 });
             }
         });
 
         formColegio.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
+
             const logoInput = colegioLogo;
             if (logoInput.files.length > 0) {
                 const archivo = logoInput.files[0];
@@ -156,12 +165,12 @@
                     return;
                 }
             }
-            
+
             const formData = new FormData(formColegio);
-            const url = colegioId.value 
+            const url = colegioId.value
                 ? `/admin/colegios/editar/${colegioId.value}`
                 : '/admin/colegios/crear';
-            
+
             try {
                 const response = await fetch(url, {
                     method: 'POST',

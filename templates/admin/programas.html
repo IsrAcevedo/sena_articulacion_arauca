@@ -23,16 +23,21 @@
         {%if programas %}
         <tbody>
             {%for programa in programas%}
-            <tr class="border-b hover:bg-gray-50">
+            <tr class="border-b hover:bg-gray-50" data-id="{{programa.id}}" data-nombre="{{programa.nombre}}"
+                data-instructor="{{programa.id_instructor}}" data-colegio="{{programa.id_colegio}}"
+                data-activo="{{programa.activo}}">
                 <td class="p-3">{{loop.index}}</td>
                 <td class="p-3">{{programa.nombre}}</td>
                 <td class="p-3">{{programa.instructor}}</td>
                 <td class="p-3">{{programa.colegio}}</td>
                 <td class="p-3">{{programa.num_aprendices}}</td>
                 <td class="p-3">{{programa.num_proyectos}}</td>
-                <td class="p-3 flex flex-col">
+                <td class="p-3 ">
                     <button class="text-senaGreen font-semibold hover:underline">Editar</button>
-                    <button class="text-senaGreen font-semibold hover:underline">ELiminar</button>
+                    {%if session.get('rol') == "super_admin" %}
+                    <a href="{{url_for('admin.eliminar_programa', id=programa.id)}}"
+                        class="text-senaGreen font-semibold hover:underline">Eliminar</a>
+                    {%endif%}
                 </td>
             </tr>
             {%endfor%}
@@ -42,5 +47,142 @@
         No existen programas de formacion registrados
         {%endif%}
     </table>
+
+    <!-- Modal para programas -->
+    <dialog class="modal" id="modalPrograma">
+        <div class="modal__contenedor">
+            <header class="modal__encabezado">
+                <h2 class="modal__titulo" id="modalTitulo">Programa</h2>
+                <button class="modal__boton-cerrar" id="btnCerrarModal">&times;</button>
+            </header>
+            <div class="modal__cuerpo">
+                <form id="formPrograma" enctype="multipart/form-data">
+                    <input type="hidden" id="programaId" name="id">
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="programaNombre">Nombre</label>
+                        <input type="text" class="modal__campo" id="programaNombre" name="nombre" required>
+                    </div>
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="programaInstructor">Instructor</label>
+                        <select class="modal__campo" id="programaInstructor" name="instructor" required>
+                            {% for instructor in lista_instructores %}
+                            <option value="{{ instructor.id }}">{{ instructor.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="programaColegio">Colegio</label>
+                        <select class="modal__campo" id="programaColegio" name="colegio" required>
+                            {% for colegio in lista_colegios %}
+                            <option value="{{ colegio.id }}">{{ colegio.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="programaFoto">Foto</label>
+                        <input type="file" class="modal__campo" id="programaFoto" name="foto" accept=".webp">
+                    </div>
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="programaActivo">Activo</label>
+                        <select class="modal__campo" id="programaActivo" name="activo">
+                            <option value="1">Sí</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <footer class="modal__pie">
+                <button type="button" class="modal__boton modal__boton--secundario" id="btnCancelar">Cancelar</button>
+                <button type="submit" form="formPrograma" class="modal__boton modal__boton--primario">Guardar</button>
+            </footer>
+        </div>
+    </dialog>
+
+    <script>
+        const modal = document.getElementById('modalPrograma');
+        const btnCerrarModal = document.getElementById('btnCerrarModal');
+        const btnCancelar = document.getElementById('btnCancelar');
+        const formPrograma = document.getElementById('formPrograma');
+        const modalTitulo = document.getElementById('modalTitulo');
+        const programaId = document.getElementById('programaId');
+        const programaNombre = document.getElementById('programaNombre');
+        const programaInstructor = document.getElementById('programaInstructor');
+        const programaColegio = document.getElementById('programaColegio');
+        const programaFoto = document.getElementById('programaFoto');
+        const programaActivo = document.getElementById('programaActivo');
+        const botonesEditar = document.querySelectorAll('button');
+
+        function abrirModal(titulo, id = '', nombre = '', instructor = '', colegio = '', activo = '1') {
+            modalTitulo.textContent = titulo;
+            programaId.value = id;
+            programaNombre.value = nombre;
+            programaInstructor.value = instructor;
+            programaColegio.value = colegio;
+            programaActivo.value = activo;
+            programaFoto.value = '';
+            modal.classList.add('modal--activo');
+        }
+
+        function cerrarModal() {
+            modal.classList.remove('modal--activo');
+            formPrograma.reset();
+            programaId.value = '';
+        }
+
+        btnCerrarModal.addEventListener('click', cerrarModal);
+        btnCancelar.addEventListener('click', cerrarModal);
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                cerrarModal();
+            }
+        });
+
+        botonesEditar.forEach(boton => {
+            if (boton.textContent.trim() === 'Editar') {
+                boton.addEventListener('click', function () {
+                    const fila = this.closest('tr');
+                    const id = fila.dataset.id;
+                    const nombre = fila.dataset.nombre;
+                    const instructor = fila.dataset.instructor || '';
+                    const colegio = fila.dataset.colegio || '';
+                    const activo = fila.dataset.activo || '1';
+                    abrirModal('Editar Programa', id, nombre, instructor, colegio, activo);
+                });
+            }
+        });
+
+        formPrograma.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const fotoInput = programaFoto;
+            if (fotoInput.files.length > 0) {
+                const archivo = fotoInput.files[0];
+                const extension = archivo.name.split('.').pop().toLowerCase();
+                if (extension !== 'webp') {
+                    alert('Solo se permiten archivos .webp');
+                    return;
+                }
+            }
+
+            const formData = new FormData(formPrograma);
+            const url = programaId.value
+                ? `/admin/programas/editar/${programaId.value}`
+                : '/admin/programas/crear';
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    body: formData
+                });
+                if (response.ok) {
+                    cerrarModal();
+                    location.reload();
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    </script>
 </main>
 {% endblock %}

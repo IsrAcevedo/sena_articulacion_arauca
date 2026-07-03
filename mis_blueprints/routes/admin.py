@@ -54,7 +54,7 @@ def dashboard():
 @admin_bp.route('/proyectos')
 @login_requerido
 def proyectos():
-    query = "SELECT p.id_proyectos AS id, p.nombre, p.descripcion_corta AS descripcion, t.nombre AS tecnico, p.fecha_inicio FROM proyectos AS p INNER JOIN tecnicos AS t ON t.id_tecnicos = p.id_tecnico"
+    query = "SELECT p.id_proyectos AS id, p.nombre, p.descripcion_corta AS descripcion, p.descripcion_larga, p.objetivo, p.resultado, p.id_tecnico, p.foto_principal, p.video_intro, p.fecha_inicio, p.fecha_fin, p.activo, t.nombre AS tecnico, c.nombre AS colegio FROM proyectos AS p INNER JOIN tecnicos AS t ON t.id_tecnicos = p.id_tecnico INNER JOIN colegios AS c ON c.id_colegios = t.id_colegio"
     proyectos = consulta(query)
     query_tecnicos = "SELECT id_tecnicos AS id, nombre FROM tecnicos"
     lista_tecnicos = consulta(query_tecnicos)
@@ -117,22 +117,65 @@ def editar_proyecto(id):
     resultado = insertar(query, parametros)
     return jsonify({'success': True, 'message': resultado})
 
+# ruta eliminar proyecto
+@admin_bp.route('/proyectos/eliminar/<int:id>', methods=['POST'])
+@login_requerido
+def eliminar_proyecto(id):
+    query = "DELETE FROM proyectos WHERE id_proyectos = %s and activo = %s"
+    parametros = (id, '0')
+    resultado = insertar(query, parametros)
+    return jsonify({'success': True, 'message': resultado})
 
 #ruta para administar programas
 @admin_bp.route('/programas')
 @login_requerido
 def programas():
-    query = "SELECT t.id_tecnicos AS id, t.nombre  AS nombre, CONCAT(i.nombres,' ',i.apellidos) AS instructor, c.nombre AS colegio, COUNT(p.id_proyectos) AS num_proyectos, COUNT(a.id_aprendices) AS num_aprendices FROM tecnicos AS t LEFT JOIN instructor AS i ON i.id_instructor = t.id_instructor LEFT JOIN colegios AS c ON c.id_colegios = t.id_colegio LEFT JOIN proyectos AS p ON p.id_tecnico = t.id_tecnicos LEFT JOIN aprendices AS a ON a.id_tecnico = t.id_tecnicos GROUP BY t.id_tecnicos"
+    query = "SELECT t.id_tecnicos AS id, t.nombre, t.id_instructor, t.id_colegio, t.foto_principal, t.activo, CONCAT(i.nombres,' ',i.apellidos) AS instructor, c.nombre AS colegio, COUNT(p.id_proyectos) AS num_proyectos, COUNT(a.id_aprendices) AS num_aprendices FROM tecnicos AS t LEFT JOIN instructor AS i ON i.id_instructor = t.id_instructor LEFT JOIN colegios AS c ON c.id_colegios = t.id_colegio LEFT JOIN proyectos AS p ON p.id_tecnico = t.id_tecnicos LEFT JOIN aprendices AS a ON a.id_tecnico = t.id_tecnicos GROUP BY t.id_tecnicos"
     programas = consulta(query)
-    print(programas)
-    return render_template('admin/programas.html', programas=programas)
+    query_instructores = "SELECT id_instructor AS id, CONCAT(nombres, ' ', apellidos) AS nombre FROM instructor"
+    lista_instructores = consulta(query_instructores)
+    query_colegios = "SELECT id_colegios AS id, nombre FROM colegios"
+    lista_colegios = consulta(query_colegios)
+    return render_template('admin/programas.html', programas=programas, lista_instructores=lista_instructores, lista_colegios=lista_colegios)
+
+#ruta para editar programa
+@admin_bp.route('/programas/editar/<int:id>', methods=['POST'])
+@login_requerido
+def editar_programa(id):
+    nombre = request.form.get('nombre')
+    instructor = request.form.get('instructor')
+    colegio = request.form.get('colegio')
+    foto = request.files.get('foto')
+    activo = request.form.get('activo', '1')
+    
+    if foto and foto.filename:
+        nombre_foto = guardar_imagen(foto, UPLOAD_FOLDER, 'programas')
+        if not nombre_foto:
+            return jsonify({'success': False, 'message': 'Formato de imagen no permitido. Solo .webp'})
+        query = "UPDATE tecnicos SET nombre = %s, id_instructor = %s, id_colegio = %s, foto = %s, activo = %s WHERE id_tecnicos = %s"
+        parametros = (nombre, instructor, colegio, nombre_foto, activo, id)
+    else:
+        query = "UPDATE tecnicos SET nombre = %s, id_instructor = %s, id_colegio = %s, activo = %s WHERE id_tecnicos = %s"
+        parametros = (nombre, instructor, colegio, activo, id)
+    
+    resultado = insertar(query, parametros)
+    return jsonify({'success': True, 'message': resultado})
+
+#ruta para eliminar programa
+@admin_bp.route('/programas/eliminar/<int:id>', methods=['POST'])
+@login_requerido
+def eliminar_programa(id):
+    query = "DELETE FROM tecnicos WHERE id_tecnicos = %s and activo = %s"
+    parametros = (id, '0')
+    resultado = insertar(query, parametros)
+    return jsonify({'success': True, 'message': resultado})
 
 
 #ruta para administar  colegios
 @admin_bp.route('/colegios')
 @login_requerido
 def colegios():
-    query = "SELECT c.id_colegios AS id, c.nombre, m.nombre AS municipio, (SELECT COUNT(*) FROM tecnicos WHERE id_colegio = c.id_colegios) AS num_tecnicos, (SELECT COUNT(*) FROM proyectos p INNER JOIN tecnicos t ON p.id_tecnico = t.id_tecnicos WHERE t.id_colegio = c.id_colegios) AS num_proyectos FROM colegios AS c INNER JOIN municipios AS m ON m.id_municipios = c.id_municipios "
+    query = "SELECT c.id_colegios AS id, c.nombre, c.slogan, c.id_municipios, c.logo, c.activo, m.nombre AS municipio, (SELECT COUNT(*) FROM tecnicos WHERE id_colegio = c.id_colegios) AS num_tecnicos, (SELECT COUNT(*) FROM proyectos p INNER JOIN tecnicos t ON p.id_tecnico = t.id_tecnicos WHERE t.id_colegio = c.id_colegios) AS num_proyectos FROM colegios AS c INNER JOIN municipios AS m ON m.id_municipios = c.id_municipios "
     colegios = consulta(query)
     query_municipios = "SELECT id_municipios AS id, nombre FROM municipios WHERE activo = 1"
     lista_municipios = consulta(query_municipios)
@@ -183,6 +226,14 @@ def editar_colegio(id):
     resultado = insertar(query, parametros)
     return jsonify({'success': True, 'message': resultado})
 
+#ruta para eliminar colegio
+@admin_bp.route('/colegios/eliminar/<int:id>', methods=['POST'])
+@login_requerido
+def eliminar_colegio(id):
+    query = "DELETE FROM colegios WHERE id_colegios = %s and activo = %s"
+    parametros = (id, '0')
+    resultado = insertar(query, parametros)
+    return jsonify({'success': True, 'message': resultado})
 
 
 
@@ -190,7 +241,7 @@ def editar_colegio(id):
 @admin_bp.route('/instructores')
 @login_requerido
 def instructores():
-    query = "SELECT i.id_instructor AS id, i.nombres, i.apellidos, p.nombre_profesion AS profesion, (SELECT COUNT(*) FROM proyectos pr INNER JOIN tecnicos t ON pr.id_tecnico = t.id_tecnicos WHERE t.id_instructor = i.id_instructor) AS num_proyectos FROM instructor AS i LEFT JOIN profesiones p ON i.id_profesion = p.id_profesion"
+    query = "SELECT i.id_instructor AS id, i.nombres, i.apellidos, i.id_profesion, i.foto, i.activo, p.nombre_profesion AS profesion, (SELECT COUNT(*) FROM proyectos pr INNER JOIN tecnicos t ON pr.id_tecnico = t.id_tecnicos WHERE t.id_instructor = i.id_instructor) AS num_proyectos FROM instructor AS i LEFT JOIN profesiones p ON i.id_profesion = p.id_profesion"
     instructores = consulta(query)
     query_profesiones = "SELECT id_profesion AS id, nombre_profesion FROM profesiones"
     lista_profesiones = consulta(query_profesiones)
@@ -241,12 +292,20 @@ def editar_instructor(id):
     resultado = insertar(query, parametros)
     return jsonify({'success': True, 'message': resultado})
 
+#ruta para eliminar instructor
+@admin_bp.route('/instructores/eliminar/<int:id>', methods=['POST'])
+@login_requerido
+def eliminar_instructor(id):
+    query = "DELETE FROM instructor WHERE id_instructor = %s and activo = %s"
+    parametros = (id, '0')
+    resultado = insertar(query, parametros)
+    return jsonify({'success': True, 'message': resultado})
 
 #ruta para administrar aprendices
 @admin_bp.route('/aprendices')
 @login_requerido
 def aprendices():
-    query = "SELECT a.id_aprendices AS id, CONCAT(a.nombres, ' ', a.apellidos) AS nombre, t.nombre AS tecnico, c.nombre AS colegio, p.nombre AS proyecto, a.activo AS estado FROM aprendices AS a INNER JOIN tecnicos AS t ON t.id_tecnicos = a.id_tecnico INNER JOIN colegios AS c ON c.id_colegios = t.id_colegio LEFT JOIN proyectos AS p ON p.id_tecnico = t.id_tecnicos"
+    query = "SELECT a.id_aprendices AS id, a.nombres, a.apellidos, a.numero_identificacion, a.id_tecnico, a.foto, a.activo, t.nombre AS tecnico, c.nombre AS colegio, p.nombre AS proyecto FROM aprendices AS a INNER JOIN tecnicos AS t ON t.id_tecnicos = a.id_tecnico INNER JOIN colegios AS c ON c.id_colegios = t.id_colegio LEFT JOIN proyectos AS p ON p.id_tecnico = t.id_tecnicos"
     aprendices = consulta(query)
     query_tecnicos = "SELECT id_tecnicos AS id, nombre FROM tecnicos"
     lista_tecnicos = consulta(query_tecnicos)
@@ -299,6 +358,17 @@ def editar_aprendiz(id):
     resultado = insertar(query, parametros)
     return jsonify({'success': True, 'message': resultado})
 
+#ruta eliminar aprendiz
+@admin_bp.route('/aprendices/eliminar/<int:id>', methods=['POST'])
+@login_requerido
+def eliminar_aprendiz(id):
+    query = "DELETE FROM aprendices WHERE id_aprendiz = %s and activo = %s"
+    parametros = (id, '0')
+    resultado = insertar(query, parametros)
+    return jsonify({'success': True, 'message': resultado})
+
+
+
 #ruta para administrar  municipios
 @admin_bp.route('/municipios')
 @login_requerido
@@ -348,7 +418,7 @@ def editar_municipio(id):
     resultado = insertar(query, parametros)
     return jsonify({'success': True, 'message': resultado})
 
-
+#ruta para crear cuenta de usuario
 @admin_bp.route('/crear_cuenta', methods=['GET', 'POST'])
 def crear_cuenta():
     if request.method == 'POST':
@@ -358,44 +428,94 @@ def crear_cuenta():
         usuario = request.form.get('usuario')
         password = request.form.get('password')
         confirm_password =  request.form.get('confirm_password')
-        foto = request.files.get('foto')
-    
-        if doc in aprendices:
-            if password != confirm_password:
-                flash('Las contraseñas no coinciden.', 'error')
-                return redirect(request.url)
-
-            if foto and nombre_imagen(foto.filename):
-                filename = secure_filename(foto.filename)
-                extension = filename.rsplit('.', 1)[1].lower()
-                nuevo_nombre = f"{uuid.uuid4().hex}.{extension}"
-                ruta_foto = os.path.join(app.config['UPLOAD_FOLDER'], nuevo_nombre)
-                foto.save(ruta_foto)
-            else:
-                flash('Formato de imagen no permitido. Solo .webp', 'error')
-                return redirect(request.url)
-
-            query = "INSERT INTO usuarios (nombre_completo, nombre_usuario, numero_identificacion, foto_perfil,password_hash) VALUES (%s,%s,%s,%s,%s)"
-            password_hash=generate_password_hash(password)
-            parametros = (nombres, usuario, doc, nuevo_nombre, password_hash)
-            insertar(query,parametros)
-
-            flash('Registro exitoso', 'success')
-            return redirect(url_for('login'))
-        else:
-            flash('No tienes permiso de crear una cuenta', 'error')
+        rol ='admin' if doc in aprendices else 'usuario'
+        
+            
+        if password != confirm_password:
+            flash('Las contraseñas no coinciden.', 'error')
             return redirect(request.url)
+
+        query = "INSERT INTO usuarios (nombre_completo, nombre_usuario, numero_identificacion, password_hash,rol) VALUES (%s,%s,%s,%s,%s)"
+        password_hash=generate_password_hash(password)
+        parametros = (nombres, usuario, doc,  password_hash,rol)
+        insertar(query,parametros)
+
+        flash('Registro exitoso', 'success')
+        return redirect(url_for('admin.login'))
     
     return render_template('admin/crear_cuenta.html')
 
-
+#ruta para editar cuenta de usuario
+@admin_bp.route('/editar_cuenta', methods=['GET','POST'])
+@login_requerido
+def editar_cuenta():
+    if request.method == 'POST':
+        id_usuario = request.form.get('id')
+        nombres = request.form.get('nombres')
+        usuario = request.form.get('usuario')
+        password = request.form.get('password')
+        confirm_password = request.form.get('confirm_password')
+        rol = request.form.get('rol')
+        foto = request.files.get('foto')
+        
+        # Verificar permisos
+        es_super_admin = session.get('rol') == 'super_admin'
+        es_propio = id_usuario == str(session.get('documento'))
+        
+        if not es_super_admin and not es_propio:
+            flash('No tienes permiso para editar este usuario', 'error')
+            return redirect(request.url)
+        
+        # Solo super_admin puede cambiar el rol
+        if not es_super_admin and rol:
+            flash('No tienes permiso para cambiar el rol', 'error')
+            return redirect(request.url)
+        
+        if password and password != confirm_password:
+            flash('Las contraseñas no coinciden.', 'error')
+            return redirect(request.url)
+        
+        # Construir query dinámica según campos a actualizar
+        if password:
+            password_hash = generate_password_hash(password)
+            if es_super_admin and rol:
+                query = "UPDATE usuarios SET nombre_completo = %s, nombre_usuario = %s, password_hash = %s, rol = %s WHERE numero_identificacion = %s"
+                parametros = (nombres, usuario, password_hash, rol, id_usuario)
+            else:
+                query = "UPDATE usuarios SET nombre_completo = %s, nombre_usuario = %s, password_hash = %s WHERE numero_identificacion = %s"
+                parametros = (nombres, usuario, password_hash, id_usuario)
+        else:
+            if es_super_admin and rol:
+                query = "UPDATE usuarios SET nombre_completo = %s, nombre_usuario = %s, rol = %s WHERE numero_identificacion = %s"
+                parametros = (nombres, usuario, rol, id_usuario)
+            else:
+                query = "UPDATE usuarios SET nombre_completo = %s, nombre_usuario = %s WHERE numero_identificacion = %s"
+                parametros = (nombres, usuario, id_usuario)
+        
+        insertar(query, parametros)
+        flash('Usuario actualizado exitosamente', 'success')
+        return redirect(url_for('admin.dashboard'))
+    
+    # GET request
+    es_super_admin = session.get('rol') == 'super_admin'
+    
+    if es_super_admin:
+        query = "SELECT numero_identificacion AS id, nombre_completo AS nombre, nombre_usuario AS usuario, rol FROM usuarios"
+        usuarios = consulta(query)
+        return render_template('admin/editar_cuenta.html', usuarios = usuarios, es_super_admin = True)
+    else:
+        # Solo puede editar su propia cuenta
+        doc = session.get('documento')
+        query = "SELECT numero_identificacion AS id, nombre_completo AS nombre, nombre_usuario AS usuario, rol FROM usuarios WHERE numero_identificacion = %s"
+        usuario = consulta(query, (doc,))
+        return render_template('admin/editar_cuenta.html', usuario = usuario[0] if usuario else None, es_super_admin = False)
 
 @admin_bp.route('/login', methods=['GET','POST'])
 def login():
     if request.method == 'POST':
         documento = request.form['documento']
         password = request.form['password']
-        query = "SELECT numero_identificacion, password_hash, nombre_usuario, foto_perfil FROM usuarios WHERE numero_identificacion = %s"
+        query = "SELECT numero_identificacion, password_hash, nombre_usuario, rol FROM usuarios WHERE numero_identificacion = %s"
         parametros = (documento,)
         respuesta = consulta(query, parametros)
 
@@ -406,7 +526,7 @@ def login():
             if check_password_hash(contra, password):
                 session['documento']=usuario['numero_identificacion']
                 session['user']=usuario['nombre_usuario']
-                session['foto_perfil']=usuario['foto_perfil']
+                session['rol']=usuario['rol']
                 return redirect(url_for('admin.dashboard'))
             else:
                 flash('Contraseña incorrecta.', 'error')

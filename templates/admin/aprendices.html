@@ -24,15 +24,21 @@
         <tbody>
             {%if aprendices%}
             {%for aprendiz in aprendices%}
-            <tr class="border-b hover:bg-gray-50">
+            <tr class="border-b hover:bg-gray-50" data-id="{{aprendiz.id}}" data-nombres="{{aprendiz.nombres}}"
+                data-apellidos="{{aprendiz.apellidos}}" data-identificacion="{{aprendiz.numero_identificacion}}"
+                data-tecnico="{{aprendiz.id_tecnico}}" data-activo="{{aprendiz.activo}}">
                 <td class="p-3">{{loop.index}}</td>
-                <td class="p-3">{{aprendiz.nombre}}</td>
+                <td class="p-3">{{aprendiz.nombres}} {{aprendiz.apellidos}}</td>
                 <td class="p-3">{{aprendiz.tecnico}}</td>
                 <td class="p-3">{{aprendiz.colegio}}</td>
                 <td class="p-3">{{aprendiz.proyecto}}</td>
-                <td class="p-3">{{'Activo' if aprendiz.estado == 1 else 'Inactivo'}}</td>
+                <td class="p-3">{{'Activo' if aprendiz.activo == 1 else 'Inactivo'}}</td>
                 <td class="p-3">
                     <button class="text-senaGreen font-semibold hover:underline">Editar</button>
+                    {%if session.get('rol') == "super_admin" %}
+                    <a href="{{url_for('admin.eliminar_proyecto', id=aprendiz.id)}}"
+                        class="text-senaGreen font-semibold hover:underline">Eliminar</a>
+                    {%endif%}
                 </td>
             </tr>
             {%endfor%}
@@ -62,7 +68,8 @@
                     </div>
                     <div class="modal__grupo">
                         <label class="modal__etiqueta" for="aprendizIdentificacion">Número Identificación</label>
-                        <input type="text" class="modal__campo" id="aprendizIdentificacion" name="numero_identificacion" required>
+                        <input type="text" class="modal__campo" id="aprendizIdentificacion" name="numero_identificacion"
+                            required>
                     </div>
                     <div class="modal__grupo">
                         <label class="modal__etiqueta" for="aprendizTecnico">Técnico</label>
@@ -142,18 +149,22 @@
 
         botonesEditar.forEach(boton => {
             if (boton.textContent.trim() === 'Editar') {
-                boton.addEventListener('click', function() {
+                boton.addEventListener('click', function () {
                     const fila = this.closest('tr');
-                    const id = fila.querySelector('td:nth-child(1)').textContent;
-                    const nombre = fila.querySelector('td:nth-child(2)').textContent;
-                    abrirModal('Editar Aprendiz', id, nombre, '', '', '', '1');
+                    const id = fila.dataset.id;
+                    const nombres = fila.dataset.nombres;
+                    const apellidos = fila.dataset.apellidos;
+                    const identificacion = fila.dataset.identificacion;
+                    const tecnico = fila.dataset.tecnico;
+                    const activo = fila.dataset.activo;
+                    abrirModal('Editar Aprendiz', id, nombres, apellidos, identificacion, tecnico, activo);
                 });
             }
         });
 
         formAprendiz.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
+
             const fotoInput = aprendizFoto;
             if (fotoInput.files.length > 0) {
                 const archivo = fotoInput.files[0];
@@ -163,12 +174,12 @@
                     return;
                 }
             }
-            
+
             const formData = new FormData(formAprendiz);
-            const url = aprendizId.value 
+            const url = aprendizId.value
                 ? `/admin/aprendices/editar/${aprendizId.value}`
                 : '/admin/aprendices/crear';
-            
+
             try {
                 const response = await fetch(url, {
                     method: 'POST',

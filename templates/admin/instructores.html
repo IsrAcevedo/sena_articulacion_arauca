@@ -12,7 +12,7 @@
         <thead>
             <tr class="bg-senaGreen text-white">
                 <th class="p-3">#</th>
-                <th class="p-3">Nombres</th>
+                <th class="p-3">Nombre</th>
                 <th class="p-3">Profesion</th>
                 <th class="p-3">N° proyectos</th>
                 <th class="p-3">Acciones</th>
@@ -21,14 +21,19 @@
         {%if instructores %}
         <tbody>
             {%for instructor in instructores%}
-            <tr class="border-b hover:bg-gray-50">
+            <tr class="border-b hover:bg-gray-50" data-id="{{instructor.id}}" data-nombres="{{instructor.nombres}}"
+                data-apellidos="{{instructor.apellidos}}" data-profesion="{{instructor.id_profesion}}"
+                data-activo="{{instructor.activo}}">
                 <td class="p-3">{{loop.index}}</td>
                 <td class="p-3">{{instructor.nombres}} {{instructor.apellidos}}</td>
                 <td class="p-3">{{instructor.profesion}}</td>
                 <td class="p-3">{{instructor.num_proyectos}}</td>
-                <td class="p-3 flex flex-col">
+                <td class="p-3">
                     <button class="text-senaGreen font-semibold hover:underline">Editar</button>
-                    <button class="text-senaGreen font-semibold hover:underline">ELiminar</button>
+                    {%if session.get('rol') == "super_admin" %}
+                    <a href="{{url_for('admin.eliminar_instructor', id=instructor.id)}}"
+                        class="text-senaGreen font-semibold hover:underline">Eliminar</a>
+                    {%endif%}
                 </td>
             </tr>
             {%endfor%}
@@ -133,21 +138,21 @@
 
         botonesEditar.forEach(boton => {
             if (boton.textContent.trim() === 'Editar') {
-                boton.addEventListener('click', function() {
+                boton.addEventListener('click', function () {
                     const fila = this.closest('tr');
-                    const id = fila.querySelector('td:nth-child(1)').textContent;
-                    const nombreCompleto = fila.querySelector('td:nth-child(2)').textContent.trim();
-                    const partes = nombreCompleto.split(' ');
-                    const nombres = partes[0] || '';
-                    const apellidos = partes.slice(1).join(' ') || '';
-                    abrirModal('Editar Instructor', id, nombres, apellidos, '', '1');
+                    const id = fila.dataset.id;
+                    const nombres = fila.dataset.nombres;
+                    const apellidos = fila.dataset.apellidos;
+                    const profesion = fila.dataset.profesion || '';
+                    const activo = fila.dataset.activo || '1';
+                    abrirModal('Editar Instructor', id, nombres, apellidos, profesion, activo);
                 });
             }
         });
 
         formInstructor.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
+
             const fotoInput = instructorFoto;
             if (fotoInput.files.length > 0) {
                 const archivo = fotoInput.files[0];
@@ -157,12 +162,12 @@
                     return;
                 }
             }
-            
+
             const formData = new FormData(formInstructor);
-            const url = instructorId.value 
+            const url = instructorId.value
                 ? `/admin/instructores/editar/${instructorId.value}`
                 : '/admin/instructores/crear';
-            
+
             try {
                 const response = await fetch(url, {
                     method: 'POST',
