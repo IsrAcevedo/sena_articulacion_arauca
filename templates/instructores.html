@@ -1,0 +1,326 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="pagina-instructores">
+    <section class="hero-instructores">
+        <div class="container">
+            <div class="hero-grid">
+                <div>
+                    <div class="pag">Instructores</div>
+                    <h1>Talento que<br><span>transforma</span></h1>
+                    <p>
+                        Conoce a los instructores del SENA que acompañan la formación
+                        técnica de los estudiantes de los colegios articulados.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="filters">
+        <label class="filter">
+            <span class="search-icon">⌕</span>
+            <input id="search" type="text" placeholder="Buscar instructor, programa o colegio...">
+        </label>
+
+        <label class="filter">
+            <span>⌖</span>
+            <select id="municipio">
+                <option value="">Municipio · Todos</option>
+                <option>Saravena</option>
+                <option>Arauca</option>
+                <option>Tame</option>
+            </select>
+        </label>
+
+        <label class="filter">
+            <span>▣</span>
+            <select id="area">
+                <option value="">Área de formación · Todas</option>
+                <option>Agroindustria</option>
+                <option>Sistemas</option>
+                <option>Contabilidad y Finanzas</option>
+                <option>Electricidad</option>
+            </select>
+        </label>
+
+        <label class="filter">
+            <span>⌂</span>
+            <select>
+                <option>Colegio · Todos</option>
+                <option>Colegio Agropecuario del Sarare</option>
+                <option>I.E. El Triunfo</option>
+                <option>I.E. San Luis</option>
+            </select>
+        </label>
+
+        <button class="clear" id="clear" type="button">↻ <span>Limpiar filtros</span></button>
+    </div>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-head">
+                <h2 class="section-title">Áreas de formación</h2>
+                <a class="section-link" href="#">Ver todas →</a>
+            </div>
+
+            <div class="areas">
+                <div class="area-box">
+                    <div class="area-icon">♧</div><span>Agroindustria</span>
+                </div>
+                <div class="area-box">
+                    <div class="area-icon">▣</div><span>Sistemas</span>
+                </div>
+                <div class="area-box">
+                    <div class="area-icon">▤</div><span>Contabilidad y Finanzas</span>
+                </div>
+                <div class="area-box">
+                    <div class="area-icon">♧</div><span>Electricidad y Electrónica</span>
+                </div>
+                <div class="area-box">
+                    <div class="area-icon">♡</div><span>Salud</span>
+                </div>
+                <div class="area-box">
+                    <div class="area-icon">◫</div><span>Diseño y Multimedia</span>
+                </div>
+                <div class="area-box">
+                    <div class="area-icon">▱</div><span>Administración</span>
+                </div>
+                <div class="area-box">
+                    <div class="area-icon">▥</div><span>Producción Industrial</span>
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+
+
+
+    <section class="section">
+        <div class="container">
+            <div class="instructors-news">
+
+                <div>
+                    <div class="section-head">
+                        <h2 class="section-title">Nuestros instructores</h2>
+                        <a class="section-link" href="#">Ver todos →</a>
+                    </div>
+
+                    <div class="instructor-grid" id="instructorGrid">
+                        {% if instructores %}
+                        {% for instructor in instructores %}
+                        <article class="card instructor" data-name="{{ instructor.nombre|lower }}"
+                            data-area="{{ instructor.area|default('Sistemas')|lower }}"
+                            data-city="{{ instructor.ciudad|lower }}">
+                            <a href="./instructor.html" class="instructor-link">
+                                <div class="instructor-photo">
+                                    <span class="card-badge">SENA</span>
+                                    <img src="{{ url_for('static', filename='img/' + instructor.foto) }}"
+                                        alt="{{ instructor.nombre }}">
+                                </div>
+                                <div class="card-content">
+                                    <h3>{{ instructor.nombre }}</h3>
+                                    <div class="area">{{ instructor.area|default('Sistemas') }}</div>
+                                    <div class="meta">⌖ {{ instructor.ciudad }}</div>
+                                    <div class="meta">⌂ {{ instructor.institucion }}</div>
+                                    <span class="profile-btn">Ver perfil <span>→</span></span>
+                                </div>
+                            </a>
+                        </article>
+                        {% endfor %}
+                        {% else %}
+                        <div class="empty-state">
+                            <strong>No hay instructores disponibles.</strong>
+                            <span>Prueba con otros filtros o vuelve a intentarlo más tarde.</span>
+                        </div>
+                        {% endif %}
+
+                    </div>
+
+                    <button class="load">Cargar más instructores ↓</button>
+                </div>
+
+                <aside class="news">
+                    <div class="section-head">
+                        <h2 class="section-title">Novedades</h2>
+                        <a class="section-link" href="#">Ver más →</a>
+                    </div>
+
+                    <div class="news-item">
+                        <div class="news-img">
+                            <img
+                                src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=300&q=80">
+                        </div>
+                        <div>
+                            <h4>La instructora María Gómez lideró un taller de educación financiera.</h4>
+                            <small>24 abr 2025</small>
+                        </div>
+                    </div>
+
+                    <div class="news-item">
+                        <div class="news-img">
+                            <img
+                                src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=300&q=80">
+                        </div>
+                        <div>
+                            <h4>El instructor Juan Pérez acompañó una práctica de robótica.</h4>
+                            <small>18 abr 2025</small>
+                        </div>
+                    </div>
+
+                    <div class="news-item">
+                        <div class="news-img">
+                            <img
+                                src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=300&q=80">
+                        </div>
+                        <div>
+                            <h4>Catherine Pereira orientó la creación de productos derivados del cacao.</h4>
+                            <small>10 abr 2025</small>
+                        </div>
+                    </div>
+                </aside>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container two-columns">
+
+
+            <div>
+                <div class="section-head">
+                    <div>
+                        <h2 class="section-title">Instructores que hacen posible los proyectos</h2>
+                    </div>
+                    <a class="section-link" href="#">Ver todos →</a>
+                </div>
+
+                <div class="project-grid">
+                    <article class="project">
+                        <div class="project-img">
+                            <img
+                                src="https://images.unsplash.com/photo-1492496913980-501348b61469?auto=format&fit=crop&w=300&q=80">
+                        </div>
+                        <div>
+                            <span class="tag">Agroindustria</span>
+                            <h4>Sabores del Campo</h4>
+                            <p>Instructora: Catherine Pereira</p>
+                            <p>Colegio Agropecuario del Sarare</p>
+                        </div>
+                    </article>
+
+                    <article class="project">
+                        <div class="project-img">
+                            <img
+                                src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=300&q=80">
+                        </div>
+                        <div>
+                            <span class="tag">Sistemas</span>
+                            <h4>Robótica para el Futuro</h4>
+                            <p>Instructor: Juan Pérez</p>
+                            <p>I.E. El Triunfo</p>
+                        </div>
+                    </article>
+
+                    <article class="project">
+                        <div class="project-img">
+                            <img
+                                src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=300&q=80">
+                        </div>
+                        <div>
+                            <span class="tag">Contabilidad</span>
+                            <h4>Finanzas que Transforman</h4>
+                            <p>Instructora: María Gómez</p>
+                            <p>I.E. San Luis</p>
+                        </div>
+                    </article>
+
+                    <article class="project">
+                        <div class="project-img">
+                            <img
+                                src="https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&fit=crop&w=300&q=80">
+                        </div>
+                        <div>
+                            <span class="tag">Electricidad</span>
+                            <h4>Energía que Conecta</h4>
+                            <p>Instructor: Carlos Ramírez</p>
+                            <p>Colegio Técnico del Sarare</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</div>
+
+{%endblock%}
+
+<script>
+    (() => {
+        const search = document.getElementById("search");
+        const municipio = document.getElementById("municipio");
+        const area = document.getElementById("area");
+        const clear = document.getElementById("clear");
+        const colegio = document.querySelector(".pagina-instructores .filters select:nth-of-type(3)");
+
+        const normalize = value => (value || "")
+            .toString()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLowerCase()
+            .trim();
+
+        function filterInstructors() {
+            const cards = [...document.querySelectorAll(".pagina-instructores .instructor")];
+            const q = normalize(search?.value);
+            const city = normalize(municipio?.value);
+            const selectedArea = normalize(area?.value);
+            const selectedCollege = normalize(colegio?.value);
+
+            cards.forEach(card => {
+                const name = normalize(card.dataset.name);
+                const cardArea = normalize(card.dataset.area);
+                const cardCity = normalize(card.dataset.city);
+                const cardText = normalize(card.textContent);
+
+                const matchesSearch = !q ||
+                    name.includes(q) ||
+                    cardArea.includes(q) ||
+                    cardCity.includes(q) ||
+                    cardText.includes(q);
+
+                const matchesCity = !city || city.includes("todos") || cardCity === city;
+                const matchesArea = !selectedArea || selectedArea.includes("todas") || cardArea === selectedArea;
+                const matchesCollege = !selectedCollege ||
+                    selectedCollege.includes("todos") ||
+                    cardText.includes(selectedCollege);
+
+                card.hidden = !(matchesSearch && matchesCity && matchesArea && matchesCollege);
+            });
+        }
+
+        [search, municipio, area, colegio].forEach(control => {
+            if (!control) return;
+            control.addEventListener(
+                control.tagName === "INPUT" ? "input" : "change",
+                filterInstructors
+            );
+        });
+
+        clear?.addEventListener("click", () => {
+            if (search) search.value = "";
+            if (municipio) municipio.selectedIndex = 0;
+            if (area) area.selectedIndex = 0;
+            if (colegio) colegio.selectedIndex = 0;
+            filterInstructors();
+        });
+
+        filterInstructors();
+    })();
+</script>
+
+</body>
+
+</html>

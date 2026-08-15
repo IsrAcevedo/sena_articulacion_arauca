@@ -50,6 +50,12 @@ def colegio(id):
     return render_template('colegio.html', colegio=colegio)
 
 
+@main_bp.route('/instructores')
+def instructores():
+    query = 'SELECT id_instructor AS id, foto, CONCAT(nombres," ",apellidos)AS nombre FROM instructor WHERE activo = 1'
+    instructores = consulta(query) 
+    return render_template('instructores.html', instructores = instructores)
+
 @main_bp.route('/instructor/<int:id>')
 def instructor(id):
     query = 'SELECT * FROM instructor WHERE id_instructor = %s'
