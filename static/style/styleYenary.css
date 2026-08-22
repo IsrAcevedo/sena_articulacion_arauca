@@ -534,34 +534,6 @@
     justify-content:center;
 }
 
-.card-map{
-    width: 100%;
-    max-width:1500px;
-    padding:25px;
-    border-radius:30px;
-    background:rgba(255,255,255,.08);
-    backdrop-filter:blur(15px);
-    border:1px solid rgba(255,255,255,.1);
-    box-shadow:0 30px 60px rgba(0,0,0,.35);
-    animation:flotar 5s ease-in-out infinite;
-}
-
-.card-map img{
-    width:100%;
-}
-
-@keyframes flotar{
-    0%{
-        transform:translateY(0);
-    }
-    50%{
-        transform:translateY(-15px);
-    }
-    100%{
-        transform:translateY(0);
-    }
-}
-
 
 @media(max-width:900px){
 

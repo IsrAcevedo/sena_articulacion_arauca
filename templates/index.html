@@ -30,7 +30,7 @@
 
 <!-- EMPRENDIMIENTOS (DISEÑO VERDE) -->
 {% if proyectos %}
-<section id="proyectos" class="section proyectos">
+<section id="proyectos2" class="section proyectos">
     <div class="container">
         <div class="section-header">
             <span class="section-badge">
@@ -72,12 +72,17 @@
             </a>
             {% endfor %}
         </div>
+        <div class="view-all">
+            <a href="{{ url_for('main.colegios') }}">
+                Ver todos los proyectos
+            </a>
+        </div>
     </div>
 </section>
 {% endif %}
 
 {% if colegios %}
-<section id="colegios" class="section colegios">
+<section id="colegios2" class="section colegios">
     <div class="container">
         <div class="section-header">
             <span class="section-badge">
@@ -131,7 +136,7 @@
 
 <!-- MUNICIPIOS (DISEÑO GRIS/AZUL) -->
 {% if municipios %}
-<section id="municipios" class="section municipios">
+<section id="municipios2" class="section municipios">
     <div class="container">
         <div class="section-header">
             <span class="section-badge">
@@ -151,9 +156,10 @@
                 <article class="card">
                     <div class="municipio-image">
                         <img
-                            src="{{ url_for('static', filename='uploads/' + municipio.foto) }}"
+                            src="{{ url_for('static', filename='uploads/municipios/'+municipio.foto) }}"
                             alt="Foto de {{ municipio.nombre }}"
                         >
+                        
                     </div>
                     <div class="card-content">
                         <h3>{{ municipio.nombre }}</h3>
@@ -165,14 +171,20 @@
             </a>
             {% endfor %}
         </div>
+         <div class="view-all">
+            <a href="{{ url_for('main.colegios') }}">
+                Ver todos los municipios
+            </a>
+        </div>
     </div>
+    
 </section>
 {% endif %}
 
 
 <!-- INSTRUCTORES (DISEÑO OSCURO) -->
 {% if instructores %}
-<section id="instructores" class="section instructores">
+<section id="instructores2" class="section instructores">
     <div class="container">
         <div class="section-header">
             <span class="section-badge">
@@ -201,7 +213,7 @@
                             {{ instructor.nombres + " " + instructor.apellidos }}
                         </h3>
                         <h4>
-                            Profesional en {{ instructor.id_cargo }}
+                            Profesional en {{ instructor.profesion }}
                         </h4>
                         <p>
                             Instructor del programa Articulación con la Media.
@@ -213,6 +225,11 @@
                 </article>
             </a>
             {% endfor %}
+        </div>
+        <div class="view-all">
+            <a href="{{ url_for('main.colegios') }}">
+                Ver todos los instructores
+            </a>
         </div>
     </div>
 </section>
