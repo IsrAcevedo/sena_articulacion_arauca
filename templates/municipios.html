@@ -1,48 +1,375 @@
 {% extends "base.html" %}
 {% block content %}
-    <header>
-        <h1>Portal de Municipios del Departamento de Arauca</h1>
-    </header>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Municipios – Articulaciones SENA Arauca</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styleJavier.css') }}">
+</head>
+<body>
 
-    <main>
-        <section class="contenedor-modulos">
+<header>
+  <div class="header-inner">
+    <div class="marca">
+      <div class="logo"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="marca-texto">
+        <span class="top">Articulaciones SENA</span>
+        <span class="bottom">Departamento de Arauca</span>
+      </div>
+    </div>
+    <nav>
+      <a href="#">Inicio</a>
+      <a href="#" class="activo">Municipios</a>
+      <a href="#">Instituciones</a>
+      <a href="#">Técnicos</a>
+      <a href="#">Docentes</a>
+      <a href="#">Proyectos</a>
+    </nav>
+    <div class="header-derecha">
+      <div class="chip-seleccion" id="chipSeleccion"><span class="dot"></span><span id="chipTexto">Arauca (capital)</span></div>
+      <button class="btn-icono" aria-label="Buscar">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
 
-            <div class="modulo">
-                <h2>Arauca</h2>
-                <a href="arauca.html" class="btn">Entrar</a>
-            </div>
+<section class="page-head">
+  <div class="contenedor">
+    <div class="page-head-row">
+      <div>
+        <div class="eyebrow">Consulta territorial</div>
+        <h1>Municipios de Arauca</h1>
+        <p>Explora las instituciones, programas técnicos, docentes, estudiantes y proyectos vinculados al SENA en cada municipio.</p>
+      </div>
+      <div class="contador-pill">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M3 21H21M5 21V7L12 3L19 7V21M9 21V13H15V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <b id="contadorMunicipios">7</b>&nbsp;municipios registrados
+      </div>
+    </div>
 
-            <div class="modulo">
-                <h2>Tame</h2>
-                <a href="tame.html" class="btn">Entrar</a>
-            </div>
+    <div class="filtros-bar">
+      <div class="buscador">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <input id="inputBuscar" type="text" placeholder="Buscar municipio...">
+      </div>
+      <div class="filtro-select">Instituciones
+        <svg viewBox="0 0 24 24" fill="none"><path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="filtro-select">Programas técnicos
+        <svg viewBox="0 0 24 24" fill="none"><path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="filtro-select">Proyectos
+        <svg viewBox="0 0 24 24" fill="none"><path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <button class="btn-limpiar" id="btnLimpiar">Limpiar filtros</button>
+    </div>
+  </div>
+</section>
 
-            <div class="modulo">
-                <h2>Saravena</h2>
-                <a href="saravena.html" class="btn">Entrar</a>
-            </div>
+<section class="seccion" style="padding-top:28px;">
+  <div class="contenedor">
+    <div class="layout-mapa">
+      <div class="panel">
+        <div class="panel-header">
+          <div>
+            <h3>Mapa del departamento</h3>
+            <div class="sub">Selecciona un municipio para ver su detalle</div>
+          </div>
+          <span class="badge-gis"><span class="punto"></span>Vista GIS</span>
+        </div>
+        <div class="mapa-body">
+          <div class="mapa-svg-holder" id="mapaHolder">
+            <svg viewBox="0 0 460 400" width="100%" height="auto" id="svgMapa"></svg>
+            <div class="tooltip-mapa" id="tooltipMapa"></div>
+          </div>
+        </div>
+        <div class="mapa-leyenda">
+          <div class="item"><span class="dot" style="background:var(--verde-claro)"></span>Municipio seleccionado</div>
+          <div class="item"><span class="dot" style="background:var(--verde-suave);border:1px solid #CBEFB4"></span>Disponible para consulta</div>
+        </div>
+      </div>
 
-            <div class="modulo">
-                <h2>Arauquita</h2>
-                <a href="arauquita.html" class="btn">Entrar</a>
-            </div>
+      <div class="panel">
+        <div class="panel-header">
+          <div>
+            <h3>Listado de municipios</h3>
+            <div class="sub" id="listaSub">7 municipios · ordenados por cobertura</div>
+          </div>
+        </div>
+        <div class="lista-municipios" id="listaMunicipios"></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-            <div class="modulo">
-                <h2>Fortul</h2>
-                <a href="fortul.html" class="btn">Entrar</a>
-            </div>
+<section class="seccion" style="padding-top:0;">
+  <div class="contenedor">
+    <div class="seccion-header">
+      <div>
+        <div class="eyebrow">Resumen departamental</div>
+        <h2>Estadísticas generales</h2>
+      </div>
+    </div>
+    <div class="stats-grid" id="statsGrid"></div>
+  </div>
+</section>
 
-            <div class="modulo">
-                <h2>Cravo Norte</h2>
-                <a href="cravo_norte.html" class="btn">Entrar</a>
-            </div>
+<section class="seccion" style="padding-top:8px;">
+  <div class="contenedor">
+    <div class="seccion-header">
+      <div>
+        <div class="eyebrow">Visualización de datos</div>
+        <h2>Distribución de articulaciones</h2>
+        <p>Comparativo de instituciones, estudiantes y programas técnicos entre los 7 municipios del departamento.</p>
+      </div>
+    </div>
+    <div class="graficos-grid">
+      <div class="panel">
+        <div class="panel-header"><div><h3>Instituciones por municipio</h3><div class="sub">Total: <span id="totalInstituciones"></span></div></div></div>
+        <div class="barras" id="barrasInstituciones"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-header"><div><h3>Estudiantes por municipio</h3><div class="sub">Total: <span id="totalEstudiantes"></span></div></div></div>
+        <div class="barras" id="barrasEstudiantes"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-header"><div><h3>Programas técnicos</h3><div class="sub">Por área</div></div></div>
+        <div class="dona-wrap">
+          <svg width="150" height="150" viewBox="0 0 42 42">
+            <circle cx="21" cy="21" r="15.91" fill="transparent" stroke="#EAF7E1" stroke-width="6"></circle>
+            <circle cx="21" cy="21" r="15.91" fill="transparent" stroke="#39A900" stroke-width="6"
+              stroke-dasharray="34 66" stroke-dashoffset="25" stroke-linecap="round"></circle>
+            <circle cx="21" cy="21" r="15.91" fill="transparent" stroke="#6DD400" stroke-width="6"
+              stroke-dasharray="24 76" stroke-dashoffset="-9" stroke-linecap="round"></circle>
+            <circle cx="21" cy="21" r="15.91" fill="transparent" stroke="#2E8FB0" stroke-width="6"
+              stroke-dasharray="22 78" stroke-dashoffset="-33" stroke-linecap="round"></circle>
+            <circle cx="21" cy="21" r="15.91" fill="transparent" stroke="#CBD5E1" stroke-width="6"
+              stroke-dasharray="20 80" stroke-dashoffset="-55" stroke-linecap="round"></circle>
+            <text x="21" y="20" text-anchor="middle" font-family="Manrope" font-weight="800" font-size="6.4" fill="#1E293B">58</text>
+            <text x="21" y="26" text-anchor="middle" font-family="Inter" font-weight="600" font-size="2.9" fill="#64748B">programas</text>
+          </svg>
+          <div class="dona-leyenda" id="donaLeyenda"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-            <div class="modulo">
-                <h2>Puerto Rondón</h2>
-                <a href="puerto_rondon.html" class="btn">Entrar</a>
-            </div>
+<section class="seccion" style="padding-top:8px;">
+  <div class="contenedor">
+    <div class="destacado-panel">
+      <div class="destacado-top">
+        <div>
+          <div class="eyebrow">Municipio seleccionado</div>
+          <h2 id="destNombre">Arauca (capital)</h2>
+          <p id="destDesc">Sede principal de la regional SENA Arauca, con la mayor concentración de instituciones, programas técnicos y proyectos formativos del departamento.</p>
+        </div>
+        <a href="#" class="btn-blanco">Ver información completa
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+      <div class="destacado-datos" id="destDatos"></div>
+    </div>
+  </div>
+</section>
 
-        </section>
-    </main>
+<footer>
+  <div class="contenedor">© 2026 SENA Regional Arauca · Sistema de Gestión de Articulaciones</div>
+</footer>
 
+<script>
+/* ---------- Datos ---------- */
+
+// SVG simplificados de cada municipio: forma (path) + posición de la etiqueta.
+const municipios = [
+  { id:'arauca',       nombre:'Arauca (capital)', instituciones:9, programas:16, estudiantes:1240, docentes:40, proyectos:7,
+    desc:'Sede principal de la regional SENA Arauca, con la mayor concentración de instituciones, programas técnicos y proyectos formativos del departamento.',
+    forma:'M300 40 L390 60 L410 130 L360 160 L300 130 L280 80 Z', label:{x:335,y:105} },
+  { id:'arauquita',    nombre:'Arauquita', instituciones:6, programas:11, estudiantes:610, docentes:26, proyectos:5,
+    desc:'Segundo municipio con mayor cobertura, con fuerte presencia de programas agropecuarios articulados con instituciones rurales.',
+    forma:'M150 40 L280 80 L300 130 L230 170 L140 150 L110 90 Z', label:{x:195,y:115} },
+  { id:'cravonorte',   nombre:'Cravo Norte', instituciones:3, programas:4, estudiantes:85, docentes:12, proyectos:2,
+    desc:'Municipio de baja densidad poblacional, con cobertura inicial en articulaciones y programas técnicos básicos.',
+    forma:'M360 160 L410 130 L440 220 L400 280 L340 240 Z', label:{x:390,y:205} },
+  { id:'saravena',     nombre:'Saravena', instituciones:5, programas:9, estudiantes:520, docentes:22, proyectos:5,
+    desc:'Nodo articulador del norte del departamento, con programas técnicos orientados a producción agropecuaria y gestión empresarial.',
+    forma:'M60 150 L140 150 L230 170 L210 240 L110 260 L40 220 Z', label:{x:130,y:205} },
+  { id:'fortul',       nombre:'Fortul', instituciones:4, programas:6, estudiantes:190, docentes:14, proyectos:3,
+    desc:'Cobertura media, con proyectos formativos orientados al fortalecimiento de la producción agrícola local.',
+    forma:'M110 260 L210 240 L230 300 L160 340 L90 320 Z', label:{x:150,y:295} },
+  { id:'tame',         nombre:'Tame', instituciones:5, programas:8, estudiantes:480, docentes:20, proyectos:4,
+    desc:'Municipio con amplia extensión territorial y programas técnicos enfocados en producción agropecuaria y piscicultura.',
+    forma:'M230 170 L300 130 L360 160 L340 240 L280 300 L230 300 L210 240 Z', label:{x:280,y:225,clase:'claro'} },
+  { id:'puertorondon', nombre:'Puerto Rondón', instituciones:2, programas:3, estudiantes:55, docentes:8, proyectos:1,
+    desc:'Menor cobertura del departamento, con articulaciones en fase de fortalecimiento institucional.',
+    forma:'M280 300 L340 240 L400 280 L380 350 L300 360 Z', label:{x:335,y:315} },
+];
+
+// Tarjetas de estadísticas generales (icono + total, calculado a partir de "municipios" cuando aplica).
+const suma = campo => municipios.reduce((t,m)=>t+m[campo],0);
+const statsData = [
+  { icono:'M3 21H21M5 21V7L12 3L19 7V21M9 21V13H15V21', numero:municipios.length, etiqueta:'Municipios' },
+  { icono:'M3 9L12 4L21 9L12 14L3 9ZM3 9V16M7 11.5V17C7 18.5 9.2 20 12 20C14.8 20 17 18.5 17 17V11.5', numero:suma('instituciones'), etiqueta:'Instituciones' },
+  { icono:'', svgRect:true, numero:suma('programas'), etiqueta:'Programas técnicos' },
+  { icono:'M12 8 4M4 21C4 17 7.5 14 12 14C16.5 14 20 17 20 21', svgDocentes:true, numero:suma('docentes'), etiqueta:'Docentes' },
+  { icono:'M12 3L2 8L12 13L22 8L12 3Z', numero:suma('estudiantes').toLocaleString('es-CO'), etiqueta:'Estudiantes' },
+  { icono:'M9 3H15L14 8H18L11 21L12 13H8L9 3Z', numero:suma('proyectos'), etiqueta:'Proyectos' },
+];
+
+const donaLeyenda = [
+  { color:'#39A900', nombre:'Agropecuario', valor:20 },
+  { color:'#6DD400', nombre:'Comercio y gestión', valor:14 },
+  { color:'#2E8FB0', nombre:'Sistemas', valor:13 },
+  { color:'#CBD5E1', nombre:'Otros', valor:11 },
+];
+
+let seleccionado = 'arauca';
+
+/* ---------- Render ---------- */
+
+function iconoSVG(pathD){
+  return `<svg viewBox="0 0 24 24" fill="none"><path d="${pathD}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+}
+
+function renderStats(){
+  document.getElementById('statsGrid').innerHTML = statsData.map(s=>{
+    let icono;
+    if (s.svgRect) icono = '<svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="14" rx="2" stroke="currentColor" stroke-width="2"/></svg>';
+    else if (s.svgDocentes) icono = '<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/><path d="M4 21C4 17 7.5 14 12 14C16.5 14 20 17 20 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+    else icono = iconoSVG(s.icono);
+    return `<div class="stat-card">
+      <div class="stat-icono">${icono}</div>
+      <div class="stat-numero">${s.numero}</div><div class="stat-etiqueta">${s.etiqueta}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderDonaLeyenda(){
+  document.getElementById('donaLeyenda').innerHTML = donaLeyenda.map(d=>`
+    <div class="fila"><span class="izq"><span class="dot" style="background:${d.color}"></span>${d.nombre}</span><span>${d.valor}</span></div>`).join('');
+}
+
+function renderMapa(){
+  const svg = document.getElementById('svgMapa');
+  svg.innerHTML = municipios.map(m=>`
+    <path id="poly-${m.id}" class="municipio-forma" data-id="${m.id}" d="${m.forma}"/>`).join('') +
+    municipios.map(m=>`
+    <text x="${m.label.x}" y="${m.label.y}" class="municipio-label${m.label.clase ? ' '+m.label.clase : ''}" text-anchor="middle">${m.nombre.split(' (')[0]}</text>`).join('');
+}
+
+function renderLista(filtro=''){
+  const cont = document.getElementById('listaMunicipios');
+  const filtrados = municipios.filter(m => m.nombre.toLowerCase().includes(filtro.toLowerCase()));
+  cont.innerHTML = filtrados.map(m=>`
+    <div class="municipio-item${m.id===seleccionado ? ' activo' : ''}" data-id="${m.id}">
+      <div class="mi-top">
+        <div class="mi-nombre"><span class="cap-dot"></span>${m.nombre}</div>
+        <span class="mi-explorar">Explorar
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </div>
+      <div class="mi-datos">
+        <div class="mi-dato"><b>${m.instituciones}</b><span>Instit.</span></div>
+        <div class="mi-dato"><b>${m.programas}</b><span>Progr.</span></div>
+        <div class="mi-dato"><b>${m.estudiantes}</b><span>Estud.</span></div>
+        <div class="mi-dato"><b>${m.proyectos}</b><span>Proy.</span></div>
+      </div>
+    </div>`).join('');
+  cont.querySelectorAll('.municipio-item').forEach(el=>{
+    el.addEventListener('click', ()=> seleccionar(el.dataset.id));
+  });
+}
+
+// Una sola función de barras, reutilizada para instituciones y estudiantes.
+function renderBarras(contenedorId, campo, claseExtra=''){
+  const max = Math.max(...municipios.map(m=>m[campo]));
+  document.getElementById(contenedorId).innerHTML = municipios.map(m=>`
+    <div class="barra-col${claseExtra}">
+      <span class="valor">${m[campo]}</span>
+      <div class="barra" style="height:${(m[campo]/max*100).toFixed(0)}%"></div>
+      <span class="nombre">${m.nombre.split(' ')[0]}</span>
+    </div>`).join('');
+}
+
+function renderDestacado(){
+  const m = municipios.find(x=>x.id===seleccionado);
+  document.getElementById('destNombre').textContent = m.nombre;
+  document.getElementById('destDesc').textContent = m.desc;
+  document.getElementById('chipTexto').textContent = m.nombre;
+  const campos = [
+    ['instituciones','Instituciones'], ['programas','Programas'], ['docentes','Docentes'],
+    ['estudiantes','Estudiantes'], ['proyectos','Proyectos'],
+  ];
+  document.getElementById('destDatos').innerHTML = campos.map(([campo,etiqueta])=>
+    `<div class="dd-item"><div class="n">${m[campo]}</div><div class="l">${etiqueta}</div></div>`).join('');
+}
+
+function renderMapaActivo(){
+  document.querySelectorAll('.municipio-forma').forEach(p=>{
+    p.classList.toggle('activo', p.getAttribute('data-id')===seleccionado);
+  });
+}
+
+function seleccionar(id){
+  seleccionado = id;
+  renderLista(document.getElementById('inputBuscar').value);
+  renderDestacado();
+  renderMapaActivo();
+}
+
+function filtrarLista(){ renderLista(document.getElementById('inputBuscar').value); }
+
+/* ---------- Eventos ---------- */
+
+document.getElementById('inputBuscar').addEventListener('input', filtrarLista);
+document.getElementById('btnLimpiar').addEventListener('click', ()=>{
+  document.getElementById('inputBuscar').value = '';
+  filtrarLista();
+});
+
+function activarInteraccionMapa(){
+  document.querySelectorAll('.municipio-forma').forEach(p=>{
+    p.addEventListener('click', ()=> seleccionar(p.getAttribute('data-id')));
+    p.addEventListener('mouseenter', ()=>{
+      const m = municipios.find(x=>x.id===p.getAttribute('data-id'));
+      const tooltip = document.getElementById('tooltipMapa');
+      const holder = document.getElementById('mapaHolder');
+      const box = p.getBoundingClientRect();
+      const hbox = holder.getBoundingClientRect();
+      tooltip.innerHTML = `
+        <div class="t-nombre">${m.nombre}</div>
+        <div class="t-fila"><span>Instituciones</span><b>${m.instituciones}</b></div>
+        <div class="t-fila"><span>Programas</span><b>${m.programas}</b></div>
+        <div class="t-fila"><span>Estudiantes</span><b>${m.estudiantes}</b></div>
+        <div class="t-fila"><span>Proyectos</span><b>${m.proyectos}</b></div>`;
+      tooltip.style.left = (box.left - hbox.left + box.width/2) + 'px';
+      tooltip.style.top = (box.top - hbox.top) + 'px';
+      tooltip.style.opacity = 1;
+    });
+    p.addEventListener('mouseleave', ()=> document.getElementById('tooltipMapa').style.opacity = 0);
+  });
+}
+
+/* ---------- Inicio ---------- */
+
+renderStats();
+renderDonaLeyenda();
+renderMapa();
+renderLista();
+renderBarras('barrasInstituciones', 'instituciones');
+renderBarras('barrasEstudiantes', 'estudiantes', ' b2');
+renderDestacado();
+renderMapaActivo();
+activarInteraccionMapa();
+document.getElementById('totalInstituciones').textContent = suma('instituciones');
+document.getElementById('totalEstudiantes').textContent = suma('estudiantes').toLocaleString('es-CO');
+</script>
+
+</body>
+</html>
 {% endblock %}

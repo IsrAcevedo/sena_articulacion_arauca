@@ -1,0 +1,195 @@
+:root{
+    --verde: #39A900;
+    --verde-oscuro: #2D7D00;
+    --verde-claro: #6DD400;
+    --verde-suave: #EAF7E1;
+    --blanco: #FFFFFF;
+    --fondo: #F5F7FA;
+    --texto: #1E293B;
+    --texto-sec: #64748B;
+    --borde: #E2E8F0;
+    --radio-s: 10px;
+    --radio-m: 14px;
+    --radio-l: 20px;
+    --sombra-s: 0 1px 2px rgba(15,23,42,.05), 0 1px 3px rgba(15,23,42,.06);
+    --sombra-m: 0 4px 12px rgba(15,23,42,.06), 0 2px 4px rgba(15,23,42,.04);
+    --sombra-l: 0 12px 32px rgba(15,23,42,.08), 0 4px 8px rgba(15,23,42,.04);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--fondo);color:var(--texto);-webkit-font-smoothing:antialiased;line-height:1.5;}
+  h1,h2,h3,h4,.display{font-family:'Manrope',system-ui,sans-serif;}
+  a{text-decoration:none;color:inherit;}
+  ul{list-style:none;}
+  img,svg{display:block;max-width:100%;}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;}
+  input,select{font-family:inherit;}
+  .contenedor{max-width:1320px;margin:0 auto;padding:0 32px;}
+  .eyebrow{font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--verde-oscuro);display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+  .eyebrow::before{content:"";width:16px;height:2px;background:var(--verde);border-radius:2px;}
+
+  /* ---------- HEADER (idéntico al index) ---------- */
+  header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.85);backdrop-filter:blur(14px) saturate(160%);-webkit-backdrop-filter:blur(14px) saturate(160%);border-bottom:1px solid rgba(226,232,240,.8);}
+  .header-inner{max-width:1320px;margin:0 auto;padding:0 32px;height:68px;display:flex;align-items:center;justify-content:space-between;gap:24px;}
+  .marca{display:flex;align-items:center;gap:12px;}
+  .marca .logo{width:38px;height:38px;border-radius:10px;background:linear-gradient(155deg,var(--verde) 0%,var(--verde-oscuro) 100%);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 6px rgba(45,125,0,.25);}
+  .marca .logo svg{width:20px;height:20px;}
+  .marca-texto{display:flex;flex-direction:column;line-height:1.15;}
+  .marca-texto .top{font-family:'Manrope';font-weight:800;font-size:14.5px;color:var(--texto);}
+  .marca-texto .bottom{font-size:11.5px;color:var(--texto-sec);font-weight:500;}
+  nav{display:flex;gap:4px;}
+  nav a{padding:9px 14px;border-radius:8px;font-size:14.5px;font-weight:600;color:var(--texto-sec);transition:all .15s ease;}
+  nav a:hover{background:var(--verde-suave);color:var(--verde-oscuro);}
+  nav a.activo{color:var(--verde-oscuro);background:var(--verde-suave);}
+  .header-derecha{display:flex;align-items:center;gap:10px;}
+  .chip-seleccion{display:flex;align-items:center;gap:8px;background:var(--fondo);border:1px solid var(--borde);padding:6px 12px 6px 8px;border-radius:20px;font-size:12.5px;font-weight:700;color:var(--texto);}
+  .chip-seleccion .dot{width:7px;height:7px;border-radius:50%;background:var(--verde);}
+  .btn-icono{width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;color:var(--texto-sec);transition:all .15s ease;}
+  .btn-icono:hover{background:var(--fondo);color:var(--texto);}
+
+  /* ---------- ENCABEZADO DE PÁGINA ---------- */
+  .page-head{padding:32px 0 22px;border-bottom:1px solid var(--borde);background:#fff;}
+  .page-head-row{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;}
+  .page-head h1{font-size:27px;font-weight:800;letter-spacing:-.01em;margin-bottom:8px;}
+  .page-head p{font-size:14.5px;color:var(--texto-sec);max-width:560px;}
+  .contador-pill{display:flex;align-items:center;gap:8px;background:var(--verde-suave);color:var(--verde-oscuro);font-weight:700;font-size:13px;padding:9px 16px;border-radius:10px;flex-shrink:0;}
+  .contador-pill b{font-family:'Manrope';font-size:16px;}
+
+  /* ---------- FILTROS ---------- */
+  .filtros-bar{display:flex;align-items:center;gap:10px;padding:16px 0;flex-wrap:wrap;}
+  .buscador{
+    flex:1;min-width:220px;display:flex;align-items:center;gap:9px;
+    background:#fff;border:1px solid var(--borde);border-radius:10px;padding:10px 14px;
+    transition:border-color .15s;
+  }
+  .buscador:focus-within{border-color:var(--verde);}
+  .buscador svg{width:16px;height:16px;color:var(--texto-sec);flex-shrink:0;}
+  .buscador input{border:none;outline:none;font-size:13.5px;width:100%;color:var(--texto);background:transparent;}
+  .buscador input::placeholder{color:var(--texto-sec);}
+  .filtro-select{
+    display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--borde);
+    border-radius:10px;padding:10px 14px;font-size:13px;font-weight:600;color:var(--texto);
+    transition:border-color .15s;
+  }
+  .filtro-select:hover{border-color:var(--verde-claro);}
+  .filtro-select svg{width:13px;height:13px;color:var(--texto-sec);}
+  .btn-limpiar{font-size:13px;font-weight:700;color:var(--verde-oscuro);padding:10px 6px;}
+  .btn-limpiar:hover{text-decoration:underline;}
+
+  /* ---------- LAYOUT PRINCIPAL: MAPA + PANEL ---------- */
+  .seccion{padding:36px 0;}
+  .layout-mapa{display:grid;grid-template-columns:1.35fr 1fr;gap:22px;align-items:stretch;}
+
+  .panel{background:#fff;border:1px solid var(--borde);border-radius:var(--radio-m);box-shadow:var(--sombra-s);}
+  .panel-header{display:flex;justify-content:space-between;align-items:center;padding:20px 22px;border-bottom:1px solid var(--borde);}
+  .panel-header h3{font-size:15.5px;font-weight:700;}
+  .panel-header .sub{font-size:12px;color:var(--texto-sec);margin-top:2px;font-weight:500;}
+  .badge-gis{font-size:10.5px;font-weight:700;color:var(--verde-oscuro);background:var(--verde-suave);padding:4px 9px;border-radius:20px;display:flex;align-items:center;gap:5px;}
+  .badge-gis .punto{width:6px;height:6px;border-radius:50%;background:var(--verde);}
+
+  .mapa-body{padding:22px;position:relative;}
+  .mapa-svg-holder{position:relative;}
+  .municipio-forma{cursor:pointer;transition:all .15s ease;fill:#EAF7E1;stroke:#CBEFB4;stroke-width:1.6;}
+  .municipio-forma:hover{fill:#D6F0C2;}
+  .municipio-forma.activo{fill:var(--verde-claro);stroke:var(--verde-oscuro);}
+  .municipio-label{font-family:'Inter';font-size:10.5px;font-weight:700;fill:var(--texto);pointer-events:none;}
+  .municipio-label.claro{fill:#fff;}
+  .municipio-punto{cursor:pointer;}
+  .tooltip-mapa{
+    position:absolute;background:#fff;color:var(--texto);font-size:12px;
+    padding:12px 14px;border-radius:10px;pointer-events:none;opacity:0;transition:opacity .12s ease;
+    transform:translate(-50%,-108%);white-space:nowrap;z-index:5;box-shadow:var(--sombra-l);border:1px solid var(--borde);min-width:150px;
+  }
+  .tooltip-mapa .t-nombre{font-family:'Manrope';font-weight:800;font-size:13.5px;margin-bottom:8px;color:var(--texto);}
+  .tooltip-mapa .t-fila{display:flex;justify-content:space-between;gap:16px;font-size:11.5px;color:var(--texto-sec);padding:2px 0;font-weight:500;}
+  .tooltip-mapa .t-fila b{color:var(--texto);font-weight:700;}
+  .mapa-leyenda{display:flex;align-items:center;gap:16px;padding:0 22px 20px;flex-wrap:wrap;}
+  .mapa-leyenda .item{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--texto-sec);font-weight:500;}
+  .mapa-leyenda .dot{width:9px;height:9px;border-radius:4px;}
+
+  /* lista de tarjetas de municipios */
+  .lista-municipios{padding:14px;display:flex;flex-direction:column;gap:10px;max-height:560px;overflow-y:auto;}
+  .lista-municipios::-webkit-scrollbar{width:6px;}
+  .lista-municipios::-webkit-scrollbar-thumb{background:var(--borde);border-radius:10px;}
+  .municipio-item{
+    border:1px solid var(--borde);border-radius:var(--radio-s);padding:14px 16px;
+    display:flex;flex-direction:column;gap:10px;cursor:pointer;transition:all .16s ease;background:#fff;
+  }
+  .municipio-item:hover{border-color:var(--verde-claro);box-shadow:var(--sombra-s);}
+  .municipio-item.activo{border-color:var(--verde);background:var(--verde-suave);}
+  .mi-top{display:flex;justify-content:space-between;align-items:center;}
+  .mi-nombre{display:flex;align-items:center;gap:8px;font-family:'Manrope';font-weight:700;font-size:14.5px;}
+  .mi-nombre .cap-dot{width:8px;height:8px;border-radius:50%;background:var(--verde);flex-shrink:0;}
+  .mi-explorar{font-size:12px;font-weight:700;color:var(--verde-oscuro);display:flex;align-items:center;gap:4px;}
+  .mi-datos{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;}
+  .mi-dato{background:#F8FAFC;border-radius:7px;padding:6px 4px;text-align:center;}
+  .municipio-item.activo .mi-dato{background:#fff;}
+  .mi-dato b{display:block;font-family:'Manrope';font-size:14px;font-weight:800;color:var(--texto);}
+  .mi-dato span{font-size:9.5px;color:var(--texto-sec);font-weight:600;text-transform:uppercase;letter-spacing:.02em;}
+
+  /* ---------- KPIs ---------- */
+  .stats-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;}
+  .stat-card{background:#fff;border:1px solid var(--borde);border-radius:var(--radio-m);padding:18px 16px;box-shadow:var(--sombra-s);transition:box-shadow .18s ease, transform .18s ease;}
+  .stat-card:hover{box-shadow:var(--sombra-m);transform:translateY(-2px);}
+  .stat-icono{width:32px;height:32px;border-radius:8px;background:var(--verde-suave);display:flex;align-items:center;justify-content:center;margin-bottom:12px;color:var(--verde-oscuro);}
+  .stat-icono svg{width:16px;height:16px;}
+  .stat-numero{font-family:'Manrope';font-size:23px;font-weight:800;line-height:1;margin-bottom:5px;}
+  .stat-etiqueta{font-size:12px;color:var(--texto-sec);font-weight:600;}
+
+  /* ---------- GRAFICOS ---------- */
+  .seccion-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:24px;gap:24px;flex-wrap:wrap;}
+  .seccion-header h2{font-size:23px;font-weight:800;letter-spacing:-.01em;}
+  .seccion-header p{font-size:13.5px;color:var(--texto-sec);margin-top:5px;max-width:520px;}
+  .graficos-grid{display:grid;grid-template-columns:1fr 1fr 0.85fr;gap:18px;}
+
+  .barras{display:flex;align-items:flex-end;gap:10px;height:190px;padding:20px 6px 0;}
+  .barra-col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:8px;}
+  .barra-col .valor{font-size:11px;font-weight:700;color:var(--texto);}
+  .barra-col .barra{width:100%;max-width:28px;border-radius:6px 6px 3px 3px;background:linear-gradient(180deg,var(--verde-claro) 0%,var(--verde) 100%);transition:opacity .15s;}
+  .barra-col.b2 .barra{background:linear-gradient(180deg,#8FD1E8 0%,#2E8FB0 100%);}
+  .barra-col:hover .barra{opacity:.85;}
+  .barra-col .nombre{font-size:9.5px;color:var(--texto-sec);font-weight:600;text-align:center;}
+
+  .dona-wrap{display:flex;flex-direction:column;align-items:center;padding:8px 0 0;}
+  .dona-leyenda{width:100%;display:flex;flex-direction:column;gap:9px;margin-top:18px;}
+  .dona-leyenda .fila{display:flex;align-items:center;justify-content:space-between;font-size:12px;font-weight:600;color:var(--texto);}
+  .dona-leyenda .fila .izq{display:flex;align-items:center;gap:8px;color:var(--texto-sec);font-weight:500;}
+  .dona-leyenda .dot{width:9px;height:9px;border-radius:3px;flex-shrink:0;}
+
+  /* ---------- MUNICIPIO DESTACADO ---------- */
+  .destacado-panel{background:#fff;border:1px solid var(--borde);border-radius:var(--radio-l);box-shadow:var(--sombra-m);overflow:hidden;}
+  .destacado-top{background:linear-gradient(120deg,var(--verde-oscuro) 0%,var(--verde) 100%);padding:26px 30px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;}
+  .destacado-top .eyebrow{color:#D9F5C4;}
+  .destacado-top .eyebrow::before{background:#D9F5C4;}
+  .destacado-top h2{color:#fff;font-size:26px;font-weight:800;}
+  .destacado-top p{color:#DDF2CB;font-size:13.5px;max-width:460px;margin-top:8px;}
+  .btn-blanco{background:#fff;color:var(--verde-oscuro);font-size:13.5px;font-weight:700;padding:12px 20px;border-radius:10px;display:inline-flex;align-items:center;gap:8px;transition:all .15s ease;flex-shrink:0;}
+  .btn-blanco:hover{background:#F0FBEA;transform:translateY(-1px);}
+  .destacado-datos{display:grid;grid-template-columns:repeat(5,1fr);gap:0;}
+  .dd-item{padding:22px 20px;text-align:center;border-right:1px solid var(--borde);}
+  .dd-item:last-child{border-right:none;}
+  .dd-item .n{font-family:'Manrope';font-size:24px;font-weight:800;color:var(--texto);}
+  .dd-item .l{font-size:11.5px;color:var(--texto-sec);font-weight:600;margin-top:4px;}
+
+  footer{background:var(--texto);color:#94A3B8;padding:30px 0;margin-top:20px;text-align:center;font-size:12px;}
+
+  @media (max-width:1100px){
+    .layout-mapa{grid-template-columns:1fr;}
+    .graficos-grid{grid-template-columns:1fr 1fr;}
+    .graficos-grid > *:last-child{grid-column:span 2;}
+    .stats-grid{grid-template-columns:repeat(3,1fr);}
+    .destacado-datos{grid-template-columns:repeat(3,1fr);}
+    .dd-item:nth-child(3){border-right:none;}
+  }
+  @media (max-width:860px){
+    nav{display:none;}
+    .graficos-grid{grid-template-columns:1fr;}
+    .graficos-grid > *:last-child{grid-column:span 1;}
+  }
+  @media (max-width:600px){
+    .contenedor{padding:0 18px;}
+    .stats-grid{grid-template-columns:repeat(2,1fr);}
+    .mi-datos{grid-template-columns:repeat(2,1fr);}
+    .destacado-datos{grid-template-columns:repeat(2,1fr);}
+    .dd-item:nth-child(2n){border-right:none;}
+  }
