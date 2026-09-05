@@ -1,489 +1,949 @@
 * {
     margin: 0;
+    padding: 0;
     box-sizing: border-box;
-    font-family: poppins, sans-serif;
+    text-decoration: none;
     scroll-behavior: smooth;
-    text-decoration: none;
 }
 
-h1 {
-    font-size: 3.5em;
-    text-transform: capitalize;
-    font-family: 'Montserrat', sans-serif;
+/* =====================================================
+   VARIABLES DE COLOR INSTITUCIONALES (SENA)
+   ===================================================== */
+:root {
+    --verde-sena: #39A900;
+    --verde-sena-oscuro: #1F5C00;
+    --verde-claro: #EAF6E1;
+    --ambar-llanero: #E08A2E;
+    --ambar-llanero-oscuro: #B9691A;
+    --crema-fondo: #FBF9F4;
+    --blanco: #FFFFFF;
+    --carbon: #24261F;
+    --gris-texto: #4A4D45;
+    --gris-borde: #E2DFD3;
+    --sombra-suave: 0 4px 14px rgba(36, 38, 31, 0.08);
+    --sombra-hover: 0 10px 24px rgba(57, 169, 0, 0.22);
+    --transicion-suave: all 0.3s ease;
+
+    --fuente-titulos: 'Poppins', 'Segoe UI', sans-serif;
+    --fuente-texto: 'Inter', 'Segoe UI', sans-serif;
 }
 
-h2 {
-    font-size: 2.7em;
-    text-transform: capitalize;
-    font-family: 'Montserrat', sans-serif;
+/* =====================================================
+    RESET BÁSICO
+   ===================================================== */
+
+
+body {
+    font-family: var(--fuente-texto);
+    color: var(--carbon);
+    background-color: var(--crema-fondo);
+    line-height: 1.6;
 }
 
-h3 {
-    font-size: 2em;
-    text-transform: capitalize;
-    font-family: 'Montserrat', sans-serif;
-}
-
-p {
-    font-size: 1.25em;
-}
-
-/*Color acentado*/
-.color-acento {
-    color: #2e7d32;
-}
-
-/*Botones*/
-
-.button {
-    background-color: #2e7d32;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 22px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 50px;
-}
-
-.button:hover {
-    background-color: #269136;
-}
-
-
-/* NAV GENERAL */
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #1a1a1a;
-    padding: 15px 30px;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-}
-
-/* LOGO */
-nav .logo {
-    font-size: 1.4rem;
-    font-weight: bold;
-    color: #fff;
-}
-
-/* LISTA NAV */
-nav ul {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-}
-
-/* LINKS NAV */
-nav ul li a {
-    text-decoration: none;
-    color: #fff;
-    font-weight: 600;
-    padding: 8px 14px;
-    border-radius: 6px;
-    transition: all 0.3s ease-in-out;
-    /* 👈 Transición suave */
-}
-
-/* EFECTO HOVER */
-nav ul li a:hover {
-    background: rgba(255, 255, 255, 0.2);
-    /* Naranja */
-    color: #fff;
-    transform: translateY(-3px);
-    /* 👈 efecto de levantar */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
-
-/* ENLACE ACTIVO */
-nav ul li a.active {
-    background: #28a745;
-    /* Verde para activo */
-    color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* BOTÓN HAMBURGUESA */
-.menu-toggle {
-    display: none;
-    font-size: 1.8rem;
-    color: white;
-    cursor: pointer;
-}
-
-/*Hero*/
-
-.container {
-    max-width: 1400px;
-    margin: auto;
-}
-
-#hero {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    flex-direction: column;
-    height: 90vh;
-    color: white;
-    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-    text-transform: capitalize;
-}
-
-
-/*Info colegio*/
-
-#info-colegio .container {
-    text-align: center;
-    padding: 200px 12px;
-}
-
-.img-colegio {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.img-colegio img {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
-    margin-bottom: 20px;
-}
-
-/*info tecnicos*/
-
-#nuestros-tecnicos {
-    background-color: rgb(30, 30, 30);
-    color: white;
-    text-align: center;
-    padding: 100px 0;
-}
-
-#nuestros-tecnicos .container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 30px;
-    padding: 0 12px;
-}
-
-#nuestros-tecnicos h2 {
-    margin-top: 0;
-    font-size: 3em;
-}
-
-#nuestros-tecnicos p {
-    margin-bottom: 40px;
-    font-size: 1.3em;
-    display: block;
-}
-
-.tecnicos {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 30px;
-}
-
-.carta-tecnico {
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-    padding: 50px 30px;
-    margin: 0;
-    border-radius: 16px;
-    width: 300px;
-    color: white;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
-    min-height: 400px;
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.carta-tecnico:hover {
-    transform: translateY(-5px);
-    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.15);
-}
-
-.carta-tecnico:first-child {
-    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/scott-graham-5fNmWej4tAA-unsplash\ \(1\).jpg)
-}
-
-.carta-tecnico:nth-child(2) {
-    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/scott-graham-5fNmWej4tAA-unsplash\ \(1\).jpg);
-}
-
-.carta-tecnico:nth-child(3) {
-    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/scott-graham-5fNmWej4tAA-unsplash\ \(1\).jpg);
-}
-
-
-/*Carrucel*/
-
-.carrucel {
-    max-height: none;
-    overflow-x: auto;
-    overflow-y: visible;
-    display: flex;
-    margin: 48px 25px 48px 25px;
-}
-
-.carrucel::-webkit-scrollbar {
-    width: 0;
-}
-
-.carrucel .proyectos {
-    min-width: 255px;
-    height: 255px;
-    line-height: 440px;
-    text-align: center;
-    margin-right: 15px;
+ h1, h2, h3{
+    font-family: var(--fuente-titulos);
+    color: var(--verde-sena-oscuro);
+    letter-spacing: -0.01em;
+  }
+ 
+  .texto-mono{
+    font-family: 'IBM Plex Mono', monospace;
+  }
+ 
+  a{ color: inherit; }
+ 
+  /* ---------- HERO DEL COLEGIO ---------- */
+  .hero-colegio{
     position: relative;
-    display: inline-block;
-    overflow: visible;
-}
-
-.proyectos img {
-    width: 100%;
-    height: 100%;
-    transition: transform 0.3s;
-    display: block;
-    position: relative;
-    left: 0;
-    top: 0;
-    z-index: 2;
-}
-
-.proyectos .btn {
+    background: var(--verde-sena-oscuro);
+    background-image:
+      linear-gradient(rgba(0,0,0,0.15) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,0,0.15) 1px, transparent 1px);
+    background-size: 42px 42px;
+    background-position: center;
+    color: var(--crema-fondo);
+    padding: 72px 24px 90px;
+    overflow: hidden;
+    border-bottom: 3px solid var(--ambar-llanero);
+  }
+ 
+  .hero-colegio::before, .hero-colegio::after,
+  .hero-colegio-esquina-abajo-izq, .hero-colegio-esquina-abajo-der{
+    content: "";
     position: absolute;
-    top: 110%;
-    left: 20%;
-    transform: translate(-50%, -50%);
-}
-
-.cartelera h2 {
-    color: #111111;
-    font-size: 32px;
-    margin: 100px 48px 20px 48px;
-
-}
-
-.carrucel .proyectos:hover img {
-    transform: scale(1.1);
-    z-index: 3;
-}
-
-.carrucel .proyectos {
-    color: #c7c3c3;
-    position: relative;
-    transition: 0.5s;
-    overflow: visible;
-}
-
-.carrucel:hover .proyectos:not(:hover) {
-    filter: blur(5px);
-}
-
-/*Instructores*/
-
-#instructores {
-    background: #f9f9f9;
-    padding: 60px 0;
-    text-align: center;
-}
-
-
-.instructores-container {
+    width: 26px;
+    height: 26px;
+    border: 1.5px solid rgba(251,249,244,0.55);
+  }
+  .hero-colegio::before{ top: 20px; left: 20px; border-right: none; border-bottom: none; }
+  .hero-colegio::after{ top: 20px; right: 20px; border-left: none; border-bottom: none; }
+  .hero-colegio-esquina-abajo-izq{ bottom: 20px; left: 20px; border-right: none; border-top: none; }
+  .hero-colegio-esquina-abajo-der{ bottom: 20px; right: 20px; border-left: none; border-top: none; }
+ 
+  .hero-colegio-contenido{
+    max-width: 1080px;
+    margin: 0 auto;
     display: flex;
-    justify-content: center;
+    align-items: center;
+    gap: 40px;
     flex-wrap: wrap;
-    gap: 2rem;
-    padding: 40px 0;
-}
+    position: relative;
+    z-index: 2;
+  }
+ 
+  .hero-colegio-logo{ flex-shrink: 0; }
+ 
+  .hero-colegio-texto{ flex: 1; min-width: 260px; }
+ 
+  .hero-colegio-etiqueta{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ambar-llanero);
+    border: 1px solid rgba(224,138,46,0.5);
+    padding: 5px 12px;
+    border-radius: 2px;
+    margin-bottom: 18px;
+  }
+  .hero-colegio-etiqueta::before{
+    content: "";
+    width: 6px; height: 6px;
+    background: var(--ambar-llanero);
+    display: inline-block;
+  }
+ 
+  .hero-colegio-texto h1{
+    color: var(--blanco);
+    font-size: clamp(30px, 4.6vw, 46px);
+    font-weight: 700;
+    line-height: 1.05;
+    margin-bottom: 14px;
+  }
+ 
+  .hero-colegio-eslogan{
+    font-size: clamp(16px, 2vw, 19px);
+    color: rgba(251,249,244,0.85);
+    font-style: italic;
+    border-left: 2px solid var(--ambar-llanero);
+    padding-left: 14px;
+    max-width: 480px;
+  }
+ 
+  /* ---------- LAYOUT GENERAL ---------- */
+  main{
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+  }
+ 
+  .seccion{
+    padding: 64px 0 12px;
+  }
+ 
+  .seccion-encabezado{
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 28px;
+    border-bottom: 1px solid var(--gris-borde);
+    padding-bottom: 14px;
+  }
+ 
+  .seccion-encabezado h2{
+    font-size: 26px;
+  }
+ 
+  .seccion-encabezado-codigo{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--gris-texto);
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+  }
+ 
+  .cuadricula{
+    display: grid;
+    gap: 20px;
+  }
+ 
+  .cuadricula-2{ grid-template-columns: repeat(2, 1fr); }
+  .cuadricula-3{ grid-template-columns: repeat(3, 1fr); }
+ 
+  @media (max-width: 780px){
+    .cuadricula-2, .cuadricula-3{ grid-template-columns: 1fr; }
+  }
+ 
+  /* ---------- BASE DE TARJETA (estilo sello de plano) ---------- */
+  .tarjeta{
+    background: var(--blanco);
+    border: 1px solid var(--gris-borde);
+    border-radius: 3px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--sombra-suave);
+    transition: var(--transicion-suave);
+  }
+ 
+  .tarjeta:hover{
+    border-color: var(--verde-sena);
+    box-shadow: var(--sombra-hover);
+    transform: translateY(-2px);
+  }
+ 
+  .tarjeta-etiqueta{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 14px;
+    background: var(--verde-sena-oscuro);
+    color: var(--crema-fondo);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-radius: 3px 3px 0 0;
+  }
+ 
+  .tarjeta-etiqueta span:last-child{ color: var(--ambar-llanero); }
+ 
+  .tarjeta-contenido{
+    padding: 20px 20px 22px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+ 
+  /* ---------- TARJETA DE DATOS INSTITUCIONALES ---------- */
+  .tarjeta-datos-institucionales .tarjeta-contenido{ padding: 28px 26px 26px; gap: 26px; }
+ 
+  .tarjeta-datos-institucionales-identidad{
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    flex-wrap: wrap;
+    padding-bottom: 22px;
+    border-bottom: 1px dashed var(--gris-borde);
+  }
+ 
+  .tarjeta-datos-institucionales-municipio{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ambar-llanero);
+  }
+  .tarjeta-datos-institucionales-municipio::before{
+    content: "";
+    width: 6px; height: 6px;
+    background: var(--ambar-llanero);
+    display: inline-block;
+  }
+ 
+  .tarjeta-datos-institucionales-estadisticas{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    padding-bottom: 22px;
+    border-bottom: 1px dashed var(--gris-borde);
+  }
+ 
+  @media (max-width: 600px){ .tarjeta-datos-institucionales-estadisticas{ grid-template-columns: 1fr; } }
+ 
+  .tarjeta-datos-institucionales-estadistica{
+    text-align: left;
+    border-left: 2px solid var(--ambar-llanero);
+    padding-left: 14px;
+  }
+ 
+  .tarjeta-datos-institucionales-estadistica-numero{
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+    color: var(--verde-sena-oscuro);
+    line-height: 1;
+  }
+ 
+  .tarjeta-datos-institucionales-estadistica-etiqueta{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--gris-texto);
+    margin-top: 6px;
+  }
+ 
 
-.carta-instructor {
-    background: white;
-    width: 260px;
-    border-radius: 20px;
-    text-align: center;
-    padding: 20px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    transition: 0.3s ease;
-}
+ 
 
-.carta-instructor:hover {
-    transform: scale(1.05);
-}
+ 
 
-.carta-instructor img {
-    width: 100px;
-    height: 100px;
+ 
+
+  /* ---------- TARJETAS DE PERSONAS ---------- */
+  .tarjeta-persona .tarjeta-contenido{ align-items: flex-start; }
+ 
+  .tarjeta-persona-avatar{
+    width: 52px;
+    height: 52px;
     border-radius: 50%;
-    margin-bottom: 15px;
-}
+    background: var(--verde-sena-oscuro);
+    color: var(--crema-fondo);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    border: 2px solid var(--ambar-llanero);
+    margin-bottom: 6px;
+  }
+ 
+  .tarjeta-persona h3{
+    font-size: 17px;
+  }
+ 
+  .tarjeta-persona-rol{
+    align-self: flex-start;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--verde-sena-oscuro);
+    background: var(--verde-claro);
+    border: 1px solid rgba(57,169,0,0.25);
+    padding: 3px 8px;
+    border-radius: 2px;
+  }
+ 
+  .tarjeta-persona p{
+    font-size: 14px;
+    color: var(--gris-texto);
+  }
+ 
+  /* ---------- TARJETAS DE PROYECTOS ---------- */
+  .tarjeta-proyecto .tarjeta-contenido{ gap: 12px; }
+ 
+  .tarjeta-proyecto h3{ font-size: 18px; }
+ 
+  .tarjeta-proyecto p{ font-size: 14px; color: var(--gris-texto); }
+ 
+  .tarjeta-proyecto-meta{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 10px;
+  }
+ 
+  .etiqueta-chip{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: var(--crema-fondo);
+    border: 1px solid var(--gris-borde);
+    color: var(--gris-texto);
+    padding: 3px 8px;
+    border-radius: 2px;
+  }
+ 
+  .etiqueta-chip-activo{ border-color: var(--ambar-llanero); color: var(--ambar-llanero); }
+ 
 
-.carta-instructor h3 {
-    color: var(--color-secundario);
-}
 
-.carta-instructor p {
-    font-size: 0.9rem;
-    color: #555;
-}
-
-/* Footer */
-.footer {
-    background: #111;
-    color: #fff;
-    padding: 22px 18px;
+  /* ---------- SECCIÓN: VER MÁS DEL COLEGIO (CTA) ---------- */
+  .seccion-ver-mas{
+    position: relative;
+    margin-top: 60px;
+    margin-bottom: 60px;
+    background: var(--verde-sena-oscuro);
+    background-image:
+    linear-gradient(rgba(0,0,0,0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.15) 1px, transparent 1px);
+    background-size: 42px 42px;
+    background-position: center;
+    border-top: 3px solid var(--ambar-llanero);
+    padding: 56px 24px;
+    overflow: hidden;
+  }
+ 
+  .seccion-ver-mas::before, .seccion-ver-mas::after{
+    content: "";
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border: 1.5px solid rgba(251,249,244,0.4);
+  }
+  .seccion-ver-mas::before{ top: 18px; left: 18px; border-right: none; border-bottom: none; }
+  .seccion-ver-mas::after{ bottom: 18px; right: 18px; border-left: none; border-top: none; }
+ 
+  .seccion-ver-mas-contenido{
+    max-width: 640px;
+    margin: 0 auto;
     text-align: center;
-}
+    position: relative;
+    z-index: 2;
+  }
+ 
+  .seccion-ver-mas-etiqueta{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ambar-llanero);
+    margin-bottom: 14px;
+  }
+  .seccion-ver-mas-etiqueta::before{
+    content: "";
+    width: 6px; height: 6px;
+    background: var(--ambar-llanero);
+    display: inline-block;
+  }
+ 
+  .seccion-ver-mas-contenido h2{
+    color: var(--blanco);
+    font-size: clamp(24px, 3.4vw, 32px);
+    margin-bottom: 10px;
+  }
+ 
+  .seccion-ver-mas-contenido p{
+    color: rgba(251,249,244,0.8);
+    font-size: 15px;
+    margin-bottom: 26px;
+  }
+ 
+  .seccion-ver-mas-boton{
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--ambar-llanero);
+    color: var(--carbon);
+    font-family: var(--fuente-titulos);
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    padding: 13px 28px;
+    border-radius: 3px;
+    border: 1px solid var(--ambar-llanero-oscuro);
+    box-shadow: var(--sombra-suave);
+    transition: var(--transicion-suave);
+  }
+ 
+  .seccion-ver-mas-boton:hover{
+    background: var(--ambar-llanero-oscuro);
+    color: var(--blanco);
+    box-shadow: var(--sombra-hover);
+    transform: translateY(-2px);
+  }
+ 
+  .seccion-ver-mas-boton svg{ flex-shrink: 0; }
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
-    nav ul {
-        position: absolute;
-        top: 60px;
-        left: 0;
-        width: 100%;
-        background: #1a1a1a;
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
-        padding: 15px 0;
-        display: none;
-        opacity: 0;
-        transform: translateY(-20px);
-        transition: all 0.3s ease-in-out;
-    }
 
-    nav ul li a:hover {
-        background: none;
-    }
 
-    nav ul.show {
-        display: flex;
-        opacity: 1;
-        transform: translateY(0);
-        /* 👈 animación al bajar */
-    }
 
-    .menu-toggle {
-        display: block;
-    }
-}
+
+
 
 
 
 /*Pagina de todos los colegios*/
 
 /* HERO */
-#hero-colegios {
-    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/kalen-emsley-Bkci_8qcdvQ-unsplash\ \(1\).jpg);
-    background-repeat: no-repeat;
+
+.hero {
+    min-height: 620px;
+    background-image:
+        linear-gradient(
+            90deg,
+            #0f1f32 0%,
+            rgba(15, 31, 50, 0.95) 18%,
+            rgba(15, 31, 50, 0.75) 38%,
+            rgba(15, 31, 50, 0.35) 58%,
+            rgba(15, 31, 50, 0.05) 78%,
+            transparent 100%
+        ),
+        url('../img/hero.png');
     background-size: cover;
-    background-position: center center;
-    text-transform: capitalize;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    padding: 60px 8%;
+    margin: auto;
+}
+
+.hero-contenido {
+    max-width: 650px;
     color: white;
-    text-align: center;
-    padding: 120px 20px;
 }
 
-#hero-colegios h1 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-}
-
-#hero-colegios p {
+.hero h1 {
+    color: white;
     max-width: 600px;
-    margin: 0 auto 20px;
-    font-size: 1.1rem;
+    font-size: 42px;
+    font-family: var(--fuente-titulos);
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 1.3;
 }
 
-.btn-colegio {
-    background: #2e7d32;
-    color: white;
-    padding: 12px 24px;
-    border-radius: 25px;
-    text-decoration: none;
-    font-weight: 500;
-    transition: 0.3s;
+.hero span{
+    color: var(--verde-sena);
 }
 
-.btn-colegio:hover {
-    background: #269136;
-    color: white;
+.hero p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 30px;
 }
 
-/* SECCIÓN COLEGIOS */
-#colegios {
+.hero::after{
+    background: rgba(0, 0, 0, 0);
+}
+
+
+
+h2 {
+    font-family: var(--fuente-titulos);
     text-align: center;
-    padding: 60px 20px;
+    color: var(--verde-sena-oscuro);
+    margin-bottom: 8px;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
 }
 
-#colegios h2 {
-    font-family: 'Montserrat', sans-serif;
-    color: var(--azul-oscuro);
-    margin-bottom: 40px;
-}
+/* 
 
-#colegios h3 {
-    margin-bottom: 20px;
-}
 
-.colegios-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 30px;
-    max-width: 1000px;
+
+/* =====================================================
+SECCIÓN DE IMPACTO (texto + imagen alternados)
+===================================================== */
+#impacto-articulacion {
+    padding: 80px 24px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
-.tarjeta-colegio {
-    background: rgb(255, 255, 255);
-    border-radius: 16px;
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+.fila-impacto {
+    display: flex;
+    align-items: center;
+    gap: 64px;
+    margin-bottom: 96px;
+}
+
+.fila-impacto:last-child {
+    margin-bottom: 0;
+}
+
+.fila-impacto-invertida {
+    flex-direction: row-reverse;
+}
+
+.texto-impacto {
+    flex: 1;
+    min-width: 280px;
+}
+
+.titulo-impacto {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 2rem;
+    line-height: 1.3;
+    color: var(--carbon);
+    margin: 14px 0 18px;
+}
+
+.descripcion-impacto {
+    font-family: var(--fuente-texto);
+    color: var(--gris-texto);
+    font-size: 1.02rem;
+    line-height: 1.7;
+    margin-bottom: 28px;
+    max-width: 420px;
+}
+
+.boton-impacto {
+    display: inline-block;
+    font-family: var(--fuente-texto);
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--verde-sena-oscuro);
+    background-color: var(--verde-claro);
+    padding: 12px 26px;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: var(--transicion-suave);
+}
+
+.boton-impacto:hover {
+    background-color: var(--verde-sena);
+    color: var(--blanco);
+}
+
+.imagen-impacto {
+    flex: 1;
+    min-width: 280px;
+}
+
+.imagen-impacto img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: var(--sombra-hover);
+}
+
+/*
+
+
+
+
+
+=====================================================
+SECCIÓN 1: CARRUSEL
+   ===================================================== */
+#carrusel-instituciones {
+    padding: 184px 24px 146px;
+    text-align: center;
+}
+
+.eyebrow-institucional {
+    font-family: var(--fuente-texto);
+    display: inline-block;
+    color: var(--ambar-llanero-oscuro);
+    background-color: rgba(224, 138, 46, 0.12);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+}
+
+.contenedor-carrusel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.flecha-carrusel {
+    background-color: var(--blanco);
+    color: var(--verde-sena-oscuro);
+    border: 2px solid var(--verde-claro);
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    font-size: 1.3rem;
+    cursor: pointer;
+    flex-shrink: 0;
+    box-shadow: var(--sombra-suave);
+    transition: var(--transicion-suave);
+}
+
+.flecha-carrusel:hover {
+    background-color: var(--verde-sena);
+    color: var(--blanco);
+    border-color: var(--verde-sena);
+    transform: scale(1.08);
+}
+
+.tarjetas-carrusel {
+    display: flex;
+    gap: 20px;
     overflow: hidden;
-    transition: 0.3s;
+    flex: 1;
+    justify-content: center;
+}
+
+/* =====================================================
+   TARJETAS DE COLEGIO (reutilizadas en carrusel y cuadrícula)
+   ===================================================== */
+.tarjeta-colegio {
+    position: relative;
+    background-color: var(--blanco);
+    border: 2px solid transparent;
+    border-radius: 14px;
+    padding: 28px 22px 24px;
+    min-width: 220px;
+    max-width: 260px;
+    box-shadow: var(--sombra-suave);
+    cursor: pointer;
+    transition: var(--transicion-suave);
+    text-align: left;
+    overflow: hidden;
+}
+
+.tarjeta-colegio::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--verde-sena), var(--ambar-llanero));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: var(--transicion-suave);
 }
 
 .tarjeta-colegio:hover {
-    transform: translateY(-5px);
+    border-color: var(--verde-sena);
+    box-shadow: var(--sombra-hover);
+    transform: translateY(-6px);
 }
 
-.tarjeta-colegio img {
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 50%;
-    margin: 20px auto 10px;
+.tarjeta-colegio:hover::before {
+    transform: scaleX(1);
+}
+
+.insignia-articulado {
+    display: inline-block;
+    font-family: var(--fuente-texto);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--verde-sena-oscuro);
+    background-color: var(--verde-claro);
+    padding: 3px 10px;
+    border-radius: 12px;
+    margin-bottom: 14px;
+}
+
+.nombre-colegio {
+    font-family: var(--fuente-titulos);
+    color: var(--carbon);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    line-height: 1.3;
+}
+
+.ubicacion-colegio {
+    color: var(--gris-texto);
+    font-size: 0.92rem;
+}
+
+/* =====================================================
+   BOTÓN "VER MÁS"
+   ===================================================== */
+#boton-ver-mas,
+#boton-ver-mas-info,
+.btn-hero {
+    font-family: var(--fuente-texto);
+    margin-top: 36px;
+    background-color: var(--verde-sena);
+    color: var(--blanco);
+    border: none;
+    padding: 13px 34px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 6px 16px rgba(57, 169, 0, 0.25);
+    transition: var(--transicion-suave);
+}
+
+#boton-ver-mas:hover,
+#boton-ver-mas-info:hover,
+.btn-hero:hover {
+    background-color: var(--ambar-llanero);
+    box-shadow: 0 6px 16px rgba(224, 138, 46, 0.3);
+    transform: scale(1.03);
+}
+
+/* =====================================================
+   SECCIÓN 2: TODAS LAS INSTITUCIONES (cuadrícula)
+   ===================================================== */
+#todas-instituciones {
+    /* Oculta por defecto: JavaScript la mostrará al presionar "Ver más" */
+    display: none;
+    padding: 48px 24px;
+    background-color: var(--verde-claro);
+}
+
+#todas-instituciones {
+    /* Oculta por defecto: JavaScript la mostrará al presionar "Ver más" */
+    display: none;
+    padding: 56px 24px 64px;
+    background: linear-gradient(180deg, var(--verde-claro) 0%, var(--crema-fondo) 100%);
+}
+
+.cuadricula-instituciones {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 28px;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+/* Las tarjetas dentro de la cuadrícula se ven más grandes que las del carrusel */
+.cuadricula-instituciones .tarjeta-colegio {
+    min-width: unset;
+    max-width: unset;
+    padding: 40px 30px 32px;
+}
+
+.cuadricula-instituciones .nombre-colegio {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+}
+
+.cuadricula-instituciones .ubicacion-colegio {
+    font-size: 1.05rem;
+}
+
+.contenedor-boton-ver-menos {
+    text-align: center;
+}
+
+#boton-ver-menos {
+    font-family: var(--fuente-texto);
+    margin-top: 36px;
+    background-color: var(--blanco);
+    color: var(--verde-sena-oscuro);
+    border: 2px solid var(--verde-sena);
+    padding: 11px 30px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transicion-suave);
+}
+
+#boton-ver-menos:hover {
+    background-color: var(--verde-sena);
+    color: var(--blanco);
+}
+
+/* =====================================================
+   SECCIÓN 3: Banner
+   ===================================================== */
+
+.banner {
+    width: 100%;
+    max-width: 1300px;
+    min-height: 320px;
+    margin: 30px auto;
+    display: flex;
+    align-items: center;
+    background: #f7fbf7;
+    border: 3px solid white;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* IMAGEN DE LOS ESTUDIANTES */
+
+.banner-imagen {
+    width: 100%;
+    min-height: 320px;
+    background-image: url(../img/banner.png);
+    background-size: cover;
+    background-position: center;
+}
+
+
+
+
+
+/* TEXTO */
+
+.banner-texto {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-weight: 600;
+    right: 15%;
+    width: 35%;
+    padding: 20px 30px;
+    z-index: 2;
+}
+
+.banner-texto h2 {
+    margin: 0 0 5px;
+    color: #000;
+    font-size: 16px;
+    line-height: 1.2;
+}
+
+.banner-texto p {
+    margin: 0;
+    color: #39A900;
+    font-size: 12px;
+    line-height: 1.3;
+}
+
+.banner-texto span {
     display: block;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    width: 60px;
+    height: 3px;
+    margin-top: 14px;
+    background: #39A900,linear-gradient(90deg, #39A900 0%, #E08A2E 100%);
 }
 
-.tarjeta-colegio h3 {
-    font-family: 'Montserrat', sans-serif;
-    margin: 15px 0 5px;
-    color: black;
+
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
+@media (max-width: 768px) {
+
+    .banner-imagen{
+        background-position: right;
+    }
+
+    .banner-texto p {
+        color: var(--carbon--);
+    }
+
+    .contenedor-carrusel {
+        flex-wrap: wrap;
+    }
+
+    .tarjetas-carrusel {
+        flex-wrap: wrap;
+    }
+
+    .tarjeta-colegio {
+        min-width: 100%;
+        max-width: 100%;
+    }
+
+    h2 {
+        font-size: 1.4rem;
+    }
 }
 
-.tarjeta-colegio p {
-    color: #555;
-    margin-bottom: 20px;
+@media (max-width: 768px) {
+    .fila-impacto,
+    .fila-impacto-invertida {
+        flex-direction: column;
+        gap: 32px;
+    }
+
+    .titulo-impacto {
+        font-size: 1.6rem;
+    }
 }

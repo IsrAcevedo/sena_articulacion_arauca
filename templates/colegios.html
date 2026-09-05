@@ -1,41 +1,138 @@
 {% extends "base.html" %}
 {% block content %}
 
-<!-- HERO -->
-<header class="hero-colegios" id="hero-colegios">
-    <div class="contenido-hero"></div>
-    <h1>Colegios de Arauca</h1>
-    <p>Conoce las instituciones educativas vinculadas con los programas del Sena.</p>
-    <a href="#colegios" class="btn-colegio">Ver Colegios</a>
-    </div>
-</header>
+    <main class="hero">
+        <div class="hero-contenido">
+            <h1><span>Instituciones</span> que conectan a <span>Arauca</span> con su futuro</h1>
+            <p>Explora las instituciones educativas que colaboran con el SENA en Arauca.</p>
+            <a href="#carrusel-instituciones" class="btn-hero">Ver instituciones</a>
+        </div>
+    </main>
 
-<!-- CONTENIDO -->
-<section id="colegios" class="colegios">
-    <h2>Instituciones Educativas</h2>
+    <!-- ===================================================== -->
+    <!-- SECCIÓN 1: CARRUSEL DE INSTITUCIONES -->
+    <!-- ===================================================== -->
 
-    <h3>Saravena</h3>
-    <div class="colegios-grid">
+    <section id="impacto-articulacion">
 
-        {%if colegios%}
-        {%for colegio in colegios%}
-        <a href="{{url_for('main.colegio',id=colegio.id)}}">
-            <div class="tarjeta-colegio">
-                <img src="{{url_for('static', filename='uploads/'+ colegio.logo)}}" alt="logo del colegio">
-                <h3>{{colegio.colegio}}</h3>
-                <p>{{colegio.municipio}}</p>
+        <div class="fila-impacto">
+            <div class="texto-impacto">
+                <span class="eyebrow-institucional">Cobertura regional</span>
+                <h3 class="titulo-impacto">Decenas de colegios conectados con la educación técnica.</h3>
+                <p class="descripcion-impacto">Instituciones de todo Arauca articuladas con el SENA, ampliando las oportunidades de formación para sus estudiantes desde el colegio.</p>
             </div>
-        </a>
+            <div class="imagen-impacto">
+                <img src="{{ url_for('static', filename='img/estudiantes1.jpg') }}" alt="Estudiantes articulados con el SENA">
+            </div>
+        </div>
 
-        {%endfor%}
-        {%endif%}
+        <div class="fila-impacto fila-impacto-invertida">
+            <div class="texto-impacto">
+                <span class="eyebrow-institucional">Impacto formativo</span>
+                <h3 class="titulo-impacto">Miles de estudiantes formándose gracias a nuestros técnicos.</h3>
+                <p class="descripcion-impacto">Programas técnicos que preparan a los aprendices para el mundo laboral, con docentes y proyectos reales detrás de cada articulación.</p>
+                <a href="#carrusel-instituciones" class="boton-impacto">Conocer programas →</a>
+            </div>
+            <div class="imagen-impacto">
+                <img src="{{ url_for('static', filename='img/estudiantes2.jpg') }}" alt="Aprendices SENA en formación técnica">
+            </div>
+        </div>
+
+    </section>
 
 
 
+    {%if colegios%}
+        <section id="carrusel-instituciones">
 
-    </div>
+            <span class="eyebrow-institucional">Formación articulada</span>
+            <h2>Instituciones Articuladas con el SENA</h2>
+
+            <div class="contenedor-carrusel">
+
+                <!-- Flecha izquierda -->
+                <button id="flecha-izquierda" class="flecha-carrusel" aria-label="Institución anterior">
+                    &#8592;
+                </button>
+
+                
+                
+                <div class="tarjetas-carrusel">
+                    {% for colegio in colegios %}
+                        <a href="{{ url_for('main.colegio', id=colegio.id) }}" class="tarjeta-colegio">
+
+                            <span class="insignia-articulado">
+                                Articulado con el SENA                            
+                            </span>
+                            <img 
+                                src="{{ url_for('static', filename='uploads/' + colegio.logo) }}" 
+                                alt="Logo de {{ colegio.nombre }}">
+                            <h3 class="nombre-colegio">
+                                {{colegio.nombre}}
+                            </h3>                            
+                            <p class="ubicacion-colegio">
+                                {{ colegio.slogan if colegio.slogan else 'Institución educativa articulada con el SENA' }}
+                            </p>
+
+                        </a>
+                    {% endfor %}
+                </div>
+                
+
+                <!-- Flecha derecha -->
+                <button id="flecha-derecha" class="flecha-carrusel" aria-label="Institución siguiente">
+                    &#8594;
+                </button>
+
+            </div>
+
+            <!-- Botón para ver todas las instituciones -->
+            <button id="boton-ver-mas">Ver más</button>
+
+        </section>
+    {%endif%}
 
 
 
-</section>
+    <!-- ===================================================== -->
+    <!-- SECCIÓN 2: TODAS LAS INSTITUCIONES (cuadrícula) -->
+    <!-- ===================================================== -->
+    <section id="todas-instituciones">
+
+        <h2>Todas las Instituciones</h2>
+
+        <div class="cuadricula-instituciones">
+            <!-- JavaScript llenará esto dinámicamente -->
+        </div>
+
+        <!-- Botón para volver al carrusel -->
+        <div class="contenedor-boton-ver-menos">
+            <button id="boton-ver-menos">Ver menos</button>
+        </div>
+
+    </section>
+
+
+    <section class="banner">
+        <div class="banner-imagen">
+        </div>
+        <div class="banner-texto">
+            <h2>
+                “Formación que transforma vidas,<br>
+                articulación que construye futuro.”
+            </h2>
+            <p>SENA Arauca, conectando educación<br>con oportunidades.</p>
+            <span></span>
+        </div>
+    </section>
+
+
+
+   
+
+   
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+</body>
 {%endblock%}

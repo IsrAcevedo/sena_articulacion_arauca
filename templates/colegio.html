@@ -1,172 +1,215 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section id="hero">
-    <h1>{{colegio.nombre}}</h1>
-    <a href="#nuestros-tecnicos" class="button">
-        Nuestros Tecnicos
-    </a>
-</section>
-<!-- INFO-COLEGIO -->
-<div id="info-colegio">
-    <div class="container">
-        <div class="img-colegio">
-            <img src="{{url_for('static', filename='uploads/'+ colegio.logo)}}" alt="logo del colegio">
-            <h2>Institucion educativa <span class="color-acento">la frontera</span></h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum debitis eos repellendus cupiditate
-                id, molestias deserunt molestiae officia ex amet repudiandae aliquam commodi rerum. Porro omnis
-                assumenda nobis aperiam accusamus, sunt explicabo! Laudantium ipsum odit nihil id tenetur similique
-                nesciunt temporibus nisi inventore incidunt aut repudiandae, rem saepe? Aperiam, labore quia
-                cupiditate aliquam, natus consequatur eos culpa earum similique iste ipsam dolorem nam nihil, eum
-                blanditiis expedita enim est qui. Impedit eos iusto quod expedita ex dolores perspiciatis
-                exercitationem repellat quas, unde amet velit. Molestiae officia dolore, vel repudiandae voluptates,
-                esse soluta nam, saepe iste mollitia ipsa necessitatibus veniam? Recusandae qui quidem perferendis
-                pariatur, odit reprehenderit deleniti consequuntur? Ipsam odio est totam dolorem similique eaque
-                nihil pariatur. Excepturi itaque optio est consequuntur commodi quas. Molestias fuga, aperiam
-                officiis impedit enim quibusdam incidunt obcaecati excepturi assumenda ducimus accusamus, porro
-                ullam architecto praesentiu.</p>
-        </div>
-    </div>
-</div>
 
-<!-- INFO-TECNICO -->
-<section id="nuestros-tecnicos">
-    <div class="container">
-        <h2>Nuestros <span class="color-acento">Técnicos</span></h2>
-        <div class="tecnicos">
-            <div class="carta-tecnico">
-                <h3>Programación Software</h3>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis cum corrupti eos accusantium
-                    veniam dolore quibusdam eum impedit. Voluptatem vero velit unde doloribus fuga labore natus
-                    exercitationem deleniti aperiam animi?</p>
-                <a href="" class="button">+Info</a>
+
+<body>
+    
+    <header class="hero-colegio">
+        <div class="hero-colegio-esquina-abajo-izq"></div>
+        <div class="hero-colegio-esquina-abajo-der"></div>
+        <div class="hero-colegio-contenido">
+            <div class="hero-colegio-logo">
+            <svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="48" cy="48" r="44" stroke="#F5F3EC" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.5"/>
+                <circle cx="48" cy="48" r="34" fill="#0B2A45" stroke="#E8622C" stroke-width="2.5"/>
+                <path d="M48 20 L48 76 M20 48 L76 48" stroke="#E8622C" stroke-width="1" opacity="0.5"/>
+                <text x="48" y="58" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="26" fill="#F5F3EC">SR</text>
+            </svg>
             </div>
-            <div class="carta-tecnico">
-                <h3>Programación de Veterinaria</h3>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis cum corrupti eos accusantium
-                    veniam dolore quibusdam eum impedit. Voluptatem vero velit unde doloribus fuga labore natus
-                    exercitationem deleniti aperiam animi?</p>
-                <a href="" class="button">+Info</a>
-            </div>
-            <div class="carta-tecnico">
-                <h3>Programación de Enfermería</h3>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis cum corrupti eos accusantium
-                    veniam dolore quibusdam eum impedit. Voluptatem vero velit unde doloribus fuga labore natus
-                    exercitationem deleniti aperiam animi?</p>
-                <a href="" class="button">+Info</a>
+            <div class="hero-colegio-texto">
+            <h1>Colegio Técnico Industrial San Rafael</h1>
+            <p class="hero-colegio-eslogan">"Formando manos que construyen futuro."</p>
             </div>
         </div>
-    </div>
-</section>
+    </header>
+    
+    <main>
+    
+    <!-- INFORMACIÓN BÁSICA -->
+        <section class="seccion" id="informacion">
+            <div class="seccion-encabezado">
+            <h2>Información básica</h2>
+            <span class="seccion-encabezado-codigo">FICHA · INST-01</span>
+            </div>
+            <div class="tarjeta tarjeta-datos-institucionales">
+            <div class="tarjeta-etiqueta"><span>Datos institucionales</span></div>
+            <div class="tarjeta-contenido">
+        
+                <div class="tarjeta-datos-institucionales-identidad">
+                <span class="tarjeta-datos-institucionales-municipio">Saravena, Arauca</span>
+                </div>
+        
+                <div class="tarjeta-datos-institucionales-estadisticas">
+                <div class="tarjeta-datos-institucionales-estadistica">
+                    <div class="tarjeta-datos-institucionales-estadistica-numero">850</div>
+                    <div class="tarjeta-datos-institucionales-estadistica-etiqueta">Estudiantes</div>
+                </div>
+                <div class="tarjeta-datos-institucionales-estadistica">
+                    <div class="tarjeta-datos-institucionales-estadistica-numero">12</div>
+                    <div class="tarjeta-datos-institucionales-estadistica-etiqueta">Instructores</div>
+                </div>
+                <div class="tarjeta-datos-institucionales-estadistica">
+                    <div class="tarjeta-datos-institucionales-estadistica-numero">6</div>
+                    <div class="tarjeta-datos-institucionales-estadistica-etiqueta">Técnicos</div>
+                </div>
+                </div>
+        
+            </div>
+            </div>
+        </section>
+        
+        <!-- INSTRUCTORES -->
+        <section class="seccion" id="instructores">
+            <div class="seccion-encabezado">
+            <h2>Instructores</h2>
+            <span class="seccion-encabezado-codigo">FICHA · INS-02</span>
+            </div>
+            <div class="cuadricula cuadricula-3">
+        
+            <div class="tarjeta tarjeta-persona">
+                <div class="tarjeta-etiqueta"><span>Docente</span><span>#01</span></div>
+                <div class="tarjeta-contenido">
+                <div class="tarjeta-persona-avatar">MG</div>
+                <h3>Marta Gómez</h3>
+                <span class="tarjeta-persona-rol">Instructora</span>
+                <p>Electricidad industrial y automatización básica. 14 años de experiencia.</p>
+                </div>
+            </div>
+        
+            <div class="tarjeta tarjeta-persona">
+                <div class="tarjeta-etiqueta"><span>Docente</span><span>#02</span></div>
+                <div class="tarjeta-contenido">
+                <div class="tarjeta-persona-avatar">JR</div>
+                <h3>Julián Rojas</h3>
+                <span class="tarjeta-persona-rol">Instructor</span>
+                <p>Mecánica industrial y soldadura estructural. Certificado SENA.</p>
+                </div>
+            </div>
+        
+            <div class="tarjeta tarjeta-persona">
+                <div class="tarjeta-etiqueta"><span>Docente</span><span>#03</span></div>
+                <div class="tarjeta-contenido">
+                <div class="tarjeta-persona-avatar">LP</div>
+                <h3>Laura Pabón</h3>
+                <span class="tarjeta-persona-rol">Instructora</span>
+                <p>Agroindustria y procesamiento de alimentos. Ingeniera agrónoma.</p>
+                </div>
+            </div>
+        
+            </div>
+        </section>
+        
+        <!-- TÉCNICOS -->
+        <section class="seccion" id="tecnicos">
+            <div class="seccion-encabezado">
+            <h2>Técnicos de laboratorio</h2>
+            <span class="seccion-encabezado-codigo">FICHA · TEC-03</span>
+            </div>
+            <div class="cuadricula cuadricula-3">
+        
+            <div class="tarjeta tarjeta-persona">
+                <div class="tarjeta-etiqueta"><span>Soporte técnico</span><span>#01</span></div>
+                <div class="tarjeta-contenido">
+                <div class="tarjeta-persona-avatar">CD</div>
+                <h3>Camilo Duarte</h3>
+                <span class="tarjeta-persona-rol">Técnico</span>
+                <p>Encargado del taller de mecánica y mantenimiento de equipos.</p>
+                </div>
+            </div>
+        
+            <div class="tarjeta tarjeta-persona">
+                <div class="tarjeta-etiqueta"><span>Soporte técnico</span><span>#02</span></div>
+                <div class="tarjeta-contenido">
+                <div class="tarjeta-persona-avatar">YS</div>
+                <h3>Yolanda Suárez</h3>
+                <span class="tarjeta-persona-rol">Técnica</span>
+                <p>Laboratorio de agroindustria y control de calidad.</p>
+                </div>
+            </div>
+        
+            <div class="tarjeta tarjeta-persona">
+                <div class="tarjeta-etiqueta"><span>Soporte técnico</span><span>#03</span></div>
+                <div class="tarjeta-contenido">
+                <div class="tarjeta-persona-avatar">FT</div>
+                <h3>Fabián Torres</h3>
+                <span class="tarjeta-persona-rol">Técnico</span>
+                <p>Sala de sistemas y soporte en redes eléctricas del plantel.</p>
+                </div>
+            </div>
+        
+            </div>
+        </section>
+        
+        <!-- PROYECTOS -->
+        <section class="seccion" id="proyectos">
+            <div class="seccion-encabezado">
+            <h2>Proyectos</h2>
+            <span class="seccion-encabezado-codigo">FICHA · PRY-04</span>
+            </div>
+            <div class="cuadricula cuadricula-3">
+        
+            <div class="tarjeta tarjeta-proyecto">
+                <div class="tarjeta-etiqueta"><span>Proyecto</span><span>#01</span></div>
+                <div class="tarjeta-contenido">
+                <h3>Riego automatizado</h3>
+                <p>Sistema de riego por sensores de humedad para el vivero escolar, diseñado y construido por estudiantes de agroindustria.</p>
+                <div class="tarjeta-proyecto-meta">
+                    <span class="etiqueta-chip etiqueta-chip-activo">En curso</span>
+                    <span class="etiqueta-chip">Agroindustria</span>
+                </div>
+                </div>
+            </div>
+        
+            <div class="tarjeta tarjeta-proyecto">
+                <div class="tarjeta-etiqueta"><span>Proyecto</span><span>#02</span></div>
+                <div class="tarjeta-contenido">
+                <h3>Kart eléctrico estudiantil</h3>
+                <p>Vehículo eléctrico de bajo consumo construido en el taller de mecánica para la feria departamental de innovación.</p>
+                <div class="tarjeta-proyecto-meta">
+                    <span class="etiqueta-chip etiqueta-chip-activo">En curso</span>
+                    <span class="etiqueta-chip">Mecánica</span>
+                </div>
+                </div>
+            </div>
+        
+            <div class="tarjeta tarjeta-proyecto">
+                <div class="tarjeta-etiqueta"><span>Proyecto</span><span>#03</span></div>
+                <div class="tarjeta-contenido">
+                <h3>Planta de tratamiento de aguas grises</h3>
+                <p>Prototipo de filtrado y reutilización de agua para los baños del colegio, presentado en 2025.</p>
+                <div class="tarjeta-proyecto-meta">
+                    <span class="etiqueta-chip">Finalizado</span>
+                    <span class="etiqueta-chip">Industrial</span>
+                </div>
+                </div>
+            </div>
+        
+            </div>
+        </section>
 
-<!-- CARRUSEL 2026 -->
-<div class="cartelera">
-    <h2><span class="color-acento">Proyectos</span> 2026</h2>
-    <div class="carrucel">
-        <div class="proyectos">
-            <a href="#">
-                <img src="./static/img/brands-people-Ax8IA8GAjVg-unsplash (1).jpg" alt="">
-            </a>
-        </div>
-        <div class="proyectos">
-            <a href="#">
-                <img src="./static/img/brands-people-Ax8IA8GAjVg-unsplash (1).jpg" alt="">
-            </a>
-        </div>
-        <div class="proyectos">
-            <a href="#">
-                <img src="./static/img/brands-people-Ax8IA8GAjVg-unsplash (1).jpg" alt="">
-            </a>
-        </div>
-        <div class="proyectos">
-            <a href="#">
-                <img src="./static/img/brands-people-Ax8IA8GAjVg-unsplash (1).jpg" alt="">
-            </a>
-        </div>
-        <div class="proyectos">
-            <a href="#">
-                <img src="./static/img/brands-people-Ax8IA8GAjVg-unsplash (1).jpg" alt="">
-            </a>
-        </div>
-        <div class="proyectos">
-            <a href="#">
-                <img src="./static/img/brands-people-Ax8IA8GAjVg-unsplash (1).jpg" alt="">
-            </a>
-        </div>
-        <div class="proyectos">
-            <a href="#">
-                <img src="./static/img/brands-people-Ax8IA8GAjVg-unsplash (1).jpg" alt="">
-            </a>
-        </div>
-    </div>
-</div>
 
-<!-- CARRUSEL 2025 -->
-<div class="cartelera">
-    <h2><span class="color-acento">Proyectos</span> 2025</h2>
-    <div class="carrucel">
-        <div class="proyectos">
-            <a href="#">
-                <img src="./static/img/scott-graham-5fNmWej4tAA-unsplash (1).jpg" alt="">
-            </a>
-        </div>
-        <div class="proyectos">
-            <a href="#">
-                <img src="./static/img/scott-graham-5fNmWej4tAA-unsplash (1).jpg" alt="">
-            </a>
-        </div>
-        <div class="proyectos">
-            <a href="#">
-                <img src="./static/img/scott-graham-5fNmWej4tAA-unsplash (1).jpg" alt="">
-            </a>
-        </div>
-        <div class="proyectos">
-            <a href="#">
-                <img src="./static/img/scott-graham-5fNmWej4tAA-unsplash (1).jpg" alt="">
-            </a>
-        </div>
-        <div class="proyectos">
-            <a href="#">
-                <img src="./static/img/scott-graham-5fNmWej4tAA-unsplash (1).jpg" alt="">
-            </a>
-        </div>
-        <div class="proyectos">
-            <a href="#">
-                <img src="./static/img/scott-graham-5fNmWej4tAA-unsplash (1).jpg" alt="">
-            </a>
-        </div>
-        <div class="proyectos">
-            <a href="#">
-                <img src="./static/img/scott-graham-5fNmWej4tAA-unsplash (1).jpg" alt="">
-            </a>
-        </div>
-    </div>
-</div>
 
-<!-- INSTRUCTORES -->
 
-<section id="instructores">
-    <h2>Nuestros <span class="color-acento">instructores</span> </h2>
-    <div class="instructores-container">
+        <section class="seccion-ver-mas">
+            <div class="seccion-ver-mas-contenido">
+                <span class="seccion-ver-mas-etiqueta">Galería y más contenido</span>
+                <h2>¿Quieres ver más colegios?</h2>
+                <p>Conoce nuestras instalaciones, talleres y la vida estudiantil del Colegio Técnico Industrial San Rafael.</p>
+                <a href="{{url_for('main.colegios')}}" class="seccion-ver-mas-boton">
+                Click aquí
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                </a>
+            </div>
+        </section>
 
-        <div class="carta-instructor">
-            <img src="./static/img/jurica-koletic-7YVZYZeITc8-unsplash (1).jpg" alt="Instructor">
-            <h3>Israel Acevedo</h3>
-            <p>Instructor de Técnico en Programación</p>
-            <p>Ingeniero en sistemas.</p>
-            <p>Email: israelacevedo@gmail.com</p>
-            <a href="" class="button">+Info</a>
-        </div>
+        
+    </main>
+    
 
-        <div class="carta-instructor">
-            <img src="./static/img/jurica-koletic-7YVZYZeITc8-unsplash (1).jpg" alt="Instructor">
-            <h3>Josue Angarita</h3>
-            <p>Instructora de Técnico en Contabilidad</p>
-            <p>Profesional en ...</p>
-            <p>Email: josue@gmail.com</p>
-            <a href="" class="button">+Info</a>
-        </div>
-    </div>
-</section>
+
+</body>
 
 {% endblock %}
