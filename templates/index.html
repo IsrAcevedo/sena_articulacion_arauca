@@ -8,13 +8,12 @@
                 SENA REGIONAL ARAUCA
             </span>
             <h1>
-                Sistema de Gestión de
-                <span>Articulaciones</span>
+                Articulacion
+                <span> con la Media</span>
             </h1>
             <p>
-                Conectamos instituciones educativas, municipios,
-                instructores y proyectos en una sola plataforma para
-                fortalecer la articulación del SENA en Arauca.
+                Conectamos colegios y SENA para formar jóvenes con competencias, impulsar sus proyectos y construir
+                nuevas oportunidades para el desarrollo de Arauca.
             </p>
             <div class="hero-buttons">
                 <a href="#municipios" class="btn3 btn-primary3">
@@ -49,10 +48,8 @@
             <a href="{{ url_for('main.proyecto', id=proyecto.id) }}">
                 <article class="card">
                     <div class="card-image">
-                        <img
-                            src="{{ url_for('static', filename='uploads/' + proyecto.foto) }}"
-                            alt="Foto {{ proyecto.nombre }}"
-                        >
+                        <img src="{{ url_for('static', filename='uploads/' + proyecto.foto) }}"
+                            alt="Foto {{ proyecto.nombre }}">
                     </div>
                     <div class="card-content">
                         <span class="card-tag">
@@ -101,16 +98,14 @@
             <a href="{{ url_for('main.colegio', id=colegio.id) }}">
                 <article class="card">
                     <div class="logo-container">
-                        <img
-                            src="{{ url_for('static', filename='uploads/' + colegio.logo) }}"
-                            alt="{{ colegio.nombre }}"
-                        >
+                        <img src="{{ url_for('static', filename='uploads/' + colegio.logo) }}"
+                            alt="{{ colegio.nombre }}">
                     </div>
                     <div class="card-content">
                         <h3>{{ colegio.nombre }}</h3>
                         <p class="school-slogan">
                             {% if colegio.slogan %}
-                                {{ colegio.slogan }}
+                            {{ colegio.slogan }}
                             {% endif %}
                         </p>
                         <div class="school-location">
@@ -155,11 +150,9 @@
             <a href="{{ url_for('main.municipio', id=municipio.id) }}">
                 <article class="card">
                     <div class="municipio-image">
-                        <img
-                            src="{{ url_for('static', filename='uploads/'+municipio.foto) }}"
-                            alt="Foto de {{ municipio.nombre }}"
-                        >
-                        
+                        <img src="{{ url_for('static', filename='uploads/'+municipio.foto) }}"
+                            alt="Foto de {{ municipio.nombre }}">
+
                     </div>
                     <div class="card-content">
                         <h3>{{ municipio.nombre }}</h3>
@@ -171,13 +164,13 @@
             </a>
             {% endfor %}
         </div>
-         <div class="view-all">
+        <div class="view-all">
             <a href="{{ url_for('main.colegios') }}">
                 Ver todos los municipios
             </a>
         </div>
     </div>
-    
+
 </section>
 {% endif %}
 
@@ -203,10 +196,8 @@
             <a href="{{ url_for('main.instructor', id=instructor.id) }}">
                 <article class="card">
                     <div class="instructor-image">
-                        <img
-                            src="{{ url_for('static', filename='uploads/' + instructor.foto) }}"
-                            alt="{{ instructor.nombres }}"
-                        >
+                        <img src="{{ url_for('static', filename='uploads/' + instructor.foto) }}"
+                            alt="{{ instructor.nombres }}">
                     </div>
                     <div class="card-content">
                         <h3>
