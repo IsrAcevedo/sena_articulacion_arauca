@@ -308,6 +308,74 @@
     font-weight: 600;
 }
 
+/* Wrapper principal con alineación horizontal */
+.carousel-wrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+    gap: 15px;
+    width: 100%;
+}
+
+/* El carrusel ocupa el espacio central restante */
+.carousel-container {
+    display: flex;
+    gap: 30px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 10px 5px 30px 5px;
+    scrollbar-width: none;
+    flex-grow: 1;
+}
+
+.carousel-container::-webkit-scrollbar {
+    display: none;
+}
+
+.carousel-container .card-item {
+    flex: 0 0 320px;
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Estilos de los botones laterales */
+.carousel-btn {
+    flex-shrink: 0; /* Evita que el botón se reduzca */
+    background: #ffffff;
+    border: 2px solid #39a900;
+    color: #39a900;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
+.carousel-btn:hover {
+    background: #39a900;
+    color: #ffffff;
+    transform: scale(1.05);
+}
+
+/* Opcional: Ocultar o reubicar botones en pantallas muy pequeñas */
+@media (max-width: 576px) {
+    .carousel-wrapper {
+        gap: 5px;
+    }
+    
+    .carousel-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
+    }
+}
+
 @media (max-width: 768px) {
     .municipios .section-header h2 {
         font-size: 38px;

@@ -134,43 +134,37 @@
 <section id="municipios2" class="section municipios">
     <div class="container">
         <div class="section-header">
-            <span class="section-badge">
-                MUNICIPIOS
-            </span>
-            <h2>
-                Municipios que hacen parte de Articulación
-            </h2>
-            <p>
-                Descubre los municipios de la regional Arauca donde el programa
-                impulsa la formación técnica y el desarrollo de proyectos.
-            </p>
+            <span class="section-badge">MUNICIPIOS</span>
+            <h2>Municipios que hacen parte de Articulación</h2>
+            <p>Descubre los municipios de la regional Arauca donde el programa impulsa la formación técnica y el desarrollo de proyectos.</p>
         </div>
-        <div class="cards">
-            {% for municipio in municipios %}
-            <a href="{{ url_for('main.municipio', id=municipio.id) }}">
-                <article class="card">
-                    <div class="municipio-image">
-                        <img src="{{ url_for('static', filename='uploads/'+municipio.foto) }}"
-                            alt="Foto de {{ municipio.nombre }}">
 
-                    </div>
-                    <div class="card-content">
-                        <h3>{{ municipio.nombre }}</h3>
-                        <div class="card-button">
-                            Explorar municipio →
+        <div class="carousel-wrapper">
+            <button id="prevBtn" class="carousel-btn prev-btn" aria-label="Anterior">‹</button>
+            
+            <div id="municipiosCarousel" class="carousel-container">
+                {% for municipio in municipios %}
+                <a href="{{ url_for('main.municipio', id=municipio.id) }}" class="card-item">
+                    <article class="card">
+                        <div class="municipio-image">
+                            <img src="{{ url_for('static', filename='uploads/'+municipio.foto) }}" alt="Foto de {{ municipio.nombre }}">
                         </div>
-                    </div>
-                </article>
-            </a>
-            {% endfor %}
+                        <div class="card-content">
+                            <h3>{{ municipio.nombre }}</h3>
+                            <div class="card-button">Explorar municipio →</div>
+                        </div>
+                    </article>
+                </a>
+                {% endfor %}
+            </div>
+
+            <button id="nextBtn" class="carousel-btn next-btn" aria-label="Siguiente">›</button>
         </div>
+
         <div class="view-all">
-            <a href="{{ url_for('main.colegios') }}">
-                Ver todos los municipios
-            </a>
+            <a href="{{ url_for('main.colegios') }}">Ver todos los municipios</a>
         </div>
     </div>
-
 </section>
 {% endif %}
 
