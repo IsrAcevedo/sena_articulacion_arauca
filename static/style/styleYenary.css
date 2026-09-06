@@ -4,6 +4,32 @@
     background: #f8faf8;
 }
 
+.proyectos .section-header {
+    margin-bottom: 60px;
+}
+
+.proyectos .section-badge {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    border-radius: 50px;
+    background: rgba(57, 169, 0, 0.1);
+    color: #39a900;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.proyectos .section-header h2 {
+    margin-bottom: 20px;
+    font-size: 52px;
+}
+
+.proyectos  .section-header p {
+    max-width: 700px;
+    color: #666;
+    line-height: 1.8;
+}
+
 /* Layout del Collage / Mosaico */
 .collage-grid {
     display: grid;
@@ -152,16 +178,18 @@
         grid-row: span 1;
     }
 }
+
+/* Configuración de la sección */
 .colegios {
     padding: 100px 0;
-    background: #ffffff;
+    background: #f8fafc; /* Fondo gris claro profesional */
 }
 
-.section-header {
+.colegios .section-header {
     margin-bottom: 60px;
 }
 
-.section-badge {
+.colegios .section-badge {
     display: inline-block;
     padding: 10px 20px;
     margin-bottom: 20px;
@@ -172,95 +200,174 @@
     font-weight: 600;
 }
 
-.section-header h2 {
+.colegios .section-header h2 {
     margin-bottom: 20px;
     font-size: 52px;
 }
 
-.section-header p {
+.colegios  .section-header p {
     max-width: 700px;
     color: #666;
-    line-height: 1.7;
+    line-height: 1.8;
 }
 
+/* Grilla de Tarjetas */
 .colegios .cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 50px 30px;
+    padding-top: 60px; /* Espacio para que el logo sobresalga */
 }
 
-.colegios .cards a {
+.colegios .card-link {
     text-decoration: none;
     color: inherit;
+    display: block;
 }
 
+/* Tarjeta Elegante */
 .colegios .card {
-    padding: 40px 30px;
-    text-align: center;
+    position: relative;
     background: #ffffff;
-    border-radius: 24px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    transition: 0.3s;
+    border-radius: 20px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: 100%;
 }
 
 .colegios .card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-8px);
+    border-color: #cbd5e1;
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.08);
 }
 
+/* Detalle superior en la tarjeta */
+.card-banner {
+    width: 100%;
+    height: 85px;
+    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+    border-top-left-radius: 19px;
+    border-top-right-radius: 19px;
+}
+
+/* Logo Circular Grande Flotante */
 .logo-container {
-    margin-bottom: 25px;
+    width: 250px;
+    height: 250px;
+    margin-top: -60px; /* Eleva el logo sobre el banner */
+    margin-bottom: 15px;
+    border-radius: 50%;
+    padding: 6px;
+    background: #ffffff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.4s ease;
+}
+
+.colegios .card:hover .logo-container {
+    transform: scale(1.05);
 }
 
 .logo-container img {
-    width: 130px;
-    height: 130px;
-    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #f8fafc;
+}
+
+/* Contenido Interno */
+.card-content {
+    padding: 0 28px 28px 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1;
+    width: 100%;
+}
+
+/* Etiqueta de Ubicación */
+.location-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+    background: #f1f5f9;
+    padding: 4px 12px;
+    border-radius: 20px;
 }
 
 .card-content h3 {
-    margin-bottom: 15px;
-    font-size: 24px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 10px;
+    line-height: 1.3;
 }
 
 .school-slogan {
-    min-height: 60px;
-    margin-bottom: 20px;
-    color: #39a900;
+    font-size: 14px;
+    color: #64748b;
     font-style: italic;
-}
-
-.school-location {
+    line-height: 1.5;
     margin-bottom: 25px;
-    color: #666;
+    min-height: 42px; /* Alineación uniforme */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
-.card-button {
+/* Botón Interactivo */
+.card-footer {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    gap: 6px;
     color: #39a900;
-    font-weight: 600;
+    font-weight: 700;
+    font-size: 15px;
 }
 
+.arrow-icon {
+    transition: transform 0.3s ease;
+}
+
+.colegios .card:hover .arrow-icon {
+    transform: translateX(5px);
+}
+
+/* Botón "Ver Todos" */
 .view-all {
-    margin-top: 50px;
+    margin-top: 60px;
     text-align: center;
 }
 
-.view-all a {
+.btn-primary {
     display: inline-block;
-    padding: 15px 30px;
+    padding: 14px 36px;
     border-radius: 50px;
     background: #39a900;
-    color: white;
+    color: #ffffff;
+    font-weight: 600;
     text-decoration: none;
+    box-shadow: 0 4px 15px rgba(57, 169, 0, 0.3);
+    transition: all 0.3s ease;
 }
 
-@media (max-width: 768px) {
-    .section-header h2 {
-        font-size: 38px;
-    }
-
-    .colegios .cards {
-        grid-template-columns: 1fr;
-    }
+.btn-primary:hover {
+    background: #2e8800;
+    box-shadow: 0 8px 25px rgba(57, 169, 0, 0.4);
+    transform: translateY(-2px);
 }
 
 .municipios {
@@ -505,6 +612,15 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+.instructores .card-button {
+    color: #39a900;
+    font-weight: 600;
+}
+
+h4{
+    color: #39a900;
 }
 
 /* Adaptación para pantallas móviles */

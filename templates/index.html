@@ -63,7 +63,9 @@
         </div>
 
         <div class="view-all">
-            <a href="{{ url_for('main.colegios') }}" class="btn-main">Ver todos los proyectos</a>
+            <a href="{{ url_for('main.colegios') }}" class="btn-primary">
+                Ver todos los proyectos
+            </a>
         </div>
     </div>
 </section>
@@ -74,52 +76,48 @@
 <section id="colegios2" class="section colegios">
     <div class="container">
         <div class="section-header">
-            <span class="section-badge">
-                COLEGIOS ALIADOS
-            </span>
-            <h2>
-                Colegios que hacen parte de Articulación
-            </h2>
-            <p>
-                Instituciones educativas comprometidas con la formación
-                técnica y el desarrollo del talento juvenil.
-            </p>
+            <span class="section-badge">COLEGIOS ALIADOS</span>
+            <h2>Colegios que hacen parte de Articulación</h2>
+            <p>Instituciones educativas comprometidas con la formación técnica y el desarrollo del talento juvenil.</p>
         </div>
+
         <div class="cards">
             {% for colegio in colegios %}
-            <a href="{{ url_for('main.colegio', id=colegio.id) }}">
+            <a href="{{ url_for('main.colegio', id=colegio.id) }}" class="card-link">
                 <article class="card">
+                    <div class="card-banner"></div>
                     <div class="logo-container">
-                        <img src="{{ url_for('static', filename='uploads/' + colegio.logo) }}"
-                            alt="{{ colegio.nombre }}">
+                        <img src="{{ url_for('static', filename='uploads/' + colegio.logo) }}" alt="{{ colegio.nombre }}">
                     </div>
                     <div class="card-content">
-                        <h3>{{ colegio.nombre }}</h3>
-                        <p class="school-slogan">
-                            {% if colegio.slogan %}
-                            {{ colegio.slogan }}
-                            {% endif %}
-                        </p>
-                        <div class="school-location">
+                        <span class="location-badge">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                             Regional Arauca
-                        </div>
-                        <div class="card-button">
-                            Ver colegio →
+                        </span>
+                        <h3>{{ colegio.nombre }}</h3>
+                        
+                        {% if colegio.slogan %}
+                        <p class="school-slogan">"{{ colegio.slogan }}"</p>
+                        {% endif %}
+
+                        <div class="card-footer">
+                            <span class="card-button">Ver colegio</span>
+                            <span class="arrow-icon">→</span>
                         </div>
                     </div>
                 </article>
             </a>
             {% endfor %}
         </div>
+
         <div class="view-all">
-            <a href="{{ url_for('main.colegios') }}">
+            <a href="{{ url_for('main.colegios') }}" class="btn-primary">
                 Ver todos los colegios
             </a>
         </div>
     </div>
 </section>
 {% endif %}
-
 
 <!-- MUNICIPIOS (DISEÑO GRIS/AZUL) -->
 {% if municipios %}
@@ -154,7 +152,9 @@
         </div>
 
         <div class="view-all">
-            <a href="{{ url_for('main.colegios') }}">Ver todos los municipios</a>
+            <a href="{{ url_for('main.colegios') }}" class="btn-primary">
+                Ver todos los municipios
+            </a>
         </div>
     </div>
 </section>
@@ -204,7 +204,7 @@
             {% endfor %}
         </div>
         <div class="view-all">
-            <a href="{{ url_for('main.colegios') }}">
+            <a href="{{ url_for('main.colegios') }}" class="btn-primary">
                 Ver todos los instructores
             </a>
         </div>
