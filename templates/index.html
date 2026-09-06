@@ -32,47 +32,38 @@
 <section id="proyectos2" class="section proyectos">
     <div class="container">
         <div class="section-header">
-            <span class="section-badge">
-                PROYECTOS DE APRENDICES
-            </span>
-            <h2>
-                Proyectos que transforman ideas en soluciones
-            </h2>
-            <p>
-                Descubre los proyectos desarrollados por los aprendices del
-                programa Articulación con la Media.
-            </p>
+            <span class="section-badge">PROYECTOS DE APRENDICES</span>
+            <h2>Proyectos que transforman ideas en soluciones</h2>
+            <p>Descubre los proyectos desarrollados por los aprendices del programa Articulación con la Media.</p>
         </div>
-        <div class="cards">
+
+        <!-- Mosaico / Collage -->
+        <div class="collage-grid">
             {% for proyecto in proyectos %}
-            <a href="{{ url_for('main.proyecto', id=proyecto.id) }}">
-                <article class="card">
-                    <div class="card-image">
-                        <img src="{{ url_for('static', filename='uploads/' + proyecto.foto) }}"
-                            alt="Foto {{ proyecto.nombre }}">
-                    </div>
-                    <div class="card-content">
-                        <span class="card-tag">
-                            Proyecto
-                        </span>
-                        <h3>
-                            {{ proyecto.nombre }}
-                        </h3>
-                        <p>
-                            {{ proyecto.descripcion }}
-                        </p>
-                        <div class="card-button">
-                            Ver proyecto →
-                        </div>
-                    </div>
-                </article>
+            <a href="{{ url_for('main.proyecto', id=proyecto.id) }}" class="collage-card">
+                <!-- Imagen de Fondo -->
+                <div class="card-bg">
+                    <img src="{{ url_for('static', filename='uploads/' + proyecto.foto) }}" alt="Foto {{ proyecto.nombre }}">
+                </div>
+
+                <!-- Estado Inicial: Título con pastilla sutil -->
+                <div class="state-default">
+                    <h3>{{ proyecto.nombre }}</h3>
+                </div>
+
+                <!-- Estado Hover: Fondo azul oscuro con descripción -->
+                <div class="state-hover">
+                    <span class="card-tag">Proyecto</span>
+                    <h3>{{ proyecto.nombre }}</h3>
+                    <p>{{ proyecto.descripcion }}</p>
+                    <span class="card-link-text">Ver proyecto →</span>
+                </div>
             </a>
             {% endfor %}
         </div>
+
         <div class="view-all">
-            <a href="{{ url_for('main.colegios') }}">
-                Ver todos los proyectos
-            </a>
+            <a href="{{ url_for('main.colegios') }}" class="btn-main">Ver todos los proyectos</a>
         </div>
     </div>
 </section>

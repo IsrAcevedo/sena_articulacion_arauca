@@ -1,119 +1,156 @@
+/* Layout General */
 .proyectos {
-    padding: 100px 0;
+    padding: 90px 0;
     background: #f8faf8;
 }
 
-.container {
-    width: 90%;
-    max-width: 1400px;
-    margin: auto;
-}
-
-.section-header {
-    margin-bottom: 60px;
-}
-
-.section-badge {
-    display: inline-block;
-    padding: 10px 20px;
-    border-radius: 50px;
-    background: rgba(57, 169, 0, 0.1);
-    color: #39a900;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.section-header h2 {
-    margin: 20px 0;
-    font-size: 52px;
-    max-width: 700px;
-}
-
-.section-header p {
-    max-width: 700px;
-    color: #666;
-    line-height: 1.8;
-}
-
-.cards {
+/* Layout del Collage / Mosaico */
+.collage-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 260px;
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.cards a {
+/* Patrón Asimétrico: La 1ra tarjeta es grande (2 columnas, 2 filas) */
+.collage-card:nth-child(6n + 1) {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+/* La 4ta tarjeta también toma un tamaño destacado alternado */
+.collage-card:nth-child(6n + 4) {
+    grid-column: span 2;
+    grid-row: span 1;
+}
+
+/* Estructura Base de cada Tarjeta del Mosaico */
+.collage-card {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
     text-decoration: none;
-    color: inherit;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    display: block;
 }
 
-.card {
-    overflow: hidden;
-    background: white;
-    border-radius: 24px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    transition: 0.3s;
-}
-
-.card:hover {
-    transform: translateY(-10px);
-}
-
-.card-image {
-    overflow: hidden;
-}
-
-.card-image img {
+/* Imagen de fondo a pantalla completa dentro del cuadro */
+.collage-card .card-bg {
     width: 100%;
-    height: 250px;
+    height: 100%;
+}
+
+.collage-card .card-bg img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
-    transition: 0.5s;
+    object-position: center 20%;
+    transition: transform 0.6s ease;
 }
 
-.card:hover img {
-    transform: scale(1.05);
+.collage-card:hover .card-bg img {
+    transform: scale(1.06);
 }
 
-.card-content {
+/* Estado Normal: Título sobre la imagen en la esquina inferior */
+.collage-card .state-default {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
     padding: 25px;
+    background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 60%);
+    z-index: 1;
+    transition: opacity 0.4s ease;
 }
 
-.card-tag {
-    display: inline-block;
-    margin-bottom: 15px;
-    padding: 6px 14px;
-    border-radius: 30px;
-    background: rgba(57, 169, 0, 0.1);
-    color: #39a900;
+.collage-card .state-default h3 {
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.2;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Estado Hover: Fondo Azul Marino Oscuro con la información */
+.collage-card .state-hover {
+    position: absolute;
+    inset: 0;
+    background: #111827; /* Azul marino profundo */
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.collage-card .state-hover .card-tag {
+    color: #4ade80;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 8px;
+}
+
+.collage-card .state-hover h3 {
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.collage-card .state-hover p {
+    color: #e5e7eb;
     font-size: 14px;
-    font-weight: 600;
-}
-
-.card-content h3 {
+    line-height: 1.5;
     margin-bottom: 15px;
-    font-size: 24px;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
-.card-content p {
-    color: #666;
-    line-height: 1.7;
+.collage-card .state-hover .card-link-text {
+    color: #1cd05e;
+    font-weight: 700;
+    font-size: 14px;
 }
 
-.card-button {
-    margin-top: 25px;
-    color: #39a900;
-    font-weight: 600;
+/* Transición Hover */
+.collage-card:hover .state-default {
+    opacity: 0;
 }
 
-@media (max-width: 768px) {
-    .section-header h2 {
-        font-size: 38px;
+.collage-card:hover .state-hover {
+    opacity: 1;
+}
+
+/* Adaptabilidad a Tablets y Teléfonos */
+@media (max-width: 992px) {
+    .collage-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 240px;
     }
+}
 
-    .cards {
+@media (max-width: 600px) {
+    .collage-grid {
         grid-template-columns: 1fr;
+        grid-auto-rows: 280px;
+    }
+    
+    .collage-card:nth-child(6n + 1),
+    .collage-card:nth-child(6n + 4) {
+        grid-column: span 1;
+        grid-row: span 1;
     }
 }
-
 .colegios {
     padding: 100px 0;
     background: #ffffff;
@@ -428,73 +465,60 @@
     color: inherit;
 }
 
+/* Tarjeta en layout horizontal */
 .instructores .card {
     display: flex;
-    gap: 25px;
-    padding: 30px;
+    flex-direction: row;
+    align-items: stretch;
+    padding: 0; /* Remueve el padding del contenedor para que la foto llegue a las orillas */
+    overflow: hidden;
     background: #ffffff;
     border-radius: 24px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    transition: 0.3s;
+    transition: transform 0.3s ease;
 }
 
 .instructores .card:hover {
     transform: translateY(-10px);
 }
 
-.instructor-image img {
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
-    object-fit: cover;
+/* Imagen a la izquierda (40% de ancho) */
+.instructor-image {
+    width: 40%;
+    min-height: 220px;
+    flex-shrink: 0;
 }
 
+.instructor-image img {
+    width: 100%;
+    height: 100%;
+    border-radius: 0; /* Remueve la forma circular */
+    object-fit: cover;
+    object-position: top center;
+}
+
+/* Contenido a la derecha (60% de ancho) */
 .instructores .card-content {
+    width: 60%;
+    padding: 25px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
 }
 
-.instructores .card-content h3 {
-    margin-bottom: 10px;
-    font-size: 24px;
-}
-
-.instructores .card-content h4 {
-    margin-bottom: 15px;
-    color: #39a900;
-    font-size: 18px;
-}
-
-.instructores .card-content p {
-    color: #666;
-    line-height: 1.7;
-}
-
-.instructores .card-button {
-    margin-top: 20px;
-    color: #39a900;
-    font-weight: 600;
-}
-
+/* Adaptación para pantallas móviles */
 @media (max-width: 768px) {
-    .instructores .section-header h2 {
-        font-size: 38px;
-    }
-
-    .instructores .cards {
-        grid-template-columns: 1fr;
-    }
-
     .instructores .card {
         flex-direction: column;
-        text-align: center;
     }
 
-    .instructor-image img {
-        width: 150px;
-        height: 150px;
-        margin: auto;
+    .instructor-image,
+    .instructores .card-content {
+        width: 100%;
+    }
+
+    .instructor-image {
+        height: 220px;
     }
 }
 

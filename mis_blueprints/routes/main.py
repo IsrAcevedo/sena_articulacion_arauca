@@ -9,7 +9,7 @@ main_bp = Blueprint('main', __name__)
 
 @main_bp.route('/')
 def inicio():
-    query1 = "SELECT id_proyectos AS id, nombre, descripcion_corta AS descripcion, foto_principal AS foto FROM proyectos limit 2"
+    query1 = "SELECT id_proyectos AS id, nombre, descripcion_corta AS descripcion, foto_principal AS foto FROM proyectos limit 3"
     query2 = "SELECT id_colegios AS id, nombre, slogan, logo FROM colegios"
     query3 = "SELECT id_municipios AS id, nombre, foto FROM municipios"
     query4 = "SELECT i.id_instructor AS id, i.nombres, i.apellidos, p.nombre_profesion as profesion, i.foto FROM instructor i INNER JOIN profesiones p ON i.id_profesion=p.id_profesion"
