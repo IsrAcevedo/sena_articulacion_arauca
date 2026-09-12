@@ -1,161 +1,161 @@
 {% extends "base.html" %}
 {% block content %}
-<header class="header_instructores">
-    <div class="logoxbtnMenu">
-        <div class="logo_artsenar">
-            <img src="./img/LOGO SENART.png" alt="logo">
-        </div>
-        <button id="btnMenu" class="menu-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-list"
-                viewBox="0 0 16 16">
-                <path fill-rule="evenodd"
-                    d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
-            </svg>
-        </button>
-    </div>
-
-
-</header>
-
-<div class="perfil">
-
-    <div class="img_instructor">
-        <img src="{{url_for('static', filename='uploads/'+ instructor.foto)}}" alt="josue" class="instructor_foto"
-            width="100">
-
-        <h1 class="nombre_instructor">{{instructor.nombres+ " "+ instructor.apellidos}}</h1>
-        <div class="botones_instructor">
-            <a href="intr_proyectos" class="btn_inst">Proyectos</a>
-            <a href="#colegios" class="btn_inst">Colegios</a>
-            <a href=".titulo-perfil" class="btn_inst2">perfil</a>
+    <header class="header_instructores">
+        <div class="logoxbtnMenu">
+            <div class="logo_artsenar">
+                <img src="./img/LOGO SENART.png" alt="logo">
+            </div>
+            <button id="btnMenu" class="menu-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-list"
+                    viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
+                </svg>
+            </button>
         </div>
 
-    </div>
-    <div class="infogeneral_inst">
-        <div class="caja_infor">
-            <header class="encabezado">
-                <h1 class="titulo-perfil">Perfil Profesional</h1>
-                <h2>{{instructor.nombres + " "+ instructor.apellidos}}</h2>
-                <p class="cargo_p">Instructor Agroindustrial</p>
-                <div class="descripcion">
-                    <p>
-                        Josue Antanacio Ventura Meaury, de 45 años, es Ingeniero Agroindustrial egresado de
-                        la
-                        Universidad del Tolima, con especialización en Gestión de la Calidad e Inocuidad
-                        Alimentaria
-                        del SENA. Ha complementado su formación con cursos en buenas prácticas agrícolas,
-                        transformación de alimentos y sostenibilidad rural.<br></p>
 
-                    <p>Con más de 15 años de experiencia en el sector agropecuario, ha trabajado en plantas
-                        de
-                        procesamiento, proyectos de innovación alimentaria y asistencia técnica a pequeños
-                        productores. Actualmente se desempeña como instructor del SENA en el área de
-                        Agroindustria,
-                        donde forma aprendices en procesos productivos sostenibles, transformación de
-                        materias
-                        primas y emprendimiento rural.<br></p>
+    </header>
 
-                    <h2>Áreas de experiencia:</h2>
-                    <p>transformación agroindustrial, control de calidad, producción
-                        avícola,
-                        buenas prácticas de manufactura y sostenibilidad agroalimentaria.
-                    </p>
-                </div>
-            </header>
-        </div>
-    </div>
+    <div class="perfil">
 
-</div>
-<div class="caja_instructor">
+        <div class="img_instructor">
+            <img src="{{url_for('static', filename='uploads/'+ instructor.foto)}}" alt="josue" class="instructor_foto"
+                width="100">
 
-    <div class="intr_proyectos">
-        <div class="titulo-proyectos"><img src="./img/Logo_geométrico_para_producción_audiovisual-removebg-preview.png"
-                alt="proyectos_logo">
-        </div>
-        <div class="carrusel_proyectos">
-            <button class="flecha izq">&#10094;</button>
-
-            <div class="lista_proyectos">
-                <div class="item">
-                    <img src="./img/palmera-con-platanos-verdes.jpg" alt="column_proyectosinstr">
-                    <div class="column_proyectosinstr">
-                        <p>Sabores del Campo</p>
-                        <p>“Del campo a tu mesa, con sabor y tradición.”</p>
-                    </div>
-
-                </div>
-
-                <div class="item">
-                    <img src="./img/yogur.jpg" alt="Lácteos del Campo">
-                    <div class="column_proyectosinstr">
-                        <p>Lácteos del Campo</p>
-                        <p>Producción de yogurt artesanal y bebidas fermentadas</p>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <img src="./img/e2d4a483-6295-490b-8ffc-03afd3e27704.jpg" alt="column_proyectosinstr">
-                    <div class="column_proyectosinstr">
-                        <p>Sabores del Cacao</p>
-                        <p>Transformación del grano en chocolate artesanal y derivados.</p>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <img src="./img/plano-pone-deliciosa-mermelada-en-pan.jpg" alt="Sabores Naturales">
-                    <div class="column_proyectosinstr">
-                        <p>Sabores Naturales</p>
-                        <p>Elaboración de mermeladas y salsas naturales</p>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <img src="img/batidos-verdes-y-rojos-en-un-frasco-con-lima-kiwi.jpg" alt="Energía Verde">
-                    <div class="column_proyectosinstr">
-                        <p>Energía Verde</p>
-                        <p>Desarrollo de bebidas funcionales y nutritivas a base de productos agrícolas.</p>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <img src="./img/manos-sosteniendo-dulces-mexicanos.jpg" alt="Snacks Saludables">
-                    <div class="column_proyectosinstr">
-                        <p>Snacks Saludables SENA</p>
-                        <p>Elaboración de pasabocas horneados a base de yuca, plátano o maíz.</p>
-                    </div>
-                </div>
+            <h1 class="nombre_instructor">{{instructor.nombres+ " "+ instructor.apellidos}}</h1>
+            <div class="botones_instructor">
+                <a href="intr_proyectos" class="btn_inst">Proyectos</a>
+                <a href="#colegios" class="btn_inst">Colegios</a>
+                <a href=".titulo-perfil" class="btn_inst2">perfil</a>
             </div>
 
-            <button class="flecha der">&#10095;</button>
         </div>
-    </div>
-    <div class="inst_colegios">
+        <div class="infogeneral_inst">
+            <div class="caja_infor">
+                <header class="encabezado">
+                    <h1 class="titulo-perfil">Perfil Profesional</h1>
+                    <h2>{{instructor.nombres + " "+ instructor.apellidos}}</h2>
+                    <p class="cargo_p">Instructor Agroindustrial</p>
+                    <div class="descripcion">
+                        <p>
+                            Josue Antanacio Ventura Meaury, de 45 años, es Ingeniero Agroindustrial egresado de
+                            la
+                            Universidad del Tolima, con especialización en Gestión de la Calidad e Inocuidad
+                            Alimentaria
+                            del SENA. Ha complementado su formación con cursos en buenas prácticas agrícolas,
+                            transformación de alimentos y sostenibilidad rural.<br></p>
 
-        <div class="titulo-colegios"><img src="./img/colegios.png" alt="colegios"></div>
-        <div class="proyectos_inst">
+                        <p>Con más de 15 años de experiencia en el sector agropecuario, ha trabajado en plantas
+                            de
+                            procesamiento, proyectos de innovación alimentaria y asistencia técnica a pequeños
+                            productores. Actualmente se desempeña como instructor del SENA en el área de
+                            Agroindustria,
+                            donde forma aprendices en procesos productivos sostenibles, transformación de
+                            materias
+                            primas y emprendimiento rural.<br></p>
 
-            <div class="lista_colegios">
-                <div class="item_colegios">
-                    <img src="./img/villamaga.jpg" alt="la frontera">
-                    <h2>institucion educativa la frontera</h2>
-                </div>
-
-                <div class="item_colegios">
-                    <img src="./img/sede educativa seis de octubre.png" alt="Seis de octubre">
-                    <h2>sede educativa seis de octubre</h2>
-                </div>
-
+                        <h2>Áreas de experiencia:</h2>
+                        <p>transformación agroindustrial, control de calidad, producción
+                            avícola,
+                            buenas prácticas de manufactura y sostenibilidad agroalimentaria.
+                        </p>
+                    </div>
+                </header>
             </div>
         </div>
 
+    </div>
+    <div class="caja_instructor">
+
+        <div class="intr_proyectos">
+            <div class="titulo-proyectos"><img src="./img/Logo_geométrico_para_producción_audiovisual-removebg-preview.png"
+                    alt="proyectos_logo">
+            </div>
+            <div class="carrusel_proyectos">
+                <button class="flecha izq">&#10094;</button>
+
+                <div class="lista_proyectos">
+                    <div class="item">
+                        <img src="./img/palmera-con-platanos-verdes.jpg" alt="column_proyectosinstr">
+                        <div class="column_proyectosinstr">
+                            <p>Sabores del Campo</p>
+                            <p>“Del campo a tu mesa, con sabor y tradición.”</p>
+                        </div>
+
+                    </div>
+
+                    <div class="item">
+                        <img src="./img/yogur.jpg" alt="Lácteos del Campo">
+                        <div class="column_proyectosinstr">
+                            <p>Lácteos del Campo</p>
+                            <p>Producción de yogurt artesanal y bebidas fermentadas</p>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="./img/e2d4a483-6295-490b-8ffc-03afd3e27704.jpg" alt="column_proyectosinstr">
+                        <div class="column_proyectosinstr">
+                            <p>Sabores del Cacao</p>
+                            <p>Transformación del grano en chocolate artesanal y derivados.</p>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="./img/plano-pone-deliciosa-mermelada-en-pan.jpg" alt="Sabores Naturales">
+                        <div class="column_proyectosinstr">
+                            <p>Sabores Naturales</p>
+                            <p>Elaboración de mermeladas y salsas naturales</p>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="img/batidos-verdes-y-rojos-en-un-frasco-con-lima-kiwi.jpg" alt="Energía Verde">
+                        <div class="column_proyectosinstr">
+                            <p>Energía Verde</p>
+                            <p>Desarrollo de bebidas funcionales y nutritivas a base de productos agrícolas.</p>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="./img/manos-sosteniendo-dulces-mexicanos.jpg" alt="Snacks Saludables">
+                        <div class="column_proyectosinstr">
+                            <p>Snacks Saludables SENA</p>
+                            <p>Elaboración de pasabocas horneados a base de yuca, plátano o maíz.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="flecha der">&#10095;</button>
+            </div>
+        </div>
+        <div class="inst_colegios">
+
+            <div class="titulo-colegios"><img src="./img/colegios.png" alt="colegios"></div>
+            <div class="proyectos_inst">
+
+                <div class="lista_colegios">
+                    <div class="item_colegios">
+                        <img src="./img/villamaga.jpg" alt="la frontera">
+                        <h2>institucion educativa la frontera</h2>
+                    </div>
+
+                    <div class="item_colegios">
+                        <img src="./img/sede educativa seis de octubre.png" alt="Seis de octubre">
+                        <h2>sede educativa seis de octubre</h2>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+        </div>
 
 
     </div>
 
-
-</div>
-
-
+{%endblock%}
 
 
 <script>
@@ -193,4 +193,3 @@
         }
     });
 </script>
-{%endblock%}
