@@ -1,94 +1,215 @@
 {% extends "base.html" %}
 {% block content %}
-<header id="inicio" class="hero">
-  <div class="hero-inner">
-    <h1 class="flash-text">ARTICULACION SENA ARAUCA</h1>
-    <p class="hero-sub">Conectando proyectos de colegios y municipios SENA Arauca</p>
-    <a class="btn" href="#emprendimientos">Explorar</a>
-  </div>
+<header class="hero3">
+    <div class="hero-bg"></div>
+    <div class="hero-container">
+        <div class="hero-info">
+            <span class="badge">
+                SENA REGIONAL ARAUCA
+            </span>
+            <h1>
+                Articulacion
+                <span> con la Media</span>
+            </h1>
+            <p>
+                Conectamos colegios y SENA para formar jóvenes con competencias, impulsar sus proyectos y construir
+                nuevas oportunidades para el desarrollo de Arauca.
+            </p>
+            <div class="hero-buttons">
+                <a href="#municipios" class="btn3 btn-primary3">
+                    Explorar Municipios
+                </a>
+                <a href="#" class="btn3 btn-secondary3">
+                    Ver proyectos
+                </a>
+            </div>
+        </div>
+    </div>
 </header>
 
 <!-- EMPRENDIMIENTOS (DISEÑO VERDE) -->
-{%if proyectos%}
-<section id="proyectos" class="section emprendimientos">
-  <div class="container">
-    <h2>Proyectos Productivos</h2>
-    {%for proyecto in proyectos%}
-    <div class="cards">
-      <a href="{{url_for('main.proyecto', id = proyecto.id)}}">
-        <article class="card">
-          <img src="{{ url_for('static', filename='uploads/' + proyecto.foto) }}" alt="foto {{ proyecto.nombre }}">
-          <h3>{{proyecto.nombre}}</h3>
-          <p>{{proyecto.descripcion}}</p>
-        </article>
-      </a>
-      {%endfor%}
-    </div>
-  </div>
-</section>
-{%endif%}
+{% if proyectos %}
+<section id="proyectos2" class="section proyectos">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-badge">PROYECTOS DE APRENDICES</span>
+            <h2>Proyectos que transforman ideas en soluciones</h2>
+            <p>Descubre los proyectos desarrollados por los aprendices del programa Articulación con la Media.</p>
+        </div>
 
-{%if colegios%}
-<!-- COLEGIOS (DISEÑO NARANJA) -->
-<section id="colegios" class="section colegios">
-  <div class="container">
-    <h2>Colegios</h2>
-    <div class="cards">
-      {%for colegio in colegios%}
-      <a href="{{url_for('main.colegio', id = colegio.id)}}">
-        <article class="card">
-          <img src="{{url_for('static', filename='uploads/'+ colegio.logo)}}" alt="{{colegio.nombre}}">
-          <h3>{{colegio.nombre}}</h3>
-          <p>{{ colegio.slogan if colegio.slogan }}</p>
-        </article>
-      </a>
-      {%endfor%}
-    </div>
-  </div>
-  <a href="{{url_for('main.colegios')}}">Ver todos los colegios</a>
-</section>
+        <!-- Mosaico / Collage -->
+        <div class="collage-grid">
+            {% for proyecto in proyectos %}
+            <a href="{{ url_for('main.proyecto', id=proyecto.id) }}" class="collage-card">
+                <!-- Imagen de Fondo -->
+                <div class="card-bg">
+                    <img src="{{ url_for('static', filename='uploads/' + proyecto.foto) }}" alt="Foto {{ proyecto.nombre }}">
+                </div>
 
-{%endif%}
+                <!-- Estado Inicial: Título con pastilla sutil -->
+                <div class="state-default">
+                    <h3>{{ proyecto.nombre }}</h3>
+                </div>
+
+                <!-- Estado Hover: Fondo azul oscuro con descripción -->
+                <div class="state-hover">
+                    <span class="card-tag">Proyecto</span>
+                    <h3>{{ proyecto.nombre }}</h3>
+                    <p>{{ proyecto.descripcion }}</p>
+                    <span class="card-link-text">Ver proyecto →</span>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+
+        <div class="view-all">
+            <a href="{{ url_for('main.colegios') }}" class="btn-primary">
+                Ver todos los proyectos
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+
+{% if colegios %}
+<section id="colegios2" class="section colegios">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-badge">COLEGIOS ALIADOS</span>
+            <h2>Colegios que hacen parte de Articulación</h2>
+            <p>Instituciones educativas comprometidas con la formación técnica y el desarrollo del talento juvenil.</p>
+        </div>
+
+        <div class="cards">
+            {% for colegio in colegios %}
+            <a href="{{ url_for('main.colegio', id=colegio.id) }}" class="card-link">
+                <article class="card">
+                    <div class="card-banner"></div>
+                    <div class="logo-container">
+                        <img src="{{ url_for('static', filename='uploads/' + colegio.logo) }}" alt="{{ colegio.nombre }}">
+                    </div>
+                    <div class="card-content">
+                        <span class="location-badge">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                            Regional Arauca
+                        </span>
+                        <h3>{{ colegio.nombre }}</h3>
+                        
+                        {% if colegio.slogan %}
+                        <p class="school-slogan">"{{ colegio.slogan }}"</p>
+                        {% endif %}
+
+                        <div class="card-footer">
+                            <span class="card-button">Ver colegio</span>
+                            <span class="arrow-icon">→</span>
+                        </div>
+                    </div>
+                </article>
+            </a>
+            {% endfor %}
+        </div>
+
+        <div class="view-all">
+            <a href="{{ url_for('main.colegios') }}" class="btn-primary">
+                Ver todos los colegios
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
 <!-- MUNICIPIOS (DISEÑO GRIS/AZUL) -->
-{%if municipios%}
-<section id="municipios" class="section municipios">
-  <div class="container">
-    <h2>Municipios</h2>
-    <div class="cards">
-      {%for municipio in municipios %}
-      <a href="{{url_for('main.municipio', id = municipio.id)}}">
-        <article class="card">
+{% if municipios %}
+<section id="municipios2" class="section municipios">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-badge">MUNICIPIOS</span>
+            <h2>Municipios que hacen parte de Articulación</h2>
+            <p>Descubre los municipios de la regional Arauca donde el programa impulsa la formación técnica y el desarrollo de proyectos.</p>
+        </div>
 
-          <img src="{{url_for('static', filename='uploads/' + municipio.foto)}}" alt="foto {{municipio.nombre}}">
-          <h3>{{municipio.nombre}}</h3>
-          <p>Emprendimiento juvenil y cultural.</p>
-        </article>
-      </a>
-      {%endfor%}
+        <div class="carousel-wrapper">
+            <button id="prevBtn" class="carousel-btn prev-btn" aria-label="Anterior">‹</button>
+            
+            <div id="municipiosCarousel" class="carousel-container">
+                {% for municipio in municipios %}
+                <a href="{{ url_for('main.municipio', id=municipio.id) }}" class="card-item">
+                    <article class="card">
+                        <div class="municipio-image">
+                            <img src="{{ url_for('static', filename='uploads/'+municipio.foto) }}" alt="Foto de {{ municipio.nombre }}">
+                        </div>
+                        <div class="card-content">
+                            <h3>{{ municipio.nombre }}</h3>
+                            <div class="card-button">Explorar municipio →</div>
+                        </div>
+                    </article>
+                </a>
+                {% endfor %}
+            </div>
+
+            <button id="nextBtn" class="carousel-btn next-btn" aria-label="Siguiente">›</button>
+        </div>
+
+        <div class="view-all">
+            <a href="{{ url_for('main.colegios') }}" class="btn-primary">
+                Ver todos los municipios
+            </a>
+        </div>
     </div>
-  </div>
 </section>
-{%endif%}
+{% endif %}
 
 
 <!-- INSTRUCTORES (DISEÑO OSCURO) -->
-{%if instructores%}
-<section id="instructores" class="section instructores">
-  <div class="container">
-    <h2>Instructores</h2>
-    <div class="cards">
-      {%for instructor in instructores%}
-      <a href="{{url_for('main.instructor', id= instructor.id)}}">
-        <article class="card">
-          <img src="{{url_for('static', filename='uploads/'+ instructor.foto)}}" alt="Instructor 1">
-          <h3>{{instructor.nombres + " "+ instructor.apellidos}}</h3>
-          <p>profesional en: {{instructor.id_cargo}}</p>
-        </article>
-      </a>
-      {%endfor%}
+{% if instructores %}
+<section id="instructores2" class="section instructores">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-badge">
+                NUESTROS INSTRUCTORES
+            </span>
+            <h2>
+                Instructores que inspiran y transforman
+            </h2>
+            <p>
+                Profesionales que acompañan a los estudiantes en su proceso de
+                formación técnica dentro del programa Articulación con la Media.
+            </p>
+        </div>
+        <div class="cards">
+            {% for instructor in instructores %}
+            <a href="{{ url_for('main.instructor', id=instructor.id) }}">
+                <article class="card">
+                    <div class="instructor-image">
+                        <img src="{{ url_for('static', filename='uploads/' + instructor.foto) }}"
+                            alt="{{ instructor.nombres }}">
+                    </div>
+                    <div class="card-content">
+                        <h3>
+                            {{ instructor.nombres + " " + instructor.apellidos }}
+                        </h3>
+                        <h4>
+                            Profesional en {{ instructor.profesion }}
+                        </h4>
+                        <p>
+                            Instructor del programa Articulación con la Media.
+                        </p>
+                        <div class="card-button">
+                            Ver perfil →
+                        </div>
+                    </div>
+                </article>
+            </a>
+            {% endfor %}
+        </div>
+        <div class="view-all">
+            <a href="{{ url_for('main.colegios') }}" class="btn-primary">
+                Ver todos los instructores
+            </a>
+        </div>
     </div>
-  </div>
 </section>
+{% endif %}
 
-{%endif%}
 {% endblock %}
