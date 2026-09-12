@@ -1,0 +1,331 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="pagina-instructores">
+    <section class="hero-instructores">
+        <div class="container_instructores">
+            <div class="hero-grid">
+                <div>
+                    <div class="pag">Instructores</div>
+                    <h1>Talento que<br><span>transforma</span></h1>
+                    <p>
+                        Conoce a los instructores del SENA que acompañan la formación
+                        técnica de los estudiantes de los colegios articulados.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="filt_instructores">
+        <label>
+            <span class="search-icon">⌕</span>
+            <input id="search" type="text" placeholder="Buscar instructor, programa o colegio...">
+        </label>
+
+        <div class="filtroins">
+            <div class="filtro-titulo">
+                <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
+                        <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                    </svg>
+                </span>
+                <h2 id="nombreMunicipio">Municipio</h2>
+            </div>
+            <div class="filtro-opciones">
+                <button type="button" onclick="filtrarMunicipio('Arauca')">Arauca</button>
+                <button type="button" onclick="filtrarMunicipio('Tame')">Tame</button>
+                <button type="button" onclick="filtrarMunicipio('Saravena')">Saravena</button>
+            </div>
+        </div>
+
+
+        <div class="filtroins">
+            <div class="filtro-titulo">
+                <span><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                        class="bi bi-book-half" viewBox="0 0 16 16">
+                        <path
+                            d="M8.5 2.687c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783" />
+                    </svg></span>
+                <h2 id="nombreArea">Area de formación</h2>
+            </div>
+            <div class="filtro-opciones">
+                <button onclick="filtrarAreadeformacion('Agroindustria')">Agroindustria</button>
+                <button onclick="filtrarAreadeformacion('Sistemas')">Sistemas</button>
+                <button onclick="filtrarAreadeformacion('Contabilidad y Finanzas')">Contabilidad y Finanzas</button>
+                <button onclick="filtrarAreadeformacion('Electricidad y Electrónica')">Electricidad y Electrónica</button>
+                <button onclick="filtrarAreadeformacion('Salud')">Salud</button>
+                <button onclick="filtrarAreadeformacion('Diseño y Multimedia')">Diseño y Multimedia</button>
+                <button onclick="filtrarAreadeformacion('Administración')">Administración</button>
+                <button onclick="filtrarAreadeformacion('Producción Industrial')">Producción Industrial</button>
+            </div>
+        </div>
+
+        <div class="filtroins">
+            <div class="filtro-titulo">
+                <span><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                        class="bi bi-house" viewBox="0 0 16 16">
+                        <path
+                            d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z" />
+                    </svg></span>
+                <h2 id="nombreColegio">Colegio</h2>
+            </div>
+            <div class="filtro-opciones">
+                <button onclick="filtrarColegio('El Pombo')">El Pombo</button>
+                <button onclick="filtrarColegio('La Frontera')">La Frontera</button>
+            </div>
+        </div>
+
+
+        <button class="clear" id="clear" type="button">↻ <span>Limpiar filtros</span></button>
+    </div>
+
+    <section class="section">
+        <div class="container_instructores">
+            <div class="section-head">
+                <h2 class="section-title">Áreas de formación</h2>
+                <a class="section-link" href="#">Ver todas →</a>
+            </div>
+
+            <div class="areas">
+                <div class="area-box">
+                    <div class="area-icon">♧</div><span>Agroindustria</span>
+                </div>
+                <div class="area-box">
+                    <div class="area-icon">▣</div><span>Sistemas</span>
+                </div>
+                <div class="area-box">
+                    <div class="area-icon">▤</div><span>Contabilidad y Finanzas</span>
+                </div>
+                <div class="area-box">
+                    <div class="area-icon">♧</div><span>Electricidad y Electrónica</span>
+                </div>
+                <div class="area-box">
+                    <div class="area-icon">♡</div><span>Salud</span>
+                </div>
+                <div class="area-box">
+                    <div class="area-icon">◫</div><span>Diseño y Multimedia</span>
+                </div>
+                <div class="area-box">
+                    <div class="area-icon">▱</div><span>Administración</span>
+                </div>
+                <div class="area-box">
+                    <div class="area-icon">▥</div><span>Producción Industrial</span>
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+
+
+
+    <section class="section">
+        <div class="container_instructores">
+            <div class="instructors-news">
+
+                <div>
+                    <div class="section-head">
+                        <h2 class="section-title">Nuestros instructores</h2>
+                        <a class="section-link" href="#">Ver todos →</a>
+                    </div>
+
+                    <div class="instructor-grid" id="instructorGrid">
+                        {% if instructores %}
+                        {% for instructor in instructores %}
+                        <a href="./instructor.html" class="instructor-link">
+                            <div class="instructor-photo">
+                                <span class="card-badge">SENA</span>
+                                <img src="{{ url_for('static', filename='img/' + instructor.foto) }}"
+                                    alt="{{ instructor.nombre }}">
+                            </div>
+                            <div class="card-content">
+                                <h3>{{ instructor.nombre }}</h3>
+
+                                <div class="area">profesion: {{ instructor.profesion }}</div>
+
+
+                                <div class="meta">⌖ {{ instructor.municipio }}</div>
+                                <div class="meta">⌂ {{ instructor.colegio }}</div>
+                                <span class="profile-btn">Ver perfil <span>→</span></span>
+                            </div>
+                        </a>
+                        </article>
+                        {% endfor %}
+                        {% else %}
+                        <div class="empty-state">
+                            <strong>No hay instructores disponibles.</strong>
+                            <span>Prueba con otros filtros o vuelve a intentarlo más tarde.</span>
+                        </div>
+                        {% endif %}
+
+                    </div>
+
+                    <button class="load">Cargar más instructores ↓</button>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container two-columns">
+
+
+            <div>
+                <div class="section-head">
+                    <div>
+                        <h2 class="section-title">Instructores que hacen posible los proyectos</h2>
+                    </div>
+                    <a class="section-link" href="#">Ver todos →</a>
+                </div>
+
+                <div class="project-grid">
+                    <article class="project">
+                        <div class="project-img">
+                            <img
+                                src="https://images.unsplash.com/photo-1492496913980-501348b61469?auto=format&fit=crop&w=300&q=80">
+                        </div>
+                        <div>
+                            <span class="tag">Agroindustria</span>
+                            <h4>Sabores del Campo</h4>
+                            <p>Instructora: Catherine Pereira</p>
+                            <p>Colegio Agropecuario del Sarare</p>
+                        </div>
+                    </article>
+
+                    <article class="project">
+                        <div class="project-img">
+                            <img
+                                src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=300&q=80">
+                        </div>
+                        <div>
+                            <span class="tag">Sistemas</span>
+                            <h4>Robótica para el Futuro</h4>
+                            <p>Instructor: Juan Pérez</p>
+                            <p>I.E. El Triunfo</p>
+                        </div>
+                    </article>
+
+                    <article class="project">
+                        <div class="project-img">
+                            <img
+                                src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=300&q=80">
+                        </div>
+                        <div>
+                            <span class="tag">Contabilidad</span>
+                            <h4>Finanzas que Transforman</h4>
+                            <p>Instructora: María Gómez</p>
+                            <p>I.E. San Luis</p>
+                        </div>
+                    </article>
+
+                    <article class="project">
+                        <div class="project-img">
+                            <img
+                                src="https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&fit=crop&w=300&q=80">
+                        </div>
+                        <div>
+                            <span class="tag">Electricidad</span>
+                            <h4>Energía que Conecta</h4>
+                            <p>Instructor: Carlos Ramírez</p>
+                            <p>Colegio Técnico del Sarare</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</div>
+
+
+<script>
+    (() => {
+        const search = document.getElementById("search");
+        const municipio = document.getElementById("municipio");
+        const area = document.getElementById("area");
+        const clear = document.getElementById("clear");
+        const colegio = document.querySelector(".pagina-instructores .filters select:nth-of-type(3)");
+
+        const normalize = value => (value || "")
+            .toString()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLowerCase()
+            .trim();
+
+        function filterInstructors() {
+            const cards = [...document.querySelectorAll(".pagina-instructores .instructor")];
+            const q = normalize(search?.value);
+            const city = normalize(municipio?.value);
+            const selectedArea = normalize(area?.value);
+            const selectedCollege = normalize(colegio?.value);
+
+            cards.forEach(card => {
+                const name = normalize(card.dataset.name);
+                const cardArea = normalize(card.dataset.area);
+                const cardCity = normalize(card.dataset.city);
+                const cardText = normalize(card.textContent);
+
+                const matchesSearch = !q ||
+                    name.includes(q) ||
+                    cardArea.includes(q) ||
+                    cardCity.includes(q) ||
+                    cardText.includes(q);
+
+                const matchesCity = !city || city.includes("todos") || cardCity === city;
+                const matchesArea = !selectedArea || selectedArea.includes("todas") || cardArea === selectedArea;
+                const matchesCollege = !selectedCollege ||
+                    selectedCollege.includes("todos") ||
+                    cardText.includes(selectedCollege);
+
+                card.hidden = !(matchesSearch && matchesCity && matchesArea && matchesCollege);
+            });
+        }
+
+        [search, municipio, area, colegio].forEach(control => {
+            if (!control) return;
+            control.addEventListener(
+                control.tagName === "INPUT" ? "input" : "change",
+                filterInstructors
+            );
+        });
+
+        clear?.addEventListener("click", () => {
+            if (search) search.value = "";
+            if (municipio) municipio.selectedIndex = 0;
+            if (area) area.selectedIndex = 0;
+            if (colegio) colegio.selectedIndex = 0;
+            filterInstructors();
+        });
+
+        filterInstructors();
+    })();
+
+    function filtrarMunicipio(nombre) {
+        const municipio = document.getElementById("nombreMunicipio");
+
+        if (municipio) {
+            municipio.textContent = nombre;
+        }
+    }
+    function filtrarAreadeformacion(nombre) {
+        const municipio = document.getElementById("nombreArea");
+
+        if (municipio) {
+            municipio.textContent = nombre;
+        }
+    }
+    function filtrarColegio(nombre) {
+        const municipio = document.getElementById("nombreColegio");
+
+        if (municipio) {
+            municipio.textContent = nombre;
+        }
+    }
+</script>
+{%endblock%}
