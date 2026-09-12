@@ -929,9 +929,65 @@ html{
     transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease;
 }
 
-.filtroins{
-    display: grid;
+
+.filtroins {
+    position: relative;
+    min-height: 58px;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 0 15px;
+    border: 1px solid var(--pi-line);
+    border-radius: 13px;
+    background: #fff;
+    transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
 }
+
+.filtro-titulo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.filtro-titulo h2 {
+    margin: 0, 0.5rem;
+    font-size: 18px;
+    color: #238276;
+}
+
+.filtro-opciones {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 200px;
+    background: white;
+    padding: 10px 0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    display: none;
+    z-index: 100;
+}
+
+.filtroins:hover .filtro-opciones {
+    display: block;
+}
+
+.filtroins button {
+    width: 100%;
+    background: white;
+    border: none;
+    text-align: left;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.filtroins button:hover {
+    background: #f1f3f7;
+    color: #238276;
+}
+
+
 
 .filt_instructores label:focus-within{
     border-color:rgba(11,130,120,.45);
@@ -948,17 +1004,7 @@ html{
 
 
 
-.filt_instructores label input,
-.filt_instructores label select{
-    min-width:0;
-    width:100%;
-    border:0;
-    outline:0;
-    color:var(--pi-ink);
-    background:transparent;
-    font-size: 0.90rem;
-    font-weight:650;
-}
+
 
 .filt_instructores label{
     cursor:pointer;
