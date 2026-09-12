@@ -15,6 +15,11 @@
     --color_verde2: #00e676;
     --color_verde3: #0C8042;
     --color_verde4: #2BAD6E;
+    --fuente_roboto: "Roboto", sans-serif;
+
+    /* FUENTES NUEVAS */
+    --fuente_nombre: system-ui;
+    --fuente_titulo: "Inter", sans-serif;
 
 }
 
@@ -697,7 +702,7 @@ html{
     --pi-orange:#df8738;
     --pi-shadow:0 14px 35px rgba(12,53,49,.08);
     --pi-shadow-hover:0 20px 45px rgba(12,53,49,.14);
-
+    background-color: #f0edef;
     color:var(--pi-ink);
   
     font-family:Arial,"Helvetica Neue",sans-serif;
@@ -705,11 +710,6 @@ html{
     overflow:hidden;
 }
 
-.pagina-instructores *,
-.pagina-instructores *::before,
-.pagina-instructores *::after{
-    box-sizing:border-box;
-}
 
 .pagina-instructores a{
     color:inherit;
@@ -722,8 +722,8 @@ html{
     font:inherit;
 }
 
-.pagina-instructores .container{
-    width:min(1240px,calc(100% - 48px));
+.container_instructores{
+    width:min(1280px,calc(100% - 48px));
     margin-inline:auto;
 }
 
@@ -734,7 +734,7 @@ html{
 
 
 .hero-instructores{
-    background-position: center;
+    background-position: bottom;
     padding: 5rem 0 5rem;
     background-image:
         url("../img/fondoinstructores.png");
@@ -902,24 +902,26 @@ html{
 
 /* ========================= FILTERS ========================= */
 
-.filters{
+.filt_instructores{
     position:relative;
     z-index:10;
     display:grid;
+    margin: 0 2rem;
     grid-template-columns:1.7fr 1fr 1fr 1.05fr auto;
     gap:10px;
     padding:13px;
+    border-radius: 15px;
     border:1px solid rgba(11,130,120,.10);
     background:rgba(255,255,255,.96);
     box-shadow:0 18px 45px rgba(16,54,50,.10);
     backdrop-filter:blur(12px);
 }
 
-.filter{
+.filt_instructores label{
     min-height:58px;
     display:flex;
     align-items:center;
-    gap:11px;
+    gap: 2rem;
     padding:0 15px;
     border:1px solid var(--pi-line);
     border-radius:13px;
@@ -927,36 +929,42 @@ html{
     transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease;
 }
 
-.pagina-instructores .filter:focus-within{
+.filtroins{
+    display: grid;
+}
+
+.filt_instructores label:focus-within{
     border-color:rgba(11,130,120,.45);
     box-shadow:0 0 0 4px rgba(11,130,120,.08);
     transform:translateY(-1px);
 }
 
-.pagina-instructores .filter > span{
+.filt_instructores label > span{
     flex:0 0 auto;
     color:var(--pi-sena);
     font-size:21px;
     line-height:1;
 }
 
-.pagina-instructores .filter input,
-.pagina-instructores .filter select{
+
+
+.filt_instructores label input,
+.filt_instructores label select{
     min-width:0;
     width:100%;
     border:0;
     outline:0;
     color:var(--pi-ink);
     background:transparent;
-    font-size:13px;
+    font-size: 0.90rem;
     font-weight:650;
 }
 
-.pagina-instructores .filter select{
+.filt_instructores label{
     cursor:pointer;
 }
 
-.pagina-instructores .filter input::placeholder{
+.filt_instructores label input::placeholder{
     color:#8a969b;
 }
 
@@ -1004,12 +1012,12 @@ html{
     line-height:1.15;
     font-weight:950;
     letter-spacing:-.6px;
+    font-family: var(--fuente_titulo);
 }
 
 .pagina-instructores .section-title::after{
     content:"";
     display:block;
-    width:38px;
     height:3px;
     margin-top:9px;
     border-radius:999px;
@@ -1036,13 +1044,13 @@ html{
 
 .pagina-instructores .instructors-news{
     display:grid;
-    grid-template-columns:minmax(0,2.12fr) minmax(300px,.88fr);
+    grid-template-columns:minmax(0,2.12fr);
     gap:24px;
 }
 
 .pagina-instructores .instructor-grid{
     display:grid;
-    grid-template-columns:repeat(3,minmax(0,1fr));
+    grid-template-columns:repeat(5,minmax(0,1fr)) ;
     gap:17px;
 }
 
@@ -1123,9 +1131,10 @@ html{
 }
 
 .pagina-instructores .card-content h3{
-    min-height:44px;
+    min-height: 2rem;
     margin:0;
     color:var(--pi-ink);
+    font-family: var(--fuente_nombre);
     font-size:15px;
     line-height:1.45;
     font-weight:950;
@@ -1135,6 +1144,7 @@ html{
     margin:7px 0 12px;
     color:var(--pi-sena);
     font-size:12px;
+    min-height: 2.3rem;
     font-weight:900;
 }
 
@@ -1518,7 +1528,7 @@ html{
         grid-template-columns:1fr 1.05fr;
     }
 
-    .pagina-instructores .filters{
+    .filt_instructores{
         grid-template-columns:1.5fr 1fr 1fr;
     }
 
@@ -1533,7 +1543,7 @@ html{
 }
 
 @media (max-width:900px){
-    .pagina-instructores .container{
+    .container_instructores{
         width:min(100% - 32px,720px);
     }
 
@@ -1562,7 +1572,7 @@ html{
 }
 
 @media (max-width:680px){
-    .pagina-instructores .container{
+    .container_instructores{
         width:calc(100% - 24px);
     }
 
@@ -1603,12 +1613,14 @@ html{
         font-size:15px;
     }
 
-    .pagina-instructores .filters{
+    .filt_instructores{
         grid-template-columns:1fr;
         gap:8px;
         padding:10px;
         border-radius:16px;
     }
+
+    
 
     .pagina-instructores .clear{
         grid-column:auto;
@@ -1728,4 +1740,56 @@ html{
         scroll-behavior:auto !important;
         transition:none !important;
     }
+}
+
+
+
+
+
+
+
+/* Contenedor principal */
+.menu-contenedor {
+  position: relative;
+  display: inline-block;
+}
+
+/* Estilo del botón principal */
+.menu-boton {
+  background-color: #ffffff;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Ocultar el menú por defecto */
+.menu-desplegable {
+  display: none; 
+  position: absolute;
+  background-color: #ffffff;
+  min-width: 200px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.1);
+  list-style: none;
+  padding: 10px 0;
+  margin: 0;
+  z-index: 1;
+}
+
+/* Estilo de los enlaces dentro del menú */
+.menu-desplegable li a {
+  color: #333333;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Cambiar el fondo al pasar el cursor sobre las opciones */
+.menu-desplegable li a:hover {
+  background-color: #f1f1f1;
+}
+
+/* ¡EL TRUCO!: Mostrar el menú cuando se hace HOVER en el contenedor */
+.menu-contenedor:hover .menu-desplegable {
+  display: block;
 }

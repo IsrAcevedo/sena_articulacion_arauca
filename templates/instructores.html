@@ -3,7 +3,7 @@
 
 <div class="pagina-instructores">
     <section class="hero-instructores">
-        <div class="container">
+        <div class="container_instructores">
             <div class="hero-grid">
                 <div>
                     <div class="pag">Instructores</div>
@@ -16,24 +16,38 @@
             </div>
         </div>
     </section>
-    <div class="filters">
-        <label class="filter">
+    <div class="filt_instructores">
+        <label>
             <span class="search-icon">⌕</span>
             <input id="search" type="text" placeholder="Buscar instructor, programa o colegio...">
         </label>
 
-        <label class="filter">
-            <span>⌖</span>
-            <select id="municipio">
-                <option value="">Municipio · Todos</option>
-                <option>Saravena</option>
-                <option>Arauca</option>
-                <option>Tame</option>
-            </select>
+        <label>
+            <span><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                    class="bi bi-geo-alt" viewBox="0 0 16 16">
+                    <path
+                        d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
+                    <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                </svg>
+            </span>
+            <div class="filtroins">
+                <button>municipio</button>
+                <select id="municipio">
+                    <option value="">todos</option>
+                    <option>Saravena</option>
+                    <option>Arauca</option>
+                    <option>Tame</option>
+                </select>
+            </div>
+            
         </label>
 
-        <label class="filter">
-            <span>▣</span>
+        <label>
+            <span><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                    class="bi bi-book-half" viewBox="0 0 16 16">
+                    <path
+                        d="M8.5 2.687c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783" />
+                </svg></span>
             <select id="area">
                 <option value="">Área de formación · Todas</option>
                 <option>Agroindustria</option>
@@ -43,8 +57,12 @@
             </select>
         </label>
 
-        <label class="filter">
-            <span>⌂</span>
+        <label>
+            <span><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house"
+                    viewBox="0 0 16 16">
+                    <path
+                        d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z" />
+                </svg></span>
             <select>
                 <option>Colegio · Todos</option>
                 <option>Colegio Agropecuario del Sarare</option>
@@ -57,7 +75,7 @@
     </div>
 
     <section class="section">
-        <div class="container">
+        <div class="container_instructores">
             <div class="section-head">
                 <h2 class="section-title">Áreas de formación</h2>
                 <a class="section-link" href="#">Ver todas →</a>
@@ -97,7 +115,7 @@
 
 
     <section class="section">
-        <div class="container">
+        <div class="container_instructores">
             <div class="instructors-news">
 
                 <div>
@@ -109,23 +127,23 @@
                     <div class="instructor-grid" id="instructorGrid">
                         {% if instructores %}
                         {% for instructor in instructores %}
-                        <article class="card instructor" data-name="{{ instructor.nombre|lower }}"
-                            data-area="{{ instructor.area|default('Sistemas')|lower }}"
-                            data-city="{{ instructor.ciudad|lower }}">
-                            <a href="./instructor.html" class="instructor-link">
-                                <div class="instructor-photo">
-                                    <span class="card-badge">SENA</span>
-                                    <img src="{{ url_for('static', filename='img/' + instructor.foto) }}"
-                                        alt="{{ instructor.nombre }}">
-                                </div>
-                                <div class="card-content">
-                                    <h3>{{ instructor.nombre }}</h3>
-                                    <div class="area">{{ instructor.area|default('Sistemas') }}</div>
-                                    <div class="meta">⌖ {{ instructor.ciudad }}</div>
-                                    <div class="meta">⌂ {{ instructor.institucion }}</div>
-                                    <span class="profile-btn">Ver perfil <span>→</span></span>
-                                </div>
-                            </a>
+                        <a href="./instructor.html" class="instructor-link">
+                            <div class="instructor-photo">
+                                <span class="card-badge">SENA</span>
+                                <img src="{{ url_for('static', filename='img/' + instructor.foto) }}"
+                                    alt="{{ instructor.nombre }}">
+                            </div>
+                            <div class="card-content">
+                                <h3>{{ instructor.nombre }}</h3>
+
+                                <div class="area">profesion: {{ instructor.profesion }}</div>
+
+
+                                <div class="meta">⌖ {{ instructor.municipio }}</div>
+                                <div class="meta">⌂ {{ instructor.colegio }}</div>
+                                <span class="profile-btn">Ver perfil <span>→</span></span>
+                            </div>
+                        </a>
                         </article>
                         {% endfor %}
                         {% else %}
@@ -140,45 +158,6 @@
                     <button class="load">Cargar más instructores ↓</button>
                 </div>
 
-                <aside class="news">
-                    <div class="section-head">
-                        <h2 class="section-title">Novedades</h2>
-                        <a class="section-link" href="#">Ver más →</a>
-                    </div>
-
-                    <div class="news-item">
-                        <div class="news-img">
-                            <img
-                                src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=300&q=80">
-                        </div>
-                        <div>
-                            <h4>La instructora María Gómez lideró un taller de educación financiera.</h4>
-                            <small>24 abr 2025</small>
-                        </div>
-                    </div>
-
-                    <div class="news-item">
-                        <div class="news-img">
-                            <img
-                                src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=300&q=80">
-                        </div>
-                        <div>
-                            <h4>El instructor Juan Pérez acompañó una práctica de robótica.</h4>
-                            <small>18 abr 2025</small>
-                        </div>
-                    </div>
-
-                    <div class="news-item">
-                        <div class="news-img">
-                            <img
-                                src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=300&q=80">
-                        </div>
-                        <div>
-                            <h4>Catherine Pereira orientó la creación de productos derivados del cacao.</h4>
-                            <small>10 abr 2025</small>
-                        </div>
-                    </div>
-                </aside>
 
             </div>
         </div>
