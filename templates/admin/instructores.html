@@ -7,6 +7,9 @@
         <button id="btnAbrirNuevo"
             class="bg-senaGreen hover:bg-senaDark text-white rounded-md transition font-semibold p-2 mb-2">Añadir
             Nuevo</button>
+        <button id="btnAbrirNuevaProfesion"
+            class="bg-senaGreen hover:bg-senaDark text-white rounded-md transition font-semibold p-2 mb-2">Añadir
+            Profesión</button>
     </div>
     <table class="w-full text-left border-collapse">
         <thead>
@@ -23,7 +26,7 @@
             {%for instructor in instructores%}
             <tr class="border-b hover:bg-gray-50" data-id="{{instructor.id}}" data-nombres="{{instructor.nombres}}"
                 data-apellidos="{{instructor.apellidos}}" data-profesion="{{instructor.id_profesion}}"
-                data-activo="{{instructor.activo}}">
+                data-perfil="{{instructor.perfi_profesional or ''}}" data-activo="{{instructor.activo}}">
                 <td class="p-3">{{loop.index}}</td>
                 <td class="p-3">{{instructor.nombres}} {{instructor.apellidos}}</td>
                 <td class="p-3">{{instructor.profesion}}</td>
@@ -51,8 +54,8 @@
                 <h2 class="modal__titulo" id="modalTitulo">Instructor</h2>
                 <button class="modal__boton-cerrar" id="btnCerrarModal">&times;</button>
             </header>
-            <div class="modal__cuerpo">
-                <form id="formInstructor" enctype="multipart/form-data">
+            <form id="formInstructor" enctype="multipart/form-data">
+                <div class="modal__cuerpo">
                     <input type="hidden" id="instructorId" name="id">
                     <div class="modal__grupo">
                         <label class="modal__etiqueta" for="instructorNombres">Nombres</label>
@@ -71,6 +74,10 @@
                         </select>
                     </div>
                     <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="instructorPerfil">Perfil Profesional</label>
+                        <textarea class="modal__campo" id="instructorPerfil" name="perfi_profesional" rows="3" placeholder="Descripción del perfil profesional..."></textarea>
+                    </div>
+                    <div class="modal__grupo">
                         <label class="modal__etiqueta" for="instructorFoto">Foto</label>
                         <input type="file" class="modal__campo" id="instructorFoto" name="foto" accept=".webp">
                     </div>
@@ -81,12 +88,34 @@
                             <option value="0">No</option>
                         </select>
                     </div>
-                </form>
-            </div>
-            <footer class="modal__pie">
-                <button type="button" class="modal__boton modal__boton--secundario" id="btnCancelar">Cancelar</button>
-                <button type="submit" form="formInstructor" class="modal__boton modal__boton--primario">Guardar</button>
-            </footer>
+                </div>
+                <footer class="modal__pie">
+                    <button type="button" class="modal__boton modal__boton--secundario" id="btnCancelar">Cancelar</button>
+                    <button type="submit" class="modal__boton modal__boton--primario">Guardar</button>
+                </footer>
+            </form>
+        </div>
+    </dialog>
+
+    <!-- Modal para profesión -->
+    <dialog class="modal" id="modalProfesion">
+        <div class="modal__contenedor">
+            <header class="modal__encabezado">
+                <h2 class="modal__titulo" id="modalProfesionTitulo">Añadir Profesión</h2>
+                <button class="modal__boton-cerrar" id="btnCerrarModalProfesion">&times;</button>
+            </header>
+            <form id="formProfesion">
+                <div class="modal__cuerpo">
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="profesionNombre">Nombre de la Profesión</label>
+                        <input type="text" class="modal__campo" id="profesionNombre" name="nombre" required placeholder="Ej. Ingeniero de Sistemas">
+                    </div>
+                </div>
+                <footer class="modal__pie">
+                    <button type="button" class="modal__boton modal__boton--secundario" id="btnCancelarProfesion">Cancelar</button>
+                    <button type="submit" class="modal__boton modal__boton--primario">Guardar</button>
+                </footer>
+            </form>
         </div>
     </dialog>
 
@@ -101,16 +130,25 @@
         const instructorNombres = document.getElementById('instructorNombres');
         const instructorApellidos = document.getElementById('instructorApellidos');
         const instructorProfesion = document.getElementById('instructorProfesion');
+        const instructorPerfil = document.getElementById('instructorPerfil');
         const instructorFoto = document.getElementById('instructorFoto');
         const instructorActivo = document.getElementById('instructorActivo');
         const botonesEditar = document.querySelectorAll('button');
 
-        function abrirModal(titulo, id = '', nombres = '', apellidos = '', profesion = '', activo = '1') {
+        // Modal Profesión
+        const modalProfesion = document.getElementById('modalProfesion');
+        const btnAbrirNuevaProfesion = document.getElementById('btnAbrirNuevaProfesion');
+        const btnCerrarModalProfesion = document.getElementById('btnCerrarModalProfesion');
+        const btnCancelarProfesion = document.getElementById('btnCancelarProfesion');
+        const formProfesion = document.getElementById('formProfesion');
+
+        function abrirModal(titulo, id = '', nombres = '', apellidos = '', profesion = '', perfil = '', activo = '1') {
             modalTitulo.textContent = titulo;
             instructorId.value = id;
             instructorNombres.value = nombres;
             instructorApellidos.value = apellidos;
             instructorProfesion.value = profesion;
+            instructorPerfil.value = perfil;
             instructorActivo.value = activo;
             instructorFoto.value = '';
             modal.classList.add('modal--activo');
@@ -122,19 +160,47 @@
             instructorId.value = '';
         }
 
+        function abrirModalProfesion() {
+            if (formProfesion) formProfesion.reset();
+            modalProfesion.classList.add('modal--activo');
+        }
+
+        function cerrarModalProfesion() {
+            modalProfesion.classList.remove('modal--activo');
+            if (formProfesion) formProfesion.reset();
+        }
+
         btnAbrirNuevo.addEventListener('click', (e) => {
             e.preventDefault();
             abrirModal('Nuevo Instructor');
         });
 
+        if (btnAbrirNuevaProfesion) {
+            btnAbrirNuevaProfesion.addEventListener('click', (e) => {
+                e.preventDefault();
+                abrirModalProfesion();
+            });
+        }
+
         btnCerrarModal.addEventListener('click', cerrarModal);
         btnCancelar.addEventListener('click', cerrarModal);
+
+        if (btnCerrarModalProfesion) btnCerrarModalProfesion.addEventListener('click', cerrarModalProfesion);
+        if (btnCancelarProfesion) btnCancelarProfesion.addEventListener('click', cerrarModalProfesion);
 
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
                 cerrarModal();
             }
         });
+
+        if (modalProfesion) {
+            modalProfesion.addEventListener('click', (e) => {
+                if (e.target === modalProfesion) {
+                    cerrarModalProfesion();
+                }
+            });
+        }
 
         botonesEditar.forEach(boton => {
             if (boton.textContent.trim() === 'Editar') {
@@ -144,8 +210,9 @@
                     const nombres = fila.dataset.nombres;
                     const apellidos = fila.dataset.apellidos;
                     const profesion = fila.dataset.profesion || '';
+                    const perfil = fila.dataset.perfil || '';
                     const activo = fila.dataset.activo || '1';
-                    abrirModal('Editar Instructor', id, nombres, apellidos, profesion, activo);
+                    abrirModal('Editar Instructor', id, nombres, apellidos, profesion, perfil, activo);
                 });
             }
         });
@@ -181,6 +248,29 @@
                 console.error('Error:', error);
             }
         });
+
+        if (formProfesion) {
+            formProfesion.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const formData = new FormData(formProfesion);
+                try {
+                    const response = await fetch('/admin/profesiones/crear', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    if (response.ok) {
+                        cerrarModalProfesion();
+                        location.reload();
+                    } else {
+                        const errData = await response.json();
+                        alert(errData.message || 'Error al guardar la profesión');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Error en el envío del formulario');
+                }
+            });
+        }
     </script>
 
     {% endblock %}

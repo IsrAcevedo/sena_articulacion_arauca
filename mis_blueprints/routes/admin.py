@@ -56,7 +56,7 @@ def dashboard():
 def proyectos():
     query = "SELECT p.id_proyectos AS id, p.nombre, p.descripcion_corta AS descripcion, p.descripcion_larga, p.objetivo, p.resultado, p.id_tecnico, p.foto_principal, p.video_intro, p.fecha_inicio, p.fecha_fin, p.activo, t.nombre AS tecnico, c.nombre AS colegio FROM proyectos AS p INNER JOIN tecnicos AS t ON t.id_tecnicos = p.id_tecnico INNER JOIN colegios AS c ON c.id_colegios = t.id_colegio"
     proyectos = consulta(query)
-    query_tecnicos = "SELECT id_tecnicos AS id, nombre FROM tecnicos"
+    query_tecnicos = "SELECT id_tecnicos AS id, nombre, ficha FROM tecnicos"
     lista_tecnicos = consulta(query_tecnicos)
     return render_template('admin/proyectos.html', proyectos = proyectos, lista_tecnicos = lista_tecnicos)
 
@@ -130,21 +130,25 @@ def eliminar_proyecto(id):
 @admin_bp.route('/programas')
 @login_requerido
 def programas():
-    query = "SELECT t.id_tecnicos AS id, t.nombre, t.id_instructor, t.id_colegio, t.foto_principal, t.activo, CONCAT(i.nombres,' ',i.apellidos) AS instructor, c.nombre AS colegio, COUNT(p.id_proyectos) AS num_proyectos, COUNT(a.id_aprendices) AS num_aprendices FROM tecnicos AS t LEFT JOIN instructor AS i ON i.id_instructor = t.id_instructor LEFT JOIN colegios AS c ON c.id_colegios = t.id_colegio LEFT JOIN proyectos AS p ON p.id_tecnico = t.id_tecnicos LEFT JOIN aprendices AS a ON a.id_tecnico = t.id_tecnicos GROUP BY t.id_tecnicos"
+    query = "SELECT t.id_tecnicos AS id, t.nombre, t.ficha, t.id_modalidad, m.nombre AS modalidad, t.id_instructor, t.id_colegio, t.foto_principal, t.activo, CONCAT(i.nombres,' ',i.apellidos) AS instructor, c.nombre AS colegio, COUNT(p.id_proyectos) AS num_proyectos, COUNT(a.id_aprendices) AS num_aprendices FROM tecnicos AS t LEFT JOIN modalidad AS m ON m.id_modalidad = t.id_modalidad LEFT JOIN instructor AS i ON i.id_instructor = t.id_instructor LEFT JOIN colegios AS c ON c.id_colegios = t.id_colegio LEFT JOIN proyectos AS p ON p.id_tecnico = t.id_tecnicos LEFT JOIN aprendices AS a ON a.id_tecnico = t.id_tecnicos GROUP BY t.id_tecnicos"
     programas = consulta(query)
     query_instructores = "SELECT id_instructor AS id, CONCAT(nombres, ' ', apellidos) AS nombre FROM instructor"
     lista_instructores = consulta(query_instructores)
     query_colegios = "SELECT id_colegios AS id, nombre FROM colegios"
     lista_colegios = consulta(query_colegios)
-    return render_template('admin/programas.html', programas=programas, lista_instructores=lista_instructores, lista_colegios=lista_colegios)
+    query_modalidades = "SELECT id_modalidad AS id, nombre FROM modalidad"
+    lista_modalidades = consulta(query_modalidades)
+    return render_template('admin/programas.html', programas=programas, lista_instructores=lista_instructores, lista_colegios=lista_colegios, lista_modalidades=lista_modalidades)
 
-#ruta para editar programa
-@admin_bp.route('/programas/editar/<int:id>', methods=['POST'])
+#ruta para crear programa
+@admin_bp.route('/programas/crear', methods=['POST'])
 @login_requerido
-def editar_programa(id):
+def crear_programa():
     nombre = request.form.get('nombre')
-    instructor = request.form.get('instructor')
+    ficha = request.form.get('ficha')
+    modalidad = request.form.get('modalidad')
     colegio = request.form.get('colegio')
+    instructor = request.form.get('instructor')
     foto = request.files.get('foto')
     activo = request.form.get('activo', '1')
     
@@ -152,11 +156,35 @@ def editar_programa(id):
         nombre_foto = guardar_imagen(foto, UPLOAD_FOLDER, 'programas')
         if not nombre_foto:
             return jsonify({'success': False, 'message': 'Formato de imagen no permitido. Solo .webp'})
-        query = "UPDATE tecnicos SET nombre = %s, id_instructor = %s, id_colegio = %s, foto = %s, activo = %s WHERE id_tecnicos = %s"
-        parametros = (nombre, instructor, colegio, nombre_foto, activo, id)
     else:
-        query = "UPDATE tecnicos SET nombre = %s, id_instructor = %s, id_colegio = %s, activo = %s WHERE id_tecnicos = %s"
-        parametros = (nombre, instructor, colegio, activo, id)
+        nombre_foto = 'imagen.webp'
+    
+    query = "INSERT INTO tecnicos (nombre, ficha, id_modalidad, id_colegio, id_instructor, foto_principal, activo) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+    parametros = (nombre, ficha, modalidad, colegio, instructor if instructor else None, nombre_foto, activo)
+    resultado = insertar(query, parametros)
+    return jsonify({'success': True, 'message': resultado})
+
+#ruta para editar programa
+@admin_bp.route('/programas/editar/<int:id>', methods=['POST'])
+@login_requerido
+def editar_programa(id):
+    nombre = request.form.get('nombre')
+    ficha = request.form.get('ficha')
+    modalidad = request.form.get('modalidad')
+    colegio = request.form.get('colegio')
+    instructor = request.form.get('instructor')
+    foto = request.files.get('foto')
+    activo = request.form.get('activo', '1')
+    
+    if foto and foto.filename:
+        nombre_foto = guardar_imagen(foto, UPLOAD_FOLDER, 'programas')
+        if not nombre_foto:
+            return jsonify({'success': False, 'message': 'Formato de imagen no permitido. Solo .webp'})
+        query = "UPDATE tecnicos SET nombre = %s, ficha = %s, id_modalidad = %s, id_colegio = %s, id_instructor = %s, foto_principal = %s, activo = %s WHERE id_tecnicos = %s"
+        parametros = (nombre, ficha, modalidad, colegio, instructor if instructor else None, nombre_foto, activo, id)
+    else:
+        query = "UPDATE tecnicos SET nombre = %s, ficha = %s, id_modalidad = %s, id_colegio = %s, id_instructor = %s, activo = %s WHERE id_tecnicos = %s"
+        parametros = (nombre, ficha, modalidad, colegio, instructor if instructor else None, activo, id)
     
     resultado = insertar(query, parametros)
     return jsonify({'success': True, 'message': resultado})
@@ -167,6 +195,35 @@ def editar_programa(id):
 def eliminar_programa(id):
     query = "DELETE FROM tecnicos WHERE id_tecnicos = %s and activo = %s"
     parametros = (id, '0')
+    resultado = insertar(query, parametros)
+    return jsonify({'success': True, 'message': resultado})
+
+#ruta para crear area de formacion
+@admin_bp.route('/programas/crear_area', methods=['POST'])
+@login_requerido
+def crear_area():
+    nombre = request.form.get('nombre')
+    query = "INSERT INTO modalidad (nombre) VALUES (%s)"
+    parametros = (nombre,)
+    resultado = insertar(query, parametros)
+    return jsonify({'success': True, 'message': resultado})
+
+#ruta para editar area de formacion
+@admin_bp.route('/programas/editar_area/<int:id>', methods=['POST'])
+@login_requerido
+def editar_area(id):
+    nombre = request.form.get('nombre')
+    query = "UPDATE modalidad SET nombre = %s WHERE id_modalidad = %s"
+    parametros = (nombre, id)
+    resultado = insertar(query, parametros)
+    return jsonify({'success': True, 'message': resultado})
+
+#ruta para eliminar area de formacion
+@admin_bp.route('/programas/eliminar_area/<int:id>', methods=['POST'])
+@login_requerido
+def eliminar_area(id):
+    query = "DELETE FROM modalidad WHERE id_modalidad = %s"
+    parametros = (id,)
     resultado = insertar(query, parametros)
     return jsonify({'success': True, 'message': resultado})
 
@@ -241,7 +298,7 @@ def eliminar_colegio(id):
 @admin_bp.route('/instructores')
 @login_requerido
 def instructores():
-    query = "SELECT i.id_instructor AS id, i.nombres, i.apellidos, i.id_profesion, i.foto, i.activo, p.nombre_profesion AS profesion, (SELECT COUNT(*) FROM proyectos pr INNER JOIN tecnicos t ON pr.id_tecnico = t.id_tecnicos WHERE t.id_instructor = i.id_instructor) AS num_proyectos FROM instructor AS i LEFT JOIN profesiones p ON i.id_profesion = p.id_profesion"
+    query = "SELECT i.id_instructor AS id, i.nombres, i.apellidos, i.id_profesion, i.perfi_profesional, i.foto, i.activo, p.nombre_profesion AS profesion, (SELECT COUNT(*) FROM proyectos pr INNER JOIN tecnicos t ON pr.id_tecnico = t.id_tecnicos WHERE t.id_instructor = i.id_instructor) AS num_proyectos FROM instructor AS i LEFT JOIN profesiones p ON i.id_profesion = p.id_profesion"
     instructores = consulta(query)
     query_profesiones = "SELECT id_profesion AS id, nombre_profesion FROM profesiones"
     lista_profesiones = consulta(query_profesiones)
@@ -254,6 +311,7 @@ def crear_instructor():
     nombres = request.form.get('nombres')
     apellidos = request.form.get('apellidos')
     profesion = request.form.get('profesion')
+    perfi_profesional = request.form.get('perfi_profesional')
     foto = request.files.get('foto')
     activo = request.form.get('activo', '1')
     
@@ -264,8 +322,8 @@ def crear_instructor():
     else:
         nombre_foto = 'imagen.webp'
     
-    query = "INSERT INTO instructor (id_profesion, nombres, apellidos, foto, activo) VALUES (%s, %s, %s, %s, %s)"
-    parametros = (profesion, nombres, apellidos, nombre_foto, activo)
+    query = "INSERT INTO instructor (id_profesion, nombres, apellidos, perfi_profesional, foto, activo) VALUES (%s, %s, %s, %s, %s, %s)"
+    parametros = (profesion, nombres, apellidos, perfi_profesional, nombre_foto, activo)
     resultado = insertar(query, parametros)
     return jsonify({'success': True, 'message': resultado})
 
@@ -276,6 +334,7 @@ def editar_instructor(id):
     nombres = request.form.get('nombres')
     apellidos = request.form.get('apellidos')
     profesion = request.form.get('profesion')
+    perfi_profesional = request.form.get('perfi_profesional')
     foto = request.files.get('foto')
     activo = request.form.get('activo', '1')
     
@@ -283,11 +342,11 @@ def editar_instructor(id):
         nombre_foto = guardar_imagen(foto, UPLOAD_FOLDER, 'instructor')
         if not nombre_foto:
             return jsonify({'success': False, 'message': 'Formato de imagen no permitido. Solo .webp'})
-        query = "UPDATE instructor SET id_profesion = %s, nombres = %s, apellidos = %s, foto = %s, activo = %s WHERE id_instructor = %s"
-        parametros = (profesion, nombres, apellidos, nombre_foto, activo, id)
+        query = "UPDATE instructor SET id_profesion = %s, nombres = %s, apellidos = %s, perfi_profesional = %s, foto = %s, activo = %s WHERE id_instructor = %s"
+        parametros = (profesion, nombres, apellidos, perfi_profesional, nombre_foto, activo, id)
     else:
-        query = "UPDATE instructor SET id_profesion = %s, nombres = %s, apellidos = %s, activo = %s WHERE id_instructor = %s"
-        parametros = (profesion, nombres, apellidos, activo, id)
+        query = "UPDATE instructor SET id_profesion = %s, nombres = %s, apellidos = %s, perfi_profesional = %s, activo = %s WHERE id_instructor = %s"
+        parametros = (profesion, nombres, apellidos, perfi_profesional, activo, id)
     
     resultado = insertar(query, parametros)
     return jsonify({'success': True, 'message': resultado})
@@ -301,15 +360,30 @@ def eliminar_instructor(id):
     resultado = insertar(query, parametros)
     return jsonify({'success': True, 'message': resultado})
 
+#ruta para añadir profesiones de los instructores
+
+@admin_bp.route('/profesiones/crear', methods=['POST'])
+@login_requerido
+def crear_profesion():
+    nombre_profesion = request.form.get('nombre')
+    query = "INSERT INTO profesiones (nombre_profesion) VALUES (%s)"
+    parametros = (nombre_profesion,)
+    resultado = insertar(query, parametros)
+    return jsonify({'success': True, 'message': resultado})
+
+
+
 #ruta para administrar aprendices
 @admin_bp.route('/aprendices')
 @login_requerido
 def aprendices():
-    query = "SELECT a.id_aprendices AS id, a.nombres, a.apellidos, a.numero_identificacion, a.id_tecnico, a.foto, a.activo, t.nombre AS tecnico, c.nombre AS colegio, p.nombre AS proyecto FROM aprendices AS a INNER JOIN tecnicos AS t ON t.id_tecnicos = a.id_tecnico INNER JOIN colegios AS c ON c.id_colegios = t.id_colegio LEFT JOIN proyectos AS p ON p.id_tecnico = t.id_tecnicos"
+    query = "SELECT a.id_aprendices AS id, a.nombres, a.apellidos, a.numero_identificacion, a.id_tecnico, pa.id_proyecto, pr.nombre AS proyecto, a.foto, a.activo, t.nombre AS tecnico, c.nombre AS colegio FROM aprendices AS a INNER JOIN tecnicos AS t ON t.id_tecnicos = a.id_tecnico INNER JOIN colegios AS c ON c.id_colegios = t.id_colegio LEFT JOIN proyecto_aprendices AS pa ON pa.id_aprendiz = a.id_aprendices LEFT JOIN proyectos AS pr ON pr.id_proyectos = pa.id_proyecto"
     aprendices = consulta(query)
-    query_tecnicos = "SELECT id_tecnicos AS id, nombre FROM tecnicos"
+    query_tecnicos = "SELECT id_tecnicos AS id, nombre, ficha FROM tecnicos"
     lista_tecnicos = consulta(query_tecnicos)
-    return render_template('admin/aprendices.html', aprendices = aprendices, lista_tecnicos = lista_tecnicos)
+    query_proyectos = "SELECT id_proyectos AS id, nombre FROM proyectos"
+    lista_proyectos = consulta(query_proyectos)
+    return render_template('admin/aprendices.html', aprendices = aprendices, lista_tecnicos = lista_tecnicos, lista_proyectos = lista_proyectos)
 
 #ruta para crear aprendiz
 @admin_bp.route('/aprendices/crear', methods=['POST'])
@@ -319,6 +393,7 @@ def crear_aprendiz():
     apellidos = request.form.get('apellidos')
     numero_identificacion = request.form.get('numero_identificacion')
     tecnico = request.form.get('tecnico')
+    proyecto = request.form.get('proyecto')
     foto = request.files.get('foto')
     activo = request.form.get('activo', '1')
     
@@ -332,6 +407,15 @@ def crear_aprendiz():
     query = "INSERT INTO aprendices (id_tecnico, nombres, apellidos, numero_identificacion, foto, activo) VALUES (%s, %s, %s, %s, %s, %s)"
     parametros = (tecnico, nombres, apellidos, numero_identificacion, nombre_foto, activo)
     resultado = insertar(query, parametros)
+    
+    if proyecto:
+        query_id = "SELECT id_aprendices FROM aprendices WHERE numero_identificacion = %s"
+        res_id = consulta(query_id, (numero_identificacion,))
+        if res_id:
+            id_aprendiz = res_id[0]['id_aprendices']
+            insertar("DELETE FROM proyecto_aprendices WHERE id_aprendiz = %s", (id_aprendiz,))
+            insertar("INSERT INTO proyecto_aprendices (id_proyecto, id_aprendiz) VALUES (%s, %s)", (proyecto, id_aprendiz))
+            
     return jsonify({'success': True, 'message': resultado})
 
 #ruta para editar aprendiz
@@ -342,6 +426,7 @@ def editar_aprendiz(id):
     apellidos = request.form.get('apellidos')
     numero_identificacion = request.form.get('numero_identificacion')
     tecnico = request.form.get('tecnico')
+    proyecto = request.form.get('proyecto')
     foto = request.files.get('foto')
     activo = request.form.get('activo', '1')
     
@@ -349,21 +434,27 @@ def editar_aprendiz(id):
         nombre_foto = guardar_imagen(foto, UPLOAD_FOLDER, 'aprendiz')
         if not nombre_foto:
             return jsonify({'success': False, 'message': 'Formato de imagen no permitido. Solo .webp'})
-        query = "UPDATE aprendices SET id_tecnico = %s, nombres = %s, apellidos = %s, numero_identificacion = %s, foto = %s, activo = %s WHERE id_aprendiz = %s"
+        query = "UPDATE aprendices SET id_tecnico = %s, nombres = %s, apellidos = %s, numero_identificacion = %s, foto = %s, activo = %s WHERE id_aprendices = %s"
         parametros = (tecnico, nombres, apellidos, numero_identificacion, nombre_foto, activo, id)
     else:
-        query = "UPDATE aprendices SET id_tecnico = %s, nombres = %s, apellidos = %s, numero_identificacion = %s, activo = %s WHERE id_aprendiz = %s"
+        query = "UPDATE aprendices SET id_tecnico = %s, nombres = %s, apellidos = %s, numero_identificacion = %s, activo = %s WHERE id_aprendices = %s"
         parametros = (tecnico, nombres, apellidos, numero_identificacion, activo, id)
     
     resultado = insertar(query, parametros)
+    
+    insertar("DELETE FROM proyecto_aprendices WHERE id_aprendiz = %s", (id,))
+    if proyecto:
+        insertar("INSERT INTO proyecto_aprendices (id_proyecto, id_aprendiz) VALUES (%s, %s)", (proyecto, id))
+        
     return jsonify({'success': True, 'message': resultado})
 
 #ruta eliminar aprendiz
 @admin_bp.route('/aprendices/eliminar/<int:id>', methods=['POST'])
 @login_requerido
 def eliminar_aprendiz(id):
-    query = "DELETE FROM aprendices WHERE id_aprendiz = %s and activo = %s"
-    parametros = (id, '0')
+    insertar("DELETE FROM proyecto_aprendices WHERE id_aprendiz = %s", (id,))
+    query = "DELETE FROM aprendices WHERE id_aprendices = %s"
+    parametros = (id,)
     resultado = insertar(query, parametros)
     return jsonify({'success': True, 'message': resultado})
 
@@ -532,7 +623,7 @@ def login():
                 flash('Contraseña incorrecta.', 'error')
         else:
             flash('Usuario no encontrado.', 'error')
-   
+
     return render_template('admin/login.html')
    
 

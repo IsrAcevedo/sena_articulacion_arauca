@@ -86,7 +86,7 @@
                         <label class="modal__etiqueta" for="proyectoTecnico">Técnico</label>
                         <select class="modal__campo" id="proyectoTecnico" name="tecnico" required>
                             {% for tecnico in lista_tecnicos %}
-                            <option value="{{ tecnico.id }}">{{ tecnico.nombre }}</option>
+                            <option value="{{ tecnico.id }}">{{ tecnico.nombre }} {{ tecnico.ficha or '' }}</option>
                             {% endfor %}
                         </select>
                     </div>
