@@ -11,7 +11,7 @@ main_bp = Blueprint('main', __name__)
 def inicio():
     query1 = "SELECT id_proyectos AS id, nombre, descripcion_corta AS descripcion, foto_principal AS foto FROM proyectos limit 3"
     query2 = "SELECT id_colegios AS id, nombre, slogan, logo FROM colegios limit 3"
-    query3 = "SELECT id_municipios AS id, nombre, foto FROM municipios"
+    query3 = "SELECT id_municipios AS id, nombre, foto FROM municipios WHERE activo = 1"
     query4 = "SELECT i.id_instructor AS id, i.nombres, i.apellidos, p.nombre_profesion as profesion, i.foto FROM instructor i INNER JOIN profesiones p ON i.id_profesion=p.id_profesion limit 4"
     proyectos = consulta(query1)
     colegios = consulta(query2)

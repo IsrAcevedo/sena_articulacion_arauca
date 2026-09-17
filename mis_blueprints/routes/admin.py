@@ -464,7 +464,7 @@ def eliminar_aprendiz(id):
 @admin_bp.route('/municipios')
 @login_requerido
 def municipios():
-    query = "SELECT m.id_municipios AS id, m.nombre AS nombre, (SELECT COUNT(*) FROM colegios WHERE id_municipios = m.id_municipios) AS num_colegios, (SELECT COUNT(*) FROM proyectos p INNER JOIN tecnicos t ON p.id_tecnico = t.id_tecnicos INNER JOIN colegios c ON t.id_colegio = c.id_colegios WHERE c.id_municipios = m.id_municipios) AS num_proyectos FROM municipios AS m"
+    query = "SELECT m.id_municipios AS id, m.nombre AS nombre, m.foto AS foto, m.activo AS activo, (SELECT COUNT(*) FROM colegios WHERE id_municipios = m.id_municipios) AS num_colegios, (SELECT COUNT(*) FROM proyectos p INNER JOIN tecnicos t ON p.id_tecnico = t.id_tecnicos INNER JOIN colegios c ON t.id_colegio = c.id_colegios WHERE c.id_municipios = m.id_municipios) AS num_proyectos FROM municipios AS m"
     municipios = consulta(query)
     return render_template('admin/municipios.html', municipios = municipios)
 
@@ -508,6 +508,18 @@ def editar_municipio(id):
     
     resultado = insertar(query, parametros)
     return jsonify({'success': True, 'message': resultado})
+
+#ruta para eliminar municipio
+@admin_bp.route('/municipios/eliminar/<int:id>', methods=['POST', 'GET'])
+@login_requerido
+def eliminar_municipio(id):
+    query = "DELETE FROM municipios WHERE id_municipios = %s and activo = %s"
+    parametros = (id, '0')
+    resultado = insertar(query, parametros)
+    if request.method == 'GET':
+        return redirect(url_for('admin.municipios'))
+    return jsonify({'success': True, 'message': resultado})
+
 
 #ruta para crear cuenta de usuario
 @admin_bp.route('/crear_cuenta', methods=['GET', 'POST'])
