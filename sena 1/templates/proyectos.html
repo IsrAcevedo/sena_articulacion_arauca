@@ -1,0 +1,228 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if proyecto %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style/proyectos_modulo.css') }}">
+
+<main class="project-detail">
+  <a class="project-back" href="{{ url_for('main.inicio') }}#proyectos">← Volver a proyectos</a>
+
+  <section class="project-detail-hero">
+    <div class="detail-image">
+      <img
+        src="{{ url_for('static', filename='uploads/' + (proyecto.foto_principal or 'imagen.webp')) }}"
+        alt="Imagen principal de {{ proyecto.nombre }}"
+        onerror="this.onerror=null;this.src='{{ url_for('static', filename='img/logo_sena.png') }}';"
+      >
+      <span>{{ proyecto.modalidad or 'Proyecto SENA' }}</span>
+    </div>
+
+    <div class="detail-intro">
+      <p class="projects-kicker">PROYECTO DE ARTICULACIÓN</p>
+      <h1>{{ proyecto.nombre }}</h1>
+      <p class="detail-short">{{ proyecto.descripcion_corta }}</p>
+
+      <div class="detail-tags">
+        <span>📍 {{ proyecto.municipio }}</span>
+        <span>🏫 {{ proyecto.colegio }}</span>
+        <span>👨‍🏫 {{ proyecto.tecnico }}</span>
+        {% if proyecto.ficha %}<span>🔖 Ficha {{ proyecto.ficha }}</span>{% endif %}
+      </div>
+
+      {% if proyecto.video_intro %}
+      <a class="detail-primary-btn" href="{{ proyecto.video_intro }}" target="_blank" rel="noopener noreferrer">
+        ▶ Ver video del proyecto
+      </a>
+      {% endif %}
+    </div>
+  </section>
+
+  <section class="detail-layout">
+    <div class="detail-main">
+
+      <article class="detail-panel">
+        <span class="panel-kicker">01 · EL PROYECTO</span>
+        <h2>Conoce la propuesta</h2>
+        <p>{{ proyecto.descripcion_larga }}</p>
+      </article>
+
+      <div class="detail-two-cols">
+        {% if proyecto.objetivo %}
+        <article class="detail-panel">
+          <span class="panel-kicker">02 · PROPÓSITO</span>
+          <h2>Objetivo</h2>
+          <p>{{ proyecto.objetivo }}</p>
+        </article>
+        {% endif %}
+
+        {% if proyecto.resultado %}
+        <article class="detail-panel">
+          <span class="panel-kicker">03 · IMPACTO</span>
+          <h2>Resultado</h2>
+          <p>{{ proyecto.resultado }}</p>
+        </article>
+        {% endif %}
+      </div>
+
+      {% if galeria %}
+      <section class="detail-panel">
+        <span class="panel-kicker">04 · EVIDENCIAS</span>
+        <h2>Galería del proyecto</h2>
+        <div class="project-gallery">
+          {% for imagen in galeria %}
+          <button class="gallery-item" type="button"
+                  data-src="{{ url_for('static', filename='uploads/' + imagen.url_imagen) }}"
+                  data-caption="{{ imagen.descripcion or proyecto.nombre }}">
+            <img
+              src="{{ url_for('static', filename='uploads/' + imagen.url_imagen) }}"
+              alt="{{ imagen.descripcion or 'Evidencia de ' ~ proyecto.nombre }}"
+              loading="lazy"
+              onerror="this.parentElement.style.display='none';"
+            >
+            {% if imagen.descripcion %}<span>{{ imagen.descripcion }}</span>{% endif %}
+          </button>
+          {% endfor %}
+        </div>
+      </section>
+      {% endif %}
+
+      {% if videos %}
+      <section class="detail-panel">
+        <span class="panel-kicker">05 · MULTIMEDIA</span>
+        <h2>Videos</h2>
+        <div class="video-grid">
+          {% for video in videos %}
+          <article class="video-card">
+            <div class="video-frame">
+              <iframe
+                src=""
+                data-youtube="{{ video.url_video }}"
+                title="{{ video.titulo or 'Video de ' ~ proyecto.nombre }}"
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+            </div>
+            {% if video.titulo %}<h3>{{ video.titulo }}</h3>{% endif %}
+          </article>
+          {% endfor %}
+        </div>
+      </section>
+      {% endif %}
+
+      {% if aprendices %}
+      <section class="detail-panel">
+        <span class="panel-kicker">06 · EQUIPO</span>
+        <h2>Aprendices participantes</h2>
+        <div class="students-grid">
+          {% for aprendiz in aprendices %}
+          <div class="student">
+            <img src="{{ url_for('static', filename='uploads/' + (aprendiz.foto or 'imagen.webp')) }}"
+                 alt="{{ aprendiz.nombres }} {{ aprendiz.apellidos }}"
+                 loading="lazy"
+                 onerror="this.onerror=null;this.src='{{ url_for('static', filename='img/logo_sena.png') }}';">
+            <div>
+              <strong>{{ aprendiz.nombres }} {{ aprendiz.apellidos }}</strong>
+              <small>Aprendiz SENA</small>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </section>
+      {% endif %}
+
+    </div>
+
+    <aside class="detail-side">
+      <div class="info-card">
+        <span class="panel-kicker">FICHA DEL PROYECTO</span>
+        <div class="info-row"><small>Institución</small><strong>{{ proyecto.colegio }}</strong></div>
+        <div class="info-row"><small>Municipio</small><strong>{{ proyecto.municipio }}</strong></div>
+        <div class="info-row"><small>Programa / técnico</small><strong>{{ proyecto.tecnico }}</strong></div>
+        <div class="info-row"><small>Modalidad</small><strong>{{ proyecto.modalidad }}</strong></div>
+        {% if proyecto.ficha %}<div class="info-row"><small>Ficha</small><strong>{{ proyecto.ficha }}</strong></div>{% endif %}
+        {% if proyecto.fecha_inicio %}<div class="info-row"><small>Inicio</small><strong>{{ proyecto.fecha_inicio }}</strong></div>{% endif %}
+        {% if proyecto.fecha_fin %}<div class="info-row"><small>Finalización</small><strong>{{ proyecto.fecha_fin }}</strong></div>{% endif %}
+      </div>
+
+      {% if proyecto.colegio_logo %}
+      <div class="mini-card">
+        <img src="{{ url_for('static', filename='uploads/' + proyecto.colegio_logo) }}" alt="Logo {{ proyecto.colegio }}">
+        <div><small>Institución participante</small><strong>{{ proyecto.colegio }}</strong></div>
+      </div>
+      {% endif %}
+    </aside>
+  </section>
+</main>
+
+<div class="gallery-modal" id="galleryModal" hidden>
+  <button type="button" class="gallery-close" id="galleryClose" aria-label="Cerrar">×</button>
+  <figure>
+    <img id="galleryModalImage" src="" alt="">
+    <figcaption id="galleryModalCaption"></figcaption>
+  </figure>
+</div>
+
+<script>
+(function () {
+  // YouTube: acepta enlaces normales, youtu.be y URLs de embed.
+  document.querySelectorAll('iframe[data-youtube]').forEach(function (frame) {
+    const raw = frame.dataset.youtube || '';
+    let id = '';
+
+    try {
+      const url = new URL(raw, window.location.origin);
+      if (url.hostname.includes('youtu.be')) id = url.pathname.split('/').filter(Boolean)[0] || '';
+      else if (url.hostname.includes('youtube.com')) {
+        id = url.searchParams.get('v') || '';
+        if (!id && url.pathname.includes('/embed/')) id = url.pathname.split('/embed/')[1].split('/')[0];
+        if (!id && url.pathname.includes('/shorts/')) id = url.pathname.split('/shorts/')[1].split('/')[0];
+      }
+    } catch (e) {}
+
+    if (id) frame.src = 'https://www.youtube.com/embed/' + encodeURIComponent(id);
+    else frame.parentElement.innerHTML = '<div class="video-unavailable">Video no disponible</div>';
+  });
+
+  const modal = document.getElementById('galleryModal');
+  const modalImage = document.getElementById('galleryModalImage');
+  const modalCaption = document.getElementById('galleryModalCaption');
+
+  document.querySelectorAll('.gallery-item').forEach(function (button) {
+    button.addEventListener('click', function () {
+      modalImage.src = button.dataset.src;
+      modalImage.alt = button.dataset.caption;
+      modalCaption.textContent = button.dataset.caption;
+      modal.hidden = false;
+      document.body.classList.add('modal-open');
+    });
+  });
+
+  function closeGallery() {
+    modal.hidden = true;
+    modalImage.src = '';
+    document.body.classList.remove('modal-open');
+  }
+
+  document.getElementById('galleryClose').addEventListener('click', closeGallery);
+  modal.addEventListener('click', function (e) {
+    if (e.target === modal) closeGallery();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !modal.hidden) closeGallery();
+  });
+})();
+</script>
+
+{% else %}
+<link rel="stylesheet" href="{{ url_for('static', filename='style/proyectos_modulo.css') }}">
+<main class="project-not-found">
+  <div>
+    <span class="projects-kicker">SENA · ARTICULACIÓN</span>
+    <h1>Proyecto no encontrado</h1>
+    <p>El proyecto que buscas no existe o ya no está publicado.</p>
+    <a class="detail-primary-btn" href="{{ url_for('main.inicio') }}#proyectos">← Volver a proyectos</a>
+  </div>
+</main>
+{% endif %}
+{% endblock %}

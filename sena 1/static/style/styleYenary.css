@@ -1,0 +1,218 @@
+/* Fuentes */
+h1 { font-family: 'Montserrat', sans-serif; }
+h2, h3 { font-family: 'Poppins', sans-serif; }
+p, a, li { font-family: 'Open Sans', sans-serif; }
+
+/* Reset + base */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: Inter, Arial, Helvetica, sans-serif; color:#222; background:#fafafa; }
+
+/* Variables generales */
+:root{
+  --verde: #2e7d32;
+  --naranja: #f57c00;
+  --gris: #607d8b;
+  --negro: #212121;
+  --blanco: #ffffff;
+  --container-w: 1200px;
+}
+
+/* HERO / HEADER */
+.hero{
+  min-height: 70vh;
+  display:flex; align-items:center; justify-content:center;
+  text-align:center;
+  background: url("https://picsum.photos/1600/900?random=30") center/cover no-repeat;
+  position: relative;
+  color: var(--blanco);
+  padding: 80px 16px;
+}
+.hero::after{
+  content:""; position:absolute; inset:0; background: rgba(0,0,0,0.45);
+}
+.hero-inner{ position:relative; z-index:1; max-width:var(--container-w); width:100%; padding:40px 16px; }
+.flash-text{ font-size:clamp(1.6rem, 4vw, 2.8rem); margin-bottom:12px; display:inline-block; position:relative; overflow:hidden; }
+.flash-text::after{
+  content:""; position:absolute; left:-80%; top:0; width:60%; height:100%;
+  background: linear-gradient(120deg, rgba(255,255,255,0.06), rgba(255,255,255,0.4), rgba(255,255,255,0.06));
+  animation: slideFlash 2s linear infinite;
+}
+@keyframes slideFlash { 0%{ left:-80%; } 100%{ left:120%; } }
+.hero-sub{ font-size:1.05rem; opacity:0.95; margin-bottom:18px; }
+.btn{ display:inline-block; background:var(--verde); color:var(--blanco); padding:10px 18px; border-radius:8px; text-decoration:none; font-weight:700; transition:transform .18s ease, background .18s;}
+.btn:hover{ transform:translateY(-4px); background:#269136; }
+
+/* Container util */
+.container{ max-width:var(--container-w); margin:0 auto; padding:48px 18px; }
+
+/* Section titles */
+.section h2 { font-size:1.6rem; margin-bottom:18px; text-align:left; }
+
+/* CARDS GRID (aumentadas un poco) */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 28px;
+  align-items:start;
+}
+
+/* Card base */
+.card{
+  background: var(--blanco);
+  border-radius:14px;
+  overflow:hidden;
+  width:100%;
+  max-width:350px;       /* aumentado un poco */
+  height: 350px;
+  margin:0 auto;
+  box-shadow: 0 6px 18px rgba(15,15,15,0.08);
+  transition: transform .28s cubic-bezier(.2,.9,.3,1), box-shadow .28s;
+  border-top:6px solid transparent; /* override per-section */
+  display:flex; flex-direction:column;
+}
+.card img{
+  width:100%;
+  height:200px;          /* imagen un poco más alta */
+  object-fit:cover;
+  display:block;
+  transition: transform .35s ease;
+}
+.card h3{ font-size:1.05rem; margin:14px 16px 6px; color:#111; }
+.card p{ margin:0 16px 18px; color:#555; font-size:0.95rem; line-height:1.3; flex:0 0 auto; }
+
+/* Hover */
+.card:hover{
+  transform: translateY(-10px);
+  box-shadow: 0 18px 40px rgba(15,15,15,0.12);
+}
+.card:hover img{ transform: scale(1.06); }
+
+/* --- Per-section styles (diseños distintos) --- */
+
+/* Emprendimientos - acento verde */
+.emprendimientos{ background:#f1fbf4; }
+.emprendimientos .section h2{ color:var(--verde); }
+.emprendimientos .card{ border-top-color: var(--verde); }
+
+/* Colegios - acento naranja */
+.colegios{ background:#fff7f1; }
+.colegios .section h2{ color:var(--naranja); }
+.colegios .card{ border-top-color: var(--naranja); }
+
+/* Municipios - acento gris/azulado */
+.municipios{ background:#f5f7f8; }
+.municipios .section h2{ color:var(--gris); }
+.municipios .card{ border-top-color: var(--gris); }
+
+/* Instructores - acento oscuro/negro */
+.instructores{ background:#fbfbfc; }
+.instructores .section h2{ color:var(--negro); }
+.instructores .card{ border-top-color: var(--negro); }
+
+/* Footer */
+.footer{ background:#111; color:#fff; padding:22px 18px; text-align:center; }
+
+/* Responsive tweaks */
+@media (min-width:1200px){
+  .cards{ grid-template-columns: repeat(5, 1fr); } /* en pantallas grandes mostrar 5 columnas */
+  .container{ padding:64px 8px; }
+}
+@media (max-width:880px){
+  .nav-list{ gap:10px; font-size:14px; }
+  .card{ max-width:100%; }
+  .hero{ padding:56px 12px; min-height:60vh; }
+}
+
+/* NAV GENERAL */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1a1a1a;
+  padding: 15px 30px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+
+/* LOGO */
+nav .logo {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+/* LISTA NAV */
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+/* LINKS NAV */
+nav ul li a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 6px;
+  transition: all 0.3s ease-in-out; /* 👈 Transición suave */
+}
+
+/* EFECTO HOVER */
+nav ul li a:hover {
+  background: rgba(255,255,255,0.2) ;  /* Naranja */
+  color: #fff;
+  transform: translateY(-3px); /* 👈 efecto de levantar */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* ENLACE ACTIVO */
+nav ul li a.active {
+  background: #28a745; /* Verde para activo */
+  color: white;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* BOTÓN HAMBURGUESA */
+.menu-toggle {
+  display: none;
+  font-size: 1.8rem;
+  color: white;
+  cursor: pointer;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  nav ul {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background: #1a1a1a;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 0;
+    display: none;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.3s ease-in-out;
+  }
+
+  nav ul li a:hover {
+    background: none;
+  }
+
+  nav ul.show {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0); /* 👈 animación al bajar */
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+}

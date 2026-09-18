@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel de Administración - Senartar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Colores personalizados si deseas extender Tailwind
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        senaGreen: '#39A900',
+                        senaDark: '#0B3C36',
+                    },
+                },
+            },
+        };
+    </script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/admin_style.css') }}">
+</head>
+
+<body class=" flex h-screen bg-gray-100 font-sans text-gray-800">
+    {%include 'admin/componentes/aside.html' %}
+    <div class="flex-1 flex flex-col">
+
+        {%include 'admin/componentes/header.html'%}
+
+        {% block content %}{% endblock %}
+    </div>
+    <!-- script para menu movil -->
+
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const sidebar = document.querySelector('aside');
+
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('hidden');
+            sidebar.classList.toggle('absolute');
+            sidebar.classList.toggle('z-10');
+        });
+    </script>
+
+</body>
+
+</html>

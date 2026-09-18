@@ -1,0 +1,158 @@
+{%extends "admin/dashboard.html" %}
+
+{% block content %}
+<main class="mt-10 bg-white p-6 rounded-lg shadow">
+    <div class="flex gap-5 items-center">
+        <h3 class="text-xl font-semibold text-senaGreen">Editar Cuenta</h3>
+    </div>
+    
+    {% if es_super_admin %}
+    <table class="w-full text-left border-collapse mt-4">
+        <thead>
+            <tr class="bg-senaGreen text-white">
+                <th class="p-3">#</th>
+                <th class="p-3">Nombre</th>
+                <th class="p-3">Usuario</th>
+                <th class="p-3">Rol</th>
+                <th class="p-3">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%if usuarios%}
+            {%for usuario in usuarios%}
+            <tr class="border-b hover:bg-gray-50">
+                <td class="p-3">{{loop.index}}</td>
+                <td class="p-3">{{usuario.nombre}}</td>
+                <td class="p-3">{{usuario.usuario}}</td>
+                <td class="p-3">{{usuario.rol}}</td>
+                <td class="p-3">
+                    <button class="text-senaGreen font-semibold hover:underline" onclick="abrirModalEditar('{{usuario.id}}', '{{usuario.nombre}}', '{{usuario.usuario}}', '{{usuario.rol}}')">Editar</button>
+                </td>
+            </tr>
+            {%endfor%}
+            {%else%}
+            No existen usuarios registrados
+            {%endif%}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="mt-4">
+        <p class="text-gray-700">Editando tu cuenta</p>
+    </div>
+    {% endif %}
+
+    <!-- Modal para editar cuenta -->
+    <dialog class="modal" id="modalEditarCuenta">
+        <div class="modal__contenedor">
+            <header class="modal__encabezado">
+                <h2 class="modal__titulo" id="modalTitulo">Editar Cuenta</h2>
+                <button class="modal__boton-cerrar" id="btnCerrarModal">&times;</button>
+            </header>
+            <div class="modal__cuerpo">
+                <form id="formEditarCuenta" enctype="multipart/form-data">
+                    <input type="hidden" id="usuarioId" name="id">
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="usuarioNombres">Nombre Completo</label>
+                        <input type="text" class="modal__campo" id="usuarioNombres" name="nombres" required>
+                    </div>
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="usuarioUsuario">Nombre Usuario</label>
+                        <input type="text" class="modal__campo" id="usuarioUsuario" name="usuario" required>
+                    </div>
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="usuarioPassword">Contraseña (dejar en blanco para mantener)</label>
+                        <input type="password" class="modal__campo" id="usuarioPassword" name="password">
+                    </div>
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="usuarioConfirmPassword">Confirmar Contraseña</label>
+                        <input type="password" class="modal__campo" id="usuarioConfirmPassword" name="confirm_password">
+                    </div>
+                    {% if es_super_admin %}
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="usuarioRol">Rol</label>
+                        <select class="modal__campo" id="usuarioRol" name="rol">
+                            <option value="usuario">Usuario</option>
+                            <option value="admin">Admin</option>
+                            <option value="super_admin">Super Admin</option>
+                        </select>
+                    </div>
+                    {% endif %}
+                </form>
+            </div>
+            <footer class="modal__pie">
+                <button type="button" class="modal__boton modal__boton--secundario" id="btnCancelar">Cancelar</button>
+                <button type="submit" form="formEditarCuenta" class="modal__boton modal__boton--primario">Guardar</button>
+            </footer>
+        </div>
+    </dialog>
+
+    <script>
+        const modal = document.getElementById('modalEditarCuenta');
+        const btnCerrarModal = document.getElementById('btnCerrarModal');
+        const btnCancelar = document.getElementById('btnCancelar');
+        const formEditarCuenta = document.getElementById('formEditarCuenta');
+        const modalTitulo = document.getElementById('modalTitulo');
+        const usuarioId = document.getElementById('usuarioId');
+        const usuarioNombres = document.getElementById('usuarioNombres');
+        const usuarioUsuario = document.getElementById('usuarioUsuario');
+        const usuarioPassword = document.getElementById('usuarioPassword');
+        const usuarioConfirmPassword = document.getElementById('usuarioConfirmPassword');
+        const usuarioRol = document.getElementById('usuarioRol');
+
+        function abrirModalEditar(id, nombres, usuario, rol) {
+            modalTitulo.textContent = 'Editar Cuenta';
+            usuarioId.value = id;
+            usuarioNombres.value = nombres;
+            usuarioUsuario.value = usuario;
+            usuarioPassword.value = '';
+            usuarioConfirmPassword.value = '';
+            if (usuarioRol) {
+                usuarioRol.value = rol;
+            }
+            modal.classList.add('modal--activo');
+        }
+
+        function cerrarModal() {
+            modal.classList.remove('modal--activo');
+            formEditarCuenta.reset();
+            usuarioId.value = '';
+        }
+
+        btnCerrarModal.addEventListener('click', cerrarModal);
+        btnCancelar.addEventListener('click', cerrarModal);
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                cerrarModal();
+            }
+        });
+
+        formEditarCuenta.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(formEditarCuenta);
+            const url = '/admin/editar_cuenta';
+            
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    body: formData
+                });
+                if (response.ok) {
+                    cerrarModal();
+                    location.reload();
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+
+        // Si no es super_admin, abrir modal automáticamente con sus datos
+        {% if not es_super_admin and usuario %}
+        document.addEventListener('DOMContentLoaded', function() {
+            abrirModalEditar('{{usuario.id}}', '{{usuario.nombre}}', '{{usuario.usuario}}', '{{usuario.rol}}');
+        });
+        {% endif %}
+    </script>
+</main>
+{% endblock %}
