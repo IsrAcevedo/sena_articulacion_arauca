@@ -1,5 +1,49 @@
- <footer class="footer">
-    <div class="container">
-      <p>&copy; 2026 SENA Arauca - Todos los derechos reservados</p>
+<footer class="site-footer">
+  <div class="footer-container">
+    
+    <!-- Columna 1: Marca -->
+    <div class="footer-brand">
+      <h2 class="footer-logo">Articulación con la Media Regional Arauca<span>.</span></h2>
+      <p class="footer-tagline">Conectamos instituciones educativas, municipios,
+                instructores y proyectos en una sola plataforma para
+                fortalecer la articulación del SENA en Arauca.</p>
+      <div class="social-links">
+        <a href="#" aria-label="Instagram"><i class="icon-instagram"></i>Instagram</a>
+        <a href="#" aria-label="Tiktok"><i class="icon-tiktok"></i>Tiktok</a>
+        <a href="#" aria-label="Facebook"><i class="icon-facebook"></i>Facebook</a>
+      </div>
     </div>
-  </footer>
+
+    <!-- Columna 2: Navegación -->
+    <div class="footer-nav">
+      <div class="nav-group">
+        <h4>Navegación</h4>
+        <ul>
+            <li><a href="{{url_for('main.inicio')}}#proyectos">Proyectos</a></li>
+            <li><a href="{{url_for('main.inicio')}}#colegios">Colegios</a></li>
+            <li><a href="{{url_for('main.inicio')}}#municipios">Municipios</a></li>
+            <li><a href="{{url_for('main.inicio')}}#instructores">Instructores</a></li>
+        </ul>
+      </div>
+
+      <div class="nav-group">
+        <h4>Recursos</h4>
+        <ul>
+          <li><a href="#documentacion">Documentación</a></li>
+          <li><a href="#guias">Guías</a></li>
+          <li><a href="#soporte">Soporte</a></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Sub-footer -->
+  <div class="footer-bottom">
+    <p>&copy; 2026 Articulacion con la Media. Todos los derechos reservados.</p>
+    <div class="legal-links">
+      <a href="#privacidad">Privacidad</a>
+      <a href="#terminos">Términos</a>
+    </div>
+  </div>
+</footer>
