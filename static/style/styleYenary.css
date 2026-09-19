@@ -1,3 +1,8 @@
+.container{
+    max-width: 1400px;
+    margin: auto;
+}
+
 /* Layout General */
 .proyectos {
     padding: 90px 0;
@@ -1383,6 +1388,8 @@ h4 {
     justify-content: space-between;
     align-items: center;
     text-decoration: none;
+    padding: 15px 30px;
+    margin-left: 15px;
 }
 
 
