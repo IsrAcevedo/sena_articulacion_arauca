@@ -1,41 +1,87 @@
 {% extends "base.html" %}
 {% block content %}
 
-<!-- HERO -->
-<header class="hero-colegios" id="hero-colegios">
-    <div class="contenido-hero"></div>
-    <h1>Colegios de Arauca</h1>
-    <p>Conoce las instituciones educativas vinculadas con los programas del Sena.</p>
-    <a href="#colegios" class="btn-colegio">Ver Colegios</a>
-    </div>
-</header>
+    <main class="hero">
+        <div class="hero-contenido">
+            <h1><span>Instituciones</span> que conectan a <span>Arauca</span> con su futuro</h1>
+            <p>Explora las instituciones educativas que colaboran con el SENA en Arauca.</p>
+            <a href="#carrusel-instituciones" class="btn-hero">Ver instituciones</a>
+        </div>
+    </main>
 
-<!-- CONTENIDO -->
-<section id="colegios" class="colegios">
-    <h2>Instituciones Educativas</h2>
+    <!-- ===================================================== -->
+    <!-- SECCIÓN 1: CARRUSEL DE INSTITUCIONES -->
+    <!-- ===================================================== -->
 
-    <h3>Saravena</h3>
-    <div class="colegios-grid">
+    <section id="impacto-articulacion">
 
-        {%if colegios%}
-        {%for colegio in colegios%}
-        <a href="{{url_for('main.colegio',id=colegio.id)}}">
-            <div class="tarjeta-colegio">
-                <img src="{{url_for('static', filename='uploads/'+ colegio.logo)}}" alt="logo del colegio">
-                <h3>{{colegio.colegio}}</h3>
-                <p>{{colegio.municipio}}</p>
+        <div class="fila-impacto">
+            <div class="texto-impacto">
+                <span class="eyebrow-institucional">Cobertura regional</span>
+                <h3 class="titulo-impacto">Decenas de colegios conectados con la educación técnica.</h3>
+                <p class="descripcion-impacto">Instituciones de todo Arauca articuladas con el SENA, ampliando las oportunidades de formación para sus estudiantes desde el colegio.</p>
             </div>
-        </a>
+            <div class="imagen-impacto">
+                <img src="{{ url_for('static', filename='img/estudiantes1.jpg') }}" alt="Estudiantes articulados con el SENA">
+            </div>
+        </div>
 
-        {%endfor%}
-        {%endif%}
+        <div class="fila-impacto fila-impacto-invertida">
+            <div class="texto-impacto">
+                <span class="eyebrow-institucional">Impacto formativo</span>
+                <h3 class="titulo-impacto">Miles de estudiantes formándose gracias a nuestros técnicos.</h3>
+                <p class="descripcion-impacto">Programas técnicos que preparan a los aprendices para el mundo laboral, con docentes y proyectos reales detrás de cada articulación.</p>
+                <a href="#seccion-tarjetas" class="boton-impacto">Conocer programas →</a>
+            </div>
+            <div class="imagen-impacto">
+                <img src="{{ url_for('static', filename='img/estudiantes2.jpg') }}" alt="Aprendices SENA en formación técnica">
+            </div>
+        </div>
+
+    </section>
+
+
+
+            <div class="seccion-tarjetas" id="seccion-tarjetas">
+            <h2>Colegios</h2>
+
+            </div>
+            <div class="cuadricula-tarjetas">
+            {%for colegio in colegios%}
+            <a href="{{ url_for('main.colegio', id=colegio.id) }}">
+                <div class="tarjeta tarjeta-persona">
+                <div class="tarjeta-etiqueta"><span>Colegio</span></div>
+                <div class="tarjeta-contenido">
+                <h3>{{colegio.colegio}}</h3>
+                <span class="tarjeta-persona-rol">Institucion</span>
+                <p>{%if not colegio.slogan %} Colegio articulado con el SENA Arauca {% endif %}{%if  colegio.slogan %} {{colegio.slogan}} {% endif %}</p>
+                </div>
+            </div>
+            </a>
+            {%endfor%}            
+        
+            </div>
 
 
 
 
-    </div>
+
+    <section class="banner">
+        <div class="banner-imagen">
+        </div>
+        <div class="banner-texto">
+            <h2>
+                “Formación que transforma vidas,<br>
+                articulación que construye futuro.”
+            </h2>
+            <p>SENA Arauca, conectando educación<br>con oportunidades.</p>
+            <span></span>
+        </div>
+    </section>
 
 
 
-</section>
+
+
+</body>
 {%endblock%}
