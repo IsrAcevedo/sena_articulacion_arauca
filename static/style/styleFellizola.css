@@ -235,8 +235,8 @@ body {
   .tarjeta-etiqueta span:last-child{ color: var(--ambar-llanero); }
  
   .tarjeta-contenido{
-    width: 320px;
-    height: 520px;
+    width: 100%;
+    min-height: 200px;
     padding: 20px 20px 22px;
     flex: 1;
     display: flex;
@@ -658,10 +658,19 @@ SECCIÓN 1: CARRUSEL
 /* Cuadrícula de tarjetas */
 .cuadricula-tarjetas {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 25px;
     margin: 100px 60px;
 
+}
+
+.cuadricula-tarjetas a {
+    width: 100%;
+    min-height: 300px;
+    max-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 
