@@ -7,12 +7,17 @@
         <button id="btnAbrirNuevo"
             class="bg-senaGreen hover:bg-senaDark text-white rounded-md transition font-semibold p-2 mb-2">Añadir
             Nuevo</button>
+        <button id="btnCrearAreaFormacion"
+            class="bg-senaGreen hover:bg-senaDark text-white rounded-md transition font-semibold p-2 mb-2">Añadir Area
+            de formacion</button>
     </div>
     <table class="w-full text-left border-collapse">
         <thead>
             <tr class="bg-senaGreen text-white">
                 <th class="p-3">#</th>
                 <th class="p-3">Nombre</th>
+                <th class="p-3">Ficha</th>
+                <th class="p-3">Área de Formación</th>
                 <th class="p-3">Instructor</th>
                 <th class="p-3">Colegio</th>
                 <th class="p-3">N° de aprendices</th>
@@ -24,12 +29,15 @@
         <tbody>
             {%for programa in programas%}
             <tr class="border-b hover:bg-gray-50" data-id="{{programa.id}}" data-nombre="{{programa.nombre}}"
+                data-ficha="{{programa.ficha}}" data-modalidad="{{programa.id_modalidad}}"
                 data-instructor="{{programa.id_instructor}}" data-colegio="{{programa.id_colegio}}"
                 data-activo="{{programa.activo}}">
                 <td class="p-3">{{loop.index}}</td>
                 <td class="p-3">{{programa.nombre}}</td>
-                <td class="p-3">{{programa.instructor}}</td>
-                <td class="p-3">{{programa.colegio}}</td>
+                <td class="p-3">{{programa.ficha or ''}}</td>
+                <td class="p-3">{{programa.modalidad or ''}}</td>
+                <td class="p-3">{{programa.instructor or ''}}</td>
+                <td class="p-3">{{programa.colegio or ''}}</td>
                 <td class="p-3">{{programa.num_aprendices}}</td>
                 <td class="p-3">{{programa.num_proyectos}}</td>
                 <td class="p-3 ">
@@ -55,26 +63,41 @@
                 <h2 class="modal__titulo" id="modalTitulo">Programa</h2>
                 <button class="modal__boton-cerrar" id="btnCerrarModal">&times;</button>
             </header>
-            <div class="modal__cuerpo">
-                <form id="formPrograma" enctype="multipart/form-data">
+            <form id="formPrograma" enctype="multipart/form-data">
+                <div class="modal__cuerpo">
                     <input type="hidden" id="programaId" name="id">
                     <div class="modal__grupo">
-                        <label class="modal__etiqueta" for="programaNombre">Nombre</label>
+                        <label class="modal__etiqueta" for="programaNombre">Nombre del Programa</label>
                         <input type="text" class="modal__campo" id="programaNombre" name="nombre" required>
                     </div>
                     <div class="modal__grupo">
-                        <label class="modal__etiqueta" for="programaInstructor">Instructor</label>
-                        <select class="modal__campo" id="programaInstructor" name="instructor" required>
-                            {% for instructor in lista_instructores %}
-                            <option value="{{ instructor.id }}">{{ instructor.nombre }}</option>
+                        <label class="modal__etiqueta" for="programaFicha">Ficha</label>
+                        <input type="text" class="modal__campo" id="programaFicha" name="ficha" required placeholder="Ej. 2558192">
+                    </div>
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="programaModalidad">Área de Formación</label>
+                        <select class="modal__campo" id="programaModalidad" name="modalidad" required>
+                            <option value="">Seleccione un área</option>
+                            {% for mod in lista_modalidades %}
+                            <option value="{{ mod.id }}">{{ mod.nombre }}</option>
                             {% endfor %}
                         </select>
                     </div>
                     <div class="modal__grupo">
                         <label class="modal__etiqueta" for="programaColegio">Colegio</label>
                         <select class="modal__campo" id="programaColegio" name="colegio" required>
+                            <option value="">Seleccione un colegio</option>
                             {% for colegio in lista_colegios %}
                             <option value="{{ colegio.id }}">{{ colegio.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="programaInstructor">Instructor</label>
+                        <select class="modal__campo" id="programaInstructor" name="instructor">
+                            <option value="">Seleccione un instructor (opcional)</option>
+                            {% for instructor in lista_instructores %}
+                            <option value="{{ instructor.id }}">{{ instructor.nombre }}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -89,33 +112,67 @@
                             <option value="0">No</option>
                         </select>
                     </div>
-                </form>
-            </div>
-            <footer class="modal__pie">
-                <button type="button" class="modal__boton modal__boton--secundario" id="btnCancelar">Cancelar</button>
-                <button type="submit" form="formPrograma" class="modal__boton modal__boton--primario">Guardar</button>
-            </footer>
+                </div>
+                <footer class="modal__pie">
+                    <button type="button" class="modal__boton modal__boton--secundario" id="btnCancelar">Cancelar</button>
+                    <button type="submit" class="modal__boton modal__boton--primario">Guardar</button>
+                </footer>
+            </form>
+        </div>
+    </dialog>
+
+    <!-- Modal para área de formación -->
+    <dialog class="modal" id="modalAreaFormacion">
+        <div class="modal__contenedor">
+            <header class="modal__encabezado">
+                <h2 class="modal__titulo" id="modalAreaTitulo">Añadir Área de Formación</h2>
+                <button class="modal__boton-cerrar" id="btnCerrarModalArea">&times;</button>
+            </header>
+            <form id="formAreaFormacion">
+                <div class="modal__cuerpo">
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="areaNombre">Nombre del Área</label>
+                        <input type="text" class="modal__campo" id="areaNombre" name="nombre" required placeholder="Ej. Sistemas / Agroindustria">
+                    </div>
+                </div>
+                <footer class="modal__pie">
+                    <button type="button" class="modal__boton modal__boton--secundario" id="btnCancelarArea">Cancelar</button>
+                    <button type="submit" class="modal__boton modal__boton--primario">Guardar</button>
+                </footer>
+            </form>
         </div>
     </dialog>
 
     <script>
         const modal = document.getElementById('modalPrograma');
+        const btnAbrirNuevo = document.getElementById('btnAbrirNuevo');
         const btnCerrarModal = document.getElementById('btnCerrarModal');
         const btnCancelar = document.getElementById('btnCancelar');
         const formPrograma = document.getElementById('formPrograma');
         const modalTitulo = document.getElementById('modalTitulo');
         const programaId = document.getElementById('programaId');
         const programaNombre = document.getElementById('programaNombre');
+        const programaFicha = document.getElementById('programaFicha');
+        const programaModalidad = document.getElementById('programaModalidad');
         const programaInstructor = document.getElementById('programaInstructor');
         const programaColegio = document.getElementById('programaColegio');
         const programaFoto = document.getElementById('programaFoto');
         const programaActivo = document.getElementById('programaActivo');
         const botonesEditar = document.querySelectorAll('button');
 
-        function abrirModal(titulo, id = '', nombre = '', instructor = '', colegio = '', activo = '1') {
+        // Modal Área de Formación
+        const modalAreaFormacion = document.getElementById('modalAreaFormacion');
+        const btnCrearAreaFormacion = document.getElementById('btnCrearAreaFormacion');
+        const btnCerrarModalArea = document.getElementById('btnCerrarModalArea');
+        const btnCancelarArea = document.getElementById('btnCancelarArea');
+        const formAreaFormacion = document.getElementById('formAreaFormacion');
+
+        function abrirModal(titulo, id = '', nombre = '', ficha = '', modalidad = '', instructor = '', colegio = '', activo = '1') {
             modalTitulo.textContent = titulo;
             programaId.value = id;
             programaNombre.value = nombre;
+            programaFicha.value = ficha;
+            programaModalidad.value = modalidad;
             programaInstructor.value = instructor;
             programaColegio.value = colegio;
             programaActivo.value = activo;
@@ -129,8 +186,35 @@
             programaId.value = '';
         }
 
+        function abrirModalArea() {
+            if (formAreaFormacion) formAreaFormacion.reset();
+            modalAreaFormacion.classList.add('modal--activo');
+        }
+
+        function cerrarModalArea() {
+            modalAreaFormacion.classList.remove('modal--activo');
+            if (formAreaFormacion) formAreaFormacion.reset();
+        }
+
+        if (btnAbrirNuevo) {
+            btnAbrirNuevo.addEventListener('click', (e) => {
+                e.preventDefault();
+                abrirModal('Nuevo Programa');
+            });
+        }
+
+        if (btnCrearAreaFormacion) {
+            btnCrearAreaFormacion.addEventListener('click', (e) => {
+                e.preventDefault();
+                abrirModalArea();
+            });
+        }
+
         btnCerrarModal.addEventListener('click', cerrarModal);
         btnCancelar.addEventListener('click', cerrarModal);
+
+        if (btnCerrarModalArea) btnCerrarModalArea.addEventListener('click', cerrarModalArea);
+        if (btnCancelarArea) btnCancelarArea.addEventListener('click', cerrarModalArea);
 
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
@@ -138,16 +222,26 @@
             }
         });
 
+        if (modalAreaFormacion) {
+            modalAreaFormacion.addEventListener('click', (e) => {
+                if (e.target === modalAreaFormacion) {
+                    cerrarModalArea();
+                }
+            });
+        }
+
         botonesEditar.forEach(boton => {
             if (boton.textContent.trim() === 'Editar') {
                 boton.addEventListener('click', function () {
                     const fila = this.closest('tr');
                     const id = fila.dataset.id;
                     const nombre = fila.dataset.nombre;
+                    const ficha = fila.dataset.ficha || '';
+                    const modalidad = fila.dataset.modalidad || '';
                     const instructor = fila.dataset.instructor || '';
                     const colegio = fila.dataset.colegio || '';
                     const activo = fila.dataset.activo || '1';
-                    abrirModal('Editar Programa', id, nombre, instructor, colegio, activo);
+                    abrirModal('Editar Programa', id, nombre, ficha, modalidad, instructor, colegio, activo);
                 });
             }
         });
@@ -178,11 +272,38 @@
                 if (response.ok) {
                     cerrarModal();
                     location.reload();
+                } else {
+                    const errData = await response.json();
+                    alert(errData.message || 'Error al guardar el programa');
                 }
             } catch (error) {
                 console.error('Error:', error);
+                alert('Error al enviar la solicitud');
             }
         });
+
+        if (formAreaFormacion) {
+            formAreaFormacion.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const formData = new FormData(formAreaFormacion);
+                try {
+                    const response = await fetch('/admin/programas/crear_area', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    if (response.ok) {
+                        cerrarModalArea();
+                        location.reload();
+                    } else {
+                        const errData = await response.json();
+                        alert(errData.message || 'Error al guardar el área de formación');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Error en el envío del formulario');
+                }
+            });
+        }
     </script>
 </main>
 {% endblock %}
