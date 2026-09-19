@@ -1,0 +1,184 @@
+{% extends "base.html" %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='style/proyectos_modulo.css') }}">
+
+<header id="inicio" class="hero">
+  <div class="hero-inner">
+    <h1 class="flash-text">ARTICULACION SENA ARAUCA</h1>
+    <p class="hero-sub">Conectando proyectos de colegios y municipios SENA Arauca</p>
+    <a class="btn" href="#emprendimientos">Explorar</a>
+  </div>
+</header>
+
+<!-- EMPRENDIMIENTOS (DISEÑO VERDE) -->
+{% if proyectos %}
+<!-- PROYECTOS: módulo independiente, dinámico y responsive -->
+<section id="proyectos" class="projects-module">
+  <div class="projects-shell">
+
+    <div class="projects-heading">
+      <div>
+        <span class="projects-kicker">SENA · ARTICULACIÓN</span>
+        <h2>Proyectos que <span>transforman</span></h2>
+        <p>Conoce las ideas, procesos y resultados creados por nuestros aprendices.</p>
+      </div>
+      <div class="projects-counter" aria-label="Cantidad de proyectos">
+        <strong>{{ proyectos|length }}</strong>
+        <span>proyectos</span>
+      </div>
+    </div>
+
+    <div class="projects-tools">
+      <label class="project-search">
+        <span aria-hidden="true">⌕</span>
+        <input id="projectSearch" type="search" placeholder="Buscar proyecto, colegio o técnico..." autocomplete="off">
+      </label>
+
+      <label class="project-select">
+        <span>Ordenar</span>
+        <select id="projectSort">
+          <option value="az">A → Z</option>
+          <option value="za">Z → A</option>
+          <option value="new">Más recientes</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="project-chips" id="projectChips">
+      <button class="project-chip is-active" type="button" data-filter="all">Todos</button>
+      {% set modalidades = [] %}
+      {% for proyecto in proyectos %}
+        {% if proyecto.modalidad and proyecto.modalidad not in modalidades %}
+          {% set _ = modalidades.append(proyecto.modalidad) %}
+        {% endif %}
+      {% endfor %}
+      {% for modalidad in modalidades|sort %}
+        <button class="project-chip" type="button" data-filter="{{ modalidad|lower }}">{{ modalidad }}</button>
+      {% endfor %}
+    </div>
+
+    <div class="project-grid" id="projectGrid">
+      {% for proyecto in proyectos %}
+      <article
+        class="project-card-v2"
+        data-name="{{ proyecto.nombre|lower }}"
+        data-search="{{ (proyecto.nombre ~ ' ' ~ (proyecto.colegio or '') ~ ' ' ~ (proyecto.tecnico or '') ~ ' ' ~ (proyecto.municipio or ''))|lower }}"
+        data-modalidad="{{ (proyecto.modalidad or '')|lower }}"
+        data-date="{{ proyecto.fecha_inicio or '' }}"
+      >
+        <a class="project-card-link" href="{{ url_for('main.proyecto', id=proyecto.id) }}" aria-label="Ver proyecto {{ proyecto.nombre }}">
+          <div class="project-cover">
+            <img
+              src="{{ url_for('static', filename='uploads/' + (proyecto.foto or 'imagen.webp')) }}"
+              alt="Imagen del proyecto {{ proyecto.nombre }}"
+              loading="lazy"
+              onerror="this.onerror=null;this.src='{{ url_for('static', filename='img/logo_sena.png') }}';"
+            >
+            <span class="project-badge">{{ proyecto.modalidad or 'Proyecto' }}</span>
+            <span class="project-arrow" aria-hidden="true">↗</span>
+          </div>
+
+          <div class="project-card-body">
+            <span class="project-location">{{ proyecto.municipio or 'Arauca' }} · {{ proyecto.colegio or 'Institución educativa' }}</span>
+            <h3>{{ proyecto.nombre }}</h3>
+            <p>{{ proyecto.descripcion or 'Conoce la propuesta, objetivos y resultados de este proyecto.' }}</p>
+
+            <div class="project-meta">
+              <span>👤 {{ proyecto.tecnico or 'Equipo SENA' }}</span>
+              {% if proyecto.fecha_inicio %}
+                <span>📅 {{ proyecto.fecha_inicio.strftime('%Y') if proyecto.fecha_inicio.strftime is defined else proyecto.fecha_inicio }}</span>
+              {% endif %}
+            </div>
+
+            <span class="project-cta">Explorar proyecto <b>→</b></span>
+          </div>
+        </a>
+      </article>
+      {% endfor %}
+    </div>
+
+    <div id="projectEmpty" class="project-empty" hidden>
+      <div>⌕</div>
+      <h3>No encontramos ese proyecto</h3>
+      <p>Prueba con otro nombre, colegio, técnico o modalidad.</p>
+      <button type="button" id="clearProjectSearch">Mostrar todos</button>
+    </div>
+
+  </div>
+</section>
+{% else %}
+<section id="proyectos" class="projects-module">
+  <div class="projects-shell project-empty-static">
+    <span class="projects-kicker">SENA · ARTICULACIÓN</span>
+    <h2>Aún no hay proyectos publicados</h2>
+    <p>Cuando se registren proyectos activos aparecerán aquí.</p>
+  </div>
+</section>
+{% endif %}
+
+<script src="{{ url_for('static', filename='js/proyectos_modulo.js') }}"></script>
+
+{%if colegios%}
+<!-- COLEGIOS (DISEÑO NARANJA) -->
+<section id="colegios" class="section colegios">
+  <div class="container">
+    <h2>Colegios</h2>
+    <div class="cards">
+      {%for colegio in colegios%}
+      <a href="{{url_for('main.colegio', id = colegio.id)}}">
+        <article class="card">
+          <img src="{{url_for('static', filename='uploads/'+ colegio.logo)}}" alt="{{colegio.nombre}}">
+          <h3>{{colegio.nombre}}</h3>
+          <p>{{ colegio.slogan if colegio.slogan }}</p>
+        </article>
+      </a>
+      {%endfor%}
+    </div>
+  </div>
+  <a href="{{url_for('main.colegios')}}">Ver todos los colegios</a>
+</section>
+
+{%endif%}
+<!-- MUNICIPIOS (DISEÑO GRIS/AZUL) -->
+{%if municipios%}
+<section id="municipios" class="section municipios">
+  <div class="container">
+    <h2>Municipios</h2>
+    <div class="cards">
+      {%for municipio in municipios %}
+      <a href="{{url_for('main.municipio', id = municipio.id)}}">
+        <article class="card">
+
+          <img src="{{url_for('static', filename='uploads/' + municipio.foto)}}" alt="foto {{municipio.nombre}}">
+          <h3>{{municipio.nombre}}</h3>
+          <p>Emprendimiento juvenil y cultural.</p>
+        </article>
+      </a>
+      {%endfor%}
+    </div>
+  </div>
+</section>
+{%endif%}
+
+
+<!-- INSTRUCTORES (DISEÑO OSCURO) -->
+{%if instructores%}
+<section id="instructores" class="section instructores">
+  <div class="container">
+    <h2>Instructores</h2>
+    <div class="cards">
+      {%for instructor in instructores%}
+      <a href="{{url_for('main.instructor', id= instructor.id)}}">
+        <article class="card">
+          <img src="{{url_for('static', filename='uploads/'+ instructor.foto)}}" alt="Instructor 1">
+          <h3>{{instructor.nombres + " "+ instructor.apellidos}}</h3>
+          <p>profesional en: {{instructor.id_cargo}}</p>
+        </article>
+      </a>
+      {%endfor%}
+    </div>
+  </div>
+</section>
+
+{%endif%}
+{% endblock %}

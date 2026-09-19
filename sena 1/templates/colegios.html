@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- HERO -->
+<header class="hero-colegios" id="hero-colegios">
+    <div class="contenido-hero"></div>
+    <h1>Colegios de Arauca</h1>
+    <p>Conoce las instituciones educativas vinculadas con los programas del Sena.</p>
+    <a href="#colegios" class="btn-colegio">Ver Colegios</a>
+    </div>
+</header>
+
+<!-- CONTENIDO -->
+<section id="colegios" class="colegios">
+    <h2>Instituciones Educativas</h2>
+
+    <h3>Saravena</h3>
+    <div class="colegios-grid">
+
+        {%if colegios%}
+        {%for colegio in colegios%}
+        <a href="{{url_for('main.colegio',id=colegio.id)}}">
+            <div class="tarjeta-colegio">
+                <img src="{{url_for('static', filename='uploads/'+ colegio.logo)}}" alt="logo del colegio">
+                <h3>{{colegio.colegio}}</h3>
+                <p>{{colegio.municipio}}</p>
+            </div>
+        </a>
+
+        {%endfor%}
+        {%endif%}
+
+
+
+
+    </div>
+
+
+
+</section>
+{%endblock%}
