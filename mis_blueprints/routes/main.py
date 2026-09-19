@@ -20,6 +20,13 @@ def inicio():
     return render_template('index.html', proyectos = proyectos, colegios = colegios, municipios = municipios , instructores = instructores)
 
 
+
+@main_bp.route('/proyectos')
+def proyectos():
+    query = "SELECT id_proyectos AS id, nombre, descripcion_corta AS descripcion, foto_principal AS foto FROM proyectos"
+    proyectos = consulta(query)
+    return render_template('proyectos.html', proyectos = proyectos)
+
 @main_bp.route('/proyecto/<int:id>')
 def proyecto(id):
     print(id)
