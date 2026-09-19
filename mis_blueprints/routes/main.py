@@ -37,17 +37,31 @@ def municipio(id):
 
 @main_bp.route('/colegios')
 def colegios():
-    query = 'SELECT c.id_colegios AS id, c.nombre AS colegio, c.logo AS logo, m.nombre AS municipio FROM colegios c INNER JOIN municipios m ON m.id_municipios = c.id_municipios'
+    query = 'SELECT c.id_colegios AS id,c.slogan AS slogan, c.nombre AS colegio, c.logo AS logo, m.nombre AS municipio FROM municipios m INNER JOIN colegios c ON m.id_municipios = c.id_municipios '
     colegios = consulta(query)
     return render_template('colegios.html', colegios= colegios)
 
 
 @main_bp.route('/colegio/<id>')
 def colegio(id):
-    query = 'SELECT * FROM colegios WHERE id_colegios= %s'
+    query1 = 'SELECT c.id_colegios AS id, c.slogan AS slogan, c.nombre AS colegio, c.logo AS logo, m.nombre AS municipio, t.nombre as tecnico, i.foto, CONCAT(i.nombres," ",i.apellidos)AS instructor FROM tecnicos t INNER JOIN colegios c ON t.id_colegio = c.id_colegios INNER JOIN instructor i ON t.id_instructor = i.id_instructor INNER JOIN municipios m ON c.id_municipios = m.id_municipios AND c.id_colegios = %s'
     parametros = id,
-    colegio = consulta(query, parametros)[0]
-    return render_template('colegio.html', colegio=colegio)
+    colegio = consulta(query1, parametros)[0]
+
+    query2 =" select * from instructor i inner join tecnicos t on i.id_instructor = t.id_instructor inner join colegios c on t.id_colegio = c.id_colegios where c.id_colegios = %s"
+    parametros = id,
+    instructores = consulta(query2, parametros)
+
+    query3 = "SELECT t.nombre as tecnico, t.foto_principal as fotoTecnico FROM tecnicos t INNER JOIN colegios c ON t.id_colegio = c.id_colegios WHERE c.id_colegios = %s"
+    parametros = id,
+    tecnicos = consulta(query3, parametros)
+
+    query4 = "SELECT p.nombre as proyecto, p.descripcion_corta as descripcion, p.foto_principal as foto, p.activo FROM tecnicos t INNER JOIN proyectos p ON t.id_tecnicos = p.id_tecnico INNER JOIN colegios c ON t.id_colegio = c.id_colegios WHERE c.id_colegios = %s"
+    parametros = id,
+    proyectos = consulta(query4, parametros)
+
+    print(colegio)
+    return render_template('colegio.html', colegio=colegio, instructores=instructores, tecnicos=tecnicos, proyectos=proyectos)
 
 
 @main_bp.route('/instructores')

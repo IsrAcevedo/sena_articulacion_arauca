@@ -31,7 +31,7 @@
                 <span class="eyebrow-institucional">Impacto formativo</span>
                 <h3 class="titulo-impacto">Miles de estudiantes formándose gracias a nuestros técnicos.</h3>
                 <p class="descripcion-impacto">Programas técnicos que preparan a los aprendices para el mundo laboral, con docentes y proyectos reales detrás de cada articulación.</p>
-                <a href="#carrusel-instituciones" class="boton-impacto">Conocer programas →</a>
+                <a href="#seccion-tarjetas" class="boton-impacto">Conocer programas →</a>
             </div>
             <div class="imagen-impacto">
                 <img src="{{ url_for('static', filename='img/estudiantes2.jpg') }}" alt="Aprendices SENA en formación técnica">
@@ -42,75 +42,28 @@
 
 
 
-    {%if colegios%}
-        <section id="carrusel-instituciones">
-
-            <span class="eyebrow-institucional">Formación articulada</span>
-            <h2>Instituciones Articuladas con el SENA</h2>
-
-            <div class="contenedor-carrusel">
-
-                <!-- Flecha izquierda -->
-                <button id="flecha-izquierda" class="flecha-carrusel" aria-label="Institución anterior">
-                    &#8592;
-                </button>
-
-                
-                
-                <div class="tarjetas-carrusel">
-                    {% for colegio in colegios %}
-                        <a href="{{ url_for('main.colegio', id=colegio.id) }}" class="tarjeta-colegio">
-
-                            <span class="insignia-articulado">
-                                Articulado con el SENA                            
-                            </span>
-                            <img 
-                                src="{{ url_for('static', filename='uploads/' + colegio.logo) }}" 
-                                alt="Logo de {{ colegio.nombre }}">
-                            <h3 class="nombre-colegio">
-                                {{colegio.nombre}}
-                            </h3>                            
-                            <p class="ubicacion-colegio">
-                                {{ colegio.slogan if colegio.slogan else 'Institución educativa articulada con el SENA' }}
-                            </p>
-
-                        </a>
-                    {% endfor %}
-                </div>
-                
-
-                <!-- Flecha derecha -->
-                <button id="flecha-derecha" class="flecha-carrusel" aria-label="Institución siguiente">
-                    &#8594;
-                </button>
+            <div class="seccion-tarjetas" id="seccion-tarjetas">
+            <h2>Colegios</h2>
 
             </div>
+            <div class="cuadricula-tarjetas">
+            {%for colegio in colegios%}
+            <a href="{{ url_for('main.colegio', id=colegio.id) }}">
+                <div class="tarjeta tarjeta-persona">
+                <div class="tarjeta-etiqueta"><span>Colegio</span></div>
+                <div class="tarjeta-contenido">
+                <h3>{{colegio.colegio}}</h3>
+                <span class="tarjeta-persona-rol">Institucion</span>
+                <p>{%if not colegio.slogan %} Colegio articulado con el SENA Arauca {% endif %}{%if  colegio.slogan %} {{colegio.slogan}} {% endif %}</p>
+                </div>
+            </div>
+            </a>
+            {%endfor%}            
+        
+            </div>
 
-            <!-- Botón para ver todas las instituciones -->
-            <button id="boton-ver-mas">Ver más</button>
-
-        </section>
-    {%endif%}
 
 
-
-    <!-- ===================================================== -->
-    <!-- SECCIÓN 2: TODAS LAS INSTITUCIONES (cuadrícula) -->
-    <!-- ===================================================== -->
-    <section id="todas-instituciones">
-
-        <h2>Todas las Instituciones</h2>
-
-        <div class="cuadricula-instituciones">
-            <!-- JavaScript llenará esto dinámicamente -->
-        </div>
-
-        <!-- Botón para volver al carrusel -->
-        <div class="contenedor-boton-ver-menos">
-            <button id="boton-ver-menos">Ver menos</button>
-        </div>
-
-    </section>
 
 
     <section class="banner">
@@ -128,11 +81,7 @@
 
 
 
-   
 
-   
-
-<script src="{{ url_for('static', filename='js/main.js') }}"></script>
 
 </body>
 {%endblock%}
