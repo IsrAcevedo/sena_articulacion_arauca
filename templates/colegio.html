@@ -10,7 +10,7 @@
         <div class="hero-colegio-esquina-abajo-der"></div>
         <div class="hero-colegio-contenido">
             <div class="hero-colegio-logo">
-            <img src="{{ url_for('static', filename='img/colegio.logo.png') }}" alt="Logo del colegio {{ colegio.colegio }}">
+            <img src="{{ url_for('static', filename='uploads/' + colegio.logo) }}" alt="Logo del colegio {{ colegio.colegio }}">
             </div>
             <div class="hero-colegio-texto">
             <h1>{{ colegio.colegio }}</h1>
@@ -69,7 +69,7 @@
             <div class="tarjeta tarjeta-persona">
                 <div class="tarjeta-etiqueta"><span>Docente</span></div>
                 <div class="tarjeta-contenido">
-                <div class="tarjeta-persona-avatar"><img src="{{ url_for('static', filename='img/{{instructor.foto}}') }}" alt="{{instructor.nombres}} {{instructor.apellidos}}"></div>
+                <div class="tarjeta-persona-avatar"><img src="{{ url_for('static', filename='uploads/' + instructor.foto) }}" alt="{{instructor.nombres}} {{instructor.apellidos}}"></div>
                 <h3>{{instructor.nombres}} {{instructor.apellidos}}</h3>
                 <span class="tarjeta-persona-rol">Instructor</span>
                 <p>{%if not instructor.perfi_profesional %} Instructor articulado con el SENA Arauca {% endif %}{%if  instructor.perfi_profesional %} {{instructor.perfi_profesional}} {% endif %}</p>
@@ -92,7 +92,7 @@
             <div class="tarjeta tarjeta-persona">
                 <div class="tarjeta-etiqueta"><span>Tecnicos</span></div>
                 <div class="tarjeta-contenido">
-                <div class="tarjeta-persona-avatar"><img src="{{ url_for('static', filename='img/{{t.fotoTecnico}}') }}" alt="{{t.tecnico}}"></div>
+                <div class="tarjeta-persona-avatar"><img src="{{ url_for('static', filename='uploads/' + t.fotoTecnico) }}" alt="{{t.tecnico}}"></div>
                 <h3>{{t.tecnico}}</h3>
                 <span class="tarjeta-persona-rol">Técnico</span>
                 <p>Tecnico Articulado con el SENA Arauca</p>
