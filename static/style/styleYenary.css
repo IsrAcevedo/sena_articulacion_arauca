@@ -656,7 +656,8 @@
 }
 
 .municipios .card-content {
-    padding: 25px;
+    padding: 0px;
+    margin-bottom: 25px;
 }
 
 .municipios .card-content h3 {
