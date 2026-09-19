@@ -9,10 +9,10 @@ main_bp = Blueprint('main', __name__)
 
 @main_bp.route('/')
 def inicio():
-    query1 = "SELECT id_proyectos AS id, nombre, descripcion_corta AS descripcion, foto_principal AS foto FROM proyectos limit 2"
-    query2 = "SELECT id_colegios AS id, nombre, slogan, logo FROM colegios"
-    query3 = "SELECT id_municipios AS id, nombre, foto FROM municipios"
-    query4 = "SELECT i.id_instructor AS id, i.nombres, i.apellidos, p.nombre_profesion as profesion, i.foto FROM instructor i INNER JOIN profesiones p ON i.id_profesion=p.id_profesion"
+    query1 = "SELECT id_proyectos AS id, nombre, descripcion_corta AS descripcion, foto_principal AS foto FROM proyectos limit 3"
+    query2 = "SELECT id_colegios AS id, nombre, slogan, logo FROM colegios limit 3"
+    query3 = "SELECT id_municipios AS id, nombre, foto FROM municipios WHERE activo = 1"
+    query4 = "SELECT i.id_instructor AS id, i.nombres, i.apellidos, p.nombre_profesion as profesion, i.foto FROM instructor i INNER JOIN profesiones p ON i.id_profesion=p.id_profesion limit 4"
     proyectos = consulta(query1)
     colegios = consulta(query2)
     municipios = consulta(query3)
@@ -49,6 +49,12 @@ def colegio(id):
     colegio = consulta(query, parametros)[0]
     return render_template('colegio.html', colegio=colegio)
 
+
+@main_bp.route('/instructores')
+def instructores():
+    query = 'SELECT i.id_instructor AS id, i.foto, CONCAT(i.nombres," ",i.apellidos)AS nombre, p.nombre_profesion as profesion, m.nombre as municipio, c.nombre as colegio FROM instructor i INNER JOIN profesiones p ON i.id_profesion = p.id_profesion INNER JOIN tecnicos t ON i.id_instructor = t.id_instructor INNER JOIN colegios c ON t.id_colegio = c.id_colegios INNER JOIN municipios m ON c.id_municipios = m.id_municipios WHERE i.activo = 1'
+    instructores = consulta(query) 
+    return render_template('instructores.html', instructores = instructores)
 
 @main_bp.route('/instructor/<int:id>')
 def instructor(id):

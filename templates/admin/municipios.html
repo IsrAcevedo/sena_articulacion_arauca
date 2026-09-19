@@ -21,13 +21,18 @@
         {%if municipios%}
         <tbody>
             {%for municipio in municipios%}
-            <tr class="border-b hover:bg-gray-50">
+            <tr class="border-b hover:bg-gray-50" data-id="{{municipio.id}}" data-nombre="{{municipio.nombre}}" data-activo="{{municipio.activo}}">
                 <td class="p-3">{{loop.index}}</td>
                 <td class="p-3">{{municipio.nombre}}</td>
                 <td class="p-3">{{municipio.num_colegios}}</td>
                 <td class="p-3">{{municipio.num_proyectos}}</td>
                 <td class="p-3">
                     <button class="text-senaGreen font-semibold hover:underline">Editar</button>
+                    {%if session.get('rol') == "super_admin" %}
+                    <a href="{{url_for('admin.eliminar_municipio', id=municipio.id)}}"
+                        class="text-senaGreen font-semibold hover:underline ml-2"
+                        onclick="return confirm('¿Estás seguro de que deseas eliminar este municipio?');">Eliminar</a>
+                    {%endif%}
                 </td>
             </tr>
             {%endfor%}
@@ -117,9 +122,10 @@
             if (boton.textContent.trim() === 'Editar') {
                 boton.addEventListener('click', function() {
                     const fila = this.closest('tr');
-                    const id = fila.querySelector('td:nth-child(1)').textContent;
-                    const nombre = fila.querySelector('td:nth-child(2)').textContent;
-                    abrirModal('Editar Municipio', id, nombre, '1');
+                    const id = fila.dataset.id;
+                    const nombre = fila.dataset.nombre;
+                    const activo = fila.dataset.activo || '1';
+                    abrirModal('Editar Municipio', id, nombre, activo);
                 });
             }
         });

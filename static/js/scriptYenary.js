@@ -1,15 +1,20 @@
 (() => {
     document.addEventListener('DOMContentLoaded', () => {
-        
-        // 1. Menú hamburguesa (con validación de existencia)
-        const menuToggle = document.getElementById('menu-toggle');
+
+        // MENÚ HAMBURGUESA
+        const menuToggle = document.getElementById('menuMobile');
         const menu = document.getElementById('menu');
 
         if (menuToggle && menu) {
+
             menuToggle.addEventListener('click', (e) => {
+
                 e.preventDefault();
+
                 menu.classList.toggle('show');
+
             });
+
         }
 
         // 2. Carrusel de municipios
@@ -18,25 +23,27 @@
         const nextBtn = document.getElementById('nextBtn');
 
         if (carousel && prevBtn && nextBtn) {
-            
-            // Función para calcular dinámicamente el desplazamiento por tarjeta
             const getScrollAmount = () => {
                 const firstCard = carousel.querySelector('.card-item');
-                return firstCard ? firstCard.clientWidth + 30 : 340;
+                return firstCard ? firstCard.clientWidth + 30 : 350;
             };
 
             prevBtn.addEventListener('click', (e) => {
                 e.preventDefault();
-                e.stopPropagation();
-                carousel.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
+                carousel.scrollBy({
+                    left: -getScrollAmount(),
+                    behavior: 'smooth'
+                });
             });
 
             nextBtn.addEventListener('click', (e) => {
                 e.preventDefault();
-                e.stopPropagation();
-                carousel.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+                carousel.scrollBy({
+                    left: getScrollAmount(),
+                    behavior: 'smooth'
+                });
             });
         }
-        
+
     });
 })();
