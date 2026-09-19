@@ -52,8 +52,10 @@ def colegio(id):
 
 @main_bp.route('/instructores')
 def instructores():
-    query = 'SELECT i.id_instructor AS id, i.foto, CONCAT(i.nombres," ",i.apellidos)AS nombre, p.nombre_profesion as profesion, m.nombre as municipio, c.nombre as colegio FROM instructor i INNER JOIN profesiones p ON i.id_profesion = p.id_profesion INNER JOIN tecnicos t ON i.id_instructor = t.id_instructor INNER JOIN colegios c ON t.id_colegio = c.id_colegios INNER JOIN municipios m ON c.id_municipios = m.id_municipios WHERE i.activo = 1'
-    instructores = consulta(query) 
+    # query = 'SELECT i.id_instructor AS id, i.foto, CONCAT(i.nombres," ",i.apellidos)AS nombre, p.nombre_profesion as profesion, m.nombre as municipio, c.nombre as colegio FROM instructor i INNER JOIN profesiones p ON i.id_profesion = p.id_profesion INNER JOIN tecnicos t ON i.id_instructor = t.id_instructor INNER JOIN colegios c ON t.id_colegio = c.id_colegios INNER JOIN municipios m ON c.id_municipios = m.id_municipios WHERE i.activo = 1'
+    # instructores = consulta(query) 
+    query = "select i.id_instructor as id, i.foto as foto, CONCAT(i.nombres,' ',i.apellidos) as nombre, p.nombre_profesion as profesion from instructor i inner join profesiones p on p.id_profesion = i.id_profesion" 
+    instructores = consulta(query)
     return render_template('instructores.html', instructores = instructores)
 
 @main_bp.route('/instructor/<int:id>')
