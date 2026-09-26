@@ -143,7 +143,7 @@ def colegios():
 
 @main_bp.route('/colegio/<id>')
 def colegio(id):
-    query1 = 'SELECT c.id_colegios AS id, c.slogan AS slogan, c.nombre AS colegio, c.logo AS logo, m.nombre AS municipio, t.nombre as tecnico, i.foto, CONCAT(i.nombres," ",i.apellidos)AS instructor FROM tecnicos t INNER JOIN colegios c ON t.id_colegio = c.id_colegios INNER JOIN instructor i ON t.id_instructor = i.id_instructor INNER JOIN municipios m ON c.id_municipios = m.id_municipios AND c.id_colegios = %s'
+    query1 = 'SELECT c.id_colegios AS id, c.slogan AS slogan, c.nombre AS colegio, c.logo AS logo, m.nombre AS municipio, t.id_tecnicos as id_tecnico, t.nombre as tecnico, i.foto, i.id_instructor as id_instructor, CONCAT(i.nombres," ",i.apellidos)AS instructor FROM tecnicos t INNER JOIN colegios c ON t.id_colegio = c.id_colegios INNER JOIN instructor i ON t.id_instructor = i.id_instructor INNER JOIN municipios m ON c.id_municipios = m.id_municipios AND c.id_colegios = %s'
     parametros = id,
     colegio = consulta(query1, parametros)[0]
 
@@ -151,11 +151,11 @@ def colegio(id):
     parametros = id,
     instructores = consulta(query2, parametros)
 
-    query3 = "SELECT t.nombre as tecnico, t.foto_principal as fotoTecnico FROM tecnicos t INNER JOIN colegios c ON t.id_colegio = c.id_colegios WHERE c.id_colegios = %s"
+    query3 = "SELECT t.nombre as tecnico, t.id_tecnicos as id_tecnico, t.foto_principal as fotoTecnico FROM tecnicos t INNER JOIN colegios c ON t.id_colegio = c.id_colegios WHERE c.id_colegios = %s"
     parametros = id,
     tecnicos = consulta(query3, parametros)
 
-    query4 = "SELECT p.nombre as proyecto, p.descripcion_corta as descripcion, p.foto_principal as foto, p.activo FROM tecnicos t INNER JOIN proyectos p ON t.id_tecnicos = p.id_tecnico INNER JOIN colegios c ON t.id_colegio = c.id_colegios WHERE c.id_colegios = %s"
+    query4 = "SELECT p.id_proyectos as id, p.nombre as proyecto, p.descripcion_corta as descripcion, p.foto_principal as foto, p.activo FROM tecnicos t INNER JOIN proyectos p ON t.id_tecnicos = p.id_tecnico INNER JOIN colegios c ON t.id_colegio = c.id_colegios WHERE c.id_colegios = %s"
     parametros = id,
     proyectos = consulta(query4, parametros)
 
