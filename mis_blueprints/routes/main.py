@@ -62,10 +62,11 @@ def instructores():
 
 @main_bp.route('/instructor/<int:id>')
 def instructor(id):
-    query = 'SELECT * FROM instructor WHERE id_instructor = %s'
-    parametros = id,
-    instructor = consulta(query, parametros)[0]
+    query = 'SELECT i.id_instructor AS id, i.nombres AS nombre, i.apellidos AS apellido, p.nombre_profesion AS profesion, i.foto AS foto FROM instructor i INNER JOIN profesiones p  ON i.id_profesion = p.id_profesion WHERE i.id_instructor = %s'
+    resultado = consulta(query, (id,))
+    if not resultado:
+        return "Instructor no encontrado", 404
+    instructor = resultado[0]
     return render_template('instructor.html', instructor = instructor)
-
 
 
