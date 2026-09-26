@@ -35,9 +35,14 @@
                 <h2 id="nombreMunicipio">Municipio</h2>
             </div>
             <div class="filtro-opciones">
-                <button type="button" onclick="filtrarMunicipio('Arauca')">Arauca</button>
-                <button type="button" onclick="filtrarMunicipio('Tame')">Tame</button>
-                <button type="button" onclick="filtrarMunicipio('Saravena')">Saravena</button>
+
+                {% for filtro in areas %}
+                {% if filtro.tipo == 'municipio' %}
+                <button type="button" onclick="filtrarMunicipio('{{ filtro.nombre }}')"
+                    data-municipio="{{ filtro.id }}">{{ filtro.nombre }}</button>
+                {% endif %}
+                {% endfor %}
+
             </div>
         </div>
 
@@ -52,15 +57,12 @@
                 <h2 id="nombreArea">Area de formación</h2>
             </div>
             <div class="filtro-opciones">
-                <button onclick="filtrarAreadeformacion('Agroindustria')">Agroindustria</button>
-                <button onclick="filtrarAreadeformacion('Sistemas')">Sistemas -</button>
-                <button onclick="filtrarAreadeformacion('Contabilidad y Finanzas')">Contabilidad y Finanzas</button>
-                <button onclick="filtrarAreadeformacion('Electricidad y Electrónica')">Electricidad y
-                    Electrónica</button>
-                <button onclick="filtrarAreadeformacion('Agropecuaria')">Agropecuaria</button>
-                <button onclick="filtrarAreadeformacion('Diseño y Multimedia')">Diseño y Multimedia</button>
-                <button onclick="filtrarAreadeformacion('Administración')">Administración</button>
-                <button onclick="filtrarAreadeformacion('Producción Industrial')">Producción Industrial</button>
+                {% for filtro in areas %}
+                {% if filtro.tipo == 'area' %}
+                <button type="button" class="filtro-area" onclick="filtrarAreadeformacion('{{ filtro.nombre }}')"
+                    data-area="{{ filtro.id }}">{{ filtro.nombre }}</button>
+                {% endif %}
+                {% endfor %}
             </div>
         </div>
 
@@ -74,188 +76,638 @@
                 <h2 id="nombreColegio">Colegio</h2>
             </div>
             <div class="filtro-opciones">
-                <button onclick="filtrarColegio('El Pombo')">El Pombo</button>
-                <button onclick="filtrarColegio('La Frontera')">La Frontera</button>
+                {% for filtro in areas %}
+                {% if filtro.tipo == 'colegio' %}
+                <button type="button" onclick="filtrarColegio('{{ filtro.nombre }}')" data-colegio="{{ filtro.id }}">{{
+                    filtro.nombre }}</button>
+                {% endif %}
+                {% endfor %}
             </div>
         </div>
 
 
-        <button class="clear" id="clear" type="button">↻ <span>Limpiar filtros</span></button>
+        <button type="button" id="limpiarFiltros" class="clear">↻ <span>Limpiar filtros</span></button>
     </div>
-
-    <section class="Area-inst">
-        <div class="container_instructores">
-            <div class="section-head">
-                <h2 class="section-title">Áreas de formación</h2>
-                <a class="section-link" href="#">Ver todas →</a>
-            </div>
-
-            <div class="areas">
-                <div class="area-box">
-                    <div class="area-icon">♧</div><span>Agroindustria</span>
-                </div>
-                <div class="area-box">
-                    <div class="area-icon">▣</div><span>Sistemas</span>
-                </div>
-                <div class="area-box">
-                    <div class="area-icon">▤</div><span>Contabilidad y Finanzas</span>
-                </div>
-                <div class="area-box">
-                    <div class="area-icon">♧</div><span>Electricidad y Electrónica</span>
-                </div>
-                <div class="area-box">
-                    <div class="area-icon">♡</div><span>Agropecuaria</span>
-                </div>
-                <div class="area-box">
-                    <div class="area-icon">◫</div><span>Diseño y Multimedia</span>
-                </div>
-                <div class="area-box">
-                    <div class="area-icon">▱</div><span>Administración</span>
-                </div>
-                <div class="area-box">
-                    <div class="area-icon">▥</div><span>Producción Industrial</span>
-                </div>
-            </div>
-
-
-        </div>
-    </section>
-
 
 
     <section class="instructores_i">
         <div class="container_instructores">
-            <div class="instructors-news">
+            <div>
 
-                <div>
-                    <div class="section-head">
-                        <h2 class="section-title">Nuestros instructores</h2>
-                        <a class="section-link" href="#">Ver todos →</a>
-                    </div>
+                <div class="instructor-grid" id="instructorGrid">
 
-                    <div class="instructor-grid" id="instructorGrid">
-                        {% if instructores %}
-                        {% for instructor in instructores %}
-                        <a href="./instructor.html" class="instructor-link">
-                            <div class="instructor-photo">
-                                <span class="card-badge">SENA</span>
-                                <img src="{{ url_for('static', filename='img/' + instructor.foto) }}"
-                                    alt="{{ instructor.nombre }}">
-                            </div>
-                            <div class="card-content">
-                                <h3>{{ instructor.nombre }}</h3>
-
-                                <div class="area">profesion: {{ instructor.profesion }}</div>
-
-                                <span class="profile-btn">Ver perfil <span>→</span></span>
-                            </div>
-                        </a>
-                        </article>
-                        {% endfor %}
-                        {% else %}
-                        <div class="empty-state">
-                            <strong>No hay instructores disponibles.</strong>
-                            <span>Prueba con otros filtros o vuelve a intentarlo más tarde.</span>
+                    {% for instructor in instructores %}
+                    <a href="./instructor.html" class="instructor-link" data-areas="{{ instructor.areas_ids or '' }}"
+                        data-areas-nombres="{{ instructor.areas_nombres or '' }}"
+                        data-municipios="{{ instructor.municipios or '' }}"
+                        data-colegios="{{ instructor.colegios or '' }}">
+                        <div class="instructor-photo">
+                            <img src="{{ url_for('static', filename='img/' + instructor.foto) }}"
+                                alt="{{ instructor.nombre }}">
                         </div>
-                        {% endif %}
+                        <div class="tarj_inst">
+                            <h3>{{ instructor.nombre }}</h3>
 
+                            <div class="profesion">profesion: {{ instructor.profesion }}</div>
+
+                            <span class="profile-btn">Ver perfil <span>→</span></span>
+                        </div>
+                    </a>
+                    {%else%}
+                    <div class="empty-state">
+                        <strong>No hay instructores disponibles.</strong>
+                        <span>Prueba con otros filtros o vuelve a intentarlo más tarde.</span>
                     </div>
+                    {%endfor%}
 
-                    <button class="load">Cargar más instructores ↓</button>
                 </div>
-
 
             </div>
         </div>
     </section>
+    <div class="paginacion-instructores">
+        <button type="button" id="flechaAnterior" class="flecha">
+            ‹
+        </button>
+        <div id="numerosPaginas"></div>
 
-
+        <button type="button" id="flechaSiguiente" class="flecha">
+            ›
+        </button>
+    </div>
 </div>
-
-
 <script>
-    (() => {
-        const search = document.getElementById("search");
-        const municipio = document.getElementById("municipio");
-        const area = document.getElementById("area");
-        const clear = document.getElementById("clear");
-        const colegio = document.querySelector(".pagina-instructores .filters select:nth-of-type(3)");
+document.addEventListener("DOMContentLoaded", function () {
 
-        const normalize = value => (value || "")
+    const grid = document.getElementById("instructorGrid");
+
+    if (!grid) return;
+
+    const tarjetas = Array.from(
+        grid.querySelectorAll(".instructor-link")
+    );
+
+    const search = document.getElementById("search");
+
+    const botonesArea =
+        document.querySelectorAll(".filtro-area");
+
+    const botonesMunicipio =
+        document.querySelectorAll("[data-municipio]");
+
+    const botonesColegio =
+        document.querySelectorAll("[data-colegio]");
+
+    const limpiarFiltros =
+        document.getElementById("limpiarFiltros");
+
+    const flechaAnterior =
+        document.getElementById("flechaAnterior");
+
+    const flechaSiguiente =
+        document.getElementById("flechaSiguiente");
+
+    const numerosPaginas =
+        document.getElementById("numerosPaginas");
+
+
+    /* =====================================================
+       FILTROS SELECCIONADOS
+       ===================================================== */
+
+    let areaSeleccionada = "";
+
+    let municipioSeleccionado = "";
+
+    let colegioSeleccionado = "";
+
+    let textoBuscado = "";
+
+
+    /* =====================================================
+       PÁGINACIÓN
+       PC = 10
+       CELULAR = 5
+       ===================================================== */
+
+    let paginaActual = 1;
+
+
+    function obtenerPorPagina() {
+
+        if (window.innerWidth <= 680) {
+            return 5;
+        }
+
+        return 10;
+    }
+
+
+    /* =====================================================
+       NORMALIZAR TEXTO
+       ===================================================== */
+
+    function normalizar(texto) {
+
+        return (texto || "")
             .toString()
             .normalize("NFD")
             .replace(/[\u0300-\u036f]/g, "")
             .toLowerCase()
             .trim();
+    }
 
-        function filterInstructors() {
-            const cards = [...document.querySelectorAll(".pagina-instructores .instructor")];
-            const q = normalize(search?.value);
-            const city = normalize(municipio?.value);
-            const selectedArea = normalize(area?.value);
-            const selectedCollege = normalize(colegio?.value);
 
-            cards.forEach(card => {
-                const name = normalize(card.dataset.name);
-                const cardArea = normalize(card.dataset.area);
-                const cardCity = normalize(card.dataset.city);
-                const cardText = normalize(card.textContent);
+    /* =====================================================
+       COMPROBAR SI UNA TARJETA CUMPLE LOS FILTROS
+       ===================================================== */
 
-                const matchesSearch = !q ||
-                    name.includes(q) ||
-                    cardArea.includes(q) ||
-                    cardCity.includes(q) ||
-                    cardText.includes(q);
+    function coincideConFiltros(tarjeta) {
 
-                const matchesCity = !city || city.includes("todos") || cardCity === city;
-                const matchesArea = !selectedArea || selectedArea.includes("todas") || cardArea === selectedArea;
-                const matchesCollege = !selectedCollege ||
-                    selectedCollege.includes("todos") ||
-                    cardText.includes(selectedCollege);
-
-                card.hidden = !(matchesSearch && matchesCity && matchesArea && matchesCollege);
-            });
-        }
-
-        [search, municipio, area, colegio].forEach(control => {
-            if (!control) return;
-            control.addEventListener(
-                control.tagName === "INPUT" ? "input" : "change",
-                filterInstructors
+        const nombreCompleto =
+            normalizar(
+                tarjeta.querySelector("h3")?.textContent
             );
+
+
+        const partes =
+            nombreCompleto.split(/\s+/);
+
+
+        const nombre =
+            partes[0] || "";
+
+
+        const apellido =
+            partes.slice(1).join(" ");
+
+
+        /* BUSCADOR */
+
+        const coincideBusqueda =
+            textoBuscado === "" ||
+            nombre.startsWith(textoBuscado) ||
+            apellido.startsWith(textoBuscado);
+
+
+        /* ÁREA */
+
+        const areas =
+            (tarjeta.dataset.areas || "")
+                .split(",");
+
+
+        const coincideArea =
+            areaSeleccionada === "" ||
+            areas.includes(areaSeleccionada);
+
+
+        /* MUNICIPIO */
+
+        const municipios =
+            normalizar(
+                tarjeta.dataset.municipios || ""
+            )
+            .split("|");
+
+
+        const coincideMunicipio =
+            municipioSeleccionado === "" ||
+            municipios.includes(
+                municipioSeleccionado
+            );
+
+
+        /* COLEGIO */
+
+        const colegios =
+            normalizar(
+                tarjeta.dataset.colegios || ""
+            )
+            .split("|");
+
+
+        const coincideColegio =
+            colegioSeleccionado === "" ||
+            colegios.includes(
+                colegioSeleccionado
+            );
+
+
+        return (
+            coincideBusqueda &&
+            coincideArea &&
+            coincideMunicipio &&
+            coincideColegio
+        );
+    }
+
+
+    /* =====================================================
+       OBTENER SOLO LAS TARJETAS QUE COINCIDEN
+       ===================================================== */
+
+    function obtenerFiltradas() {
+
+        return tarjetas.filter(
+            coincideConFiltros
+        );
+    }
+
+
+    /* =====================================================
+       MOSTRAR PÁGINA
+       ===================================================== */
+
+    function mostrarPagina() {
+
+        const filtradas =
+            obtenerFiltradas();
+
+
+        const porPagina =
+            obtenerPorPagina();
+
+
+        const totalPaginas =
+            Math.ceil(
+                filtradas.length / porPagina
+            );
+
+
+        /* Si estamos fuera de página */
+
+        if (
+            totalPaginas > 0 &&
+            paginaActual > totalPaginas
+        ) {
+
+            paginaActual = totalPaginas;
+        }
+
+
+        if (totalPaginas === 0) {
+
+            paginaActual = 1;
+        }
+
+
+        /* Primero ocultamos TODAS */
+
+        tarjetas.forEach(function (tarjeta) {
+
+            tarjeta.style.display = "none";
+
         });
 
-        clear?.addEventListener("click", () => {
-            if (search) search.value = "";
-            if (municipio) municipio.selectedIndex = 0;
-            if (area) area.selectedIndex = 0;
-            if (colegio) colegio.selectedIndex = 0;
-            filterInstructors();
-        });
 
-        filterInstructors();
-    })();
+        /* Calculamos cuáles mostrar */
 
-    function filtrarMunicipio(nombre) {
-        const municipio = document.getElementById("nombreMunicipio");
+        const inicio =
+            (paginaActual - 1) * porPagina;
 
-        if (municipio) {
-            municipio.textContent = nombre;
+
+        const fin =
+            inicio + porPagina;
+
+
+        filtradas
+            .slice(inicio, fin)
+            .forEach(function (tarjeta) {
+
+                tarjeta.style.display = "flex";
+
+            });
+
+
+        crearNumeros(totalPaginas);
+
+        actualizarFlechas(totalPaginas);
+
+    }
+
+
+    /* =====================================================
+       NÚMEROS
+       ===================================================== */
+
+    function crearNumeros(totalPaginas) {
+
+        numerosPaginas.innerHTML = "";
+
+
+        for (
+            let numero = 1;
+            numero <= totalPaginas;
+            numero++
+        ) {
+
+            const boton =
+                document.createElement("button");
+
+
+            boton.type = "button";
+
+            boton.className =
+                "numero-pagina";
+
+
+            boton.textContent =
+                numero;
+
+
+            if (
+                numero === paginaActual
+            ) {
+
+                boton.classList.add("activa");
+
+            }
+
+
+            boton.addEventListener(
+                "click",
+                function () {
+
+                    paginaActual = numero;
+
+                    mostrarPagina();
+
+                }
+            );
+
+
+            numerosPaginas.appendChild(
+                boton
+            );
         }
     }
-    function filtrarAreadeformacion(nombre) {
-        const municipio = document.getElementById("nombreArea");
 
-        if (municipio) {
-            municipio.textContent = nombre;
-        }
-    }
-    function filtrarColegio(nombre) {
-        const municipio = document.getElementById("nombreColegio");
 
-        if (municipio) {
-            municipio.textContent = nombre;
-        }
+    /* =====================================================
+       FLECHAS
+       ===================================================== */
+
+    function actualizarFlechas(totalPaginas) {
+
+        flechaAnterior.disabled =
+            paginaActual <= 1;
+
+
+        flechaSiguiente.disabled =
+            paginaActual >= totalPaginas ||
+            totalPaginas === 0;
+
     }
+
+
+    /* =====================================================
+       FLECHA ANTERIOR
+       ===================================================== */
+
+    flechaAnterior.addEventListener(
+        "click",
+        function () {
+
+            if (paginaActual > 1) {
+
+                paginaActual--;
+
+                mostrarPagina();
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       FLECHA SIGUIENTE
+       ===================================================== */
+
+    flechaSiguiente.addEventListener(
+        "click",
+        function () {
+
+            const filtradas =
+                obtenerFiltradas();
+
+
+            const porPagina =
+                obtenerPorPagina();
+
+
+            const totalPaginas =
+                Math.ceil(
+                    filtradas.length /
+                    porPagina
+                );
+
+
+            if (
+                paginaActual < totalPaginas
+            ) {
+
+                paginaActual++;
+
+                mostrarPagina();
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       BUSCADOR
+       ===================================================== */
+
+    search.addEventListener(
+        "input",
+        function () {
+
+            textoBuscado =
+                normalizar(
+                    search.value
+                );
+
+
+            paginaActual = 1;
+
+            mostrarPagina();
+
+        }
+    );
+
+
+    /* =====================================================
+       MUNICIPIO
+       ===================================================== */
+
+    botonesMunicipio.forEach(
+        function (boton) {
+
+            boton.addEventListener(
+                "click",
+                function () {
+
+                    municipioSeleccionado =
+                        normalizar(
+                            boton.textContent
+                        );
+
+
+                    document.getElementById(
+                        "nombreMunicipio"
+                    ).textContent =
+                        boton.textContent.trim();
+
+
+                    paginaActual = 1;
+
+                    mostrarPagina();
+
+                }
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       ÁREA
+       ===================================================== */
+
+    botonesArea.forEach(
+        function (boton) {
+
+            boton.addEventListener(
+                "click",
+                function () {
+
+                    areaSeleccionada =
+                        boton.dataset.area;
+
+
+                    document.getElementById(
+                        "nombreArea"
+                    ).textContent =
+                        boton.textContent.trim();
+
+
+                    paginaActual = 1;
+
+                    mostrarPagina();
+
+                }
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       COLEGIO
+       ===================================================== */
+
+    botonesColegio.forEach(
+        function (boton) {
+
+            boton.addEventListener(
+                "click",
+                function () {
+
+                    colegioSeleccionado =
+                        normalizar(
+                            boton.textContent
+                        );
+
+
+                    document.getElementById(
+                        "nombreColegio"
+                    ).textContent =
+                        boton.textContent.trim();
+
+
+                    paginaActual = 1;
+
+                    mostrarPagina();
+
+                }
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       LIMPIAR FILTROS
+       ===================================================== */
+
+    limpiarFiltros.addEventListener(
+        "click",
+        function () {
+
+            areaSeleccionada = "";
+
+            municipioSeleccionado = "";
+
+            colegioSeleccionado = "";
+
+            textoBuscado = "";
+
+            search.value = "";
+
+
+            document.getElementById(
+                "nombreMunicipio"
+            ).textContent =
+                "Municipio";
+
+
+            document.getElementById(
+                "nombreArea"
+            ).textContent =
+                "Area de formación";
+
+
+            document.getElementById(
+                "nombreColegio"
+            ).textContent =
+                "Colegio";
+
+
+            paginaActual = 1;
+
+            mostrarPagina();
+
+        }
+    );
+
+
+    /* =====================================================
+       SI CAMBIA PC / CELULAR
+       ===================================================== */
+
+    window.addEventListener(
+        "resize",
+        function () {
+
+            paginaActual = 1;
+
+            mostrarPagina();
+
+        }
+    );
+
+
+    /* =====================================================
+       INICIAR
+       ===================================================== */
+
+    mostrarPagina();
+
+});
 </script>
+
 {%endblock%}
