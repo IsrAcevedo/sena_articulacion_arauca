@@ -1,47 +1,268 @@
+
 {% extends "base.html" %}
 
 {% block content %}
 
+<section class="proyecto-detalle">
 
-<section class="hero">
-  <div class="overlay">
-    <h2>Innovación y talento que transforman el futuro</h2>
-    <p>Descubre los proyectos de los aprendices del SENA y colegios articulados.</p>
-  </div>
+    <div class="proyecto-contenedor">
+
+        <a href="{{ url_for('main.inicio') }}" class="volver-proyectos">
+            ← Volver a proyectos
+        </a>
+
+        <!-- ENCABEZADO -->
+        <div class="proyecto-encabezado">
+
+            <div>
+                <span class="proyecto-etiqueta">
+                    PROYECTO SENA
+                </span>
+
+                <h1>{{ proyecto.nombre }}</h1>
+
+                {% if proyecto.descripcion_corta %}
+                <p class="proyecto-descripcion-corta">
+                    {{ proyecto.descripcion_corta }}
+                </p>
+                {% endif %}
+            </div>
+
+        </div>
+
+
+        <!-- INFORMACIÓN PRINCIPAL -->
+        <div class="proyecto-principal">
+
+            <div class="proyecto-imagen">
+
+                {% if proyecto.foto_principal %}
+                <img
+                    src="{{ url_for('static', filename='uploads/' + proyecto.foto_principal) }}"
+                    alt="{{ proyecto.nombre }}"
+                >
+                {% else %}
+                <div class="sin-imagen">
+                    Sin imagen disponible
+                </div>
+                {% endif %}
+
+            </div>
+
+
+            <div class="proyecto-datos">
+
+                {% if proyecto.colegio_nombre %}
+                <div class="dato-proyecto">
+                    <strong>Colegio</strong>
+                    <span>{{ proyecto.colegio_nombre }}</span>
+                </div>
+                {% endif %}
+
+                {% if proyecto.tecnico_nombre %}
+                <div class="dato-proyecto">
+                    <strong>Programa técnico</strong>
+                    <span>{{ proyecto.tecnico_nombre }}</span>
+                </div>
+                {% endif %}
+
+                {% if proyecto.ficha %}
+                <div class="dato-proyecto">
+                    <strong>Ficha</strong>
+                    <span>{{ proyecto.ficha }}</span>
+                </div>
+                {% endif %}
+
+                {% if proyecto.modalidad_nombre %}
+                <div class="dato-proyecto">
+                    <strong>Modalidad</strong>
+                    <span>{{ proyecto.modalidad_nombre }}</span>
+                </div>
+                {% endif %}
+
+                {% if proyecto.instructor_nombre %}
+                <div class="dato-proyecto">
+                    <strong>Instructor</strong>
+                    <span>{{ proyecto.instructor_nombre }}</span>
+                </div>
+                {% endif %}
+
+                {% if proyecto.fecha_inicio %}
+                <div class="dato-proyecto">
+                    <strong>Fecha de inicio</strong>
+                    <span>{{ proyecto.fecha_inicio }}</span>
+                </div>
+                {% endif %}
+
+                {% if proyecto.fecha_fin %}
+                <div class="dato-proyecto">
+                    <strong>Fecha de finalización</strong>
+                    <span>{{ proyecto.fecha_fin }}</span>
+                </div>
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <!-- DESCRIPCIÓN -->
+        {% if proyecto.descripcion_larga %}
+        <div class="proyecto-seccion">
+
+            <h2>Descripción del proyecto</h2>
+
+            <p>
+                {{ proyecto.descripcion_larga }}
+            </p>
+
+        </div>
+        {% endif %}
+
+
+        <!-- OBJETIVO -->
+        {% if proyecto.objetivo %}
+        <div class="proyecto-seccion">
+
+            <h2>Objetivo</h2>
+
+            <p>
+                {{ proyecto.objetivo }}
+            </p>
+
+        </div>
+        {% endif %}
+
+
+        <!-- RESULTADO -->
+        {% if proyecto.resultado %}
+        <div class="proyecto-seccion">
+
+            <h2>Resultado</h2>
+
+            <p>
+                {{ proyecto.resultado }}
+            </p>
+
+        </div>
+        {% endif %}
+
+
+        <!-- APRENDICES -->
+        {% if aprendices %}
+        <div class="proyecto-seccion">
+
+            <h2>Aprendices participantes</h2>
+
+            <div class="aprendices-proyecto">
+
+                {% for aprendiz in aprendices %}
+
+                <div class="aprendiz">
+
+                    <span class="icono-aprendiz">
+                        👤
+                    </span>
+
+                    <span>
+                        {{ aprendiz.nombres }}
+                        {{ aprendiz.apellidos }}
+                    </span>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+        {% endif %}
+
+
+        <!-- GALERÍA -->
+        {% if galeria %}
+        <div class="proyecto-seccion">
+
+            <h2>Galería del proyecto</h2>
+
+            <div class="galeria-proyecto">
+
+                {% for imagen in galeria %}
+
+                <div class="imagen-galeria">
+
+                    <img
+                        src="{{ imagen.url_imagen }}"
+                        alt="{{ imagen.descripcion or proyecto.nombre }}"
+                    >
+
+                    {% if imagen.descripcion %}
+                    <p>{{ imagen.descripcion }}</p>
+                    {% endif %}
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+        {% endif %}
+
+
+        <!-- VIDEO INTRODUCTORIO -->
+        {% if proyecto.video_intro %}
+        <div class="proyecto-seccion">
+
+            <h2>Video de introducción</h2>
+
+            <a
+                href="{{ proyecto.video_intro }}"
+                target="_blank"
+                class="boton-video"
+            >
+                ▶ Ver video
+            </a>
+
+        </div>
+        {% endif %}
+
+
+        <!-- VIDEOS -->
+        {% if videos %}
+        <div class="proyecto-seccion">
+
+            <h2>Videos del proyecto</h2>
+
+            <div class="videos-proyecto">
+
+                {% for video in videos %}
+
+                <div class="video-proyecto">
+
+                    <h3>
+                        {{ video.titulo or 'Video del proyecto' }}
+                    </h3>
+
+                    <a
+                        href="{{ video.url_video }}"
+                        target="_blank"
+                        class="boton-video"
+                    >
+                        ▶ Ver video
+                    </a>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+        {% endif %}
+
+    </div>
+
 </section>
-
-<section id="colegios">
-  <h2>Colegios Participantes</h2>
-  <div class="colegio-list">
-    {%for colegio in colegios %}
-    <div class="colegio-card">
-      <h3>{{colegio.nombre}}</h3>
-      <p>Programas de desarrollo de software y robótica educativa.</p>
-    </div>
-    {%endfor%}
-  </div>
-</section>
-
-<section id="proyectos" class="tecnicos-section">
-  <h2>Proyectos Destacados</h2>
-  <div class="project-grid">
-    <div class="project-card">
-      <img src="https://picsum.photos/400/250?random=1" alt="Proyecto 1">
-      <h3>Aplicación de Control Ambiental</h3>
-      <p>Una app creada por aprendices para medir la calidad del aire local.</p>
-    </div>
-    <div class="project-card">
-      <img src="https://picsum.photos/400/250?random=2" alt="Proyecto 2">
-      <h3>Robot Asistente Escolar</h3>
-      <p>Robot diseñado por estudiantes de articulación para tareas educativas.</p>
-    </div>
-    <div class="project-card">
-      <img src="https://picsum.photos/400/250?random=3" alt="Proyecto 3">
-      <h3>Sistema de Riego Inteligente</h3>
-      <p>Proyecto de automatización agrícola impulsado por sensores IoT.</p>
-    </div>
-  </div>
-</section>
-
 
 {% endblock %}
