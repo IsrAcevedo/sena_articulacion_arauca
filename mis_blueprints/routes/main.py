@@ -52,11 +52,13 @@ def colegio(id):
 
 @main_bp.route('/instructores')
 def instructores():
-    # query = 'SELECT i.id_instructor AS id, i.foto, CONCAT(i.nombres," ",i.apellidos)AS nombre, p.nombre_profesion as profesion, m.nombre as municipio, c.nombre as colegio FROM instructor i INNER JOIN profesiones p ON i.id_profesion = p.id_profesion INNER JOIN tecnicos t ON i.id_instructor = t.id_instructor INNER JOIN colegios c ON t.id_colegio = c.id_colegios INNER JOIN municipios m ON c.id_municipios = m.id_municipios WHERE i.activo = 1'
-    # instructores = consulta(query) 
-    query = "select i.id_instructor as id, i.foto as foto, CONCAT(i.nombres,' ',i.apellidos) as nombre, p.nombre_profesion as profesion from instructor i inner join profesiones p on p.id_profesion = i.id_profesion" 
+    query = "SELECT i.id_instructor AS id, i.foto AS foto, CONCAT(i.nombres, ' ', i.apellidos) AS nombre, p.nombre_profesion AS profesion, (SELECT GROUP_CONCAT(DISTINCT t.id_modalidad ORDER BY t.id_modalidad SEPARATOR ',') FROM tecnicos t WHERE t.id_instructor = i.id_instructor) AS areas_ids, (SELECT GROUP_CONCAT(DISTINCT m.nombre ORDER BY m.nombre SEPARATOR '|') FROM tecnicos t2 INNER JOIN modalidad m ON m.id_modalidad = t2.id_modalidad WHERE t2.id_instructor = i.id_instructor) AS areas_nombres, (SELECT GROUP_CONCAT(DISTINCT mu.nombre ORDER BY mu.nombre SEPARATOR '|') FROM tecnicos t3 INNER JOIN colegios c ON c.id_colegios = t3.id_colegio INNER JOIN municipios mu ON mu.id_municipios = c.id_municipios WHERE t3.id_instructor = i.id_instructor) AS municipios, (SELECT GROUP_CONCAT(DISTINCT c2.nombre ORDER BY c2.nombre SEPARATOR '|') FROM tecnicos t4 INNER JOIN colegios c2 ON c2.id_colegios = t4.id_colegio WHERE t4.id_instructor = i.id_instructor) AS colegios FROM instructor i INNER JOIN profesiones p ON p.id_profesion = i.id_profesion WHERE i.activo = 1" 
+   
+    query2 = "SELECT 'area' AS tipo, id_modalidad AS id, nombre AS nombre FROM modalidad UNION ALL SELECT 'municipio' AS tipo, id_municipios AS id, nombre AS nombre FROM municipios WHERE activo = 1 UNION ALL SELECT 'colegio' AS tipo, id_colegios AS id, nombre AS nombre FROM colegios WHERE activo = 1 ORDER BY tipo, nombre"
+
     instructores = consulta(query)
-    return render_template('instructores.html', instructores = instructores)
+    areas = consulta(query2)
+    return render_template('instructores.html', instructores = instructores, areas = areas)
 
 @main_bp.route('/instructor/<int:id>')
 def instructor(id):
