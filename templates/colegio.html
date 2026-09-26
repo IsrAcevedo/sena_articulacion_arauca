@@ -66,15 +66,18 @@
             </div>
             <div class="cuadricula cuadricula-3">
             {%for instructor in instructores%}
+            <a href="{{ url_for('main.instructor', id=instructor.id_instructor) }}">
             <div class="tarjeta tarjeta-persona">
                 <div class="tarjeta-etiqueta"><span>Docente</span></div>
-                <div class="tarjeta-contenido">
-                <div class="tarjeta-persona-avatar"><img src="{{ url_for('static', filename='uploads/' + instructor.foto) }}" alt="{{instructor.nombres}} {{instructor.apellidos}}"></div>
-                <h3>{{instructor.nombres}} {{instructor.apellidos}}</h3>
-                <span class="tarjeta-persona-rol">Instructor</span>
-                <p>{%if not instructor.perfi_profesional %} Instructor articulado con el SENA Arauca {% endif %}{%if  instructor.perfi_profesional %} {{instructor.perfi_profesional}} {% endif %}</p>
+                    <div class="tarjeta-contenido">
+                        <div class="tarjeta-persona-avatar"><img src="{{ url_for('static', filename='uploads/' + instructor.foto) }}" alt="{{instructor.nombres}} {{instructor.apellidos}}"></div>
+                        <h3>{{instructor.nombres}} {{instructor.apellidos}}</h3>
+                        <span class="tarjeta-persona-rol">Instructor</span>
+                        <p>{%if not instructor.perfi_profesional %} Instructor articulado con el SENA Arauca {% endif %}{%if  instructor.perfi_profesional %} {{instructor.perfi_profesional}} {% endif %}</p>
+                    </div>
                 </div>
-            </div>
+            </a>
+
             {%endfor%}            
         
             </div>
@@ -89,38 +92,43 @@
             <div class="cuadricula cuadricula-3">
         
         {%for t in tecnicos%}
+        <a href="#">
             <div class="tarjeta tarjeta-persona">
                 <div class="tarjeta-etiqueta"><span>Tecnicos</span></div>
                 <div class="tarjeta-contenido">
-                <div class="tarjeta-persona-avatar"><img src="{{ url_for('static', filename='uploads/' + t.fotoTecnico) }}" alt="{{t.tecnico}}"></div>
-                <h3>{{t.tecnico}}</h3>
-                <span class="tarjeta-persona-rol">Técnico</span>
-                <p>Tecnico Articulado con el SENA Arauca</p>
+                    <div class="tarjeta-persona-avatar"><img src="{{ url_for('static', filename='uploads/' + t.fotoTecnico) }}" alt="{{t.tecnico}}"></div>
+                    <h3>{{t.tecnico}}</h3>
+                    <span class="tarjeta-persona-rol">Técnico</span>
+                    <p>Tecnico Articulado con el SENA Arauca</p>
                 </div>
             </div>
+        </a>
         {%endfor%}
         
             </div>
         </section>
         
         <!-- PROYECTOS -->
-        <section class="seccion" id="proyectos">
+        <section class="seccion" id="proyecto">
             <div class="seccion-encabezado">
             <h2>Proyectos</h2>
             </div>
             <div class="cuadricula cuadricula-3">
             {%for p in proyectos%}
-                <div class="tarjeta tarjeta-proyecto">
+            <a href="{{ url_for('main.proyecto', id=p.id) }}">
+                <div class="tarjeta tarjeta-persona">
                     <div class="tarjeta-etiqueta"><span>Proyecto</span></div>
                     <div class="tarjeta-contenido">
-                    <h3>{{p.proyecto}}</h3>
-                    <p>{{p.descripcion}}</p>
-                    <div class="tarjeta-proyecto-meta">
-                        <span class="etiqueta-chip etiqueta-chip-activo">{%if p.activo == 1%}En curso{%endif%}</span>
-                        <span class="etiqueta-chip">Proyecto</span>
-                    </div>
+                        <h3>{{p.proyecto}}</h3>
+                        <p>{{p.descripcion}}</p>
+                        <div class="tarjeta-proyecto-meta">
+                            <span class="etiqueta-chip etiqueta-chip-activo">{%if p.activo == 1%}En curso{%endif%}</span>
+                            <span class="etiqueta-chip">Proyecto</span>
+                        </div>
                     </div>
                 </div>
+            </a>
+
             {%endfor%}
         
             

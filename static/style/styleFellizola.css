@@ -164,6 +164,9 @@ body {
  
   .seccion{
     padding: 64px 0 12px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
   }
  
   .seccion-encabezado{
@@ -201,48 +204,131 @@ body {
   }
  
   /* ---------- BASE DE TARJETA (estilo sello de plano) ---------- */
-  .tarjeta{
-    background: var(--blanco);
-    border: 1px solid var(--gris-borde);
-    border-radius: 3px;
+.tarjeta-persona {
     position: relative;
-    display: flex;
-    flex-direction: column;
-    box-shadow: var(--sombra-suave);
-    transition: var(--transicion-suave);
+    display: block;
+    background: #ffffff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--verde-claro);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    text-decoration: none;
+    color: inherit;
+    max-width: 280px;
+    margin: 0 auto;
+}
+
+.tarjeta-persona:hover {
+    transform: translateY(-6px);
+      box-shadow: var(--verde-claro);
   }
- 
-  .tarjeta:hover{
-    border-color: var(--verde-sena);
-    box-shadow: var(--sombra-hover);
-    transform: translateY(-2px);
-  }
- 
-  .tarjeta-etiqueta{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 8px 14px;
-    background: var(--verde-sena-oscuro);
-    color: var(--crema-fondo);
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.08em;
+
+/* Etiqueta tipo "badge" arriba de la tarjeta */
+.tarjeta-etiqueta {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 2;
+}
+
+.tarjeta-etiqueta span {
+    background-color: var(--verde-claro);
+    color: var(--verde-sena-oscuro);
+    font-size: 0.75rem;
+    font-weight: 600;
     text-transform: uppercase;
-    border-radius: 3px 3px 0 0;
-  }
- 
-  .tarjeta-etiqueta span:last-child{ color: var(--ambar-llanero); }
- 
-  .tarjeta-contenido{
-    width: 100%;
-    min-height: 200px;
-    padding: 20px 20px 22px;
-    flex: 1;
+    letter-spacing: 0.05em;
+    padding: 4px 10px;
+    border-radius: 999px;
+}
+
+/* Contenido de la tarjeta */
+.tarjeta-contenido {
+    height: 210px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-  }
+    align-items: center;
+    text-align: center;
+    padding: 40px 20px 24px;
+}
+
+/* Avatar circular */
+.tarjeta-persona-avatar {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    aspect-ratio: 1 / 1; /* fuerza que siempre sea un cuadrado perfecto */
+    flex-shrink: 0; /* evita que el flex del padre lo achique */
+    border-radius: 50%;
+    overflow: hidden;
+    margin: -60px auto 16px;
+    border: 4px solid #ffffff;
+    box-shadow: 
+        0 0 0 3px var(--verde-claro),
+        0 4px 14px rgba(0, 0, 0, 0.2);
+    background-color: #e2e8f0;
+}
+
+.tarjeta-persona-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;      /* recorta la imagen en vez de estirarla */
+    object-position: center top;
+    display: block;
+}
+
+.tarjeta-persona {
+    position: relative;
+    display: block;
+    background: #ffffff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    text-decoration: none;
+    color: inherit;
+    max-width: 280px;
+    margin: 0 auto;
+    padding-top: 70px; /* espacio para el fondo de color de arriba */
+}
+
+.tarjeta-persona::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    background: linear-gradient(to right, var(--verde-sena), var(--verde-sena));
+}
+
+/* Nombre */
+.tarjeta-contenido h3 {
+    margin: 0 0 6px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+/* Rol */
+.tarjeta-persona-rol {
+    display: inline-block;
+    background-color: #eff6ff;
+    color: var(--verde-sena);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 3px 12px;
+    border-radius: 999px;
+    margin-bottom: 10px;
+}
+
+/* Descripción */
+.tarjeta-contenido p {
+    font-size: 0.85rem;
+    color: #64748b;
+    line-height: 1.4;
+    margin: 0;
+}
  
   /* ---------- TARJETA DE DATOS INSTITUCIONALES ---------- */
   .tarjeta-datos-institucionales .tarjeta-contenido{ padding: 28px 26px 26px; gap: 26px; }
@@ -313,44 +399,8 @@ body {
 
  
 
-  /* ---------- TARJETAS DE PERSONAS ---------- */
-  .tarjeta-persona .tarjeta-contenido{ align-items: flex-start; }
- 
-  .tarjeta-persona-avatar img {
-    width: 270px;
-    height: 152px;
-    border-radius: 5%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 600;
-    font-size: 16px;
-    border: 2px solid var(--ambar-llanero);
-    margin-bottom: 6px;
-  }
- 
-  .tarjeta-persona h3{
-    font-size: 17px;
-  }
- 
-  .tarjeta-persona-rol{
-    align-self: flex-start;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10.5px;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--verde-sena-oscuro);
-    background: var(--verde-claro);
-    border: 1px solid rgba(57,169,0,0.25);
-    padding: 3px 8px;
-    border-radius: 2px;
-  }
- 
-  .tarjeta-persona p{
-    font-size: 14px;
-    color: var(--gris-texto);
-  }
+
+
  
   /* ---------- TARJETAS DE PROYECTOS ---------- */
   .tarjeta-proyecto .tarjeta-contenido{ gap: 12px; }
@@ -386,6 +436,7 @@ body {
   /* ---------- SECCIÓN: VER MÁS DEL COLEGIO (CTA) ---------- */
   .seccion-ver-mas{
     position: relative;
+    width: 100%;
     margin-top: 60px;
     margin-bottom: 60px;
     background: var(--verde-sena-oscuro);
@@ -410,16 +461,14 @@ body {
   .seccion-ver-mas::after{ bottom: 18px; right: 18px; border-left: none; border-top: none; }
  
   .seccion-ver-mas-contenido{
-    width: 640px;
+    width: 100%;
     margin: 0 auto;
     text-align: center;
     position: relative;
     z-index: 2;
   }
 
-  @media (max-width: 700px){
-    .seccion-ver-mas-contenido{ width: 100%; }
-  }
+
  
   .seccion-ver-mas-etiqueta{
     display: inline-flex;
