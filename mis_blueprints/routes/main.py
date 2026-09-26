@@ -22,10 +22,102 @@ def inicio():
 
 
 @main_bp.route('/proyectos')
-def proyectos():
+def lista_proyectos():
     query = "SELECT id_proyectos AS id, nombre, descripcion_corta AS descripcion, foto_principal AS foto FROM proyectos"
     proyectos = consulta(query)
-    return render_template('proyectos.html', proyectos = proyectos)
+    return render_template('proyectos.html', proyectos=proyectos)
+
+
+@main_bp.route('/proyectos/<int:id>')
+def detalle_proyecto(id):
+
+    query = """
+        SELECT
+            p.id_proyectos,
+            p.nombre,
+            p.descripcion_corta,
+            p.descripcion_larga,
+            p.objetivo,
+            p.resultado,
+            p.foto_principal,
+            p.video_intro,
+            p.fecha_inicio,
+            p.fecha_fin,
+            t.ficha,
+            t.nombre AS tecnico_nombre,
+            c.nombre AS colegio_nombre,
+            mo.nombre AS modalidad_nombre,
+            CONCAT(i.nombres, ' ', i.apellidos) AS instructor_nombre
+        FROM proyectos p
+        INNER JOIN tecnicos t
+            ON p.id_tecnico = t.id_tecnicos
+        INNER JOIN colegios c
+            ON t.id_colegio = c.id_colegios
+        INNER JOIN modalidad mo
+            ON t.id_modalidad = mo.id_modalidad
+        LEFT JOIN instructor i
+            ON t.id_instructor = i.id_instructor
+        WHERE p.id_proyectos = %s
+          AND p.activo = 1
+    """
+
+    proyecto = consulta(query, (id,))
+
+    if not proyecto:
+        flash("El proyecto no existe.", "error")
+        return redirect(url_for("main.inicio"))
+
+    proyecto = proyecto[0]
+
+    # APRENDICES DEL PROYECTO
+    query_aprendices = """
+        SELECT
+            a.nombres,
+            a.apellidos
+        FROM aprendices a
+        INNER JOIN proyecto_aprendices pa
+            ON a.id_aprendices = pa.id_aprendiz
+        WHERE pa.id_proyecto = %s
+          AND a.activo = 1
+        ORDER BY a.nombres ASC
+    """
+
+    aprendices = consulta(query_aprendices, (id,))
+
+    # GALERÍA DEL PROYECTO
+    query_galeria = """
+        SELECT
+            url_imagen,
+            descripcion,
+            orden
+        FROM proyecto_galeria
+        WHERE id_proyecto = %s
+        ORDER BY orden ASC
+    """
+
+    galeria = consulta(query_galeria, (id,))
+
+    # VIDEOS DEL PROYECTO
+    query_videos = """
+        SELECT
+            url_video,
+            titulo,
+            orden
+        FROM proyecto_videos
+        WHERE id_proyecto = %s
+        ORDER BY orden ASC
+    """
+
+    videos = consulta(query_videos, (id,))
+
+    return render_template(
+        'proyectos.html',
+        proyecto=proyecto,
+        aprendices=aprendices,
+        galeria=galeria,
+        videos=videos
+    )
+
 
 @main_bp.route('/proyecto/<int:id>')
 def proyecto(id):
