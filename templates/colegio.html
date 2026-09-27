@@ -22,7 +22,7 @@
     <main>
     
     <!-- INFORMACIÓN BÁSICA -->
-        <!-- <section class="seccion" id="informacion">
+        <section class="seccion" id="informacion">
             <div class="seccion-encabezado">
             <h2>Información básica</h2>
             <span class="seccion-encabezado-codigo">FICHA · INST-01</span>
@@ -32,27 +32,31 @@
             <div class="tarjeta-contenido">
         
                 <div class="tarjeta-datos-institucionales-identidad">
-                <span class="tarjeta-datos-institucionales-municipio">Saravena, Arauca</span>
+                <span class="tarjeta-datos-institucionales-municipio">{{ colegio.municipio }}, Arauca</span>
                 </div>
         
                 <div class="tarjeta-datos-institucionales-estadisticas">
                 <div class="tarjeta-datos-institucionales-estadistica">
-                    <div class="tarjeta-datos-institucionales-estadistica-numero"></div>
+                    <div class="tarjeta-datos-institucionales-estadistica-numero">{{ estudiantes | length }}</div>
                     <div class="tarjeta-datos-institucionales-estadistica-etiqueta">Estudiantes</div>
                 </div>
                 <div class="tarjeta-datos-institucionales-estadistica">
-                    <div class="tarjeta-datos-institucionales-estadistica-numero"></div>
+                    <div class="tarjeta-datos-institucionales-estadistica-numero">{{ total_instructores }}</div>
                     <div class="tarjeta-datos-institucionales-estadistica-etiqueta">Instructores</div>
                 </div>
                 <div class="tarjeta-datos-institucionales-estadistica">
-                    <div class="tarjeta-datos-institucionales-estadistica-numero"></div>
+                    <div class="tarjeta-datos-institucionales-estadistica-numero">{{ total_tecnicos }}</div>
                     <div class="tarjeta-datos-institucionales-estadistica-etiqueta">Técnicos</div>
+                </div>
+                <div class="tarjeta-datos-institucionales-estadistica">
+                    <div class="tarjeta-datos-institucionales-estadistica-numero">{{ total_proyectos }}</div>
+                    <div class="tarjeta-datos-institucionales-estadistica-etiqueta">Proyectos</div>
                 </div>
                 </div>
         
             </div>
             </div>
-        </section> -->
+        </section>
         
         <!-- INSTRUCTORES -->
 

@@ -60,8 +60,38 @@ def colegio(id):
     parametros = id,
     proyectos = consulta(query4, parametros)
 
-    print(colegio)
-    return render_template('colegio.html', colegio=colegio, instructores=instructores, tecnicos=tecnicos, proyectos=proyectos)
+    query_estudiantes = """SELECT a.id_aprendices, a.nombres, a.apellidos, a.numero_identificacion, 
+        a.foto, a.activo, a.id_tecnico FROM aprendices a 
+        INNER JOIN tecnicos t ON a.id_tecnico = t.id_tecnicos 
+        WHERE t.id_colegio = %s"""
+    parametros = id,
+    estudiantes = consulta(query_estudiantes, parametros)
+
+    # Conteo de técnicos
+    query_count_tecnicos = """SELECT COUNT(*) as total FROM tecnicos t 
+        INNER JOIN colegios c ON t.id_colegio = c.id_colegios 
+        WHERE c.id_colegios = %s"""
+    parametros = id,
+    total_tecnicos = consulta(query_count_tecnicos, parametros)[0]['total']
+
+    # Conteo de proyectos
+    query_count_proyectos = """SELECT COUNT(*) as total FROM tecnicos t 
+        INNER JOIN proyectos p ON t.id_tecnicos = p.id_tecnico 
+        INNER JOIN colegios c ON t.id_colegio = c.id_colegios 
+        WHERE c.id_colegios = %s"""
+    parametros = id,
+    total_proyectos = consulta(query_count_proyectos, parametros)[0]['total']
+
+    query_count_instructores = """SELECT COUNT(DISTINCT i.id_instructor) as total 
+    FROM instructor i INNER JOIN tecnicos t ON i.id_instructor = t.id_instructor 
+    INNER JOIN colegios c ON t.id_colegio = c.id_colegios 
+    WHERE c.id_colegios = %s"""
+    parametros = id,
+    total_instructores = consulta(query_count_instructores, parametros)[0]['total']
+
+    return render_template('colegio.html', colegio=colegio, instructores=instructores, 
+    tecnicos=tecnicos, proyectos=proyectos,
+    estudiantes=estudiantes, total_tecnicos=total_tecnicos, total_instructores=total_instructores, total_proyectos=total_proyectos)
 
 
 @main_bp.route('/instructores')
