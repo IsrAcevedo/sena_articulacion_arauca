@@ -435,8 +435,8 @@
 
 /* Tarjeta colegio */
 
-.colegio-card {
-    width: 100%;
+.colegio-instructor {
+    width: 50%;
     min-height: 145px;
 
     display: flex;
@@ -806,7 +806,7 @@
         font-size: 25px;
     }
 
-    .colegio-card {
+    .colegio-instructor{
         min-height: 120px;
         padding: 10px 15px;
     }

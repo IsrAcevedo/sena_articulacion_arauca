@@ -42,15 +42,15 @@
 
             {% for colegio in colegios[:3] %}
 
-            <div class="colegio-card">
+            <div class="colegio-instructor">
 
-                <div class="colegio-escudo">
+                <a class="colegio-escudo">
 
                     <img
                         src="{{ url_for('static', filename='img/' + colegio.logo) }}"
                         alt="{{ colegio.nombre }}">
 
-                </div>
+                </a> 
 
                 <div class="colegio-info">
 
@@ -104,8 +104,7 @@
 
                     <img
                         src="{{ url_for('static', filename='img/' + proyecto.imagen) }}"
-                        alt="{{ proyecto.nombre }}"
-                        class="imagen-proyecto">
+                        alt="{{ proyecto.nombre }}">
 
                     {% endif %}
 
