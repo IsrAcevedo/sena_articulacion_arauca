@@ -59,6 +59,7 @@ def instructores():
     instructores = consulta(query)
     areas = consulta(query2)
     return render_template('instructores.html', instructores = instructores, areas = areas)
+    
 @main_bp.route('/instructor/<int:id>')
 def instructor(id):
 
