@@ -5,7 +5,7 @@ from consultas import consulta,insertar
 
 main_bp = Blueprint('main', __name__)
 
-
+#ruta para la pagina principal
 
 @main_bp.route('/')
 def inicio():
@@ -20,16 +20,17 @@ def inicio():
     return render_template('index.html', proyectos = proyectos, colegios = colegios, municipios = municipios , instructores = instructores)
 
 
-
+#ruta para la pagina con lista de proyectos
 @main_bp.route('/proyectos')
-def lista_proyectos():
+def proyectos():
     query = "SELECT id_proyectos AS id, nombre, descripcion_corta AS descripcion, foto_principal AS foto FROM proyectos"
     proyectos = consulta(query)
     return render_template('proyectos.html', proyectos=proyectos)
 
 
+#ruta para la pagina con detalle de proyecto
 @main_bp.route('/proyectos/<int:id>')
-def detalle_proyecto(id):
+def proyecto(id):
 
     query = """
         SELECT
@@ -111,7 +112,7 @@ def detalle_proyecto(id):
     videos = consulta(query_videos, (id,))
 
     return render_template(
-        'proyectos.html',
+        'proyecto.html',
         proyecto=proyecto,
         aprendices=aprendices,
         galeria=galeria,
@@ -119,14 +120,12 @@ def detalle_proyecto(id):
     )
 
 
-@main_bp.route('/proyecto/<int:id>')
-def proyecto(id):
-    print(id)
-    query = "SELECT * FROM proyectos WHERE id_proyectos = %s"
-    parametros = id,
-    proyecto = consulta(query, parametros)
-    return render_template('proyectos.html', proyecto = proyecto)
+#ruta para la pagina con lista de municipios
+@main_bp.route('/municipios')
+def municipios():
+    return render_template('municipios.html' )
 
+#ruta para la pagina con detalle de municipio
 @main_bp.route('/municipio/<int:id>')
 def municipio(id):
     query = "SELECT * FROM municipios WHERE id_municipios = %s"
@@ -134,13 +133,14 @@ def municipio(id):
     municipio = consulta(query, parametros)
     return render_template('municipios.html', municipio = municipio)
 
+#ruta para la pagina con lista de colegios
 @main_bp.route('/colegios')
 def colegios():
     query = 'SELECT c.id_colegios AS id,c.slogan AS slogan, c.nombre AS colegio, c.logo AS logo, m.nombre AS municipio FROM municipios m INNER JOIN colegios c ON m.id_municipios = c.id_municipios '
     colegios = consulta(query)
     return render_template('colegios.html', colegios= colegios)
 
-
+#ruta para la pagina con detalle de colegio
 @main_bp.route('/colegio/<id>')
 def colegio(id):
     query1 = 'SELECT c.id_colegios AS id, c.slogan AS slogan, c.nombre AS colegio, c.logo AS logo, m.nombre AS municipio, t.id_tecnicos as id_tecnico, t.nombre as tecnico, i.foto, i.id_instructor as id_instructor, CONCAT(i.nombres," ",i.apellidos)AS instructor FROM tecnicos t INNER JOIN colegios c ON t.id_colegio = c.id_colegios INNER JOIN instructor i ON t.id_instructor = i.id_instructor INNER JOIN municipios m ON c.id_municipios = m.id_municipios AND c.id_colegios = %s'
@@ -192,7 +192,7 @@ def colegio(id):
     tecnicos=tecnicos, proyectos=proyectos,
     estudiantes=estudiantes, total_tecnicos=total_tecnicos, total_instructores=total_instructores, total_proyectos=total_proyectos)
 
-
+#ruta para la pagina con lista de instructores
 @main_bp.route('/instructores')
 def instructores():
     query = "SELECT i.id_instructor AS id, i.foto AS foto, CONCAT(i.nombres, ' ', i.apellidos) AS nombre, p.nombre_profesion AS profesion, (SELECT GROUP_CONCAT(DISTINCT t.id_modalidad ORDER BY t.id_modalidad SEPARATOR ',') FROM tecnicos t WHERE t.id_instructor = i.id_instructor) AS areas_ids, (SELECT GROUP_CONCAT(DISTINCT m.nombre ORDER BY m.nombre SEPARATOR '|') FROM tecnicos t2 INNER JOIN modalidad m ON m.id_modalidad = t2.id_modalidad WHERE t2.id_instructor = i.id_instructor) AS areas_nombres, (SELECT GROUP_CONCAT(DISTINCT mu.nombre ORDER BY mu.nombre SEPARATOR '|') FROM tecnicos t3 INNER JOIN colegios c ON c.id_colegios = t3.id_colegio INNER JOIN municipios mu ON mu.id_municipios = c.id_municipios WHERE t3.id_instructor = i.id_instructor) AS municipios, (SELECT GROUP_CONCAT(DISTINCT c2.nombre ORDER BY c2.nombre SEPARATOR '|') FROM tecnicos t4 INNER JOIN colegios c2 ON c2.id_colegios = t4.id_colegio WHERE t4.id_instructor = i.id_instructor) AS colegios FROM instructor i INNER JOIN profesiones p ON p.id_profesion = i.id_profesion WHERE i.activo = 1" 
@@ -202,7 +202,8 @@ def instructores():
     instructores = consulta(query)
     areas = consulta(query2)
     return render_template('instructores.html', instructores = instructores, areas = areas)
-    
+
+#ruta para la pagina con detalle de instructor    
 @main_bp.route('/instructor/<int:id>')
 def instructor(id):
 
