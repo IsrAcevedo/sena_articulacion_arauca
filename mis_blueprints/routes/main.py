@@ -202,13 +202,67 @@ def instructores():
     instructores = consulta(query)
     areas = consulta(query2)
     return render_template('instructores.html', instructores = instructores, areas = areas)
-
+    
 @main_bp.route('/instructor/<int:id>')
 def instructor(id):
-    query = 'SELECT * FROM instructor WHERE id_instructor = %s'
-    parametros = id,
-    instructor = consulta(query, parametros)[0]
-    return render_template('instructor.html', instructor = instructor)
 
+    query = '''
+        SELECT
+            i.id_instructor AS id,
+            i.nombres AS nombre,
+            i.apellidos AS apellido,
+            i.perfi_profesional AS perfil,
+            p.nombre_profesion AS profesion,
+            i.foto AS foto
+        FROM instructor i
+        INNER JOIN profesiones p
+            ON i.id_profesion = p.id_profesion
+        WHERE i.id_instructor = %s
+    '''
 
+    query_colegios = '''
+        SELECT
+            c.id_colegios AS id,
+            c.nombre AS nombre,
+            c.logo AS logo,
+            m.nombre AS municipio
+        FROM tecnicos t
+        INNER JOIN colegios c
+            ON t.id_colegio = c.id_colegios
+        INNER JOIN municipios m
+            ON c.id_municipios = m.id_municipios
+        WHERE t.id_instructor = %s
+          AND c.activo = 1
+    '''
 
+    colegios = consulta(query_colegios, (id,))
+
+    query_proyectos = '''
+        SELECT
+            p.id_proyectos AS id,
+            p.nombre AS nombre,
+            p.descripcion_corta AS descripcion,
+            p.foto_principal AS imagen
+        FROM proyectos p
+        INNER JOIN tecnicos t
+            ON p.id_tecnico = t.id_tecnicos
+        WHERE t.id_instructor = %s
+          AND p.activo = 1
+        ORDER BY p.fecha_registro DESC
+    '''
+
+    proyectos = consulta(query_proyectos, (id,))
+
+    resultado = consulta(query, (id,))
+
+    if not resultado:
+        return "Instructor no encontrado", 404
+
+    instructor = resultado[0]
+
+    return render_template(
+        'instructor.html',
+        instructor=instructor,
+        colegios=colegios,
+        proyectos=proyectos
+    )

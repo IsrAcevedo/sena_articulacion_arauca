@@ -1,3 +1,5 @@
+/* pagina instructor */
+
 :root {
 
     --color-texto: #000000;
@@ -23,11 +25,6 @@
 
 }
 
-
-html {
-    font-family: var(--roboto);
-}
-
 .btn_inst2 {
     display: none;
 }
@@ -35,10 +32,6 @@ html {
 .menu-btn {
     display: none;
 }
-
-
-
-
 
 .encabezado {
     margin-right: 4rem;
@@ -55,24 +48,66 @@ html {
     color: var(--color-TEXTO);
 }
 
-.cargo_p {
-    color: #00c853;
-    font-size: 1.6rem;
-    margin-top: 0.7rem;
+/* # */
+
+.perfil {
+    display: flex;
+    flex-direction: row;
+    background: linear-gradient(rgba(0, 0, 0, 0.5),
+            rgba(0, 0, 0, 0.8)),
+        url("../img/SENA.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    justify-content: center;
+    gap: 4rem;
+    ;
+    padding: 0 8.5rem 1rem;
 }
+
+.infogeneral_inst {
+    width: 80%;
+}
+
 
 .titulo-perfil {
     background-color: transparent;
     text-align: left;
-    margin-bottom: 15px;
+    margin-bottom: 0;
     font-size: 5rem;
     color: #00e676;
+}
 
+.infogeneral_inst h2 {
+    color: var(--color-TEXTO);
+    font-size: 2.4rem;
+    margin: 0;
 }
 
 
+.img_instructor {
+    display: grid;
+    align-items: center;
+    padding: 2rem;
+    margin: 2.5rem 0;
+    border-radius: 2rem;
+    width: 20%;
+    color: var(--color-TEXTO);
+    backdrop-filter: blur(6px);
+    text-align: center;
+    box-shadow: 0px 0px 11px 0px rgba(0, 0, 0, 0.75);
+}
 
+.instructor_foto {
+    width: 100%;
+    border-radius: 2rem;
+}
 
+.area_instructor {
+    color: #00c853;
+    font-size: 1.6rem;
+    margin-top: 0.7rem;
+}
 
 
 .inf_instructor {
@@ -93,40 +128,11 @@ html {
     margin: 1.5rem;
 }
 
-.img_instructor {
-    display: grid;
-    padding: 2rem;
-    margin: 8rem;
-    margin-right: 0;
-    border-radius: 2rem;
-    width: 20%;
-    backdrop-filter: blur(6px);
-    text-align: center;
-    box-shadow: 0px 0px 11px 0px rgba(0, 0, 0, 0.75);
-}
-
-
 
 .caja_instructor {
     display: flex;
     flex-direction: column;
     margin: 6rem;
-
-}
-
-.perfil {
-    display: flex;
-    flex-direction: row;
-    background: linear-gradient(rgba(0, 0, 0, 0.5),
-            rgba(0, 0, 0, 0.8)),
-        url("../img/paisaje-soleado-de-pradera.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    justify-content: center;
-    gap: 4rem;
-    padding-right: 8.5rem;
-    padding-left: 8.5rem;
 
 }
 
@@ -189,12 +195,6 @@ html {
     width: 100%;
 }
 
-
-
-.instructor_foto {
-    width: 100%;
-    border-radius: 2rem;
-}
 
 .botones_instructor {
     display: grid;
@@ -397,6 +397,467 @@ html {
     margin: 0 auto;
 }
 
+/* =========================================
+   FORMACION + PROYECTOS
+========================================= */
+
+.formacion-proyectos {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 45px;
+    margin-top: 50px;
+    align-items: stretch;
+}
+
+
+/* =========================================
+   COLEGIOS
+========================================= */
+
+.bloque-colegios {
+    width: 100%;
+}
+
+.titulo-colegios-formacion {
+    margin: 0 0 25px;
+    font-size: 30px;
+    font-weight: 700;
+    color: #064d35;
+}
+
+.lista-colegios {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+
+/* Tarjeta colegio */
+
+.colegio-instructor {
+    width: 50%;
+    min-height: 145px;
+
+    display: flex;
+    align-items: center;
+
+    background: #ffffff;
+
+    border: 1px solid #e5ebe8;
+    border-radius: 15px;
+
+    padding: 15px 25px;
+
+    box-sizing: border-box;
+}
+
+
+/* Escudo */
+
+.colegio-escudo {
+    width: 180px;
+    height: 125px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+}
+
+.colegio-escudo img {
+    width: 125px;
+    height: 125px;
+
+    object-fit: contain;
+}
+
+
+/* Información colegio */
+
+.colegio-info {
+    border-left: 2px solid #d8e8e1;
+
+    padding-left: 30px;
+}
+
+.colegio-info h3 {
+    margin: 0 0 12px;
+
+    font-size: 21px;
+    line-height: 1.35;
+
+    color: #142238;
+}
+
+.colegio-info p {
+    margin: 0;
+
+    font-size: 16px;
+    color: #53606b;
+}
+
+.icono-ubicacion {
+    color: #08744e;
+    font-size: 21px;
+    margin-right: 6px;
+}
+
+
+/* =========================================
+   PROYECTOS
+========================================= */
+
+.bloque-proyectos {
+    width: 100%;
+    min-width: 0;
+
+    /* IMPORTANTE:
+       sin fondo,
+       sin borde,
+       sin sombra,
+       sin línea divisoria */
+    background: transparent;
+    border: none;
+    box-shadow: none;
+
+    display: flex;
+    align-items: stretch;
+}
+
+
+/* Carrusel */
+
+.carrusel-proyectos {
+    width: 100%;
+    height: 100%;
+
+    min-height: 485px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    border-radius: 18px;
+}
+
+
+/* =========================================
+   VENTANA DEL CARRUSEL
+========================================= */
+
+.proyectos-viewport {
+    width: 100%;
+    height: 100%;
+
+    min-height: 485px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    border-radius: 18px;
+}
+
+
+/* =========================================
+   PROYECTO
+========================================= */
+
+.proyecto-slide {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.45s ease,
+        transform 0.45s ease;
+
+    transform: scale(1.02);
+}
+
+.proyecto-slide.proyecto-activo {
+    opacity: 1;
+
+    pointer-events: auto;
+
+    transform: scale(1);
+}
+
+
+/* Imagen */
+
+.imagen-proyecto {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+/* Oscurecimiento para que se lea el texto */
+
+.proyecto-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(to top,
+            rgba(0, 0, 0, 0.78) 0%,
+            rgba(0, 0, 0, 0.35) 45%,
+            rgba(0, 0, 0, 0.05) 80%);
+}
+
+
+/* =========================================
+   TEXTO DEL PROYECTO
+========================================= */
+
+.contenido-proyecto {
+    position: absolute;
+
+    left: 45px;
+    right: 45px;
+    bottom: 65px;
+
+    color: white;
+
+    z-index: 3;
+}
+
+.contenido-proyecto h2 {
+    margin: 0 0 10px;
+
+    font-size: 34px;
+    font-weight: 700;
+
+    color: #ffffff;
+}
+
+.contenido-proyecto h2::after {
+    content: "";
+
+    display: block;
+
+    width: 45px;
+    height: 3px;
+
+    margin-top: 12px;
+
+    background: #55b895;
+}
+
+.contenido-proyecto p {
+    max-width: 520px;
+
+    margin: 15px 0 0;
+
+    font-size: 17px;
+    line-height: 1.5;
+
+    color: rgba(255, 255, 255, 0.92);
+}
+
+
+/* =========================================
+   FLECHAS
+========================================= */
+
+.flecha-proyecto {
+    position: absolute;
+
+    top: 50%;
+    transform: translateY(-50%);
+
+    z-index: 10;
+
+    width: 48px;
+    height: 85px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+
+    background: rgba(0, 0, 0, 0.12);
+
+    color: #ffffff;
+
+    font-size: 43px;
+    font-weight: 300;
+
+    cursor: pointer;
+
+    transition:
+        background 0.25s ease,
+        opacity 0.25s ease;
+}
+
+.flecha-proyecto:hover {
+    background: rgba(0, 0, 0, 0.32);
+}
+
+.flecha-proyecto-izq {
+    left: 0;
+    border-radius: 0 12px 12px 0;
+}
+
+.flecha-proyecto-der {
+    right: 0;
+    border-radius: 12px 0 0 12px;
+}
+
+
+/* =========================================
+   PUNTOS
+========================================= */
+
+.indicadores-proyectos {
+    position: absolute;
+
+    bottom: 22px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    z-index: 10;
+
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+}
+
+.indicador-proyecto {
+    width: 9px;
+    height: 9px;
+
+    padding: 0;
+
+    border: 1px solid #ffffff;
+
+    border-radius: 50%;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+.indicador-proyecto:hover {
+    transform: scale(1.2);
+}
+
+.indicador-proyecto.indicador-activo {
+    background: #ffffff;
+
+    transform: scale(1.15);
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1000px) {
+
+    .formacion-proyectos {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+
+    .carrusel-proyectos,
+    .proyectos-viewport {
+        min-height: 450px;
+    }
+
+}
+
+
+/* =========================================
+   CELULAR
+========================================= */
+
+@media (max-width: 600px) {
+
+    .formacion-proyectos {
+        margin-top: 35px;
+        gap: 30px;
+    }
+
+    .titulo-colegios-formacion {
+        font-size: 25px;
+    }
+
+    .colegio-instructor{
+        min-height: 120px;
+        padding: 10px 15px;
+    }
+
+    .colegio-escudo {
+        width: 110px;
+        height: 100px;
+    }
+
+    .colegio-escudo img {
+        width: 90px;
+        height: 90px;
+    }
+
+    .colegio-info {
+        padding-left: 15px;
+    }
+
+    .colegio-info h3 {
+        font-size: 17px;
+    }
+
+    .colegio-info p {
+        font-size: 14px;
+    }
+
+    .carrusel-proyectos,
+    .proyectos-viewport {
+        min-height: 400px;
+    }
+
+    .contenido-proyecto {
+        left: 25px;
+        right: 25px;
+        bottom: 55px;
+    }
+
+    .contenido-proyecto h2 {
+        font-size: 27px;
+    }
+
+    .contenido-proyecto p {
+        font-size: 14px;
+    }
+
+    .flecha-proyecto {
+        width: 40px;
+        height: 70px;
+    }
+
+}
 
 
 /* resposive desig */
@@ -661,6 +1122,14 @@ html {
     }
 
 }
+
+
+
+
+
+
+
+
 
 
 

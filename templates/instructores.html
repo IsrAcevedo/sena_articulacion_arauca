@@ -97,13 +97,13 @@
                 <div class="instructor-grid" id="instructorGrid">
 
                     {% for instructor in instructores %}
-                    <a href="./instructor.html" class="instructor-link" data-areas="{{ instructor.areas_ids or '' }}"
+                    <a href="{{ url_for('main.instructor', id=instructor.id) }}"  class="instructor-link" data-areas="{{ instructor.areas_ids or '' }}"
                         data-areas-nombres="{{ instructor.areas_nombres or '' }}"
                         data-municipios="{{ instructor.municipios or '' }}"
                         data-colegios="{{ instructor.colegios or '' }}">
                         <div class="instructor-photo">
                             <img src="{{ url_for('static', filename='img/' + instructor.foto) }}"
-                                alt="{{ instructor.nombre }}">
+                                alt="{{ instructor.nombre }}" width="100">
                         </div>
                         <div class="tarj_inst">
                             <h3>{{ instructor.nombre }}</h3>
