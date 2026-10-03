@@ -64,7 +64,7 @@
     background-repeat: no-repeat;
     justify-content: center;
     gap: 4rem;
-    padding: 2rem 8.5rem 3rem;
+    padding: 2rem 8.5rem 6rem;
 }
 
 .infogeneral_inst {
@@ -75,6 +75,7 @@
 .titulo-perfil {
     background-color: transparent;
     text-align: left;
+    margin-top: 1rem;
     margin-bottom: 0;
     font-size: 5rem;
     color: #00e676;
@@ -103,13 +104,13 @@
 
 .instructor_foto {
     width: 100%;
+    margin-bottom: 1rem;
     border-radius: 2rem;
 }
 
 .area_instructor {
     color: #00c853;
     font-size: 1.6rem;
-    margin-top: 0.7rem;
 }
 
 
@@ -201,6 +202,7 @@
 
 .botones_instructor {
     display: grid;
+    gap: 0.8rem;
 }
 
 .botones_instructor a:hover {
@@ -210,15 +212,14 @@
 }
 
 .botones_instructor a {
-    color: var(--color-texto);
+    color: var(--color-TEXTO);
     text-decoration: none;
-    margin: 0.8rem;
-    font-size: 1.5rem;
-    font-family: var(--fuente_poppins);
+    font-size: 1.3rem;
     font-weight: 600;
+    text-align: center;
     background-color: var(--color_verde2);
     padding: 1rem;
-
+    align-items: flex-start;
     border-radius: 1rem;
 }
 
@@ -248,8 +249,8 @@
 
 
 .descripcion p {
-    font-size: 1.7rem;
-    line-height: 2.3rem;
+    font-size: 1.4rem;
+    line-height: 2rem;
     margin-bottom: 1.5rem;
     font-family: var(--fuente_poppins);
     text-align: left;
