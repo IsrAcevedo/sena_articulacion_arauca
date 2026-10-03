@@ -4,7 +4,7 @@
 <div class="perfil">
 
     <div class="img_instructor">
-        <img src="{{ url_for('static', filename='uploads/' + instructor.foto) }}" alt="{{ instructor.nombre }}"
+        <img src="{{ url_for('static', filename='uploads/instructor/' + instructor.foto) }}" alt="{{ instructor.nombre }}"
             class="instructor_foto" width="100">
         <div class="botones_instructor">
             <a href="intr_proyectos" class="btn_inst">Proyectos</a>
@@ -29,7 +29,7 @@
     <!-- =========================
       <section class="formacion-proyectos">
 
-    <!-- =========================
+    <!=========================
          COLEGIOS
     ========================== -->
     <div class="bloque-colegios" id="colegios">
@@ -46,7 +46,7 @@
 
                 <a class="colegio-escudo">
 
-                    <img src="{{ url_for('static', filename='img/' + colegio.logo) }}" alt="{{ colegio.nombre }}">
+                    <img src="{{ url_for('static', filename='uploads/colegios/' + colegio.logo) }}" alt="{{ colegio.nombre }}">
 
                 </a>
 
@@ -96,7 +96,7 @@
                     <!-- Imagen del proyecto -->
                     {% if proyecto.imagen %}
 
-                    <img src="{{ url_for('static', filename='img/' + proyecto.imagen) }}" alt="{{ proyecto.nombre }}">
+                    <img src="{{ url_for('static', filename='uploads/proyectos/' + proyecto.imagen) }}" alt="{{ proyecto.nombre }}">
 
                     {% endif %}
 
