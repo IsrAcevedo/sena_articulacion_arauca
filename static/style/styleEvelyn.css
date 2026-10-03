@@ -50,19 +50,22 @@
 
 /* # */
 
+.pagina-instructor {
+    background-color: #f7f4ed;
+}
+
 .perfil {
     display: flex;
     flex-direction: row;
-    background: linear-gradient(rgba(0, 0, 0, 0.5),
-            rgba(0, 0, 0, 0.8)),
-        url("../img/SENA.jpg");
+    background:
+        url("../img/fondoinstructor.jpg");
     background-size: cover;
-    background-position: center;
+    background-position: center bottom;
     background-repeat: no-repeat;
     justify-content: center;
     gap: 4rem;
     ;
-    padding: 0 8.5rem 1rem;
+    padding: 2rem 8.5rem 3rem;
 }
 
 .infogeneral_inst {
@@ -82,6 +85,7 @@
     color: var(--color-TEXTO);
     font-size: 2.4rem;
     margin: 0;
+    text-align: left;
 }
 
 
@@ -436,6 +440,7 @@
 /* Tarjeta colegio */
 
 .colegio-instructor {
+
     min-height: 145px;
 
     display: flex;

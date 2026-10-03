@@ -1,159 +1,162 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="pagina-instructor">
+    <div class="perfil">
 
-<div class="perfil">
+        <div class="img_instructor">
+            <img src="{{ url_for('static', filename='uploads/instructor/' + instructor.foto) }}"
+                alt="{{ instructor.nombre }}" class="instructor_foto" width="100">
+            <div class="botones_instructor">
+                <a href="intr_proyectos" class="btn_inst">Proyectos</a>
+                <a href="#colegios" class="btn_inst">Colegios</a>
+                <a href=".titulo-perfil" class="btn_inst2">perfil</a>
+            </div>
 
-    <div class="img_instructor">
-        <img src="{{ url_for('static', filename='uploads/instructor/' + instructor.foto) }}" alt="{{ instructor.nombre }}"
-            class="instructor_foto" width="100">
-        <div class="botones_instructor">
-            <a href="intr_proyectos" class="btn_inst">Proyectos</a>
-            <a href="#colegios" class="btn_inst">Colegios</a>
-            <a href=".titulo-perfil" class="btn_inst2">perfil</a>
+        </div>
+        <div class="infogeneral_inst">
+            <h1 class="titulo-perfil">Perfil Profesional</h1>
+            <h2>{{instructor.nombre + " "+ instructor.apellido}}</h2>
+            <p class="area_instructor">{{instructor.profesion}}</p>
+            <div class="descripcion">
+                <p>{{instructor.perfil}}</p>
+            </div>
         </div>
 
     </div>
-    <div class="infogeneral_inst">
-        <h1 class="titulo-perfil">Perfil Profesional</h1>
-        <h2>{{instructor.nombre + " "+ instructor.apellido}}</h2>
-        <p class="area_instructor">{{instructor.profesion}}</p>
-        <div class="descripcion">
-            <p>{{instructor.perfil}}</p>
-        </div>
-    </div>
 
-</div>
+    <section class="formacion-proyectos">
 
-<section class="formacion-proyectos">
-
-    <!-- =========================
+        <!-- =========================
       <section class="formacion-proyectos">
 
     <!=========================
          COLEGIOS
     ========================== -->
-    <div class="bloque-colegios" id="colegios">
+        <div class="bloque-colegios" id="colegios">
 
-        <h2 class="titulo-colegios-formacion">
-            Colegios donde dicta formación
-        </h2>
+            <h2 class="titulo-colegios-formacion">
+                Colegios donde dicta formación
+            </h2>
 
-        <div class="lista-colegios">
+            <div class="lista-colegios">
 
-            {% for colegio in colegios[:3] %}
+                {% for colegio in colegios[:3] %}
 
-            <div class="colegio-instructor">
+                <div class="colegio-instructor">
 
-                <a class="colegio-escudo">
+                    <a class="colegio-escudo">
 
-                    <img src="{{ url_for('static', filename='uploads/colegios/' + colegio.logo) }}" alt="{{ colegio.nombre }}">
+                        <img src="{{ url_for('static', filename='uploads/colegios/' + colegio.logo) }}"
+                            alt="{{ colegio.nombre }}">
 
-                </a>
+                    </a>
 
-                <div class="colegio-info">
+                    <div class="colegio-info">
 
-                    <h3>
-                        {{ colegio.nombre }}
-                    </h3>
+                        <h3>
+                            {{ colegio.nombre }}
+                        </h3>
 
-                    <p>
-                        <span class="icono-ubicacion">⌖</span>
-                        {{ colegio.municipio }}
-                    </p>
+                        <p>
+                            <span class="icono-ubicacion">⌖</span>
+                            {{ colegio.municipio }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+         PROYECTOS
+    ========================== -->
+        <div class="bloque-proyectos" id="intr_proyectos">
+
+            <div class="carrusel-proyectos">
+
+                <!-- Flecha izquierda -->
+                <button type="button" class="flecha-proyecto flecha-proyecto-izq" id="proyectoAnterior"
+                    aria-label="Proyecto anterior">
+                    ‹
+                </button>
+
+
+                <!-- CONTENEDOR DE PROYECTOS -->
+                <div class="proyectos-viewport">
+
+                    {% for proyecto in proyectos %}
+
+                    <article class="proyecto-slide {% if loop.first %}proyecto-activo{% endif %}">
+
+                        <!-- Imagen del proyecto -->
+                        {% if proyecto.imagen %}
+
+                        <img src="{{ url_for('static', filename='uploads/proyectos/' + proyecto.imagen) }}"
+                            alt="{{ proyecto.nombre }}">
+
+                        {% endif %}
+
+
+                        <!-- Oscurece la imagen para que se lea el texto -->
+                        <div class="proyecto-overlay"></div>
+
+
+                        <!-- Texto encima de la imagen -->
+                        <div class="contenido-proyecto">
+
+                            <h2>
+                                {{ proyecto.nombre }}
+                            </h2>
+
+                            {% if proyecto.descripcion %}
+
+                            <p>
+                                {{ proyecto.descripcion }}
+                            </p>
+
+                            {% endif %}
+
+                        </div>
+
+                    </article>
+
+                    {% endfor %}
+
+                </div>
+
+
+                <!-- Flecha derecha -->
+                <button type="button" class="flecha-proyecto flecha-proyecto-der" id="proyectoSiguiente"
+                    aria-label="Siguiente proyecto">
+                    ›
+                </button>
+
+
+                <!-- PUNTOS DEL CARRUSEL -->
+                <div class="indicadores-proyectos" id="indicadoresProyectos">
+
+                    {% for proyecto in proyectos %}
+
+                    <button type="button" class="indicador-proyecto {% if loop.first %}indicador-activo{% endif %}"
+                        data-slide="{{ loop.index0 }}" aria-label="Ver proyecto {{ loop.index }}">
+                    </button>
+
+                    {% endfor %}
 
                 </div>
 
             </div>
 
-            {% endfor %}
-
         </div>
 
-    </div>
-
-
-    <!-- =========================
-         PROYECTOS
-    ========================== -->
-    <div class="bloque-proyectos" id="intr_proyectos">
-
-        <div class="carrusel-proyectos">
-
-            <!-- Flecha izquierda -->
-            <button type="button" class="flecha-proyecto flecha-proyecto-izq" id="proyectoAnterior"
-                aria-label="Proyecto anterior">
-                ‹
-            </button>
-
-
-            <!-- CONTENEDOR DE PROYECTOS -->
-            <div class="proyectos-viewport">
-
-                {% for proyecto in proyectos %}
-
-                <article class="proyecto-slide {% if loop.first %}proyecto-activo{% endif %}">
-
-                    <!-- Imagen del proyecto -->
-                    {% if proyecto.imagen %}
-
-                    <img src="{{ url_for('static', filename='uploads/proyectos/' + proyecto.imagen) }}" alt="{{ proyecto.nombre }}">
-
-                    {% endif %}
-
-
-                    <!-- Oscurece la imagen para que se lea el texto -->
-                    <div class="proyecto-overlay"></div>
-
-
-                    <!-- Texto encima de la imagen -->
-                    <div class="contenido-proyecto">
-
-                        <h2>
-                            {{ proyecto.nombre }}
-                        </h2>
-
-                        {% if proyecto.descripcion %}
-
-                        <p>
-                            {{ proyecto.descripcion }}
-                        </p>
-
-                        {% endif %}
-
-                    </div>
-
-                </article>
-
-                {% endfor %}
-
-            </div>
-
-
-            <!-- Flecha derecha -->
-            <button type="button" class="flecha-proyecto flecha-proyecto-der" id="proyectoSiguiente"
-                aria-label="Siguiente proyecto">
-                ›
-            </button>
-
-
-            <!-- PUNTOS DEL CARRUSEL -->
-            <div class="indicadores-proyectos" id="indicadoresProyectos">
-
-                {% for proyecto in proyectos %}
-
-                <button type="button" class="indicador-proyecto {% if loop.first %}indicador-activo{% endif %}"
-                    data-slide="{{ loop.index0 }}" aria-label="Ver proyecto {{ loop.index }}">
-                </button>
-
-                {% endfor %}
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
+    </section>
+</div>
 
 
 <script>
