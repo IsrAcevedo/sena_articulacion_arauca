@@ -95,11 +95,17 @@ body {
   .hero-colegio-logo{
     width: 180px;
     height: 180px;
-    border-radius: 50%;
-    overflow: hidden;
+    margin-top: -60px;
+    margin-bottom: 15px;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 8px 20px;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    padding: 12px;
+    background: rgb(255, 255, 255);
+    overflow: hidden;
+    transition: transform 0.4s;
    }
 
   .hero-colegio-logo img{
@@ -244,7 +250,6 @@ body {
 
 /* Contenido de la tarjeta */
 .tarjeta-contenido {
-    height: 210px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -252,21 +257,30 @@ body {
     padding: 40px 20px 24px;
 }
 
+#tecnicos .tarjeta-contenido, #instructores .tarjeta-contenido{
+    min-height: 275px;
+}
+
+#proyecto .tarjeta-contenido{
+    height: 170px;
+}
+
 /* Avatar circular */
 .tarjeta-persona-avatar {
     position: relative;
-    width: 120px;
-    height: 120px;
-    aspect-ratio: 1 / 1; /* fuerza que siempre sea un cuadrado perfecto */
-    flex-shrink: 0; /* evita que el flex del padre lo achique */
+    width: 150px;
+    height: 150px;
+    margin-top: -60px;
+    margin-bottom: 15px;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 8px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 50%;
+    padding: 12px;
+    background: rgb(255, 255, 255);
     overflow: hidden;
-    margin: -60px auto 16px;
-    border: 4px solid #ffffff;
-    box-shadow: 
-        0 0 0 3px var(--verde-claro),
-        0 4px 14px rgba(0, 0, 0, 0.2);
-    background-color: #e2e8f0;
+    transition: transform 0.4s;
 }
 
 .tarjeta-persona-avatar img {
@@ -729,6 +743,204 @@ SECCIÓN 1: CARRUSEL
         margin: 0px 40px 100px 40px;
     }
 }
+
+
+/* ================= Buscador ================= */
+.buscador-colegios {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    max-width: 640px;
+    margin: 0 auto 1rem;
+    padding: .4rem;
+    background: var(--blanco);
+    border: 1px solid var(--gris-borde);
+    border-radius: 999px;
+    box-shadow: var(--sombra-suave);
+    transition: var(--transicion-suave);
+}
+
+.buscador-colegios:focus-within {
+    border-color: var(--verde-sena);
+    box-shadow: var(--sombra-hover);
+}
+
+.buscador-campo {
+    flex: 1;
+    min-width: 0;
+    padding: .7rem 1.1rem;
+    border: none;
+    background: transparent;
+    font-family: var(--fuente-texto);
+    font-size: 1rem;
+    color: var(--carbon);
+    outline: none;
+}
+
+.buscador-campo::placeholder {
+    color: var(--gris-texto);
+    opacity: .65;
+}
+
+.buscador-boton {
+    padding: .7rem 1.6rem;
+    background: var(--verde-sena);
+    color: var(--blanco);
+    border: none;
+    border-radius: 999px;
+    font-family: var(--fuente-titulos);
+    font-weight: 600;
+    font-size: .95rem;
+    cursor: pointer;
+    transition: var(--transicion-suave);
+}
+
+.buscador-boton:hover {
+    background: var(--verde-sena-oscuro);
+}
+
+.buscador-limpiar {
+    padding-right: 1rem;
+    font-family: var(--fuente-texto);
+    font-size: .85rem;
+    color: var(--ambar-llanero-oscuro);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: var(--transicion-suave);
+}
+
+.buscador-limpiar:hover {
+    color: var(--ambar-llanero);
+    text-decoration: underline;
+}
+
+.resultados-info {
+    text-align: center;
+    margin: 0 0 2rem;
+    font-family: var(--fuente-texto);
+    font-size: .95rem;
+    color: var(--gris-texto);
+}
+
+.resultados-info strong {
+    color: var(--verde-sena-oscuro);
+}
+
+/* ================= Tarjetas ================= */
+.cuadricula-tarjetas {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+}
+
+.cuadricula-tarjetas > a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+
+
+
+.tarjeta-etiqueta {
+    margin-bottom: .9rem;
+}
+
+
+
+.tarjeta-contenido h3 {
+    margin: 0 0 .3rem;
+    font-family: var(--fuente-titulos);
+    font-size: 1.1rem;
+    line-height: 1.3;
+    color: var(--carbon);
+    transition: var(--transicion-suave);
+}
+
+.tarjeta:hover .tarjeta-contenido h3 {
+    color: var(--verde-sena-oscuro);
+}
+
+
+
+.sin-resultados {
+    grid-column: 1 / -1;
+    padding: 2.5rem 1rem;
+    text-align: center;
+    font-family: var(--fuente-texto);
+    color: var(--gris-texto);
+    background: var(--blanco);
+    border: 1px dashed var(--gris-borde);
+    border-radius: 14px;
+}
+
+/* ================= Paginador ================= */
+.paginador {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: .45rem;
+    margin: 2.5rem 0 1rem;
+}
+
+.paginador-enlace {
+    min-width: 42px;
+    padding: .55rem .95rem;
+    text-align: center;
+    text-decoration: none;
+    font-family: var(--fuente-texto);
+    font-size: .95rem;
+    color: var(--carbon);
+    background: var(--blanco);
+    border: 1px solid var(--gris-borde);
+    border-radius: 10px;
+    transition: var(--transicion-suave);
+}
+
+a.paginador-enlace:hover {
+    background: var(--verde-claro);
+    border-color: var(--verde-sena);
+    color: var(--verde-sena-oscuro);
+}
+
+.paginador-activo {
+    background: var(--verde-sena);
+    border-color: var(--verde-sena);
+    color: var(--blanco);
+    font-family: var(--fuente-titulos);
+    font-weight: 600;
+    box-shadow: var(--sombra-hover);
+}
+
+#seccion-colegios {
+    scroll-margin-top: 90px;
+    transition: var(--transicion-suave);
+}
+
+/* ================= Responsive ================= */
+@media (max-width: 520px) {
+    .buscador-colegios {
+        width : 80%;
+        margin: 0 auto 1rem;
+        flex-wrap: wrap;
+        border-radius: 18px;
+    }
+
+    .buscador-campo {
+        flex-basis: 100%;
+    }
+
+    .buscador-boton {
+        flex: 1;
+    }
+
+    .buscador-limpiar {
+        padding: 0 .5rem;
+    }
+}
+
+
+
 
 /* =====================================================
    SECCIÓN 3: Banner

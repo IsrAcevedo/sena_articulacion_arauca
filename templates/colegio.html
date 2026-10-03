@@ -28,7 +28,6 @@
             <span class="seccion-encabezado-codigo">FICHA · INST-01</span>
             </div>
             <div class="tarjeta tarjeta-datos-institucionales">
-            <div class="tarjeta-etiqueta"><span>Datos institucionales</span></div>
             <div class="tarjeta-contenido">
         
                 <div class="tarjeta-datos-institucionales-identidad">
@@ -74,8 +73,8 @@
             <div class="tarjeta tarjeta-persona">
                 <div class="tarjeta-etiqueta"><span>Docente</span></div>
                     <div class="tarjeta-contenido">
-                        <div class="tarjeta-persona-avatar"><img src="{{ url_for('static', filename='uploads/' + instructor.foto) }}" alt="{{instructor.nombres}} {{instructor.apellidos}}"></div>
-                        <h3>{{instructor.nombres}} {{instructor.apellidos}}</h3>
+                        <div class="tarjeta-persona-avatar"><img src="{{ url_for('static', filename='uploads/' + instructor.foto) }}" alt="{{instructor.instructor_nombre}}"></div>
+                        <h3>{{instructor.instructor_nombre}}</h3>
                         <span class="tarjeta-persona-rol">Instructor</span>
                         <p>{%if not instructor.perfi_profesional %} Instructor articulado con el SENA Arauca {% endif %}{%if  instructor.perfi_profesional %} {{instructor.perfi_profesional}} {% endif %}</p>
                     </div>
