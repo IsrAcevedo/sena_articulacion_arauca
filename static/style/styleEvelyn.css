@@ -436,7 +436,6 @@
 /* Tarjeta colegio */
 
 .colegio-instructor {
-    width: 50%;
     min-height: 145px;
 
     display: flex;
