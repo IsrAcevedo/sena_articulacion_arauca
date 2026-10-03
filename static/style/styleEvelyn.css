@@ -720,6 +720,7 @@ html{
 .pagina-instructores input,
 .pagina-instructores select{
     font:inherit;
+    border: none;
 }
 
 .container_instructores{
@@ -1039,7 +1040,15 @@ html{
 
 /* ========================= SECTIONS ========================= */
 
-.pagina-instructores .section{
+.Area-inst{
+    padding:52px 0 0;
+}
+
+.proyectos-inst{
+    padding:52px 0 0;
+}
+
+.instructores_i{
     padding:52px 0 0;
 }
 
@@ -1405,13 +1414,13 @@ html{
 
 /* ========================= PROJECTS ========================= */
 
-.pagina-instructores .project-grid{
+.tarjeta_proyecto{
     display:grid;
     grid-template-columns:repeat(2,minmax(0,1fr));
     gap:11px;
 }
 
-.pagina-instructores .project{
+.tarjeta_proyecto article{
     min-width:0;
     display:grid;
     grid-template-columns:88px minmax(0,1fr);
@@ -1423,7 +1432,7 @@ html{
     transition:.22s ease;
 }
 
-.pagina-instructores .project:hover{
+.tarjeta_proyecto article:hover{
     transform:translateY(-3px);
     border-color:#bfd9d5;
     box-shadow:0 10px 24px rgba(16,53,49,.07);
@@ -1445,7 +1454,7 @@ html{
     transition:transform .3s ease;
 }
 
-.pagina-instructores .project:hover .project-img img{
+.tarjeta_proyecto article:hover .project-img img{
     transform:scale(1.06);
 }
 
@@ -1460,14 +1469,14 @@ html{
     font-weight:900;
 }
 
-.pagina-instructores .project h4{
+.tarjeta_proyecto article h4{
     margin:0;
     color:var(--pi-ink);
     font-size:12px;
     line-height:1.4;
 }
 
-.pagina-instructores .project p{
+.tarjeta_proyecto article p{
     margin:6px 0 0;
     color:var(--pi-muted);
     font-size:9px;
@@ -1724,7 +1733,7 @@ html{
     }
 
     .pagina-instructores .school-grid,
-    .pagina-instructores .project-grid{
+    .tarjeta_proyecto{
         grid-template-columns:1fr 1fr;
     }
 
@@ -1762,11 +1771,11 @@ html{
     }
 
     .pagina-instructores .school-grid,
-    .pagina-instructores .project-grid{
+    .tarjeta_proyecto{
         grid-template-columns:1fr;
     }
 
-    .pagina-instructores .project{
+    .tarjeta_proyecto{
         grid-template-columns:92px 1fr;
     }
 
