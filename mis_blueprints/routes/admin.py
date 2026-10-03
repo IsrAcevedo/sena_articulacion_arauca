@@ -232,7 +232,7 @@ def eliminar_area(id):
 @admin_bp.route('/colegios')
 @login_requerido
 def colegios():
-    query = "SELECT c.id_colegios AS id, c.nombre, c.slogan, c.id_municipios, c.logo, c.activo, m.nombre AS municipio, (SELECT COUNT(*) FROM tecnicos WHERE id_colegio = c.id_colegios) AS num_tecnicos, (SELECT COUNT(*) FROM proyectos p INNER JOIN tecnicos t ON p.id_tecnico = t.id_tecnicos WHERE t.id_colegio = c.id_colegios) AS num_proyectos FROM colegios AS c INNER JOIN municipios AS m ON m.id_municipios = c.id_municipios "
+    query = "SELECT c.id_colegios AS id, c.nombre, c.slogan, c.id_municipios, c.logo, c.activo, c.es_destacado, m.nombre AS municipio, (SELECT COUNT(*) FROM tecnicos WHERE id_colegio = c.id_colegios) AS num_tecnicos, (SELECT COUNT(*) FROM proyectos p INNER JOIN tecnicos t ON p.id_tecnico = t.id_tecnicos WHERE t.id_colegio = c.id_colegios) AS num_proyectos FROM colegios AS c INNER JOIN municipios AS m ON m.id_municipios = c.id_municipios "
     colegios = consulta(query)
     query_municipios = "SELECT id_municipios AS id, nombre FROM municipios WHERE activo = 1"
     lista_municipios = consulta(query_municipios)
@@ -247,6 +247,7 @@ def crear_colegio():
     municipio = request.form.get('municipio')
     logo = request.files.get('logo')
     activo = request.form.get('activo', '1')
+    es_destacado = request.form.get('es_destacado', '0')
     
     if logo and logo.filename:
         nombre_logo = guardar_imagen(logo, UPLOAD_FOLDER, 'colegios')
@@ -255,8 +256,8 @@ def crear_colegio():
     else:
         nombre_logo = 'imagen.webp'
     
-    query = "INSERT INTO colegios (id_municipios, nombre, slogan, logo, activo) VALUES (%s, %s, %s, %s, %s)"
-    parametros = (municipio, nombre, slogan, nombre_logo, activo)
+    query = "INSERT INTO colegios (id_municipios, nombre, slogan, logo, activo, es_destacado) VALUES (%s, %s, %s, %s, %s, %s)"
+    parametros = (municipio, nombre, slogan, nombre_logo, activo, es_destacado)
     resultado = insertar(query, parametros)
     return jsonify({'success': True, 'message': resultado})
 
@@ -269,15 +270,17 @@ def editar_colegio(id):
     municipio = request.form.get('municipio')
     logo = request.files.get('logo')
     activo = request.form.get('activo', '1')
+    es_destacado = request.form.get('es_destacado', '0')
+  
     
     if logo and logo.filename:
         nombre_logo = guardar_imagen(logo, UPLOAD_FOLDER, 'colegios')
         if not nombre_logo:
             return jsonify({'success': False, 'message': 'Formato de imagen no permitido. Solo .webp'})
-        query = "UPDATE colegios SET id_municipios = %s, nombre = %s, slogan = %s, logo = %s, activo = %s WHERE id_colegios = %s"
-        parametros = (municipio, nombre, slogan, nombre_logo, activo, id)
+        query = "UPDATE colegios SET id_municipios = %s, nombre = %s, slogan = %s, logo = %s, activo = %s , es_destacado = %s WHERE id_colegios = %s"
+        parametros = (municipio, nombre, slogan, nombre_logo, activo,es_destacado, id)
     else:
-        query = "UPDATE colegios SET id_municipios = %s, nombre = %s, slogan = %s, activo = %s WHERE id_colegios = %s"
+        query = "UPDATE colegios SET id_municipios = %s, nombre = %s, slogan = %s, activo = %s,  es_destacado = %s WHERE id_colegios = %s"
         parametros = (municipio, nombre, slogan, activo, id)
     
     resultado = insertar(query, parametros)
@@ -322,7 +325,7 @@ def crear_instructor():
     else:
         nombre_foto = 'imagen.webp'
     
-    query = "INSERT INTO instructor (id_profesion, nombres, apellidos, perfi_profesional, foto, activo) VALUES (%s, %s, %s, %s, %s, %s)"
+    query = "INSERT INTO instructor (id_profesion, nombres, apellidos, perfi_profesional, foto, activo,) VALUES (%s, %s, %s, %s, %s, %s)"
     parametros = (profesion, nombres, apellidos, perfi_profesional, nombre_foto, activo)
     resultado = insertar(query, parametros)
     return jsonify({'success': True, 'message': resultado})
