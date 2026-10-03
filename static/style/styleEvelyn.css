@@ -705,14 +705,11 @@
 }
 
 
-/* Slide activo */
 
 .proyecto-slide.proyecto-activo {
     display: block;
 }
 
-
-/* Imagen */
 
 .proyecto-slide img,
 .imagen-proyecto {
@@ -725,9 +722,6 @@
 }
 
 
-/* =========================================================
-   OSCURECER IMAGEN
-   ========================================================= */
 
 .proyecto-overlay {
     position: absolute;
@@ -940,10 +934,6 @@
     transform: scale(1.2);
 }
 
-
-/* =========================================================
-   TABLET
-   ========================================================= */
 
 @media (max-width: 1000px) {
 
