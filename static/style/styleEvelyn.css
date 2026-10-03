@@ -58,7 +58,7 @@
     display: flex;
     flex-direction: row;
     background:
-        url("../img/fondoinstructor.jpg");
+        url("../img/fondoinstructor.png");
     background-size: cover;
     background-position: center bottom;
     background-repeat: no-repeat;
@@ -274,300 +274,418 @@
     height: auto;
 }
 
-
-
-
-.proyectos_inst {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    margin: 2rem auto;
-}
-
-.carrusel_proyectos {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 60%;
-    margin: 20px auto;
-}
-
-.flecha {
-    background-color: rgba(0, 0, 0, 0.6);
-    border: none;
-    color: white;
-    font-size: 30px;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 50%;
-    z-index: 10;
-    transition: background 0.3s;
-}
-
-.flecha:hover {
-    background-color: rgba(255, 255, 255, 0.3);
-}
-
-.lista_proyectos {
-    display: flex;
-    width: 100%;
-
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    scrollbar-width: none;
-    align-items: center;
-}
-
-.lista_colegios {
-    display: flex;
-    justify-content: center;
-    gap: 5rem;
-    width: 100%;
-    height: 35rem;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    scrollbar-width: none;
-    align-items: center;
-}
-
-.lista_proyectos::-webkit-scrollbar {
-    display: none;
-}
-
-.lista_colegios::-webkit-scrollbar {
-    display: none;
-}
-
-
-.item {
-    position: relative;
-    flex: 0 0 auto;
-    width: 50%;
-    height: 50rem;
-    margin: 0 2rem;
-    background: rgb(255, 255, 255);
-    border-radius: 10px;
-    padding: 3rem;
-    transition: transform 0.1s;
-}
-
-.item_colegios {
-    position: relative;
-    display: grid;
-    width: 23%;
-    align-items: center;
-    margin: 1rem;
-    border-radius: 100%;
-    height: auto;
-    background: var(--color-secundario);
-    padding: 3rem;
-    transition: transform 0.1s;
-}
-
-.item_colegios:hover {
-    transform: scale(1.05);
-}
-
-.item_colegios img {
-    border-radius: 20rem;
-    width: 100%;
-    display: grid;
-}
-
-.item_colegios p {
-    margin: 10px;
-    font-weight: bold;
-    font-size: 16px;
-    color: var(--color-TEXTO);
-}
-
-.item_colegios h2 {
-    display: none;
-}
-
-
-.item:hover {
-    transform: scale(1.05);
-}
-
-.item img {
-    width: 65%;
-    height: 48%;
-    margin: 2rem;
-    border-radius: 50%;
-    object-fit: cover;
-    display: block;
-    margin: 0 auto;
-}
-
-/* =========================================
-   FORMACION + PROYECTOS
-========================================= */
+/* =========================================================
+   COLEGIOS + PROYECTOS DEL INSTRUCTOR
+   ========================================================= */
 
 .formacion-proyectos {
     width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 45px;
-    margin-top: 50px;
-    align-items: stretch;
+    margin: 0;
+    padding: 0;
 }
 
 
-/* =========================================
+/* =========================================================
    COLEGIOS
-========================================= */
+   ========================================================= */
 
 .bloque-colegios {
+    position: relative;
     width: 100%;
+    min-height: 520px;
+
+    padding: 70px 7% 80px;
+
+    background-image: url("../img/fondoinstcol.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    overflow: hidden;
 }
+
+
+/* Contenido de colegios */
+
+.colegios-contenido {
+    position: relative;
+    z-index: 2;
+
+    width: min(1400px, 100%);
+    margin: 0 auto;
+}
+
+
+/* Etiqueta EDUCACIÓN */
+
+.etiqueta-seccion {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    margin-bottom: 14px;
+
+    color: #075c55;
+
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.etiqueta-seccion span {
+    display: block;
+
+    width: 95px;
+    height: 5px;
+
+    background: #00c878;
+
+    border-radius: 10px;
+}
+
+
+/* Título */
 
 .titulo-colegios-formacion {
-    margin: 0 0 25px;
-    font-size: 30px;
-    font-weight: 700;
-    color: #064d35;
+    position: relative;
+    z-index: 2;
+    margin: 0 0 4.5rem;
+    color: #075c55;
+
+    font-size: 36px;
+    line-height: 1.15;
+
+    font-weight: 800;
+
+    text-align: left;
 }
+
+
+/* IMPORTANTE:
+   quitamos la línea anterior porque ahora
+   la línea está en EDUCACIÓN */
+
+.titulo-colegios-formacion::before {
+    display: none;
+}
+
+
+/* Texto */
+
+
+
+/* Lista */
 
 .lista-colegios {
+    position: relative;
+    z-index: 3;
+
     display: flex;
     flex-direction: column;
-    gap: 14px;
+
+    gap: 18px;
+
+    width: min(760px, 100%);
 }
 
 
-/* Tarjeta colegio */
+/* Tarjeta */
 
 .colegio-instructor {
-
-    min-height: 145px;
-
     display: flex;
     align-items: center;
 
+    width: 100%;
+    min-height: 145px;
+
+    padding: 20px 28px;
+
     background: #ffffff;
 
-    border: 1px solid #e5ebe8;
-    border-radius: 15px;
+    border: 1px solid rgba(0, 91, 83, 0.10);
 
-    padding: 15px 25px;
+    border-radius: 18px;
 
-    box-sizing: border-box;
+    box-shadow:
+        0 8px 25px rgba(0, 70, 60, 0.07);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.colegio-instructor:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 12px 30px rgba(0, 70, 60, 0.12);
 }
 
 
 /* Escudo */
 
 .colegio-escudo {
-    width: 180px;
-    height: 125px;
+    flex: 0 0 180px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    flex-shrink: 0;
+    min-height: 105px;
+
+    padding-right: 25px;
+
+    text-decoration: none;
 }
 
 .colegio-escudo img {
-    width: 125px;
-    height: 125px;
+    width: 105px;
+    height: 105px;
 
     object-fit: contain;
+
+    display: block;
 }
 
 
-/* Información colegio */
+/* Separador */
+
+.colegio-separador {
+    width: 2px;
+    height: 72px;
+
+    background: rgba(0, 183, 128, 0.25);
+
+    flex-shrink: 0;
+}
+
+
+/* Información */
 
 .colegio-info {
-    border-left: 2px solid #d8e8e1;
-
-    padding-left: 30px;
+    padding-left: 28px;
 }
 
 .colegio-info h3 {
-    margin: 0 0 12px;
+    margin: 0 0 14px;
 
-    font-size: 21px;
-    line-height: 1.35;
+    color: #073f3a;
 
-    color: #142238;
+    font-size: 23px;
+    font-weight: 800;
+
+    text-transform: lowercase;
 }
 
 .colegio-info p {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
     margin: 0;
 
-    font-size: 16px;
-    color: #53606b;
+    color: #008f70;
+
+    font-size: 17px;
+    font-weight: 500;
 }
 
 .icono-ubicacion {
-    color: #08744e;
+    color: #00a879;
+
     font-size: 21px;
-    margin-right: 6px;
 }
 
 
-/* =========================================
+/* =========================================================
    PROYECTOS
-========================================= */
+   ========================================================= */
 
 .bloque-proyectos {
+    position: relative;
+    background-image: url(../img/fondoinstpro.png);
     width: 100%;
-    min-width: 0;
+    min-height: 520px;
 
-    /* IMPORTANTE:
-       sin fondo,
-       sin borde,
-       sin sombra,
-       sin línea divisoria */
-    background: transparent;
-    border: none;
-    box-shadow: none;
-
-    display: flex;
-    align-items: stretch;
+    padding: 70px 6% 80px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
 }
 
 
-/* Carrusel */
+/* =========================================================
+   DISTRIBUCIÓN:
+   IZQUIERDA = INFORMACIÓN
+   DERECHA = CARRUSEL
+   ========================================================= */
+
+.proyectos-contenido {
+    position: relative;
+    z-index: 3;
+
+    width: min(1400px, 100%);
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns: 0.8fr 1.2fr;
+
+    align-items: center;
+
+    gap: 55px;
+}
+
+
+/* =========================================================
+   INFORMACIÓN DEL PROYECTO
+   ========================================================= */
+
+.info-proyecto {
+    width: 100%;
+
+    color: #ffffff;
+}
+
+
+/* Etiqueta */
+
+.etiqueta-proyecto {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    margin-bottom: 18px;
+
+    color: #00e676;
+
+    font-size: 16px;
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+.etiqueta-proyecto span {
+    display: block;
+
+    width: 95px;
+    height: 5px;
+
+    background: #00e676;
+
+    border-radius: 10px;
+}
+
+
+/* Título */
+
+.titulo-proyecto-info {
+    margin: 0 0 20px;
+
+    color: #ffffff;
+
+    font-size: 46px;
+    line-height: 1.05;
+
+    font-weight: 800;
+}
+
+
+/* Descripción */
+
+.descripcion-proyecto-info {
+    max-width: 560px;
+
+    margin: 0 0 28px;
+
+    color: rgba(255, 255, 255, 0.88);
+
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+
+/* Botón más proyectos */
+
+.boton-mas-proyectos {
+    display: inline-flex;
+
+    align-items: center;
+    gap: 14px;
+
+    padding: 13px 22px;
+
+    border: 1px solid rgba(255, 255, 255, 0.55);
+
+    border-radius: 30px;
+
+    background: rgba(255, 255, 255, 0.04);
+
+    color: #ffffff;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.25s ease,
+        transform 0.25s ease;
+}
+
+.boton-mas-proyectos:hover {
+    background: rgba(255, 255, 255, 0.12);
+
+    transform: translateY(-2px);
+}
+
+.icono-carpeta {
+    font-size: 17px;
+}
+
+.flecha-boton {
+    font-size: 21px;
+}
+
+
+/* =========================================================
+   CARRUSEL
+   ========================================================= */
 
 .carrusel-proyectos {
-    width: 100%;
-    height: 100%;
-
-    min-height: 485px;
-
     position: relative;
+    z-index: 5;
 
-    overflow: hidden;
+    width: 100%;
 
-    border-radius: 18px;
+    min-height: 390px;
+
+    display: flex;
+    align-items: center;
 }
 
 
-/* =========================================
-   VENTANA DEL CARRUSEL
-========================================= */
+/* Contenedor de slides */
 
 .proyectos-viewport {
-    width: 100%;
-    height: 100%;
-
-    min-height: 485px;
-
     position: relative;
+
+    width: 100%;
+    height: 390px;
 
     overflow: hidden;
 
-    border-radius: 18px;
+    border-radius: 24px;
+
+    background: #063f3b;
 }
 
 
-/* =========================================
-   PROYECTO
-========================================= */
+/* =========================================================
+   SLIDE
+   ========================================================= */
 
 .proyecto-slide {
     position: absolute;
@@ -575,43 +693,41 @@
     inset: 0;
 
     width: 100%;
-    height: 100%;
+    height: 390px;
 
-    opacity: 0;
+    display: none;
 
-    pointer-events: none;
+    overflow: hidden;
 
-    transition:
-        opacity 0.45s ease,
-        transform 0.45s ease;
+    border-radius: 24px;
 
-    transform: scale(1.02);
+    background: #063f3b;
 }
 
+
+/* Slide activo */
+
 .proyecto-slide.proyecto-activo {
-    opacity: 1;
-
-    pointer-events: auto;
-
-    transform: scale(1);
+    display: block;
 }
 
 
 /* Imagen */
 
+.proyecto-slide img,
 .imagen-proyecto {
-    position: absolute;
-
-    inset: 0;
-
     width: 100%;
     height: 100%;
+
+    display: block;
 
     object-fit: cover;
 }
 
 
-/* Oscurecimiento para que se lea el texto */
+/* =========================================================
+   OSCURECER IMAGEN
+   ========================================================= */
 
 .proyecto-overlay {
     position: absolute;
@@ -619,140 +735,187 @@
     inset: 0;
 
     background:
-        linear-gradient(to top,
-            rgba(0, 0, 0, 0.78) 0%,
-            rgba(0, 0, 0, 0.35) 45%,
-            rgba(0, 0, 0, 0.05) 80%);
+        linear-gradient(90deg,
+            rgba(0, 35, 32, 0.80) 0%,
+            rgba(0, 45, 42, 0.48) 43%,
+            rgba(0, 45, 42, 0.08) 82%);
+
+    pointer-events: none;
 }
 
 
-/* =========================================
-   TEXTO DEL PROYECTO
-========================================= */
+/* =========================================================
+   TEXTO SOBRE IMAGEN
+   ========================================================= */
 
 .contenido-proyecto {
     position: absolute;
 
     left: 45px;
-    right: 45px;
-    bottom: 65px;
+    bottom: 55px;
 
-    color: white;
+    z-index: 4;
 
-    z-index: 3;
-}
-
-.contenido-proyecto h2 {
-    margin: 0 0 10px;
-
-    font-size: 34px;
-    font-weight: 700;
+    width: min(500px, 70%);
 
     color: #ffffff;
 }
 
-.contenido-proyecto h2::after {
-    content: "";
+.contenido-proyecto h2 {
+    margin: 0 0 12px;
 
-    display: block;
+    color: #ffffff;
 
-    width: 45px;
-    height: 3px;
+    font-size: 42px;
+    line-height: 1.05;
 
-    margin-top: 12px;
-
-    background: #55b895;
+    font-weight: 800;
 }
 
 .contenido-proyecto p {
-    max-width: 520px;
+    margin: 0 0 18px;
 
-    margin: 15px 0 0;
+    color: #ffffff;
 
-    font-size: 17px;
+    font-size: 16px;
     line-height: 1.5;
-
-    color: rgba(255, 255, 255, 0.92);
 }
 
 
-/* =========================================
-   FLECHAS
-========================================= */
+/* =========================================================
+   BOTÓN VER PROYECTO
+   ========================================================= */
+
+.btn-ver-proyecto {
+    display: inline-flex;
+
+    align-items: center;
+    gap: 14px;
+
+    padding: 10px 18px;
+
+    border: 1px solid rgba(255, 255, 255, 0.60);
+
+    border-radius: 25px;
+
+    background: rgba(255, 255, 255, 0.12);
+
+    color: #ffffff;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    backdrop-filter: blur(3px);
+
+    transition:
+        background 0.25s ease,
+        transform 0.25s ease;
+}
+
+.btn-ver-proyecto:hover {
+    background: rgba(255, 255, 255, 0.22);
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   FLECHAS TRANSPARENTES
+   ========================================================= */
 
 .flecha-proyecto {
     position: absolute;
 
-    top: 50%;
-    transform: translateY(-50%);
-
     z-index: 10;
 
-    width: 48px;
-    height: 85px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 55px;
+    height: 75px;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
+    padding: 0;
+
     border: none;
 
-    background: rgba(0, 0, 0, 0.12);
+    border-radius: 12px;
+
+    background: rgba(0, 0, 0, 0.16);
 
     color: #ffffff;
 
-    font-size: 43px;
+    font-size: 42px;
     font-weight: 300;
+
+    line-height: 1;
 
     cursor: pointer;
 
     transition:
         background 0.25s ease,
-        opacity 0.25s ease;
+        transform 0.25s ease;
 }
+
+
+/* Izquierda */
+
+.flecha-proyecto-izq {
+    left: 12px;
+}
+
+
+/* Derecha */
+
+.flecha-proyecto-der {
+    right: 12px;
+}
+
+
+/* Hover */
 
 .flecha-proyecto:hover {
     background: rgba(0, 0, 0, 0.32);
-}
 
-.flecha-proyecto-izq {
-    left: 0;
-    border-radius: 0 12px 12px 0;
-}
-
-.flecha-proyecto-der {
-    right: 0;
-    border-radius: 12px 0 0 12px;
+    transform: translateY(-50%) scale(1.05);
 }
 
 
-/* =========================================
-   PUNTOS
-========================================= */
+/* =========================================================
+   INDICADORES
+   ========================================================= */
 
 .indicadores-proyectos {
     position: absolute;
 
-    bottom: 22px;
+    z-index: 10;
+
+    bottom: 18px;
     left: 50%;
 
     transform: translateX(-50%);
 
-    z-index: 10;
-
     display: flex;
+
     align-items: center;
 
     gap: 9px;
 }
 
 .indicador-proyecto {
-    width: 9px;
-    height: 9px;
+    width: 11px;
+    height: 11px;
 
     padding: 0;
 
-    border: 1px solid #ffffff;
+    border: 2px solid #ffffff;
 
     border-radius: 50%;
 
@@ -761,389 +924,241 @@
     cursor: pointer;
 
     transition:
-        transform 0.2s ease,
-        background 0.2s ease;
+        background 0.25s ease,
+        transform 0.25s ease;
+}
+
+.indicador-proyecto.indicador-activo {
+    background: #00e676;
+
+    border-color: #00e676;
+
+    transform: scale(1.15);
 }
 
 .indicador-proyecto:hover {
     transform: scale(1.2);
 }
 
-.indicador-proyecto.indicador-activo {
-    background: #ffffff;
 
-    transform: scale(1.15);
-}
-
-
-/* =========================================
+/* =========================================================
    TABLET
-========================================= */
+   ========================================================= */
 
 @media (max-width: 1000px) {
 
-    .formacion-proyectos {
+
+
+    .titulo-perfil {
+        font-size: 4rem;
+    }
+
+    .descripcion p {
+        text-align: justify;
+    }
+
+    .proyectos-contenido {
         grid-template-columns: 1fr;
-        gap: 35px;
+
+        gap: 40px;
     }
 
-    .carrusel-proyectos,
-    .proyectos-viewport {
-        min-height: 450px;
+    .info-proyecto {
+        text-align: center;
     }
 
+    .etiqueta-proyecto {
+        justify-content: center;
+    }
+
+    .descripcion-proyecto-info {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .bloque-proyectos {
+        padding: 60px 5% 70px;
+    }
 }
 
 
-/* =========================================
+/* =========================================================
    CELULAR
-========================================= */
+   ========================================================= */
 
 @media (max-width: 600px) {
 
-    .formacion-proyectos {
-        margin-top: 35px;
-        gap: 30px;
+    /* COLEGIOS */
+
+    .bloque-colegios {
+        min-height: auto;
+
+        padding: 45px 20px 60px;
+    }
+
+    .etiqueta-seccion {
+        font-size: 14px;
+    }
+
+    .etiqueta-seccion span {
+        width: 65px;
+        height: 4px;
     }
 
     .titulo-colegios-formacion {
-        font-size: 25px;
+        font-size: 27px;
+
+        margin-bottom: 20px;
     }
 
-    .colegio-instructor{
+
+    .lista-colegios {
+        gap: 15px;
+    }
+
+    .colegio-instructor {
         min-height: 120px;
-        padding: 10px 15px;
+
+        padding: 15px;
     }
 
     .colegio-escudo {
-        width: 110px;
-        height: 100px;
+        flex: 0 0 90px;
+
+        min-height: 80px;
+
+        padding-right: 12px;
     }
 
     .colegio-escudo img {
-        width: 90px;
-        height: 90px;
+        width: 72px;
+        height: 72px;
+    }
+
+    .colegio-separador {
+        height: 65px;
     }
 
     .colegio-info {
-        padding-left: 15px;
+        padding-left: 14px;
     }
 
     .colegio-info h3 {
-        font-size: 17px;
+        font-size: 18px;
     }
 
     .colegio-info p {
         font-size: 14px;
     }
 
-    .carrusel-proyectos,
+
+    /* PROYECTOS */
+
+    .bloque-proyectos {
+        min-height: auto;
+
+        padding: 50px 18px 60px;
+    }
+
+    .proyectos-contenido {
+        grid-template-columns: 1fr;
+
+        gap: 35px;
+    }
+
+    .info-proyecto {
+        text-align: left;
+    }
+
+    .etiqueta-proyecto {
+        justify-content: flex-start;
+
+        font-size: 13px;
+    }
+
+    .etiqueta-proyecto span {
+        width: 60px;
+        height: 4px;
+    }
+
+    .titulo-proyecto-info {
+        font-size: 34px;
+    }
+
+    .descripcion-proyecto-info {
+        font-size: 16px;
+    }
+
+    .carrusel-proyectos {
+        min-height: 360px;
+    }
+
     .proyectos-viewport {
-        min-height: 400px;
+        height: 360px;
+
+        border-radius: 18px;
+    }
+
+    .proyecto-slide {
+        height: 360px;
+
+        border-radius: 18px;
+    }
+
+    .proyecto-overlay {
+        background:
+            linear-gradient(180deg,
+                rgba(0, 45, 42, 0.08) 0%,
+                rgba(0, 45, 42, 0.30) 38%,
+                rgba(0, 45, 42, 0.90) 100%);
     }
 
     .contenido-proyecto {
         left: 25px;
         right: 25px;
-        bottom: 55px;
+        bottom: 50px;
+
+        width: auto;
     }
 
     .contenido-proyecto h2 {
-        font-size: 27px;
+        font-size: 29px;
     }
 
     .contenido-proyecto p {
         font-size: 14px;
     }
 
+    /* Flechas */
+
     .flecha-proyecto {
-        width: 40px;
-        height: 70px;
+        width: 42px;
+        height: 58px;
+
+        font-size: 32px;
+
+        background: rgba(0, 0, 0, 0.14);
     }
 
+    .flecha-proyecto-izq {
+        left: 7px;
+    }
+
+    .flecha-proyecto-der {
+        right: 7px;
+    }
+
+    /* Puntos */
+
+    .indicadores-proyectos {
+        bottom: 14px;
+    }
+
+    .indicador-proyecto {
+        width: 9px;
+        height: 9px;
+    }
 }
-
-
-/* resposive desig */
-@media (max-width: 768px) {
-
-
-
-    body {
-        font-size: 1.5rem;
-        overflow-x: hidden;
-    }
-
-    .logoxbtnMenu {
-        display: flex;
-        width: 100%;
-        align-items: center;
-    }
-
-    .logo_artsenar {
-        width: 60%;
-        justify-content: center;
-    }
-
-    .menu-btn {
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        width: 40%;
-        display: flex;
-        justify-content: center;
-    }
-
-    .menu-btn svg {
-        width: 38px;
-        height: 38px;
-        display: flex;
-        color: white;
-    }
-
-
-
-
-
-
-    .perfil {
-        flex-direction: column;
-        align-items: center;
-        padding: 0rem;
-        gap: 2rem;
-        background: linear-gradient(rgba(0, 0, 0, 0.3), ), url(../img/paisaje-soleado-de-pradera.jpg);
-    }
-
-    .img_instructor {
-        background-color: var(--color-texto);
-        width: 100%;
-        margin: 0;
-        justify-items: center;
-        padding: 4rem;
-        border-radius: 0;
-        backdrop-filter: blur(3rem);
-        background: linear-gradient(none);
-    }
-
-    .instructor_foto {
-        width: 60%;
-        margin: 2rem;
-    }
-
-    .nombre_instructor {
-        font-size: 3.5rem;
-        text-align: center;
-    }
-
-    .botones_instructor {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        align-items: center;
-        margin-top: 1.5rem;
-    }
-
-    .btn_inst2 {
-        display: grid;
-    }
-
-    .botones_instructor a {
-        width: 90%;
-        font-size: 1.6rem;
-        padding: 1rem;
-    }
-
-
-    .titulo-perfil {
-        font-size: 3rem;
-        text-align: center;
-    }
-
-    .encabezado {
-        text-align: center;
-        margin: 0;
-        padding: 0;
-    }
-
-    .encabezado h2 {
-        margin-bottom: 1rem;
-    }
-
-    .descripcion {
-        font-size: 1.6rem;
-        padding: 0 1rem;
-    }
-
-    .descripcion p {
-        font-size: 1.6rem;
-        line-height: 2.3rem;
-        text-align: justify;
-    }
-
-
-
-    .footer_instructor {
-        font-size: 1.4rem;
-        height: auto;
-        padding: 2rem 1rem;
-    }
-
-    .footer_instructor p {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-
-
-    .intr_proyectos {
-        flex-direction: column;
-        align-items: center;
-        padding: 1rem;
-        height: auto;
-    }
-
-    .titulo-proyectos {
-        margin: 0;
-        padding: 0;
-        padding-top: 1.5rem;
-    }
-
-    .titulo-proyectos img {
-        width: 100%;
-        margin-bottom: 0rem;
-        border-radius: 100%;
-    }
-
-    .column_proyectosinstr {
-        display: grid;
-        margin-top: 0;
-    }
-
-    .column_proyectosinstr p {
-        font-size: 1rem;
-    }
-
-    .carrusel_proyectos {
-        width: 100%;
-        display: flex;
-        overflow-x: auto;
-        scroll-behavior: smooth;
-        gap: 1rem;
-        padding: 1.5rem;
-        margin: 0;
-        justify-content: flex-start;
-    }
-
-    .carrusel {
-        margin-top: 0;
-        margin-bottom: 0;
-    }
-
-    .item {
-        flex: 0 0 200px;
-        width: 100%;
-        border-radius: 1rem;
-        padding: 1rem;
-        height: 10rem;
-        margin: 0;
-        display: flex;
-    }
-
-    .item img {
-        width: 25%;
-        height: auto;
-        object-fit: cover;
-        border-radius: 10px;
-        margin-bottom: 0.6rem;
-    }
-
-
-
-    .inst_colegios {
-        flex-direction: column;
-        align-items: center;
-        padding: 1.5rem 0;
-
-    }
-
-    .titulo-colegios {
-        margin: 0;
-        padding: 0;
-    }
-
-    .titulo-colegios img {
-        width: 100%;
-        margin-bottom: 0rem;
-        border-radius: 100%;
-
-    }
-
-    .lista_proyectos {
-        display: grid;
-        gap: 1.5rem;
-    }
-
-    .lista_colegios {
-        display: grid;
-        overflow-x: auto;
-        gap: 1rem;
-        height: auto;
-        width: 100%;
-        padding: 2rem;
-        justify-content: flex-start;
-    }
-
-    .flecha {
-        display: none;
-    }
-
-    .item_colegios {
-        height: auto;
-        width: 100%;
-        overflow: hidden;
-        padding: 1rem;
-        align-items: center;
-        justify-content: center;
-        display: flex;
-        gap: 2rem;
-        border-radius: 0;
-        margin: 0;
-
-    }
-
-    .item_colegios h2 {
-        font-size: 1.3rem;
-        display: flex;
-    }
-
-    .item_colegios img {
-        width: 25%;
-        display: flex;
-
-    }
-
-    .caja_instructor {
-        margin: 0;
-    }
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
