@@ -46,21 +46,59 @@
             <h2>Colegios</h2>
 
             </div>
-            <div class="cuadricula-tarjetas">
-            {%for colegio in colegios%}
-            <a href="{{ url_for('main.colegio', id=colegio.id) }}">
-                <div class="tarjeta tarjeta-persona">
-                <div class="tarjeta-etiqueta"><span>Colegio</span></div>
-                <div class="tarjeta-contenido">
-                <h3>{{colegio.colegio}}</h3>
+
+<form method="get" action="{{ url_for('main.colegios') }}#seccion-tarjetas" class="buscador-colegios">
+    <input type="search" name="q" value="{{ busqueda }}"
+    placeholder="Buscar por colegio o municipio..." class="buscador-campo">
+    <button type="submit"class="buscador-boton">Buscar</button>
+    {% if busqueda %}
+        <a href="{{ url_for('main.colegios') }}#seccion-tarjetas" class="buscador-limpiar">Limpiar</a>
+    {% endif %}
+</form>
+
+<p class="resultados-info">
+    {{ total }} colegio{{ '' if total == 1 else 's' }} encontrado{{ '' if total == 1 else 's' }}
+    {% if busqueda %} para "<strong>{{ busqueda }}</strong>"{% endif %}
+</p>
+
+<!-- Tarjetas -->
+<div class="cuadricula-tarjetas">
+    {% for colegio in colegios %}
+    <a href="{{ url_for('main.colegio', id=colegio.id) }}">
+        <div class="tarjeta tarjeta-persona">
+            <div class="tarjeta-etiqueta"><span>Colegio</span></div>
+            <div class="tarjeta-contenido">
+                <h3>{{ colegio.colegio }}</h3>
                 <span class="tarjeta-persona-rol">Institucion</span>
-                <p>{%if not colegio.slogan %} Colegio articulado con el SENA Arauca {% endif %}{%if  colegio.slogan %} {{colegio.slogan}} {% endif %}</p>
-                </div>
+                <p>{{ colegio.slogan or 'Colegio articulado con el SENA Arauca' }}</p>
             </div>
-            </a>
-            {%endfor%}            
-        
-            </div>
+        </div>
+    </a>
+    {% else %}
+    <p class="sin-resultados">No se encontraron colegios.</p>
+    {% endfor %}
+</div>
+
+<!-- Paginador -->
+{% if total_paginas > 1 %}
+<nav class="paginador">
+    {% if pagina > 1 %}
+        <a class="paginador-enlace" href="{{ url_for('main.colegios', pagina=pagina-1, q=busqueda) }}#seccion-tarjetas">« Anterior</a>
+    {% endif %}
+
+    {% for numero in range(1, total_paginas + 1) %}
+        {% if numero == pagina %}
+            <span class="paginador-enlace paginador-activo">{{ numero }}</span>
+        {% else %}
+            <a class="paginador-enlace" href="{{ url_for('main.colegios', pagina=numero, q=busqueda) }}#seccion-tarjetas">{{ numero }}</a>
+        {% endif %}
+    {% endfor %}
+
+    {% if pagina < total_paginas %}
+        <a class="paginador-enlace" href="{{ url_for('main.colegios', pagina=pagina+1, q=busqueda) }}#seccion-tarjetas">Siguiente »</a>
+    {% endif %}
+</nav>
+{% endif %}
 
 
 

@@ -1,4 +1,5 @@
 from flask import Flask,  render_template, session, url_for, redirect, flash, request, Blueprint
+from math import ceil
 from consultas import consulta,insertar
 
 
@@ -136,18 +137,50 @@ def municipio(id):
 #ruta para la pagina con lista de colegios
 @main_bp.route('/colegios')
 def colegios():
+    # 1. Leer lo que viene en la URL (?q=...&pagina=...)
+    busqueda = request.args.get('q', '').strip()
+    pagina = request.args.get('pagina', 1, type=int)
+    por_pagina = 4  # tarjetas por página
+
+    # 2. Tu consulta de siempre
     query = 'SELECT c.id_colegios AS id,c.slogan AS slogan, c.nombre AS colegio, c.logo AS logo, m.nombre AS municipio FROM municipios m INNER JOIN colegios c ON m.id_municipios = c.id_municipios '
-    colegios = consulta(query)
-    return render_template('colegios.html', colegios= colegios)
+    todos = consulta(query)
+
+    # 3. Buscador: dejar solo los que contengan el texto buscado
+    if busqueda:
+        texto = busqueda.lower()
+        todos = [
+            c for c in todos
+            if texto in (c['colegio'] or '').lower()
+            or texto in (c['municipio'] or '').lower()
+        ]
+
+    # 4. Paginador: calcular cuántas páginas hay y cortar la lista
+    total = len(todos)
+    total_paginas = max(ceil(total / por_pagina), 1)
+    pagina = min(max(pagina, 1), total_paginas)  # evita páginas inválidas
+
+    inicio = (pagina - 1) * por_pagina
+    fin = inicio + por_pagina
+    colegios_pagina = todos[inicio:fin]
+
+    return render_template(
+        'colegios.html',
+        colegios=colegios_pagina,
+        busqueda=busqueda,
+        pagina=pagina,
+        total_paginas=total_paginas,
+        total=total
+    )
 
 #ruta para la pagina con detalle de colegio
 @main_bp.route('/colegio/<id>')
 def colegio(id):
-    query1 = 'SELECT c.id_colegios AS id, c.slogan AS slogan, c.nombre AS colegio, c.logo AS logo, m.nombre AS municipio, t.id_tecnicos as id_tecnico, t.nombre as tecnico, i.foto, i.id_instructor as id_instructor, CONCAT(i.nombres," ",i.apellidos)AS instructor FROM tecnicos t INNER JOIN colegios c ON t.id_colegio = c.id_colegios INNER JOIN instructor i ON t.id_instructor = i.id_instructor INNER JOIN municipios m ON c.id_municipios = m.id_municipios AND c.id_colegios = %s'
+    query1 = 'SELECT c.id_colegios AS id, c.slogan AS slogan, c.nombre AS colegio, c.logo AS logo, m.nombre AS municipio, t.id_tecnicos as id_tecnico, t.nombre as tecnico FROM tecnicos t INNER JOIN colegios c ON t.id_colegio = c.id_colegios INNER JOIN instructor i ON t.id_instructor = i.id_instructor INNER JOIN municipios m ON c.id_municipios = m.id_municipios AND c.id_colegios = %s'
     parametros = id,
     colegio = consulta(query1, parametros)[0]
 
-    query2 =" select * from instructor i inner join tecnicos t on i.id_instructor = t.id_instructor inner join colegios c on t.id_colegio = c.id_colegios where c.id_colegios = %s"
+    query2 ="SELECT DISTINCT i.id_instructor, CONCAT(i.nombres, ' ', i.apellidos) AS instructor_nombre, i.foto, i.perfi_profesional FROM instructor i inner join tecnicos t on i.id_instructor = t.id_instructor inner join colegios c on t.id_colegio = c.id_colegios WHERE c.id_colegios = %s"
     parametros = id,
     instructores = consulta(query2, parametros)
 
