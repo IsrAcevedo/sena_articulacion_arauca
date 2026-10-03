@@ -102,7 +102,7 @@
                         data-municipios="{{ instructor.municipios or '' }}"
                         data-colegios="{{ instructor.colegios or '' }}">
                         <div class="instructor-photo">
-                            <img src="{{ url_for('static', filename='img/' + instructor.foto) }}"
+                            <img src="{{ url_for('static', filename='uploads/instructor/' + instructor.foto) }}"
                                 alt="{{ instructor.nombre }}" width="100">
                         </div>
                         <div class="tarj_inst">
