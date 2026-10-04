@@ -97,12 +97,13 @@
                 <div class="instructor-grid" id="instructorGrid">
 
                     {% for instructor in instructores %}
-                    <a href="{{ url_for('main.instructor', id=instructor.id) }}"  class="instructor-link" data-areas="{{ instructor.areas_ids or '' }}"
+                    <a href="{{ url_for('main.instructor', id=instructor.id) }}" class="instructor-link"
+                        data-areas="{{ instructor.areas_ids or '' }}"
                         data-areas-nombres="{{ instructor.areas_nombres or '' }}"
                         data-municipios="{{ instructor.municipios or '' }}"
                         data-colegios="{{ instructor.colegios or '' }}">
                         <div class="instructor-photo">
-                            <img src="{{ url_for('static', filename='img/' + instructor.foto) }}"
+                            <img src="{{ url_for('static', filename='uploads/' + instructor.foto) }}"
                                 alt="{{ instructor.nombre }}" width="100">
                         </div>
                         <div class="tarj_inst">
@@ -137,357 +138,189 @@
     </div>
 </div>
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function () {
 
-    const grid = document.getElementById("instructorGrid");
+        const grid = document.getElementById("instructorGrid");
 
-    if (!grid) return;
+        if (!grid) return;
 
-    const tarjetas = Array.from(
-        grid.querySelectorAll(".instructor-link")
-    );
-
-    const search = document.getElementById("search");
-
-    const botonesArea =
-        document.querySelectorAll(".filtro-area");
-
-    const botonesMunicipio =
-        document.querySelectorAll("[data-municipio]");
-
-    const botonesColegio =
-        document.querySelectorAll("[data-colegio]");
-
-    const limpiarFiltros =
-        document.getElementById("limpiarFiltros");
-
-    const flechaAnterior =
-        document.getElementById("flechaAnterior");
-
-    const flechaSiguiente =
-        document.getElementById("flechaSiguiente");
-
-    const numerosPaginas =
-        document.getElementById("numerosPaginas");
-
-
-    /* =====================================================
-       FILTROS SELECCIONADOS
-       ===================================================== */
-
-    let areaSeleccionada = "";
-
-    let municipioSeleccionado = "";
-
-    let colegioSeleccionado = "";
-
-    let textoBuscado = "";
-
-
-    /* =====================================================
-       PÁGINACIÓN
-       PC = 10
-       CELULAR = 5
-       ===================================================== */
-
-    let paginaActual = 1;
-
-
-    function obtenerPorPagina() {
-
-        if (window.innerWidth <= 680) {
-            return 5;
-        }
-
-        return 10;
-    }
-
-
-    /* =====================================================
-       NORMALIZAR TEXTO
-       ===================================================== */
-
-    function normalizar(texto) {
-
-        return (texto || "")
-            .toString()
-            .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "")
-            .toLowerCase()
-            .trim();
-    }
-
-
-    /* =====================================================
-       COMPROBAR SI UNA TARJETA CUMPLE LOS FILTROS
-       ===================================================== */
-
-    function coincideConFiltros(tarjeta) {
-
-        const nombreCompleto =
-            normalizar(
-                tarjeta.querySelector("h3")?.textContent
-            );
-
-
-        const partes =
-            nombreCompleto.split(/\s+/);
-
-
-        const nombre =
-            partes[0] || "";
-
-
-        const apellido =
-            partes.slice(1).join(" ");
-
-
-        /* BUSCADOR */
-
-        const coincideBusqueda =
-            textoBuscado === "" ||
-            nombre.startsWith(textoBuscado) ||
-            apellido.startsWith(textoBuscado);
-
-
-        /* ÁREA */
-
-        const areas =
-            (tarjeta.dataset.areas || "")
-                .split(",");
-
-
-        const coincideArea =
-            areaSeleccionada === "" ||
-            areas.includes(areaSeleccionada);
-
-
-        /* MUNICIPIO */
-
-        const municipios =
-            normalizar(
-                tarjeta.dataset.municipios || ""
-            )
-            .split("|");
-
-
-        const coincideMunicipio =
-            municipioSeleccionado === "" ||
-            municipios.includes(
-                municipioSeleccionado
-            );
-
-
-        /* COLEGIO */
-
-        const colegios =
-            normalizar(
-                tarjeta.dataset.colegios || ""
-            )
-            .split("|");
-
-
-        const coincideColegio =
-            colegioSeleccionado === "" ||
-            colegios.includes(
-                colegioSeleccionado
-            );
-
-
-        return (
-            coincideBusqueda &&
-            coincideArea &&
-            coincideMunicipio &&
-            coincideColegio
+        const tarjetas = Array.from(
+            grid.querySelectorAll(".instructor-link")
         );
-    }
+
+        const search = document.getElementById("search");
+
+        const botonesArea =
+            document.querySelectorAll(".filtro-area");
+
+        const botonesMunicipio =
+            document.querySelectorAll("[data-municipio]");
+
+        const botonesColegio =
+            document.querySelectorAll("[data-colegio]");
+
+        const limpiarFiltros =
+            document.getElementById("limpiarFiltros");
+
+        const flechaAnterior =
+            document.getElementById("flechaAnterior");
+
+        const flechaSiguiente =
+            document.getElementById("flechaSiguiente");
+
+        const numerosPaginas =
+            document.getElementById("numerosPaginas");
 
 
-    /* =====================================================
-       OBTENER SOLO LAS TARJETAS QUE COINCIDEN
-       ===================================================== */
+        /* =====================================================
+           FILTROS SELECCIONADOS
+           ===================================================== */
 
-    function obtenerFiltradas() {
+        let areaSeleccionada = "";
 
-        return tarjetas.filter(
-            coincideConFiltros
-        );
-    }
+        let municipioSeleccionado = "";
 
+        let colegioSeleccionado = "";
 
-    /* =====================================================
-       MOSTRAR PÁGINA
-       ===================================================== */
-
-    function mostrarPagina() {
-
-        const filtradas =
-            obtenerFiltradas();
+        let textoBuscado = "";
 
 
-        const porPagina =
-            obtenerPorPagina();
+        /* =====================================================
+           PÁGINACIÓN
+           PC = 10
+           CELULAR = 5
+           ===================================================== */
+
+        let paginaActual = 1;
 
 
-        const totalPaginas =
-            Math.ceil(
-                filtradas.length / porPagina
-            );
+        function obtenerPorPagina() {
 
-
-        /* Si estamos fuera de página */
-
-        if (
-            totalPaginas > 0 &&
-            paginaActual > totalPaginas
-        ) {
-
-            paginaActual = totalPaginas;
-        }
-
-
-        if (totalPaginas === 0) {
-
-            paginaActual = 1;
-        }
-
-
-        /* Primero ocultamos TODAS */
-
-        tarjetas.forEach(function (tarjeta) {
-
-            tarjeta.style.display = "none";
-
-        });
-
-
-        /* Calculamos cuáles mostrar */
-
-        const inicio =
-            (paginaActual - 1) * porPagina;
-
-
-        const fin =
-            inicio + porPagina;
-
-
-        filtradas
-            .slice(inicio, fin)
-            .forEach(function (tarjeta) {
-
-                tarjeta.style.display = "flex";
-
-            });
-
-
-        crearNumeros(totalPaginas);
-
-        actualizarFlechas(totalPaginas);
-
-    }
-
-
-    /* =====================================================
-       NÚMEROS
-       ===================================================== */
-
-    function crearNumeros(totalPaginas) {
-
-        numerosPaginas.innerHTML = "";
-
-
-        for (
-            let numero = 1;
-            numero <= totalPaginas;
-            numero++
-        ) {
-
-            const boton =
-                document.createElement("button");
-
-
-            boton.type = "button";
-
-            boton.className =
-                "numero-pagina";
-
-
-            boton.textContent =
-                numero;
-
-
-            if (
-                numero === paginaActual
-            ) {
-
-                boton.classList.add("activa");
-
+            if (window.innerWidth <= 680) {
+                return 5;
             }
 
-
-            boton.addEventListener(
-                "click",
-                function () {
-
-                    paginaActual = numero;
-
-                    mostrarPagina();
-
-                }
-            );
+            return 10;
+        }
 
 
-            numerosPaginas.appendChild(
-                boton
+        /* =====================================================
+           NORMALIZAR TEXTO
+           ===================================================== */
+
+        function normalizar(texto) {
+
+            return (texto || "")
+                .toString()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .toLowerCase()
+                .trim();
+        }
+
+
+        /* =====================================================
+           COMPROBAR SI UNA TARJETA CUMPLE LOS FILTROS
+           ===================================================== */
+
+        function coincideConFiltros(tarjeta) {
+
+            const nombreCompleto =
+                normalizar(
+                    tarjeta.querySelector("h3")?.textContent
+                );
+
+
+            const partes =
+                nombreCompleto.split(/\s+/);
+
+
+            const nombre =
+                partes[0] || "";
+
+
+            const apellido =
+                partes.slice(1).join(" ");
+
+
+            /* BUSCADOR */
+
+            const coincideBusqueda =
+                textoBuscado === "" ||
+                nombre.startsWith(textoBuscado) ||
+                apellido.startsWith(textoBuscado);
+
+
+            /* ÁREA */
+
+            const areas =
+                (tarjeta.dataset.areas || "")
+                    .split(",");
+
+
+            const coincideArea =
+                areaSeleccionada === "" ||
+                areas.includes(areaSeleccionada);
+
+
+            /* MUNICIPIO */
+
+            const municipios =
+                normalizar(
+                    tarjeta.dataset.municipios || ""
+                )
+                    .split("|");
+
+
+            const coincideMunicipio =
+                municipioSeleccionado === "" ||
+                municipios.includes(
+                    municipioSeleccionado
+                );
+
+
+            /* COLEGIO */
+
+            const colegios =
+                normalizar(
+                    tarjeta.dataset.colegios || ""
+                )
+                    .split("|");
+
+
+            const coincideColegio =
+                colegioSeleccionado === "" ||
+                colegios.includes(
+                    colegioSeleccionado
+                );
+
+
+            return (
+                coincideBusqueda &&
+                coincideArea &&
+                coincideMunicipio &&
+                coincideColegio
             );
         }
-    }
 
 
-    /* =====================================================
-       FLECHAS
-       ===================================================== */
+        /* =====================================================
+           OBTENER SOLO LAS TARJETAS QUE COINCIDEN
+           ===================================================== */
 
-    function actualizarFlechas(totalPaginas) {
+        function obtenerFiltradas() {
 
-        flechaAnterior.disabled =
-            paginaActual <= 1;
-
-
-        flechaSiguiente.disabled =
-            paginaActual >= totalPaginas ||
-            totalPaginas === 0;
-
-    }
-
-
-    /* =====================================================
-       FLECHA ANTERIOR
-       ===================================================== */
-
-    flechaAnterior.addEventListener(
-        "click",
-        function () {
-
-            if (paginaActual > 1) {
-
-                paginaActual--;
-
-                mostrarPagina();
-
-            }
-
+            return tarjetas.filter(
+                coincideConFiltros
+            );
         }
-    );
 
 
-    /* =====================================================
-       FLECHA SIGUIENTE
-       ===================================================== */
+        /* =====================================================
+           MOSTRAR PÁGINA
+           ===================================================== */
 
-    flechaSiguiente.addEventListener(
-        "click",
-        function () {
+        function mostrarPagina() {
 
             const filtradas =
                 obtenerFiltradas();
@@ -499,215 +332,383 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const totalPaginas =
                 Math.ceil(
-                    filtradas.length /
-                    porPagina
+                    filtradas.length / porPagina
                 );
 
 
+            /* Si estamos fuera de página */
+
             if (
-                paginaActual < totalPaginas
+                totalPaginas > 0 &&
+                paginaActual > totalPaginas
             ) {
 
-                paginaActual++;
+                paginaActual = totalPaginas;
+            }
+
+
+            if (totalPaginas === 0) {
+
+                paginaActual = 1;
+            }
+
+
+            /* Primero ocultamos TODAS */
+
+            tarjetas.forEach(function (tarjeta) {
+
+                tarjeta.style.display = "none";
+
+            });
+
+
+            /* Calculamos cuáles mostrar */
+
+            const inicio =
+                (paginaActual - 1) * porPagina;
+
+
+            const fin =
+                inicio + porPagina;
+
+
+            filtradas
+                .slice(inicio, fin)
+                .forEach(function (tarjeta) {
+
+                    tarjeta.style.display = "flex";
+
+                });
+
+
+            crearNumeros(totalPaginas);
+
+            actualizarFlechas(totalPaginas);
+
+        }
+
+
+        /* =====================================================
+           NÚMEROS
+           ===================================================== */
+
+        function crearNumeros(totalPaginas) {
+
+            numerosPaginas.innerHTML = "";
+
+
+            for (
+                let numero = 1;
+                numero <= totalPaginas;
+                numero++
+            ) {
+
+                const boton =
+                    document.createElement("button");
+
+
+                boton.type = "button";
+
+                boton.className =
+                    "numero-pagina";
+
+
+                boton.textContent =
+                    numero;
+
+
+                if (
+                    numero === paginaActual
+                ) {
+
+                    boton.classList.add("activa");
+
+                }
+
+
+                boton.addEventListener(
+                    "click",
+                    function () {
+
+                        paginaActual = numero;
+
+                        mostrarPagina();
+
+                    }
+                );
+
+
+                numerosPaginas.appendChild(
+                    boton
+                );
+            }
+        }
+
+
+        /* =====================================================
+           FLECHAS
+           ===================================================== */
+
+        function actualizarFlechas(totalPaginas) {
+
+            flechaAnterior.disabled =
+                paginaActual <= 1;
+
+
+            flechaSiguiente.disabled =
+                paginaActual >= totalPaginas ||
+                totalPaginas === 0;
+
+        }
+
+
+        /* =====================================================
+           FLECHA ANTERIOR
+           ===================================================== */
+
+        flechaAnterior.addEventListener(
+            "click",
+            function () {
+
+                if (paginaActual > 1) {
+
+                    paginaActual--;
+
+                    mostrarPagina();
+
+                }
+
+            }
+        );
+
+
+        /* =====================================================
+           FLECHA SIGUIENTE
+           ===================================================== */
+
+        flechaSiguiente.addEventListener(
+            "click",
+            function () {
+
+                const filtradas =
+                    obtenerFiltradas();
+
+
+                const porPagina =
+                    obtenerPorPagina();
+
+
+                const totalPaginas =
+                    Math.ceil(
+                        filtradas.length /
+                        porPagina
+                    );
+
+
+                if (
+                    paginaActual < totalPaginas
+                ) {
+
+                    paginaActual++;
+
+                    mostrarPagina();
+
+                }
+
+            }
+        );
+
+
+        /* =====================================================
+           BUSCADOR
+           ===================================================== */
+
+        search.addEventListener(
+            "input",
+            function () {
+
+                textoBuscado =
+                    normalizar(
+                        search.value
+                    );
+
+
+                paginaActual = 1;
 
                 mostrarPagina();
 
             }
-
-        }
-    );
+        );
 
 
-    /* =====================================================
-       BUSCADOR
-       ===================================================== */
+        /* =====================================================
+           MUNICIPIO
+           ===================================================== */
 
-    search.addEventListener(
-        "input",
-        function () {
+        botonesMunicipio.forEach(
+            function (boton) {
 
-            textoBuscado =
-                normalizar(
-                    search.value
+                boton.addEventListener(
+                    "click",
+                    function () {
+
+                        municipioSeleccionado =
+                            normalizar(
+                                boton.textContent
+                            );
+
+
+                        document.getElementById(
+                            "nombreMunicipio"
+                        ).textContent =
+                            boton.textContent.trim();
+
+
+                        paginaActual = 1;
+
+                        mostrarPagina();
+
+                    }
                 );
 
+            }
+        );
 
-            paginaActual = 1;
 
-            mostrarPagina();
+        /* =====================================================
+           ÁREA
+           ===================================================== */
 
-        }
-    );
+        botonesArea.forEach(
+            function (boton) {
 
+                boton.addEventListener(
+                    "click",
+                    function () {
 
-    /* =====================================================
-       MUNICIPIO
-       ===================================================== */
+                        areaSeleccionada =
+                            boton.dataset.area;
 
-    botonesMunicipio.forEach(
-        function (boton) {
 
-            boton.addEventListener(
-                "click",
-                function () {
+                        document.getElementById(
+                            "nombreArea"
+                        ).textContent =
+                            boton.textContent.trim();
 
-                    municipioSeleccionado =
-                        normalizar(
-                            boton.textContent
-                        );
 
+                        paginaActual = 1;
 
-                    document.getElementById(
-                        "nombreMunicipio"
-                    ).textContent =
-                        boton.textContent.trim();
+                        mostrarPagina();
 
+                    }
+                );
 
-                    paginaActual = 1;
+            }
+        );
 
-                    mostrarPagina();
 
-                }
-            );
+        /* =====================================================
+           COLEGIO
+           ===================================================== */
 
-        }
-    );
+        botonesColegio.forEach(
+            function (boton) {
 
+                boton.addEventListener(
+                    "click",
+                    function () {
 
-    /* =====================================================
-       ÁREA
-       ===================================================== */
+                        colegioSeleccionado =
+                            normalizar(
+                                boton.textContent
+                            );
 
-    botonesArea.forEach(
-        function (boton) {
 
-            boton.addEventListener(
-                "click",
-                function () {
+                        document.getElementById(
+                            "nombreColegio"
+                        ).textContent =
+                            boton.textContent.trim();
 
-                    areaSeleccionada =
-                        boton.dataset.area;
 
+                        paginaActual = 1;
 
-                    document.getElementById(
-                        "nombreArea"
-                    ).textContent =
-                        boton.textContent.trim();
+                        mostrarPagina();
 
+                    }
+                );
 
-                    paginaActual = 1;
+            }
+        );
 
-                    mostrarPagina();
 
-                }
-            );
+        /* =====================================================
+           LIMPIAR FILTROS
+           ===================================================== */
 
-        }
-    );
+        limpiarFiltros.addEventListener(
+            "click",
+            function () {
 
+                areaSeleccionada = "";
 
-    /* =====================================================
-       COLEGIO
-       ===================================================== */
+                municipioSeleccionado = "";
 
-    botonesColegio.forEach(
-        function (boton) {
+                colegioSeleccionado = "";
 
-            boton.addEventListener(
-                "click",
-                function () {
+                textoBuscado = "";
 
-                    colegioSeleccionado =
-                        normalizar(
-                            boton.textContent
-                        );
+                search.value = "";
 
 
-                    document.getElementById(
-                        "nombreColegio"
-                    ).textContent =
-                        boton.textContent.trim();
+                document.getElementById(
+                    "nombreMunicipio"
+                ).textContent =
+                    "Municipio";
 
 
-                    paginaActual = 1;
+                document.getElementById(
+                    "nombreArea"
+                ).textContent =
+                    "Area de formación";
 
-                    mostrarPagina();
 
-                }
-            );
+                document.getElementById(
+                    "nombreColegio"
+                ).textContent =
+                    "Colegio";
 
-        }
-    );
 
+                paginaActual = 1;
 
-    /* =====================================================
-       LIMPIAR FILTROS
-       ===================================================== */
+                mostrarPagina();
 
-    limpiarFiltros.addEventListener(
-        "click",
-        function () {
+            }
+        );
 
-            areaSeleccionada = "";
 
-            municipioSeleccionado = "";
+        /* =====================================================
+           SI CAMBIA PC / CELULAR
+           ===================================================== */
 
-            colegioSeleccionado = "";
+        window.addEventListener(
+            "resize",
+            function () {
 
-            textoBuscado = "";
+                paginaActual = 1;
 
-            search.value = "";
+                mostrarPagina();
 
+            }
+        );
 
-            document.getElementById(
-                "nombreMunicipio"
-            ).textContent =
-                "Municipio";
 
+        /* =====================================================
+           INICIAR
+           ===================================================== */
 
-            document.getElementById(
-                "nombreArea"
-            ).textContent =
-                "Area de formación";
+        mostrarPagina();
 
-
-            document.getElementById(
-                "nombreColegio"
-            ).textContent =
-                "Colegio";
-
-
-            paginaActual = 1;
-
-            mostrarPagina();
-
-        }
-    );
-
-
-    /* =====================================================
-       SI CAMBIA PC / CELULAR
-       ===================================================== */
-
-    window.addEventListener(
-        "resize",
-        function () {
-
-            paginaActual = 1;
-
-            mostrarPagina();
-
-        }
-    );
-
-
-    /* =====================================================
-       INICIAR
-       ===================================================== */
-
-    mostrarPagina();
-
-});
+    });
 </script>
 
 {%endblock%}

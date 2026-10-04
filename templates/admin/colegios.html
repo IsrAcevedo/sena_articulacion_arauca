@@ -24,7 +24,7 @@
 
             {%for colegio in colegios%}
             <tr class="border-b hover:bg-gray-50" data-id="{{colegio.id}}" data-nombre="{{colegio.nombre}}"
-                data-slogan="{{colegio.slogan}}" data-municipio="{{colegio.id_municipios}}"
+                data-slogan="{{colegio.slogan}}" data-municipio="{{colegio.id_municipios}}" data-es-destacado="{{colegio.es_destacado}}"
                 data-activo="{{colegio.activo}}">
                 <td class="p-3">{{loop.index}}</td>
                 <td class="p-3">{{colegio.nombre}}</td>
@@ -84,6 +84,18 @@
                             <option value="0">No</option>
                         </select>
                     </div>
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="colegioDestacado">
+                            Mostrar en página principal
+                        </label>
+
+                        <input 
+                            type="checkbox" 
+                            id="colegioDestacado" 
+                            name="es_destacado" 
+                            value="1"
+                        >
+                    </div>
                 </form>
             </div>
             <footer class="modal__pie">
@@ -106,15 +118,17 @@
         const colegioMunicipio = document.getElementById('colegioMunicipio');
         const colegioLogo = document.getElementById('colegioLogo');
         const colegioActivo = document.getElementById('colegioActivo');
+        const colegioDestacado = document.getElementById('colegioDestacado');
         const botonesEditar = document.querySelectorAll('button');
 
-        function abrirModal(titulo, id = '', nombre = '', slogan = '', municipio = '', activo = '1') {
+        function abrirModal(titulo, id = '', nombre = '', slogan = '', municipio = '', activo = '1', esDestacado = '0') {
             modalTitulo.textContent = titulo;
             colegioId.value = id;
             colegioNombre.value = nombre;
             colegioSlogan.value = slogan;
             colegioMunicipio.value = municipio;
             colegioActivo.value = activo;
+            colegioDestacado.checked = esDestacado === '1';
             colegioLogo.value = '';
             modal.classList.add('modal--activo');
         }
@@ -148,7 +162,8 @@
                     const slogan = fila.dataset.slogan || '';
                     const municipio = fila.dataset.municipio || '';
                     const activo = fila.dataset.activo || '1';
-                    abrirModal('Editar Colegio', id, nombre, slogan, municipio, activo);
+                    const esDestacado = fila.dataset.esDestacado || '0';
+                    abrirModal('Editar Colegio', id, nombre, slogan, municipio, activo, esDestacado);
                 });
             }
         });
@@ -167,6 +182,7 @@
             }
 
             const formData = new FormData(formColegio);
+            console.log('es_destacado:', formData.get('es_destacado'));
             const url = colegioId.value
                 ? `/admin/colegios/editar/${colegioId.value}`
                 : '/admin/colegios/crear';
