@@ -124,15 +124,59 @@ def proyecto(id):
 #ruta para la pagina con lista de municipios
 @main_bp.route('/municipios')
 def municipios():
-    return render_template('municipios.html' )
+    # Municipios activos
+    query = "SELECT * FROM municipios WHERE activo = 1 ORDER BY nombre"
+    municipios = consulta(query)
 
-#ruta para la pagina con detalle de municipio
+    total_municipios = len(municipios) if municipios else 0
+
+    # Colegios
+    query_colegios = "SELECT COUNT(*) as total FROM colegios WHERE activo = 1"
+    total_colegios = consulta(query_colegios)[0]['total']
+
+    # Proyectos
+    query_proyectos = "SELECT COUNT(*) as total FROM proyectos WHERE activo = 1"
+    total_proyectos = consulta(query_proyectos)[0]['total']
+
+    # Instructores (la tabla se llama "instructor")
+    query_instructores = "SELECT COUNT(*) as total FROM instructor WHERE activo = 1"
+    total_instructores = consulta(query_instructores)[0]['total']
+
+    return render_template(
+        'municipios.html',
+        municipios=municipios,
+        total_municipios=total_municipios,
+        total_colegios=total_colegios,
+        total_proyectos=total_proyectos,
+        total_instructores=total_instructores
+    )
+
+
 @main_bp.route('/municipio/<int:id>')
 def municipio(id):
-    query = "SELECT * FROM municipios WHERE id_municipios = %s"
-    parametros = id,
-    municipio = consulta(query, parametros)
-    return render_template('municipios.html', municipio = municipio)
+    query = "SELECT * FROM municipios WHERE id_municipios = %s AND activo = 1"
+    resultado = consulta(query, (id,))
+
+    if not resultado:
+        abort(404)
+
+    municipio = resultado[0] if isinstance(resultado, list) else resultado
+
+    # Solo podemos contar colegios de forma real (tiene id_municipios)
+    query_colegios = "SELECT COUNT(*) as total FROM colegios WHERE id_municipios = %s AND activo = 1"
+    num_colegios = consulta(query_colegios, (id,))[0]['total']
+
+    # Proyectos e instructores todavía no tienen relación directa con municipio
+    num_proyectos = 0
+    num_instructores = 0
+
+    return render_template(
+        'municipio.html',
+        municipio=municipio,
+        num_colegios=num_colegios,
+        num_proyectos=num_proyectos,
+        num_instructores=num_instructores
+    )
 
 #ruta para la pagina con lista de colegios
 @main_bp.route('/colegios')

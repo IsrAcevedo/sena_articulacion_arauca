@@ -1,9 +1,107 @@
 {% extends "base.html" %}
-
 {% block content %}
 
 <main>
-    <p>Esta pagina se encuentra en construcción</p>
+    <section class="section municipios municipio-detalle" style="padding-top: 70px;">
+        <div class="container">
+
+            <!-- Botón volver -->
+            <div style="margin-bottom: 25px;">
+                <a href="{{ url_for('main.municipios') }}" 
+                   style="color: #39a900; font-weight: 600; text-decoration: none; font-size: 16px;">
+                    ← Volver a todos los municipios
+                </a>
+            </div>
+
+            <!-- Hero -->
+            <div class="hero-card">
+                <div class="hero-image">
+                    <img src="{{ url_for('static', filename='uploads/' + municipio.foto) }}" 
+                         alt="{{ municipio.nombre }}">
+                </div>
+                <div class="hero-content">
+                    <span class="section-badge">MUNICIPIO</span>
+                    <h1>{{ municipio.nombre }}</h1>
+                    <p>
+                        {{ municipio.nombre }} forma parte del programa <strong>Articulación con la Media</strong> 
+                        del SENA Regional Arauca. Aquí se impulsan procesos de formación técnica 
+                        y proyectos que generan oportunidades reales para los jóvenes del territorio.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Estadísticas del municipio -->
+            <div class="stats-global" style="margin-bottom: 50px;">
+                <div class="stat-card">
+                    <div class="stat-number">{{ num_colegios }}</div>
+                    <div class="stat-label">Colegios</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">{{ num_proyectos }}</div>
+                    <div class="stat-label">Proyectos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">{{ num_instructores }}</div>
+                    <div class="stat-label">Instructores</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">Activo</div>
+                    <div class="stat-label">en el programa</div>
+                </div>
+            </div>
+
+            <!-- Info + Mapa -->
+            <div class="detalle-grid">
+                <div class="detalle-info">
+                    <h3>Sobre el municipio</h3>
+                    <p>
+                        El programa Articulación con la Media llega a <strong>{{ municipio.nombre }}</strong> 
+                        con el objetivo de fortalecer las competencias técnicas de los estudiantes de media 
+                        y vincularlos con el sector productivo de la región.
+                    </p>
+                    <p>
+                        A través de esta alianza se desarrollan proyectos productivos, se fortalecen las 
+                        instituciones educativas y se abre un camino de oportunidades para los jóvenes.
+                    </p>
+                </div>
+
+                <!-- Mapa del municipio -->
+                <div class="mapa-container" style="margin: 0;">
+                    {% set nombre_base = municipio.nombre|lower|replace(' ', '-')|replace('ó', 'o')|replace('á', 'a')|replace('é', 'e')|replace                ('í', 'i')|replace('ú', 'u') %}
+    
+                    <img id="mapaMunicipio" 
+                        alt="Mapa de {{ municipio.nombre }}"
+                        class="mapa-img"
+                        data-base="{{ url_for('static', filename='img/mapas/' + nombre_base) }}">
+    
+                    <p>Mapa de {{ municipio.nombre }}</p>
+                </div>
+
+                <script>
+                    (function() {
+                        const img = document.getElementById('mapaMunicipio');
+                        const base = img.dataset.base;
+                        const extensiones = ['.webp', '.png', '.jpg', '.jpeg', '.svg'];
+
+                        function intentar(index) {
+                            if                 (index >= extensiones.length) {
+                                // Si ninguna existe, muestra el mapa general
+                                img.src = "{{ url_for('static', filename='img/mapa-arauca.png') }}";
+                                return;
+                            }
+                            img.src = base + extensiones[index];
+                            img.onerror = function() {
+                                intentar(index + 1);
+                         };
+                        }
+
+                        intentar(0);
+                    })();
+                </script>
+            </div>
+
+        </div>
+    </section>
 </main>
 
 {% endblock %}
