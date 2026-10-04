@@ -14,7 +14,7 @@
     --fuente_prueba: "Inconsolata", monospace;
     --fuente_arial: "Alan Sans", Arial, sans-serif;
     --color_verde1: rgb(24, 90, 24);
-    --color_verde2: #00e676;
+    --color_verde2: #5dcf28;
     --color_verde3: #0C8042;
     --color_verde4: #2BAD6E;
     --fuente_roboto: "Roboto", sans-serif;
@@ -78,7 +78,7 @@
     margin-top: 1rem;
     margin-bottom: 0;
     font-size: 5rem;
-    color: #00e676;
+    color: #4cff00;
 }
 
 .infogeneral_inst h2 {
@@ -109,7 +109,7 @@
 }
 
 .area_instructor {
-    color: #00c853;
+    color: #5bdb24;
     font-size: 1.6rem;
 }
 
