@@ -656,7 +656,8 @@
 }
 
 .municipios .card-content {
-    padding: 25px;
+    padding: 0px;
+    margin-bottom: 25px;
 }
 
 .municipios .card-content h3 {
@@ -903,6 +904,14 @@
     }
 }
 
+.container {
+        width: 100%;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        box-sizing: border-box;
+    }
+
+
 .instructores {
     padding: 100px 0;
     background: #ffffff;
@@ -936,7 +945,7 @@
 
 .instructores .cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 450px), 1fr));
     gap: 30px;
 }
 
@@ -950,8 +959,8 @@
     display: flex;
     flex-direction: row;
     align-items: stretch;
+    min-height: 365px; /* Asegura un alto uniforme para todas las tarjetas */
     padding: 0;
-    /* Remueve el padding del contenedor para que la foto llegue a las orillas */
     overflow: hidden;
     background: #ffffff;
     border-radius: 24px;
@@ -959,38 +968,62 @@
     transition: transform 0.3s ease;
 }
 
+.instructores .instructor-image {
+    width: 40%;
+    height: auto;
+    min-height: 250px;
+    flex-shrink: 0;
+    overflow: hidden;
+    position: relative;
+    background-color: #f4f5f7; /* Fondo neutro uniforme */
+}
+
+.instructores .instructor-image img {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    object-fit: cover;
+    object-position: center 15%; /* Mantiene enfocado el rostro (cabeza/ojos) */
+}
+
 .instructores .card:hover {
     transform: translateY(-10px);
 }
 
-/* Imagen a la izquierda (40% de ancho) */
-.instructor-image {
+/* Imagen a la izquierda */
+.instructores .instructor-image {
     width: 40%;
     min-height: 220px;
     flex-shrink: 0;
+    overflow: hidden; /* Evita que la imagen sobresalga del borde redondeado */
 }
 
-.instructor-image img {
+.instructores .instructor-image img {
     width: 100%;
     height: 100%;
     border-radius: 0;
-    /* Remueve la forma circular */
-    object-fit: cover;
-    object-position: top center;
+    object-fit: cover; /* Adapta la foto (vertical o horizontal) llenando todo el contenedor */
+    object-position: center; /* Centra el contenido relevante tanto en retrato como paisaje */
 }
 
 /* Contenido a la derecha (60% de ancho) */
 .instructores .card-content {
     width: 60%;
-    padding: 25px;
+    padding: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
+    text-transform: capitalize;
+    margin-top: 50px;
 }
+
+
 
 .instructores .card-button {
     color: #39a900;
     font-weight: 600;
+    margin-top: auto;
+    margin-bottom: 20px;
 }
 
 h4 {
@@ -999,6 +1032,13 @@ h4 {
 
 /* TABLET */
 @media (max-width: 992px) {
+
+    .container {
+        width: 100%;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        box-sizing: border-box;
+    }
 
     .instructores {
         padding: 80px 0;
@@ -1050,6 +1090,13 @@ h4 {
 /* CELULAR */
 @media (max-width: 600px) {
 
+    .container {
+        width: 100%;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        box-sizing: border-box;
+    }
+
     .instructores {
         padding: 60px 0;
     }
@@ -1069,31 +1116,43 @@ h4 {
     }
 
     .instructores .cards {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
         gap: 25px;
     }
 
     .instructores .card {
+        display: flex;
         flex-direction: column;
         border-radius: 20px;
-    }
-
-    .instructor-image {
-        width: 100%;
-        height: 240px;
+        height: auto;
         min-height: 0;
     }
 
-    .instructor-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: top center;
+    .instructores .instructor-image {
+        width: 100% !important;
+        height: 340px !important; /* Mismo alto exacto para TODAS las imágenes en celular */
+        min-height: 440px !important;
+        max-height: 440px !important;
+        flex-shrink: 0;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .instructores .instructor-image img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important; /* Llena el cuadro completo */
+        object-position: center 25% !important; /* Ajusta el encuadre verticalmente para mostrar la cara */
     }
 
     .instructores .card-content {
-        width: 100%;
-        padding: 22px;
+        width: 100% !important;
+        padding: 12px 20px;
+        margin-top: 8px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
 
     .instructores .card-content h3 {
@@ -1124,6 +1183,13 @@ h4 {
 
 /* CELULAR PEQUEÑO */
 @media (max-width: 400px) {
+
+    .container {
+        width: 100%;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        box-sizing: border-box;
+    }
 
     .instructores .section-header h2 {
         font-size: 28px;
