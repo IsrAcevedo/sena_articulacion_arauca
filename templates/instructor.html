@@ -2,10 +2,12 @@
 {% block content %}
 <div class="pagina-instructor">
     <div class="perfil">
-
+        <h1 class="titulo-perfil-responsive">Perfil profesional</h1>
         <div class="img_instructor">
             <img src="{{ url_for('static', filename='uploads/' + instructor.foto) }}" alt="{{ instructor.nombre }}"
                 class="instructor_foto" width="100">
+            <h2 class="img_instructor_nombre">{{instructor.nombre + " "+ instructor.apellido}}</h2>
+            <p class="area_instructor-responsive">{{instructor.profesion}}</p>
             <div class="botones_instructor">
                 <a href="#intr_proyectos" class="btn_inst">Proyectos <span>></span></a>
                 <a href="#colegios" class="btn_inst">Colegios <span>></span></a>
@@ -18,6 +20,7 @@
             <h2>{{instructor.nombre + " "+ instructor.apellido}}</h2>
             <p class="area_instructor">{{instructor.profesion}}</p>
             <div class="descripcion">
+                <h3>Sobre mí</h3>
                 <p>{{instructor.perfil}}</p>
             </div>
         </div>
@@ -42,7 +45,7 @@
 
                 <div class="lista-colegios">
 
-                    {% for colegio in colegios[:3] %}
+                    {% for colegio in colegios%}
 
                     <div class="colegio-instructor">
 
@@ -165,7 +168,11 @@
                     </div>
 
                 </div>
-
+                <div class="boton-mas-proyectos-responsive">
+                        <span class="icono-carpeta">▰</span>
+                        <span>Más proyectos</span>
+                        <span class="flecha-boton">→</span>
+                </div>
             </div>
 
         </div>
