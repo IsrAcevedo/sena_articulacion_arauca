@@ -54,7 +54,7 @@ def dashboard():
 @admin_bp.route('/proyectos')
 @login_requerido
 def proyectos():
-    query = "SELECT p.id_proyectos AS id, p.nombre, p.descripcion_corta AS descripcion, p.descripcion_larga, p.objetivo, p.resultado, p.id_tecnico, p.foto_principal, p.video_intro, p.fecha_inicio, p.fecha_fin, p.activo, t.nombre AS tecnico, c.nombre AS colegio FROM proyectos AS p INNER JOIN tecnicos AS t ON t.id_tecnicos = p.id_tecnico INNER JOIN colegios AS c ON c.id_colegios = t.id_colegio"
+    query = "SELECT p.id_proyectos AS id, p.nombre, p.descripcion_corta AS descripcion, p.descripcion_larga, p.objetivo, p.resultado, p.id_tecnico, p.foto_principal, p.video_intro, p.fecha_inicio, p.fecha_fin, p.activo, p.es_destacado, t.nombre AS tecnico, c.nombre AS colegio FROM proyectos AS p INNER JOIN tecnicos AS t ON t.id_tecnicos = p.id_tecnico INNER JOIN colegios AS c ON c.id_colegios = t.id_colegio"
     proyectos = consulta(query)
     query_tecnicos = "SELECT id_tecnicos AS id, nombre, ficha FROM tecnicos"
     lista_tecnicos = consulta(query_tecnicos)
@@ -67,14 +67,15 @@ def crear_proyecto():
     nombre = request.form.get('nombre')
     descripcion_corta = request.form.get('descripcion_corta')
     descripcion_larga = request.form.get('descripcion_larga')
-    objetivo = request.form.get('objetivo')
-    resultado = request.form.get('resultado')
+    objetivo = request.form.get('objetivo') or None
+    resultado = request.form.get('resultado') or None
     tecnico = request.form.get('tecnico')
     foto_principal = request.files.get('foto_principal')
-    video_intro = request.form.get('video_intro')
-    fecha_inicio = request.form.get('fecha_inicio')
-    fecha_fin = request.form.get('fecha_fin')
+    video_intro = request.form.get('video_intro') or None
+    fecha_inicio = request.form.get('fecha_inicio') or None
+    fecha_fin = request.form.get('fecha_fin') or None
     activo = request.form.get('activo', '1')
+    es_destacado = request.form.get('es_destacado', '0')
     
     if foto_principal and foto_principal.filename:
         nombre_foto = guardar_imagen(foto_principal, UPLOAD_FOLDER, 'proyectos')
@@ -83,8 +84,8 @@ def crear_proyecto():
     else:
         nombre_foto = 'imagen.webp'
     
-    query = "INSERT INTO proyectos (id_tecnico, nombre, descripcion_corta, descripcion_larga, objetivo, resultado, foto_principal, video_intro, fecha_inicio, fecha_fin, activo) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-    parametros = (tecnico, nombre, descripcion_corta, descripcion_larga, objetivo, resultado, nombre_foto, video_intro, fecha_inicio, fecha_fin, activo)
+    query = "INSERT INTO proyectos (id_tecnico, nombre, descripcion_corta, descripcion_larga, objetivo, resultado, foto_principal, video_intro, fecha_inicio, fecha_fin, activo, es_destacado) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+    parametros = (tecnico, nombre, descripcion_corta, descripcion_larga, objetivo, resultado, nombre_foto, video_intro, fecha_inicio, fecha_fin, activo, es_destacado)
     resultado = insertar(query, parametros)
     return jsonify({'success': True, 'message': resultado})
 
@@ -95,24 +96,25 @@ def editar_proyecto(id):
     nombre = request.form.get('nombre')
     descripcion_corta = request.form.get('descripcion_corta')
     descripcion_larga = request.form.get('descripcion_larga')
-    objetivo = request.form.get('objetivo')
-    resultado = request.form.get('resultado')
+    objetivo = request.form.get('objetivo') or None
+    resultado = request.form.get('resultado') or None
     tecnico = request.form.get('tecnico')
     foto_principal = request.files.get('foto_principal')
-    video_intro = request.form.get('video_intro')
-    fecha_inicio = request.form.get('fecha_inicio')
-    fecha_fin = request.form.get('fecha_fin')
+    video_intro = request.form.get('video_intro') or None
+    fecha_inicio = request.form.get('fecha_inicio') or None
+    fecha_fin = request.form.get('fecha_fin') or None
     activo = request.form.get('activo', '1')
+    es_destacado = request.form.get('es_destacado', '0')
     
     if foto_principal and foto_principal.filename:
         nombre_foto = guardar_imagen(foto_principal, UPLOAD_FOLDER, 'proyectos')
         if not nombre_foto:
             return jsonify({'success': False, 'message': 'Formato de imagen no permitido. Solo .webp'})
-        query = "UPDATE proyectos SET id_tecnico = %s, nombre = %s, descripcion_corta = %s, descripcion_larga = %s, objetivo = %s, resultado = %s, foto_principal = %s, video_intro = %s, fecha_inicio = %s, fecha_fin = %s, activo = %s WHERE id_proyectos = %s"
-        parametros = (tecnico, nombre, descripcion_corta, descripcion_larga, objetivo, resultado, nombre_foto, video_intro, fecha_inicio, fecha_fin, activo, id)
+        query = "UPDATE proyectos SET id_tecnico = %s, nombre = %s, descripcion_corta = %s, descripcion_larga = %s, objetivo = %s, resultado = %s, foto_principal = %s, video_intro = %s, fecha_inicio = %s, fecha_fin = %s, activo = %s, es_destacado = %s WHERE id_proyectos = %s"
+        parametros = (tecnico, nombre, descripcion_corta, descripcion_larga, objetivo, resultado, nombre_foto, video_intro, fecha_inicio, fecha_fin, activo, es_destacado, id)
     else:
-        query = "UPDATE proyectos SET id_tecnico = %s, nombre = %s, descripcion_corta = %s, descripcion_larga = %s, objetivo = %s, resultado = %s, video_intro = %s, fecha_inicio = %s, fecha_fin = %s, activo = %s WHERE id_proyectos = %s"
-        parametros = (tecnico, nombre, descripcion_corta, descripcion_larga, objetivo, resultado, video_intro, fecha_inicio, fecha_fin, activo, id)
+        query = "UPDATE proyectos SET id_tecnico = %s, nombre = %s, descripcion_corta = %s, descripcion_larga = %s, objetivo = %s, resultado = %s, video_intro = %s, fecha_inicio = %s, fecha_fin = %s, activo = %s, es_destacado = %s WHERE id_proyectos = %s"
+        parametros = (tecnico, nombre, descripcion_corta, descripcion_larga, objetivo, resultado, video_intro, fecha_inicio, fecha_fin, activo, es_destacado, id)
     
     resultado = insertar(query, parametros)
     return jsonify({'success': True, 'message': resultado})
@@ -281,7 +283,7 @@ def editar_colegio(id):
         parametros = (municipio, nombre, slogan, nombre_logo, activo,es_destacado, id)
     else:
         query = "UPDATE colegios SET id_municipios = %s, nombre = %s, slogan = %s, activo = %s,  es_destacado = %s WHERE id_colegios = %s"
-        parametros = (municipio, nombre, slogan, activo, id)
+        parametros = (municipio, nombre, slogan, activo, es_destacado, id)
     
     resultado = insertar(query, parametros)
     return jsonify({'success': True, 'message': resultado})
@@ -301,7 +303,7 @@ def eliminar_colegio(id):
 @admin_bp.route('/instructores')
 @login_requerido
 def instructores():
-    query = "SELECT i.id_instructor AS id, i.nombres, i.apellidos, i.id_profesion, i.perfi_profesional, i.foto, i.activo, p.nombre_profesion AS profesion, (SELECT COUNT(*) FROM proyectos pr INNER JOIN tecnicos t ON pr.id_tecnico = t.id_tecnicos WHERE t.id_instructor = i.id_instructor) AS num_proyectos FROM instructor AS i LEFT JOIN profesiones p ON i.id_profesion = p.id_profesion"
+    query = "SELECT i.id_instructor AS id, i.nombres, i.apellidos, i.id_profesion, i.perfi_profesional, i.foto, i.activo, i.es_destacado, p.nombre_profesion AS profesion, (SELECT COUNT(*) FROM proyectos pr INNER JOIN tecnicos t ON pr.id_tecnico = t.id_tecnicos WHERE t.id_instructor = i.id_instructor) AS num_proyectos FROM instructor AS i LEFT JOIN profesiones p ON i.id_profesion = p.id_profesion"
     instructores = consulta(query)
     query_profesiones = "SELECT id_profesion AS id, nombre_profesion FROM profesiones"
     lista_profesiones = consulta(query_profesiones)
@@ -317,6 +319,7 @@ def crear_instructor():
     perfi_profesional = request.form.get('perfi_profesional')
     foto = request.files.get('foto')
     activo = request.form.get('activo', '1')
+    es_destacado = request.form.get('es_destacado', '0')
     
     if foto and foto.filename:
         nombre_foto = guardar_imagen(foto, UPLOAD_FOLDER, 'instructor')
@@ -325,8 +328,8 @@ def crear_instructor():
     else:
         nombre_foto = 'imagen.webp'
     
-    query = "INSERT INTO instructor (id_profesion, nombres, apellidos, perfi_profesional, foto, activo,) VALUES (%s, %s, %s, %s, %s, %s)"
-    parametros = (profesion, nombres, apellidos, perfi_profesional, nombre_foto, activo)
+    query = "INSERT INTO instructor (id_profesion, nombres, apellidos, perfi_profesional, foto, activo, es_destacado) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+    parametros = (profesion, nombres, apellidos, perfi_profesional, nombre_foto, activo, es_destacado)
     resultado = insertar(query, parametros)
     return jsonify({'success': True, 'message': resultado})
 
@@ -340,16 +343,17 @@ def editar_instructor(id):
     perfi_profesional = request.form.get('perfi_profesional')
     foto = request.files.get('foto')
     activo = request.form.get('activo', '1')
+    es_destacado = request.form.get('es_destacado', '0')
     
     if foto and foto.filename:
         nombre_foto = guardar_imagen(foto, UPLOAD_FOLDER, 'instructor')
         if not nombre_foto:
             return jsonify({'success': False, 'message': 'Formato de imagen no permitido. Solo .webp'})
-        query = "UPDATE instructor SET id_profesion = %s, nombres = %s, apellidos = %s, perfi_profesional = %s, foto = %s, activo = %s WHERE id_instructor = %s"
-        parametros = (profesion, nombres, apellidos, perfi_profesional, nombre_foto, activo, id)
+        query = "UPDATE instructor SET id_profesion = %s, nombres = %s, apellidos = %s, perfi_profesional = %s, foto = %s, activo = %s, es_destacado = %s WHERE id_instructor = %s"
+        parametros = (profesion, nombres, apellidos, perfi_profesional, nombre_foto, activo, es_destacado, id)
     else:
-        query = "UPDATE instructor SET id_profesion = %s, nombres = %s, apellidos = %s, perfi_profesional = %s, activo = %s WHERE id_instructor = %s"
-        parametros = (profesion, nombres, apellidos, perfi_profesional, activo, id)
+        query = "UPDATE instructor SET id_profesion = %s, nombres = %s, apellidos = %s, perfi_profesional = %s, activo = %s, es_destacado = %s WHERE id_instructor = %s"
+        parametros = (profesion, nombres, apellidos, perfi_profesional, activo, es_destacado, id)
     
     resultado = insertar(query, parametros)
     return jsonify({'success': True, 'message': resultado})

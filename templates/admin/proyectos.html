@@ -25,10 +25,10 @@
             {%for proyecto in proyectos%}
             <tr class="border-b hover:bg-gray-50" data-id="{{proyecto.id}}" data-nombre="{{proyecto.nombre}}"
                 data-descripcion="{{proyecto.descripcion}}" data-descripcion-larga="{{proyecto.descripcion_larga}}"
-                data-objetivo="{{proyecto.objetivo}}" data-resultado="{{proyecto.resultado}}"
-                data-tecnico="{{proyecto.id_tecnico}}" data-video="{{proyecto.video_intro}}"
-                data-fecha-inicio="{{proyecto.fecha_inicio}}" data-fecha-fin="{{proyecto.fecha_fin}}"
-                data-activo="{{proyecto.activo}}">
+                data-objetivo="{{proyecto.objetivo or ''}}" data-resultado="{{proyecto.resultado or ''}}"
+                data-tecnico="{{proyecto.id_tecnico}}" data-video="{{proyecto.video_intro or ''}}"
+                data-fecha-inicio="{{proyecto.fecha_inicio or ''}}" data-fecha-fin="{{proyecto.fecha_fin or ''}}"
+                data-activo="{{proyecto.activo}}" data-es-destacado="{{proyecto.es_destacado}}">
                 <td class="p-3">{{loop.index}}</td>
                 <td class="p-3">{{proyecto.nombre}}</td>
                 <td class="p-3">{{proyecto.descripcion}}</td>
@@ -113,6 +113,13 @@
                             <option value="0">No</option>
                         </select>
                     </div>
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="proyectoDestacado">Destacado</label>
+                        <select class="modal__campo" id="proyectoDestacado" name="es_destacado">
+                            <option value="0">No</option>
+                            <option value="1">Sí</option>
+                        </select>
+                    </div>
                 </form>
             </div>
             <footer class="modal__pie">
@@ -141,21 +148,23 @@
         const proyectoFechaInicio = document.getElementById('proyectoFechaInicio');
         const proyectoFechaFin = document.getElementById('proyectoFechaFin');
         const proyectoActivo = document.getElementById('proyectoActivo');
+        const proyectoDestacado = document.getElementById('proyectoDestacado');
         const botonesEditar = document.querySelectorAll('button');
 
-        function abrirModal(titulo, id = '', nombre = '', descripcionCorta = '', descripcionLarga = '', objetivo = '', resultado = '', tecnico = '', video = '', fechaInicio = '', fechaFin = '', activo = '1') {
+        function abrirModal(titulo, id = '', nombre = '', descripcionCorta = '', descripcionLarga = '', objetivo = '', resultado = '', tecnico = '', video = '', fechaInicio = '', fechaFin = '', activo = '1', esDestacado = '0') {
             modalTitulo.textContent = titulo;
             proyectoId.value = id;
             proyectoNombre.value = nombre;
             proyectoDescripcionCorta.value = descripcionCorta;
             proyectoDescripcionLarga.value = descripcionLarga;
-            proyectoObjetivo.value = objetivo;
-            proyectoResultado.value = resultado;
+            proyectoObjetivo.value = objetivo === 'None' ? '' : objetivo;
+            proyectoResultado.value = resultado === 'None' ? '' : resultado;
             proyectoTecnico.value = tecnico;
-            proyectoVideo.value = video;
-            proyectoFechaInicio.value = fechaInicio;
-            proyectoFechaFin.value = fechaFin;
+            proyectoVideo.value = video === 'None' ? '' : video;
+            proyectoFechaInicio.value = (fechaInicio && fechaInicio !== 'None') ? fechaInicio : '';
+            proyectoFechaFin.value = (fechaFin && fechaFin !== 'None') ? fechaFin : '';
             proyectoActivo.value = activo;
+            proyectoDestacado.value = esDestacado;
             proyectoFoto.value = '';
             modal.classList.add('modal--activo');
         }
@@ -195,7 +204,8 @@
                     const fechaInicio = fila.dataset.fechaInicio || '';
                     const fechaFin = fila.dataset.fechaFin || '';
                     const activo = fila.dataset.activo || '1';
-                    abrirModal('Editar Proyecto', id, nombre, descripcionCorta, descripcionLarga, objetivo, resultado, tecnico, video, fechaInicio, fechaFin, activo);
+                    const esDestacado = fila.dataset.esDestacado || '0';
+                    abrirModal('Editar Proyecto', id, nombre, descripcionCorta, descripcionLarga, objetivo, resultado, tecnico, video, fechaInicio, fechaFin, activo, esDestacado);
                 });
             }
         });
