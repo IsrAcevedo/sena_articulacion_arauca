@@ -57,5 +57,7 @@ def instructor(id):
     instructor = consulta(query, parametros)[0]
     return render_template('instructor.html', instructor = instructor)
 
-
+@main_bp.route('/creditos')
+def creditos():
+    return render_template('creditos.html')
 
