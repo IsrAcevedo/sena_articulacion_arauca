@@ -1,268 +1,43 @@
-
 {% extends "base.html" %}
-
 {% block content %}
+<main class="proyectos" id="proyectos">
+    <div class="container">
+        <header class="section-header">
+            <span class="section-badge">SENA · Arauca</span>
+            <h1>Proyectos que convierten ideas en oportunidades</h1>
+            <p>Conoce las iniciativas creadas por aprendices e instructores de los programas articulados con las instituciones educativas del departamento.</p>
+        </header>
 
-<section class="proyecto-detalle">
-
-    <div class="proyecto-contenedor">
-
-        <a href="{{ url_for('main.inicio') }}" class="volver-proyectos">
-            ← Volver a proyectos
-        </a>
-
-        <!-- ENCABEZADO -->
-        <div class="proyecto-encabezado">
-
-            <div>
-                <span class="proyecto-etiqueta">
-                    PROYECTO SENA
-                </span>
-
-                <h1>{{ proyecto.nombre }}</h1>
-
-                {% if proyecto.descripcion_corta %}
-                <p class="proyecto-descripcion-corta">
-                    {{ proyecto.descripcion_corta }}
-                </p>
-                {% endif %}
-            </div>
-
-        </div>
-
-
-        <!-- INFORMACIÓN PRINCIPAL -->
-        <div class="proyecto-principal">
-
-            <div class="proyecto-imagen">
-
-                {% if proyecto.foto_principal %}
-                <img
-                    src="{{ url_for('static', filename='uploads/' + proyecto.foto_principal) }}"
-                    alt="{{ proyecto.nombre }}"
-                >
-                {% else %}
-                <div class="sin-imagen">
-                    Sin imagen disponible
-                </div>
-                {% endif %}
-
-            </div>
-
-
-            <div class="proyecto-datos">
-
-                {% if proyecto.colegio_nombre %}
-                <div class="dato-proyecto">
-                    <strong>Colegio</strong>
-                    <span>{{ proyecto.colegio_nombre }}</span>
-                </div>
-                {% endif %}
-
-                {% if proyecto.tecnico_nombre %}
-                <div class="dato-proyecto">
-                    <strong>Programa técnico</strong>
-                    <span>{{ proyecto.tecnico_nombre }}</span>
-                </div>
-                {% endif %}
-
-                {% if proyecto.ficha %}
-                <div class="dato-proyecto">
-                    <strong>Ficha</strong>
-                    <span>{{ proyecto.ficha }}</span>
-                </div>
-                {% endif %}
-
-                {% if proyecto.modalidad_nombre %}
-                <div class="dato-proyecto">
-                    <strong>Modalidad</strong>
-                    <span>{{ proyecto.modalidad_nombre }}</span>
-                </div>
-                {% endif %}
-
-                {% if proyecto.instructor_nombre %}
-                <div class="dato-proyecto">
-                    <strong>Instructor</strong>
-                    <span>{{ proyecto.instructor_nombre }}</span>
-                </div>
-                {% endif %}
-
-                {% if proyecto.fecha_inicio %}
-                <div class="dato-proyecto">
-                    <strong>Fecha de inicio</strong>
-                    <span>{{ proyecto.fecha_inicio }}</span>
-                </div>
-                {% endif %}
-
-                {% if proyecto.fecha_fin %}
-                <div class="dato-proyecto">
-                    <strong>Fecha de finalización</strong>
-                    <span>{{ proyecto.fecha_fin }}</span>
-                </div>
-                {% endif %}
-
-            </div>
-
-        </div>
-
-
-        <!-- DESCRIPCIÓN -->
-        {% if proyecto.descripcion_larga %}
-        <div class="proyecto-seccion">
-
-            <h2>Descripción del proyecto</h2>
-
-            <p>
-                {{ proyecto.descripcion_larga }}
-            </p>
-
-        </div>
-        {% endif %}
-
-
-        <!-- OBJETIVO -->
-        {% if proyecto.objetivo %}
-        <div class="proyecto-seccion">
-
-            <h2>Objetivo</h2>
-
-            <p>
-                {{ proyecto.objetivo }}
-            </p>
-
-        </div>
-        {% endif %}
-
-
-        <!-- RESULTADO -->
-        {% if proyecto.resultado %}
-        <div class="proyecto-seccion">
-
-            <h2>Resultado</h2>
-
-            <p>
-                {{ proyecto.resultado }}
-            </p>
-
-        </div>
-        {% endif %}
-
-
-        <!-- APRENDICES -->
-        {% if aprendices %}
-        <div class="proyecto-seccion">
-
-            <h2>Aprendices participantes</h2>
-
-            <div class="aprendices-proyecto">
-
-                {% for aprendiz in aprendices %}
-
-                <div class="aprendiz">
-
-                    <span class="icono-aprendiz">
-                        👤
-                    </span>
-
-                    <span>
-                        {{ aprendiz.nombres }}
-                        {{ aprendiz.apellidos }}
-                    </span>
-
-                </div>
-
-                {% endfor %}
-
-            </div>
-
-        </div>
-        {% endif %}
-
-
-        <!-- GALERÍA -->
-        {% if galeria %}
-        <div class="proyecto-seccion">
-
-            <h2>Galería del proyecto</h2>
-
-            <div class="galeria-proyecto">
-
-                {% for imagen in galeria %}
-
-                <div class="imagen-galeria">
-
-                    <img
-                        src="{{ imagen.url_imagen }}"
-                        alt="{{ imagen.descripcion or proyecto.nombre }}"
-                    >
-
-                    {% if imagen.descripcion %}
-                    <p>{{ imagen.descripcion }}</p>
+        {% if proyectos %}
+        <section class="collage-grid" aria-label="Proyectos de articulación">
+            {% for proyecto in proyectos %}
+            <a class="collage-card" href="{{ url_for('main.proyecto', id=proyecto.id) }}">
+                <div class="card-bg">
+                    {% if proyecto.foto %}
+                    <img src="{{ url_for('static', filename='uploads/' + proyecto.foto) }}" alt="{{ proyecto.nombre }}" loading="lazy">
+                    {% else %}
+                    <div class="sin-imagen" role="img" aria-label="Sin imagen disponible">SENA · Arauca</div>
                     {% endif %}
-
                 </div>
-
-                {% endfor %}
-
-            </div>
-
-        </div>
-        {% endif %}
-
-
-        <!-- VIDEO INTRODUCTORIO -->
-        {% if proyecto.video_intro %}
-        <div class="proyecto-seccion">
-
-            <h2>Video de introducción</h2>
-
-            <a
-                href="{{ proyecto.video_intro }}"
-                target="_blank"
-                class="boton-video"
-            >
-                ▶ Ver video
+                <div class="state-default"><h2>{{ proyecto.nombre }}</h2></div>
+                <div class="state-hover">
+                    <span class="card-tag">Proyecto de formación</span>
+                    <h2>{{ proyecto.nombre }}</h2>
+                    <p>{{ proyecto.descripcion or 'Una iniciativa de formación técnica desarrollada en Arauca.' }}</p>
+                    {% if proyecto.modalidad or proyecto.colegio %}
+                    <p>{% if proyecto.modalidad %}{{ proyecto.modalidad }}{% endif %}{% if proyecto.colegio and proyecto.modalidad %} · {% endif %}{% if proyecto.colegio %}{{ proyecto.colegio }}{% endif %}</p>
+                    {% endif %}
+                    <span class="card-link-text">Conocer el proyecto →</span>
+                </div>
             </a>
-
+            {% endfor %}
+        </section>
+        {% else %}
+        <div class="sin-resultados" role="status">
+            <h2>Pronto encontrarás proyectos aquí</h2>
+            <p>Estamos preparando las iniciativas de formación desarrolladas por la comunidad educativa.</p>
         </div>
         {% endif %}
-
-
-        <!-- VIDEOS -->
-        {% if videos %}
-        <div class="proyecto-seccion">
-
-            <h2>Videos del proyecto</h2>
-
-            <div class="videos-proyecto">
-
-                {% for video in videos %}
-
-                <div class="video-proyecto">
-
-                    <h3>
-                        {{ video.titulo or 'Video del proyecto' }}
-                    </h3>
-
-                    <a
-                        href="{{ video.url_video }}"
-                        target="_blank"
-                        class="boton-video"
-                    >
-                        ▶ Ver video
-                    </a>
-
-                </div>
-
-                {% endfor %}
-
-            </div>
-
-        </div>
-        {% endif %}
-
     </div>
-
-</section>
-
+</main>
 {% endblock %}

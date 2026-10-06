@@ -9,11 +9,8 @@ load_dotenv()
 def create_app():
     app = Flask(__name__)
 
-    # Configuración básica
-    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
-
-
-    app.secret_key = os.getenv('API_KEY')
+    # SECRET_KEY es el nombre estándar; API_KEY se admite para instalaciones antiguas.
+    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY') or os.getenv('API_KEY')
 
     # Registrar blueprints
     app.register_blueprint(main_bp)

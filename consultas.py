@@ -2,43 +2,47 @@ from coneccionbd import obtener_conexion
 
 
 def consulta(consulta, parametros=None):
-
     conexion = obtener_conexion()
+    if conexion is None:
+        raise ConnectionError("No fue posible conectar con la base de datos.")
 
-    cursor = conexion.cursor(dictionary=True)
-
-    cursor.execute(consulta, parametros or ())
-
-    resultado = cursor.fetchall()
-
-    conexion.close()
-
-    return resultado
+    cursor = None
+    try:
+        cursor = conexion.cursor(dictionary=True)
+        cursor.execute(consulta, parametros or ())
+        return cursor.fetchall()
+    finally:
+        if cursor is not None:
+            cursor.close()
+        conexion.close()
 
 
 def insertar(consulta, parametros=None):
-
     conexion = obtener_conexion()
+    if conexion is None:
+        raise ConnectionError("No fue posible conectar con la base de datos.")
 
-    cursor = conexion.cursor()
-
-    cursor.execute(consulta, parametros or ())
-
-    conexion.commit()
-
-    cursor.close()
-
-    conexion.close()
-
-    return 'datos insertados correctamente'
+    cursor = None
+    try:
+        cursor = conexion.cursor()
+        cursor.execute(consulta, parametros or ())
+        conexion.commit()
+        return 'Datos guardados correctamente.'
+    except Exception:
+        conexion.rollback()
+        raise
+    finally:
+        if cursor is not None:
+            cursor.close()
+        conexion.close()
 
 
 def obtener_proyectos():
-
     conexion = obtener_conexion()
+    if conexion is None:
+        raise ConnectionError("No fue posible conectar con la base de datos.")
 
-    cursor = conexion.cursor(dictionary=True)
-
+    cursor = None
     query = """
         SELECT
             p.id_proyectos,
@@ -69,11 +73,11 @@ def obtener_proyectos():
         ORDER BY p.id_proyectos DESC
     """
 
-    cursor.execute(query)
-
-    proyectos = cursor.fetchall()
-
-    cursor.close()
-    conexion.close()
-
-    return proyectos
+    try:
+        cursor = conexion.cursor(dictionary=True)
+        cursor.execute(query)
+        return cursor.fetchall()
+    finally:
+        if cursor is not None:
+            cursor.close()
+        conexion.close()
