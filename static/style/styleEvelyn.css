@@ -497,58 +497,6 @@
     font-weight: 500;
 }
 
-.btn-ver-colegio-responsive {
-    display: none;
-}
-
-.btn-ver-colegio {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-
-    margin-top: 10px;
-    padding: 9px 18px;
-
-    background: #082b18;
-    color: #7ef00f;
-
-    border: 2px solid #5dcf28;
-    border-radius: 25px;
-
-    font-size: 15px;
-    font-weight: 700;
-    text-decoration: none;
-
-    transition: all 0.3s ease;
-}
-
-.btn-ver-colegio span {
-    font-size: 20px;
-    line-height: 1;
-
-    transition: transform 0.3s ease;
-}
-
-.btn-ver-colegio:hover {
-    background: #5dcf28;
-    color: white;
-
-    transform: translateY(-2px);
-
-    box-shadow: 0 6px 15px rgba(93, 207, 40, 0.35);
-}
-
-.btn-ver-colegio:hover span {
-    transform: translateX(5px);
-}
-
-.icono-ubicacion {
-    color: #00a879;
-
-    font-size: 21px;
-}
-
 
 /* =========================================================
    PROYECTOS
@@ -1293,14 +1241,6 @@
 
     .colegio-info p {
         font-size: 14px;
-    }
-
-    .btn-ver-colegio {
-        display: none;
-    }
-
-    .btn-ver-colegio-responsive {
-        display: flex;
     }
 
 
