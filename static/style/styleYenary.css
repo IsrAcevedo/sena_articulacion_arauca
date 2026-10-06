@@ -897,3 +897,303 @@
     display: block;
   }
 }
+
+
+/* =========================================
+   PÁGINA DE CRÉDITOS
+========================================= */
+
+.creditos-page {
+    padding: 100px 0;
+    background: #f8faf8;
+    min-height: 100vh;
+}
+
+.creditos-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* Encabezado */
+
+.creditos-header {
+    margin-bottom: 70px;
+}
+
+.creditos-badge {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 50px;
+    background: rgba(57, 169, 0, 0.1);
+    color: #39a900;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.creditos-header h1 {
+    margin: 20px 0;
+    font-size: 52px;
+    line-height: 1.1;
+    color: #111;
+}
+
+.creditos-header p {
+    max-width: 700px;
+    color: #666;
+    line-height: 1.8;
+    font-size: 17px;
+}
+
+
+/* =========================================
+   SECCIONES
+========================================= */
+
+.creditos-grupo {
+    margin-bottom: 65px;
+}
+
+.creditos-titulo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.creditos-titulo > span {
+    width: 8px;
+    height: 35px;
+    background: #39a900;
+    border-radius: 10px;
+}
+
+.creditos-titulo h2 {
+    margin: 0;
+    font-size: 30px;
+    color: #111;
+}
+
+
+/* =========================================
+   TARJETAS
+========================================= */
+
+.persona-card {
+    background: #ffffff;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.persona-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+}
+
+
+/* Tarjetas de coordinador, líder e instructor */
+
+.persona-card-individual {
+    max-width: 700px;
+    padding: 35px;
+}
+
+
+/* =========================================
+   APRENDICES
+========================================= */
+
+.aprendices-grid {
+    display: grid;
+
+    /* 3 tarjetas por fila */
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 30px;
+}
+
+.aprendices-grid .persona-card {
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* =========================================
+   FOTOS
+========================================= */
+
+.persona-foto {
+    width: 100%;
+    height: 260px;
+    overflow: hidden;
+    background: #f1f5f1;
+}
+
+.persona-foto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.persona-card:hover .persona-foto img {
+    transform: scale(1.05);
+}
+
+
+/* =========================================
+   INFORMACIÓN
+========================================= */
+
+.persona-info {
+    padding: 25px;
+}
+
+.persona-info h3 {
+    margin: 0 0 10px;
+    font-size: 22px;
+    line-height: 1.3;
+    color: #111;
+}
+
+.persona-rol {
+    display: inline-block;
+    margin-bottom: 15px;
+    padding: 6px 13px;
+    border-radius: 30px;
+    background: rgba(57, 169, 0, 0.1);
+    color: #39a900;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.persona-info p {
+    margin: 0;
+    color: #666;
+    line-height: 1.7;
+    font-size: 15px;
+}
+
+
+/* =========================================
+   RESPONSIVE - TABLET
+========================================= */
+
+@media (max-width: 1000px) {
+
+    .aprendices-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+/* =========================================
+   RESPONSIVE - CELULAR
+========================================= */
+
+@media (max-width: 768px) {
+
+    .creditos-page {
+        padding: 70px 0;
+    }
+
+    .creditos-header {
+        margin-bottom: 50px;
+    }
+
+    .creditos-header h1 {
+        font-size: 38px;
+    }
+
+    .creditos-header p {
+        font-size: 15px;
+    }
+
+    .creditos-titulo h2 {
+        font-size: 25px;
+    }
+
+    .aprendices-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .persona-foto {
+        height: 280px;
+    }
+
+    .persona-card-individual {
+        padding: 25px;
+    }
+
+}
+
+
+/* =========================================
+   CELULARES PEQUEÑOS
+========================================= */
+
+@media (max-width: 480px) {
+
+    .creditos-container {
+        width: 88%;
+    }
+
+    .creditos-header h1 {
+        font-size: 34px;
+    }
+
+    .creditos-titulo h2 {
+        font-size: 22px;
+    }
+
+    .persona-foto {
+        height: 250px;
+    }
+
+    .persona-info {
+        padding: 22px;
+    }
+
+    .persona-info h3 {
+        font-size: 20px;
+    }
+
+}
+
+.persona-card-instructor {
+    max-width: 850px;
+    display: flex;
+    align-items: center;
+}
+
+.persona-card-instructor .persona-foto {
+    width: 280px;
+    min-width: 280px;
+    height: 280px;
+}
+
+.persona-card-instructor .persona-info {
+    padding: 35px;
+}
+
+@media (max-width: 768px) {
+
+    .persona-card-instructor {
+        flex-direction: column;
+        max-width: 100%;
+    }
+
+    .persona-card-instructor .persona-foto {
+        width: 100%;
+        height: 300px;
+    }
+
+    .persona-card-instructor .persona-info {
+        padding: 25px;
+    }
+}
