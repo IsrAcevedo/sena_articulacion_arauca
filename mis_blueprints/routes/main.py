@@ -154,6 +154,7 @@ def municipios():
 
 @main_bp.route('/municipio/<int:id>')
 def municipio(id):
+    # Datos del municipio
     query = "SELECT * FROM municipios WHERE id_municipios = %s AND activo = 1"
     resultado = consulta(query, (id,))
 
@@ -162,13 +163,33 @@ def municipio(id):
 
     municipio = resultado[0] if isinstance(resultado, list) else resultado
 
-    # Solo podemos contar colegios de forma real (tiene id_municipios)
-    query_colegios = "SELECT COUNT(*) as total FROM colegios WHERE id_municipios = %s AND activo = 1"
+    # 1. Colegios del municipio
+    query_colegios = """
+        SELECT COUNT(*) as total 
+        FROM colegios 
+        WHERE id_municipios = %s AND activo = 1
+    """
     num_colegios = consulta(query_colegios, (id,))[0]['total']
 
-    # Proyectos e instructores todavía no tienen relación directa con municipio
-    num_proyectos = 0
-    num_instructores = 0
+    # 2. Proyectos del municipio (a través de tecnicos → colegios)
+    query_proyectos = """
+        SELECT COUNT(DISTINCT p.id_proyectos) as total
+        FROM proyectos p
+        INNER JOIN tecnicos t ON p.id_tecnico = t.id_tecnicos
+        INNER JOIN colegios c ON t.id_colegio = c.id_colegios
+        WHERE c.id_municipios = %s AND p.activo = 1
+    """
+    num_proyectos = consulta(query_proyectos, (id,))[0]['total']
+
+    # 3. Instructores del municipio (a través de tecnicos → colegios)
+    query_instructores = """
+        SELECT COUNT(DISTINCT i.id_instructor) as total
+        FROM instructor i
+        INNER JOIN tecnicos t ON i.id_instructor = t.id_instructor
+        INNER JOIN colegios c ON t.id_colegio = c.id_colegios
+        WHERE c.id_municipios = %s AND i.activo = 1
+    """
+    num_instructores = consulta(query_instructores, (id,))[0]['total']
 
     return render_template(
         'municipio.html',
