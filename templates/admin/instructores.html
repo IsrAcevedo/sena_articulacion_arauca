@@ -26,7 +26,7 @@
             {%for instructor in instructores%}
             <tr class="border-b hover:bg-gray-50" data-id="{{instructor.id}}" data-nombres="{{instructor.nombres}}"
                 data-apellidos="{{instructor.apellidos}}" data-profesion="{{instructor.id_profesion}}"
-                data-perfil="{{instructor.perfi_profesional or ''}}" data-activo="{{instructor.activo}}">
+                data-perfil="{{instructor.perfi_profesional or ''}}" data-activo="{{instructor.activo}}" data-es-destacado="{{instructor.es_destacado}}">
                 <td class="p-3">{{loop.index}}</td>
                 <td class="p-3">{{instructor.nombres}} {{instructor.apellidos}}</td>
                 <td class="p-3">{{instructor.profesion}}</td>
@@ -88,6 +88,13 @@
                             <option value="0">No</option>
                         </select>
                     </div>
+                    <div class="modal__grupo">
+                        <label class="modal__etiqueta" for="instructorDestacado">Destacado</label>
+                        <select class="modal__campo" id="instructorDestacado" name="es_destacado">
+                            <option value="0">No</option>
+                            <option value="1">Sí</option>
+                        </select>
+                    </div>
                 </div>
                 <footer class="modal__pie">
                     <button type="button" class="modal__boton modal__boton--secundario" id="btnCancelar">Cancelar</button>
@@ -133,6 +140,7 @@
         const instructorPerfil = document.getElementById('instructorPerfil');
         const instructorFoto = document.getElementById('instructorFoto');
         const instructorActivo = document.getElementById('instructorActivo');
+        const instructorDestacado = document.getElementById('instructorDestacado');
         const botonesEditar = document.querySelectorAll('button');
 
         // Modal Profesión
@@ -142,7 +150,7 @@
         const btnCancelarProfesion = document.getElementById('btnCancelarProfesion');
         const formProfesion = document.getElementById('formProfesion');
 
-        function abrirModal(titulo, id = '', nombres = '', apellidos = '', profesion = '', perfil = '', activo = '1') {
+        function abrirModal(titulo, id = '', nombres = '', apellidos = '', profesion = '', perfil = '', activo = '1', esDestacado = '0') {
             modalTitulo.textContent = titulo;
             instructorId.value = id;
             instructorNombres.value = nombres;
@@ -150,6 +158,7 @@
             instructorProfesion.value = profesion;
             instructorPerfil.value = perfil;
             instructorActivo.value = activo;
+            instructorDestacado.value = esDestacado;
             instructorFoto.value = '';
             modal.classList.add('modal--activo');
         }
@@ -212,7 +221,8 @@
                     const profesion = fila.dataset.profesion || '';
                     const perfil = fila.dataset.perfil || '';
                     const activo = fila.dataset.activo || '1';
-                    abrirModal('Editar Instructor', id, nombres, apellidos, profesion, perfil, activo);
+                    const esDestacado = fila.dataset.esDestacado || '0';
+                    abrirModal('Editar Instructor', id, nombres, apellidos, profesion, perfil, activo, esDestacado);
                 });
             }
         });

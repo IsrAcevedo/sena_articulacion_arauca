@@ -2,7 +2,71 @@
 {% block content %}
 
 <main>
-    <p>Esta pagina se encuentra en construcción</p>
+    <section class="section municipios">
+        <div class="container">
+
+            <!-- Header -->
+            <div class="section-header">
+                <span class="section-badge">MUNICIPIOS</span>
+                <h2>Municipios que hacen parte de Articulación</h2>
+                <p>
+                    El programa Articulación con la Media del SENA Regional Arauca llega a los municipios 
+                    del departamento, impulsando la formación técnica y el desarrollo de proyectos productivos.
+                </p>
+            </div>
+
+            <!-- Estadísticas globales -->
+            <div class="stats-global">
+                <div class="stat-card">
+                    <div class="stat-number">{{ total_municipios }}</div>
+                    <div class="stat-label">Municipios</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">{{ total_colegios }}</div>
+                    <div class="stat-label">Colegios aliados</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">{{ total_proyectos }}</div>
+                    <div class="stat-label">Proyectos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">{{ total_instructores }}</div>
+                    <div class="stat-label">Instructores</div>
+                </div>
+            </div>
+
+        <!-- Mapa de Arauca (imagen) -->
+        <div class="mapa-container">
+            <img src="{{ url_for('static', filename='img/mapa-arauca.png') }}" 
+                 alt="Mapa de los municipios de Arauca"
+                class="mapa-img">
+            <p>Mapa de los municipios del departamento de Arauca</p>
+        </div>
+
+            <!-- Grid de municipios -->
+            <div class="cards">
+                {% for municipio in municipios %}
+                <a href="{{ url_for('main.municipio', id=municipio.id_municipios) }}">
+                    <article class="card">
+                        <div class="municipio-image">
+                            <img src="{{ url_for('static', filename='uploads/' + municipio.foto) }}"
+                                 alt="{{ municipio.nombre }}">
+                        </div>
+                        <div class="card-content">
+                            <h3>{{ municipio.nombre }}</h3>
+                            <div class="card-button">Explorar municipio →</div>
+                        </div>
+                    </article>
+                </a>
+                {% else %}
+                <p style="grid-column: 1/-1; text-align:center; color:#888; padding: 40px;">
+                    No hay municipios registrados.
+                </p>
+                {% endfor %}
+            </div>
+
+        </div>
+    </section>
 </main>
 
 {% endblock %}

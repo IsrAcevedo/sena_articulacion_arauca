@@ -71,7 +71,7 @@
             {%for instructor in instructores%}
             <a href="{{ url_for('main.instructor', id=instructor.id_instructor) }}">
             <div class="tarjeta tarjeta-persona">
-                <div class="tarjeta-etiqueta"><span>Docente</span></div>
+                <div class="tarjeta-etiqueta"><span>Instructor</span></div>
                     <div class="tarjeta-contenido">
                         <div class="tarjeta-persona-avatar"><img src="{{ url_for('static', filename='uploads/' + instructor.foto) }}" alt="{{instructor.instructor_nombre}}"></div>
                         <h3>{{instructor.instructor_nombre}}</h3>
@@ -97,12 +97,12 @@
         {%for t in tecnicos%}
         <a href="#">
             <div class="tarjeta tarjeta-persona">
-                <div class="tarjeta-etiqueta"><span>Tecnicos</span></div>
+                <div class="tarjeta-etiqueta"><span>Tecnico</span></div>
                 <div class="tarjeta-contenido">
                     <div class="tarjeta-persona-avatar"><img src="{{ url_for('static', filename='uploads/' + t.fotoTecnico) }}" alt="{{t.tecnico}}"></div>
                     <h3>{{t.tecnico}}</h3>
-                    <span class="tarjeta-persona-rol">Técnico</span>
-                    <p>Tecnico Articulado con el SENA Arauca</p>
+                    <span class="tarjeta-persona-rol">Ficha: {{t.ficha}}</span>
+                    <p>Area: {{t.modalidad}}</p>
                 </div>
             </div>
         </a>
@@ -125,8 +125,8 @@
                         <h3>{{p.proyecto}}</h3>
                         <p>{{p.descripcion}}</p>
                         <div class="tarjeta-proyecto-meta">
-                            <span class="etiqueta-chip etiqueta-chip-activo">{%if p.activo == 1%}En curso{%endif%}</span>
                             <span class="etiqueta-chip">Proyecto</span>
+                            <span class="etiqueta-chip etiqueta-chip-activo">{%if p.activo == 1%}En curso{%endif%}</span>
                         </div>
                     </div>
                 </div>

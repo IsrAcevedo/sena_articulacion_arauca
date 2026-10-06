@@ -2,10 +2,12 @@
 {% block content %}
 <div class="pagina-instructor">
     <div class="perfil">
-
+        <h1 class="titulo-perfil-responsive">Perfil profesional</h1>
         <div class="img_instructor">
             <img src="{{ url_for('static', filename='uploads/' + instructor.foto) }}" alt="{{ instructor.nombre }}"
                 class="instructor_foto" width="100">
+            <h2 class="img_instructor_nombre">{{instructor.nombre + " "+ instructor.apellido}}</h2>
+            <p class="area_instructor-responsive">{{instructor.profesion}}</p>
             <div class="botones_instructor">
                 <a href="#intr_proyectos" class="btn_inst">Proyectos <span>></span></a>
                 <a href="#colegios" class="btn_inst">Colegios <span>></span></a>
@@ -14,10 +16,11 @@
 
         </div>
         <div class="infogeneral_inst">
-            <h1 class="titulo-perfil">Perfil Profesional</h1>
-            <h2>{{instructor.nombre + " "+ instructor.apellido}}</h2>
+            <h1 class="titulo-perfil">{{instructor.nombre + " "+ instructor.apellido}}</h1>
+            <h2>Acerca de mí</h2>
             <p class="area_instructor">{{instructor.profesion}}</p>
             <div class="descripcion">
+                <h3>Sobre mí</h3>
                 <p>{{instructor.perfil}}</p>
             </div>
         </div>
@@ -42,34 +45,42 @@
 
                 <div class="lista-colegios">
 
-                    {% for colegio in colegios[:3] %}
+                    {% set colegios_mostrados = [] %}
+
+                    {% for colegio in colegios %}
+
+                    {% if colegio.id not in colegios_mostrados %}
 
                     <div class="colegio-instructor">
-
                         <a class="colegio-escudo">
-
                             <img src="{{ url_for('static', filename='uploads/' + colegio.logo) }}"
                                 alt="{{ colegio.nombre }}">
-
                         </a>
 
                         <div class="colegio-separador"></div>
 
                         <div class="colegio-info">
-
-                            <h3>
-                                {{ colegio.nombre }}
-                            </h3>
-
-                            <p>
-                                <span class="icono-ubicacion">⌖</span>
-                                {{ colegio.municipio }}
+                            <h3>{{ colegio.nombre }}</h3>
+                            <p> {{ colegio.municipio }}
+                                <a href="{{ url_for('main.colegio', id=colegio.id) }}" class="btn-ver-colegio">Ver
+                                    colegio<span>→</span></a>
+                                <a href="{{ url_for('main.colegio', id=colegio.id) }}"
+                                    class="btn-ver-colegio-responsive"> <svg xmlns="http://www.w3.org/2000/svg"
+                                        width="40" height="40" fill="currentColor" class="bi bi-arrow-down-right-circle"
+                                        viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.854 5.146a.5.5 0 1 0-.708.708L9.243 9.95H6.475a.5.5 0 1 0 0 1h3.975a.5.5 0 0 0 .5-.5V6.475a.5.5 0 1 0-1 0v2.768z" />
+                                    </svg></a>
                             </p>
-
                         </div>
-
                     </div>
-
+                    {% set _ = colegios_mostrados.append(colegio.id) %}
+                    {% endif %}
+                    {% else %}
+                    <div class="empty-state">
+                        <strong>No hay colegios disponibles.</strong>
+                        <span>Este instructor todavía no tiene colegios asignados.</span>
+                    </div>
                     {% endfor %}
 
                 </div>
@@ -100,11 +111,11 @@
 
                     {% endif %}
 
-                    <div class="boton-mas-proyectos">
+                    <a class="boton-mas-proyectos" href="{{ url_for('main.proyectos') }}">
                         <span class="icono-carpeta">▰</span>
                         <span>Más proyectos</span>
                         <span class="flecha-boton">→</span>
-                    </div>
+                    </a>
 
                 </div>
 
@@ -132,10 +143,11 @@
                             <div class="proyecto-overlay"></div>
 
                             <div class="contenido-proyecto">
-                                <button type="button" class="btn-ver-proyecto">
+                                <a type="button" class="btn-ver-proyecto"
+                                    href="{{ url_for('main.proyecto', id=proyecto.id) }}">
                                     Ver proyecto
                                     <span>→</span>
-                                </button>
+                                </a>
 
                             </div>
 
@@ -165,7 +177,11 @@
                     </div>
 
                 </div>
-
+                <a href="{{ url_for('main.proyectos') }}" class="boton-mas-proyectos-responsive">
+                    <span class="icono-carpeta">▰</span>
+                    <span>Más proyectos</span>
+                    <span class="flecha-boton">→</span>
+                </a>
             </div>
 
         </div>

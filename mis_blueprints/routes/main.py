@@ -124,15 +124,80 @@ def proyecto(id):
 #ruta para la pagina con lista de municipios
 @main_bp.route('/municipios')
 def municipios():
-    return render_template('municipios.html' )
+    # Municipios activos
+    query = "SELECT * FROM municipios WHERE activo = 1 ORDER BY nombre"
+    municipios = consulta(query)
 
-#ruta para la pagina con detalle de municipio
+    total_municipios = len(municipios) if municipios else 0
+
+    # Colegios
+    query_colegios = "SELECT COUNT(*) as total FROM colegios WHERE activo = 1"
+    total_colegios = consulta(query_colegios)[0]['total']
+
+    # Proyectos
+    query_proyectos = "SELECT COUNT(*) as total FROM proyectos WHERE activo = 1"
+    total_proyectos = consulta(query_proyectos)[0]['total']
+
+    # Instructores (la tabla se llama "instructor")
+    query_instructores = "SELECT COUNT(*) as total FROM instructor WHERE activo = 1"
+    total_instructores = consulta(query_instructores)[0]['total']
+
+    return render_template(
+        'municipios.html',
+        municipios=municipios,
+        total_municipios=total_municipios,
+        total_colegios=total_colegios,
+        total_proyectos=total_proyectos,
+        total_instructores=total_instructores
+    )
+
+
 @main_bp.route('/municipio/<int:id>')
 def municipio(id):
-    query = "SELECT * FROM municipios WHERE id_municipios = %s"
-    parametros = id,
-    municipio = consulta(query, parametros)
-    return render_template('municipios.html', municipio = municipio)
+    # Datos del municipio
+    query = "SELECT * FROM municipios WHERE id_municipios = %s AND activo = 1"
+    resultado = consulta(query, (id,))
+
+    if not resultado:
+        return "Municipio no encontrado", 404
+
+    municipio = resultado[0] if isinstance(resultado, list) else resultado
+
+    # 1. Colegios del municipio
+    query_colegios = """
+        SELECT COUNT(*) as total 
+        FROM colegios 
+        WHERE id_municipios = %s AND activo = 1
+    """
+    num_colegios = consulta(query_colegios, (id,))[0]['total']
+
+    # 2. Proyectos del municipio (a través de tecnicos → colegios)
+    query_proyectos = """
+        SELECT COUNT(DISTINCT p.id_proyectos) as total
+        FROM proyectos p
+        INNER JOIN tecnicos t ON p.id_tecnico = t.id_tecnicos
+        INNER JOIN colegios c ON t.id_colegio = c.id_colegios
+        WHERE c.id_municipios = %s AND p.activo = 1
+    """
+    num_proyectos = consulta(query_proyectos, (id,))[0]['total']
+
+    # 3. Instructores del municipio (a través de tecnicos → colegios)
+    query_instructores = """
+        SELECT COUNT(DISTINCT i.id_instructor) as total
+        FROM instructor i
+        INNER JOIN tecnicos t ON i.id_instructor = t.id_instructor
+        INNER JOIN colegios c ON t.id_colegio = c.id_colegios
+        WHERE c.id_municipios = %s AND i.activo = 1
+    """
+    num_instructores = consulta(query_instructores, (id,))[0]['total']
+
+    return render_template(
+        'municipio.html',
+        municipio=municipio,
+        num_colegios=num_colegios,
+        num_proyectos=num_proyectos,
+        num_instructores=num_instructores
+    )
 
 #ruta para la pagina con lista de colegios
 @main_bp.route('/colegios')
@@ -184,7 +249,7 @@ def colegio(id):
     parametros = id,
     instructores = consulta(query2, parametros)
 
-    query3 = "SELECT t.nombre as tecnico, t.id_tecnicos as id_tecnico, t.foto_principal as fotoTecnico FROM tecnicos t INNER JOIN colegios c ON t.id_colegio = c.id_colegios WHERE c.id_colegios = %s"
+    query3 = "SELECT t.nombre as tecnico, t.ficha as ficha, t.id_tecnicos as id_tecnico, t.foto_principal as fotoTecnico, mo.nombre as modalidad FROM tecnicos t INNER JOIN colegios c ON t.id_colegio = c.id_colegios INNER JOIN modalidad mo ON t.id_modalidad = mo.id_modalidad WHERE c.id_colegios = %s"
     parametros = id,
     tecnicos = consulta(query3, parametros)
 
@@ -255,7 +320,7 @@ def instructor(id):
     '''
 
     query_colegios = '''
-        SELECT
+        SELECT DISTINCT
             c.id_colegios AS id,
             c.nombre AS nombre,
             c.logo AS logo,
@@ -300,3 +365,8 @@ def instructor(id):
         colegios=colegios,
         proyectos=proyectos
     )
+
+
+@main_bp.route('/creditos')
+def creditos():
+    return render_template('creditos.html')
