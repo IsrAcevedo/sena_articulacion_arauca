@@ -14,7 +14,7 @@
     --fuente_prueba: "Inconsolata", monospace;
     --fuente_arial: "Alan Sans", Arial, sans-serif;
     --color_verde1: rgb(24, 90, 24);
-    --color_verde2: #00e676;
+    --color_verde2: #5dcf28;
     --color_verde3: #0C8042;
     --color_verde4: #2BAD6E;
     --fuente_roboto: "Roboto", sans-serif;
@@ -67,6 +67,10 @@
     padding: 2rem 8.5rem 6rem;
 }
 
+.titulo-perfil-responsive {
+    display: none;
+}
+
 .infogeneral_inst {
     width: 80%;
 }
@@ -77,8 +81,9 @@
     text-align: left;
     margin-top: 1rem;
     margin-bottom: 0;
-    font-size: 5rem;
-    color: #00e676;
+    font-size: 4rem;
+    text-transform: capitalize;
+    color: #4cfe00;
 }
 
 .infogeneral_inst h2 {
@@ -108,8 +113,16 @@
     border-radius: 2rem;
 }
 
+.img_instructor_nombre {
+    display: none;
+}
+
+.area_instructor-responsive {
+    display: none;
+}
+
 .area_instructor {
-    color: #00c853;
+    color: #5bdb24;
     font-size: 1.6rem;
 }
 
@@ -247,6 +260,10 @@
     margin-top: 1rem;
 }
 
+.descripcion h3 {
+    display: none;
+}
+
 
 .descripcion p {
     font-size: 1.4rem;
@@ -338,7 +355,7 @@
     width: 95px;
     height: 5px;
 
-    background: #00c878;
+    background: #4cff00;
 
     border-radius: 10px;
 }
@@ -350,13 +367,10 @@
     position: relative;
     z-index: 2;
     margin: 0 0 4.5rem;
-    color: #075c55;
-
-    font-size: 36px;
+    color: #0b3e1a;
+    font-size: 3.5rem;
     line-height: 1.15;
-
     font-weight: 800;
-
     text-align: left;
 }
 
@@ -378,14 +392,10 @@
 
 .lista-colegios {
     position: relative;
-    z-index: 3;
-
-    display: flex;
-    flex-direction: column;
-
+    display: grid;
+    grid-template-columns: repeat(2, minmax(auto, 1fr));
     gap: 18px;
-
-    width: min(760px, 100%);
+    margin: 0 3rem 2rem;
 }
 
 
@@ -464,16 +474,15 @@
 
 .colegio-info {
     padding-left: 28px;
+    width: 60%;
 }
 
 .colegio-info h3 {
-    margin: 0 0 14px;
-
-    color: #073f3a;
-
-    font-size: 23px;
+    color: #051b37;
+    font-size: 1.2rem;
+    line-height: 1.5rem;
     font-weight: 800;
-
+    text-align: left;
     text-transform: lowercase;
 }
 
@@ -481,13 +490,57 @@
     display: flex;
     align-items: center;
     gap: 9px;
-
+    color: #4cff00;
     margin: 0;
-
-    color: #008f70;
-
+    justify-content: space-between;
     font-size: 17px;
     font-weight: 500;
+}
+
+.btn-ver-colegio-responsive {
+    display: none;
+}
+
+.btn-ver-colegio {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    margin-top: 10px;
+    padding: 9px 18px;
+
+    background: #082b18;
+    color: #7ef00f;
+
+    border: 2px solid #5dcf28;
+    border-radius: 25px;
+
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+
+    transition: all 0.3s ease;
+}
+
+.btn-ver-colegio span {
+    font-size: 20px;
+    line-height: 1;
+
+    transition: transform 0.3s ease;
+}
+
+.btn-ver-colegio:hover {
+    background: #5dcf28;
+    color: white;
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 6px 15px rgba(93, 207, 40, 0.35);
+}
+
+.btn-ver-colegio:hover span {
+    transform: translateX(5px);
 }
 
 .icono-ubicacion {
@@ -559,7 +612,7 @@
 
     margin-bottom: 18px;
 
-    color: #00e676;
+    color: #46ec18;
 
     font-size: 16px;
     font-weight: 800;
@@ -573,7 +626,7 @@
     width: 95px;
     height: 5px;
 
-    background: #00e676;
+    background: #46ec18;
 
     border-radius: 10px;
 }
@@ -583,10 +636,10 @@
 
 .titulo-proyecto-info {
     margin: 0 0 20px;
-
+    text-align: left;
     color: #ffffff;
-
-    font-size: 46px;
+    text-transform: capitalize;
+    font-size: 49px;
     line-height: 1.05;
 
     font-weight: 800;
@@ -627,17 +680,16 @@
 
     font-size: 16px;
     font-weight: 600;
-
     cursor: pointer;
+    transition: background 0.25s ease, transform 0.25s ease;
+}
 
-    transition:
-        background 0.25s ease,
-        transform 0.25s ease;
+.boton-mas-proyectos-responsive {
+    display: none;
 }
 
 .boton-mas-proyectos:hover {
     background: rgba(255, 255, 255, 0.12);
-
     transform: translateY(-2px);
 }
 
@@ -705,14 +757,11 @@
 }
 
 
-/* Slide activo */
 
 .proyecto-slide.proyecto-activo {
     display: block;
 }
 
-
-/* Imagen */
 
 .proyecto-slide img,
 .imagen-proyecto {
@@ -725,9 +774,6 @@
 }
 
 
-/* =========================================================
-   OSCURECER IMAGEN
-   ========================================================= */
 
 .proyecto-overlay {
     position: absolute;
@@ -941,34 +987,124 @@
 }
 
 
-/* =========================================================
-   TABLET
-   ========================================================= */
-
 @media (max-width: 1000px) {
 
+    .perfil {
+        display: flex;
+        align-items: center;
+        gap: 45px;
+        padding: 40px 50px;
+    }
 
+    .img_instructor {
+        width: 260px;
+        min-width: 260px;
+        padding: 30px;
+    }
+
+    .instructor_foto {
+        width: 180px;
+        height: 180px;
+        object-fit: cover;
+    }
+
+    .botones_instructor {
+        margin-top: 25px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .btn_inst,
+    .btn_inst2 {
+        width: 100%;
+        box-sizing: border-box;
+        text-align: center;
+    }
+
+    .infogeneral_inst {
+        flex: 1;
+    }
 
     .titulo-perfil {
-        font-size: 4rem;
+        font-size: 58px;
+        line-height: 1;
+        margin-bottom: 25px;
+    }
+
+    .infogeneral_inst h2 {
+        font-size: 32px;
+        margin-bottom: 10px;
+    }
+
+    .area_instructor {
+        font-size: 24px;
+        margin-bottom: 25px;
+    }
+
+    .descripcion p {
+        font-size: 19px;
+        line-height: 1.6;
+    }
+
+    .titulo-colegios-formacion {
+        margin-bottom: 1.5rem;
+        font-size: 3rem;
+    }
+
+    .lista-colegios {
+        grid-template-columns: repeat(2, minmax(auto, 1fr));
+        gap: 18px;
+        margin: 0;
+    }
+
+    .colegio-instructor {
+        display: flex;
+        align-items: center;
+        width: auto;
+        height: 145px;
+        padding: 0;
+    }
+
+    .colegio-escudo {
+        flex: 0;
+        width: 49%;
+    }
+
+    .colegio-escudo img {
+        margin-left: 1rem;
+    }
+
+    .colegio-separador {
+        width: 0.3%;
+    }
+
+    .colegio-info {
+        width: auto;
+        padding: 0;
+    }
+
+    .colegio-info h3 {
+        font-size: 1rem;
+        text-align: left;
     }
 
     .descripcion p {
         text-align: justify;
     }
 
-    .proyectos-contenido {
-        grid-template-columns: 1fr;
+    .titulo-proyecto-info {
+        text-align: center;
+    }
 
+
+    .proyectos-contenido {
+        display: flex;
         gap: 40px;
     }
 
     .info-proyecto {
         text-align: center;
-    }
-
-    .etiqueta-proyecto {
-        justify-content: center;
     }
 
     .descripcion-proyecto-info {
@@ -987,6 +1123,111 @@
    ========================================================= */
 
 @media (max-width: 600px) {
+
+    .perfil {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        padding: 45px 20px;
+        text-align: center;
+        background:
+            url("../img/fondoinstructortelefono.png");
+        background-size: cover;
+        background-position: center bottom;
+        background-repeat: no-repeat;
+    }
+
+    .titulo-perfil-responsive {
+        background-color: transparent;
+        text-align: left;
+        display: grid;
+        margin-top: 1rem;
+        margin-bottom: 0;
+        font-size: 2.3rem;
+        color: #4cff00;
+    }
+
+    /* TARJETA IZQUIERDA */
+    .img_instructor {
+        width: 100%;
+        max-width: 320px;
+        min-width: 0;
+        padding: 25px;
+        margin: 0;
+        display: grid;
+        justify-items: center;
+        box-sizing: border-box;
+    }
+
+    .img_instructor_nombre {
+        display: grid;
+        color: var(--color-TEXTO);
+        font-size: 1.5rem;
+        margin: 0;
+        text-transform: uppercase;
+    }
+
+    .area_instructor-responsive {
+        display: grid;
+        color: var(--color_verde2);
+        font-size: 1.2rem;
+    }
+
+    .instructor_foto {
+        width: 160px;
+        height: 160px;
+        object-fit: cover;
+    }
+
+    /* BOTONES */
+    .botones_instructor {
+        width: 100%;
+        margin-top: 25px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .btn_inst,
+    .btn_inst2 {
+        width: 100%;
+        box-sizing: border-box;
+        text-align: center;
+    }
+
+    /* INFORMACIÓN */
+    .infogeneral_inst {
+        width: 100%;
+    }
+
+    .titulo-perfil {
+        display: none;
+    }
+
+    .infogeneral_inst h2 {
+        display: none;
+    }
+
+    .area_instructor {
+        display: none;
+    }
+
+    .descripcion {
+        width: 100%;
+    }
+
+    .descripcion h3 {
+        display: grid;
+        color: var(--color-TEXTO);
+        margin-bottom: 1rem;
+    }
+
+    .descripcion p {
+        font-size: 17px;
+        line-height: 1.55;
+        text-align: justify;
+    }
 
     /* COLEGIOS */
 
@@ -1014,6 +1255,8 @@
 
     .lista-colegios {
         gap: 15px;
+        grid-template-columns: repeat(1, minmax(auto, 1fr));
+        margin: 0;
     }
 
     .colegio-instructor {
@@ -1024,7 +1267,7 @@
 
     .colegio-escudo {
         flex: 0 0 90px;
-
+        width: 29.9%;
         min-height: 80px;
 
         padding-right: 12px;
@@ -1041,14 +1284,23 @@
 
     .colegio-info {
         padding-left: 14px;
+        width: 70%;
     }
 
     .colegio-info h3 {
-        font-size: 18px;
+        font-size: 1rem;
     }
 
     .colegio-info p {
         font-size: 14px;
+    }
+
+    .btn-ver-colegio {
+        display: none;
+    }
+
+    .btn-ver-colegio-responsive {
+        display: flex;
     }
 
 
@@ -1062,12 +1314,12 @@
 
     .proyectos-contenido {
         grid-template-columns: 1fr;
-
+        display: grid;
         gap: 35px;
     }
 
     .info-proyecto {
-        text-align: left;
+        text-align: center;
     }
 
     .etiqueta-proyecto {
@@ -1082,26 +1334,30 @@
     }
 
     .titulo-proyecto-info {
-        font-size: 34px;
+        font-size: 2.67rem;
+        text-align: center;
     }
 
     .descripcion-proyecto-info {
         font-size: 16px;
+        margin-bottom: 1rem;
+    }
+
+    .boton-mas-proyectos {
+        display: none;
     }
 
     .carrusel-proyectos {
-        min-height: 360px;
+        min-height: auto;
     }
 
     .proyectos-viewport {
-        height: 360px;
-
+        height: 250px;
         border-radius: 18px;
     }
 
     .proyecto-slide {
-        height: 360px;
-
+        height: auto;
         border-radius: 18px;
     }
 
@@ -1157,6 +1413,23 @@
     .indicador-proyecto {
         width: 9px;
         height: 9px;
+    }
+
+    .boton-mas-proyectos-responsive {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 2rem 0 2rem;
+        gap: 14px;
+        padding: 13px 22px;
+        border: 1px solid rgba(255, 255, 255, 0.55);
+        border-radius: 30px;
+        background: rgba(255, 255, 255, 0.04);
+        color: #ffffff;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.25s ease, transform 0.25s ease;
     }
 }
 

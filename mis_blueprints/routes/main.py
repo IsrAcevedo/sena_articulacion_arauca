@@ -320,7 +320,7 @@ def instructor(id):
     '''
 
     query_colegios = '''
-        SELECT
+        SELECT DISTINCT
             c.id_colegios AS id,
             c.nombre AS nombre,
             c.logo AS logo,
