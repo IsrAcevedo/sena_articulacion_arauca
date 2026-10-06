@@ -159,7 +159,7 @@ def municipio(id):
     resultado = consulta(query, (id,))
 
     if not resultado:
-        abort(404)
+        return "Municipio no encontrado", 404
 
     municipio = resultado[0] if isinstance(resultado, list) else resultado
 
@@ -365,3 +365,5 @@ def instructor(id):
         colegios=colegios,
         proyectos=proyectos
     )
+
+

@@ -1,4 +1,4 @@
-.container{
+.container {
     max-width: 1400px;
     margin: auto;
 }
@@ -143,7 +143,7 @@
     line-height: 1.5;
     margin-bottom: 15px;
     display: -webkit-box;
-    -webkit-line-clamp: 4;
+
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -250,7 +250,7 @@
     .collage-card .state-hover p {
         font-size: 13px;
         line-height: 1.5;
-        -webkit-line-clamp: 5;
+
     }
 }
 
@@ -431,7 +431,7 @@
     min-height: 42px;
     /* Alineación uniforme */
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -1085,43 +1085,102 @@
 
 /* Responsive */
 @media (max-width: 992px) {
-    .municipios { padding: 80px 0; }
-    .municipios .section-header h2 { font-size: 40px; }
-    .detalle-grid { grid-template-columns: 1fr; gap: 35px; }
-    .municipio-detalle .hero-image img { height: 340px; }
-    .municipio-detalle .hero-content { padding: 30px; }
-    .municipio-detalle .hero-content h1 { font-size: 36px; }
+    .municipios {
+        padding: 80px 0;
+    }
+
+    .municipios .section-header h2 {
+        font-size: 40px;
+    }
+
+    .detalle-grid {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+
+    .municipio-detalle .hero-image img {
+        height: 340px;
+    }
+
+    .municipio-detalle .hero-content {
+        padding: 30px;
+    }
+
+    .municipio-detalle .hero-content h1 {
+        font-size: 36px;
+    }
 }
 
 @media (max-width: 768px) {
-    .municipios .section-header h2 { font-size: 34px; }
-    .municipios .cards { grid-template-columns: 1fr; }
-    .municipio-image img { height: 230px; }
-    .municipio-detalle .hero-image img { height: 280px; }
-    .municipio-detalle .hero-content h1 { font-size: 32px; }
-    .stats-global { grid-template-columns: repeat(2, 1fr); gap: 18px; }
-    .stat-number { font-size: 34px; }
+    .municipios .section-header h2 {
+        font-size: 34px;
+    }
+
+    .municipios .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .municipio-image img {
+        height: 230px;
+    }
+
+    .municipio-detalle .hero-image img {
+        height: 280px;
+    }
+
+    .municipio-detalle .hero-content h1 {
+        font-size: 32px;
+    }
+
+    .stats-global {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+    }
+
+    .stat-number {
+        font-size: 34px;
+    }
 }
 
 @media (max-width: 480px) {
-    .municipios { padding: 60px 0; }
-    .municipios .section-header h2 { font-size: 28px; }
-    .municipio-detalle .hero-content { padding: 25px 20px; }
-    .municipio-detalle .hero-content h1 { font-size: 28px; }
-    .stats-global { grid-template-columns: 1fr 1fr; }
-    .stat-card { padding: 22px 15px; }
-    .stat-number { font-size: 30px; }
+    .municipios {
+        padding: 60px 0;
+    }
+
+    .municipios .section-header h2 {
+        font-size: 28px;
+    }
+
+    .municipio-detalle .hero-content {
+        padding: 25px 20px;
+    }
+
+    .municipio-detalle .hero-content h1 {
+        font-size: 28px;
+    }
+
+    .stats-global {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .stat-card {
+        padding: 22px 15px;
+    }
+
+    .stat-number {
+        font-size: 30px;
+    }
 }
 
 /* fin de css de municipios html  */
 
 
 .container {
-        width: 100%;
-        padding-left: 20px !important;
-        padding-right: 20px !important;
-        box-sizing: border-box;
-    }
+    width: 100%;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    box-sizing: border-box;
+}
 
 
 .instructores {
@@ -1171,7 +1230,8 @@
     display: flex;
     flex-direction: row;
     align-items: stretch;
-    min-height: 365px; /* Asegura un alto uniforme para todas las tarjetas */
+    min-height: 365px;
+    /* Asegura un alto uniforme para todas las tarjetas */
     padding: 0;
     overflow: hidden;
     background: #ffffff;
@@ -1187,7 +1247,8 @@
     flex-shrink: 0;
     overflow: hidden;
     position: relative;
-    background-color: #f4f5f7; /* Fondo neutro uniforme */
+    background-color: #f4f5f7;
+    /* Fondo neutro uniforme */
 }
 
 .instructores .instructor-image img {
@@ -1195,7 +1256,8 @@
     height: 100%;
     border-radius: 0;
     object-fit: cover;
-    object-position: center 15%; /* Mantiene enfocado el rostro (cabeza/ojos) */
+    object-position: center 15%;
+    /* Mantiene enfocado el rostro (cabeza/ojos) */
 }
 
 .instructores .card:hover {
@@ -1207,15 +1269,18 @@
     width: 40%;
     min-height: 220px;
     flex-shrink: 0;
-    overflow: hidden; /* Evita que la imagen sobresalga del borde redondeado */
+    overflow: hidden;
+    /* Evita que la imagen sobresalga del borde redondeado */
 }
 
 .instructores .instructor-image img {
     width: 100%;
     height: 100%;
     border-radius: 0;
-    object-fit: cover; /* Adapta la foto (vertical o horizontal) llenando todo el contenedor */
-    object-position: center; /* Centra el contenido relevante tanto en retrato como paisaje */
+    object-fit: cover;
+    /* Adapta la foto (vertical o horizontal) llenando todo el contenedor */
+    object-position: center;
+    /* Centra el contenido relevante tanto en retrato como paisaje */
 }
 
 /* Contenido a la derecha (60% de ancho) */
@@ -1343,7 +1408,8 @@ h4 {
 
     .instructores .instructor-image {
         width: 100% !important;
-        height: 340px !important; /* Mismo alto exacto para TODAS las imágenes en celular */
+        height: 340px !important;
+        /* Mismo alto exacto para TODAS las imágenes en celular */
         min-height: 440px !important;
         max-height: 440px !important;
         flex-shrink: 0;
@@ -1354,8 +1420,10 @@ h4 {
     .instructores .instructor-image img {
         width: 100% !important;
         height: 100% !important;
-        object-fit: cover !important; /* Llena el cuadro completo */
-        object-position: center 25% !important; /* Ajusta el encuadre verticalmente para mostrar la cara */
+        object-fit: cover !important;
+        /* Llena el cuadro completo */
+        object-position: center 25% !important;
+        /* Ajusta el encuadre verticalmente para mostrar la cara */
     }
 
     .instructores .card-content {
@@ -1890,6 +1958,28 @@ h4 {
     color: var(--text-primary);
 }
 
+.footer-credits {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    margin-left: 1.5rem;
+}
+
+.footer-credits span {
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+}
+
+.footer-credits a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.footer-credits a:hover {
+    color: var(--accent-color);
+}
 
 @media(max-width:992px) {
 
@@ -1969,5 +2059,354 @@ h4 {
         display: flex !important;
         align-items: center;
         gap: 15px;
+    }
+}
+
+@media(max-width:768px) {
+    .header {
+        padding: 18px 6%;
+    }
+
+    .logo img {
+        width: 45px;
+    }
+
+    .btn-login {
+        display: none;
+    }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    nav ul {
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: #1a1a1a;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        padding: 15px 0;
+        display: none;
+        opacity: 0;
+        transform: translateY(-20px);
+        transition: all 0.3s ease-in-out;
+    }
+
+    nav ul li a:hover {
+        background: none;
+    }
+
+    nav ul.show {
+        display: flex;
+        opacity: 1;
+        transform: translateY(0);
+        /* 👈 animación al bajar */
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+}
+
+
+/* =========================================
+   PÁGINA DE CRÉDITOS
+========================================= */
+
+.creditos-page {
+    padding: 100px 0;
+    background: #f8faf8;
+    min-height: 100vh;
+}
+
+.creditos-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* Encabezado */
+
+.creditos-header {
+    margin-bottom: 70px;
+}
+
+.creditos-badge {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 50px;
+    background: rgba(57, 169, 0, 0.1);
+    color: #39a900;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.creditos-header h1 {
+    margin: 20px 0;
+    font-size: 52px;
+    line-height: 1.1;
+    color: #111;
+}
+
+.creditos-header p {
+    max-width: 700px;
+    color: #666;
+    line-height: 1.8;
+    font-size: 17px;
+}
+
+
+/* =========================================
+   SECCIONES
+========================================= */
+
+.creditos-grupo {
+    margin-bottom: 65px;
+}
+
+.creditos-titulo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.creditos-titulo>span {
+    width: 8px;
+    height: 35px;
+    background: #39a900;
+    border-radius: 10px;
+}
+
+.creditos-titulo h2 {
+    margin: 0;
+    font-size: 30px;
+    color: #111;
+}
+
+
+/* =========================================
+   TARJETAS
+========================================= */
+
+.persona-card {
+    background: #ffffff;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.persona-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+}
+
+
+/* Tarjetas de coordinador, líder e instructor */
+
+.persona-card-individual {
+    max-width: 700px;
+    padding: 35px;
+}
+
+
+/* =========================================
+   APRENDICES
+========================================= */
+
+.aprendices-grid {
+    display: grid;
+
+    /* 3 tarjetas por fila */
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 30px;
+}
+
+.aprendices-grid .persona-card {
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* =========================================
+   FOTOS
+========================================= */
+
+.persona-foto {
+    width: 100%;
+    height: 260px;
+    overflow: hidden;
+    background: #f1f5f1;
+}
+
+.persona-foto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.persona-card:hover .persona-foto img {
+    transform: scale(1.05);
+}
+
+
+/* =========================================
+   INFORMACIÓN
+========================================= */
+
+.persona-info {
+    padding: 25px;
+}
+
+.persona-info h3 {
+    margin: 0 0 10px;
+    font-size: 22px;
+    line-height: 1.3;
+    color: #111;
+}
+
+.persona-rol {
+    display: inline-block;
+    margin-bottom: 15px;
+    padding: 6px 13px;
+    border-radius: 30px;
+    background: rgba(57, 169, 0, 0.1);
+    color: #39a900;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.persona-info p {
+    margin: 0;
+    color: #666;
+    line-height: 1.7;
+    font-size: 15px;
+}
+
+
+/* =========================================
+   RESPONSIVE - TABLET
+========================================= */
+
+@media (max-width: 1000px) {
+
+    .aprendices-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+/* =========================================
+   RESPONSIVE - CELULAR
+========================================= */
+
+@media (max-width: 768px) {
+
+    .creditos-page {
+        padding: 70px 0;
+    }
+
+    .creditos-header {
+        margin-bottom: 50px;
+    }
+
+    .creditos-header h1 {
+        font-size: 38px;
+    }
+
+    .creditos-header p {
+        font-size: 15px;
+    }
+
+    .creditos-titulo h2 {
+        font-size: 25px;
+    }
+
+    .aprendices-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .persona-foto {
+        height: 280px;
+    }
+
+    .persona-card-individual {
+        padding: 25px;
+    }
+
+}
+
+
+/* =========================================
+   CELULARES PEQUEÑOS
+========================================= */
+
+@media (max-width: 480px) {
+
+    .creditos-container {
+        width: 88%;
+    }
+
+    .creditos-header h1 {
+        font-size: 34px;
+    }
+
+    .creditos-titulo h2 {
+        font-size: 22px;
+    }
+
+    .persona-foto {
+        height: 250px;
+    }
+
+    .persona-info {
+        padding: 22px;
+    }
+
+    .persona-info h3 {
+        font-size: 20px;
+    }
+
+}
+
+.persona-card-instructor {
+    max-width: 850px;
+    display: flex;
+    align-items: center;
+}
+
+.persona-card-instructor .persona-foto {
+    width: 280px;
+    min-width: 280px;
+    height: 280px;
+}
+
+.persona-card-instructor .persona-info {
+    padding: 35px;
+}
+
+
+@media (max-width: 768px) {
+
+    .persona-card-instructor {
+        flex-direction: column;
+        max-width: 100%;
+    }
+
+    .persona-card-instructor .persona-foto {
+        width: 100%;
+        height: 300px;
+    }
+
+    .persona-card-instructor .persona-info {
+        padding: 25px;
     }
 }
