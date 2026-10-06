@@ -97,8 +97,7 @@
                 <div class="instructor-grid" id="instructorGrid">
 
                     {% for instructor in instructores %}
-                    <a href="{{ url_for('main.instructor', id=instructor.id) }}" class="instructor-link"
-                        data-areas="{{ instructor.areas_ids or '' }}"
+                    <div class="instructor-link" data-areas="{{ instructor.areas_ids or '' }}"
                         data-areas-nombres="{{ instructor.areas_nombres or '' }}"
                         data-municipios="{{ instructor.municipios or '' }}"
                         data-colegios="{{ instructor.colegios or '' }}">
@@ -111,9 +110,10 @@
 
                             <div class="profesion">profesion: {{ instructor.profesion }}</div>
 
-                            <span class="profile-btn">Ver perfil <span>→</span></span>
+                            <a href="{{ url_for('main.instructor', id=instructor.id) }}"
+                                class="instructores_btnverperfil">Ver perfil <span>→</span></a>
                         </div>
-                    </a>
+                    </div>
                     {%else%}
                     <div class="empty-state">
                         <strong>No hay instructores disponibles.</strong>
@@ -245,10 +245,16 @@
 
             /* BUSCADOR */
 
+            const palabrasBuscadas =
+                textoBuscado
+                    .split(/\s+/)
+                    .filter(Boolean);
+
             const coincideBusqueda =
                 textoBuscado === "" ||
-                nombre.startsWith(textoBuscado) ||
-                apellido.startsWith(textoBuscado);
+                palabrasBuscadas.every(function (palabra) {
+                    return nombreCompleto.includes(palabra);
+                });
 
 
             /* ÁREA */

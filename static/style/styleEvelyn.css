@@ -1413,7 +1413,6 @@
 
 
 .pagina-instructores a {
-    color: inherit;
     text-decoration: none;
 }
 
@@ -1436,7 +1435,7 @@
 
 
 .hero-instructores {
-    background-position: bottom;
+    background-position: center right;
     padding: 5rem 0 5rem;
     background-image:
         url("../img/fondoinstructores.png");
@@ -1931,7 +1930,7 @@
     line-height: 1.4;
 }
 
-.pagina-instructores .profile-btn {
+.instructores_btnverperfil {
     min-height: 38px;
     display: flex;
     align-items: center;
@@ -1948,18 +1947,23 @@
     transition: .2s ease;
 }
 
-.pagina-instructores .profile-btn span {
-    transition: transform .2s ease;
+.instructores_btnverperfil span {
+    font-size: 20px;
+    transition: transform 0.25s ease;
 }
 
-.pagina-instructores .card:hover .profile-btn {
-    color: #fff;
-    border-color: var(--pi-sena);
-    background: var(--pi-sena);
+/* Hover */
+.instructores_btnverperfil:hover {
+    background: #5dcf28;
+    color: #ffffff;
+
+    transform: translateY(-3px);
+
+    box-shadow: 0 7px 15px rgba(6, 75, 63, 0.22);
 }
 
-.pagina-instructores .card:hover .profile-btn span {
-    transform: translateX(3px);
+.instructores_btnverperfil:hover span {
+    transform: translateX(5px);
 }
 
 .pagina-instructores .load {
@@ -2125,7 +2129,7 @@
     border-radius: 50%;
 
     background: #ffffff;
-    color: #168b6b;
+    color: #40b408;
 
     font-size: 28px;
     font-weight: 700;
@@ -2139,7 +2143,7 @@
 /* cuando pasas el mouse */
 
 .paginacion-instructores .flecha:hover {
-    background: #168b6b;
+    background:  #1e5900;
     color: #ffffff;
     transform: scale(1.08);
 }
@@ -2152,7 +2156,7 @@
     cursor: default;
     transform: none;
     background: #ffffff;
-    color: #168b6b;
+    color: #0926cc82;
 }
 
 
@@ -2202,7 +2206,7 @@
 /* número de página activa */
 
 #numerosPaginas button.activa {
-    background: #168b6b;
+    background: #40b408;
     color: #ffffff;
     box-shadow: 0 4px 12px rgba(22, 139, 107, 0.25);
 }
