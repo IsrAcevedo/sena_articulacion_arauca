@@ -367,3 +367,6 @@ def instructor(id):
     )
 
 
+@main_bp.route('/creditos')
+def creditos():
+    return render_template('creditos.html')
