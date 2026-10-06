@@ -85,7 +85,7 @@ def colegio(id):
     parametros = id,
     instructores = consulta(query2, parametros)
 
-    query3 = "SELECT t.nombre as tecnico, t.id_tecnicos as id_tecnico, t.foto_principal as fotoTecnico FROM tecnicos t INNER JOIN colegios c ON t.id_colegio = c.id_colegios WHERE c.id_colegios = %s"
+    query3 = "SELECT t.nombre as tecnico, t.ficha as ficha, t.id_tecnicos as id_tecnico, t.foto_principal as fotoTecnico, mo.nombre as modalidad FROM tecnicos t INNER JOIN colegios c ON t.id_colegio = c.id_colegios INNER JOIN modalidad mo ON t.id_modalidad = mo.id_modalidad WHERE c.id_colegios = %s"
     parametros = id,
     tecnicos = consulta(query3, parametros)
 
