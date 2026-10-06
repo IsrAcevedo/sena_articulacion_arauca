@@ -262,7 +262,7 @@ body {
 }
 
 #proyecto .tarjeta-contenido{
-    height: 170px;
+    min-height: 205px;
 }
 
 /* Avatar circular */
