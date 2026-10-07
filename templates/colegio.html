@@ -35,24 +35,30 @@
                 </div>
         
                 <div class="tarjeta-datos-institucionales-estadisticas">
+                {%if estudiantes%}
                 <div class="tarjeta-datos-institucionales-estadistica">
                     <div class="tarjeta-datos-institucionales-estadistica-numero">{{ estudiantes | length }}</div>
                     <div class="tarjeta-datos-institucionales-estadistica-etiqueta">Estudiantes</div>
                 </div>
+                {%endif%}
+                {%if total_instructores > 0 %}
                 <div class="tarjeta-datos-institucionales-estadistica">
                     <div class="tarjeta-datos-institucionales-estadistica-numero">{{ total_instructores }}</div>
                     <div class="tarjeta-datos-institucionales-estadistica-etiqueta">Instructores</div>
                 </div>
+                {%endif%}
+                {%if total_tecnicos > 0 %}
                 <div class="tarjeta-datos-institucionales-estadistica">
                     <div class="tarjeta-datos-institucionales-estadistica-numero">{{ total_tecnicos }}</div>
                     <div class="tarjeta-datos-institucionales-estadistica-etiqueta">Técnicos</div>
                 </div>
+                {%endif%}
+                {%if total_proyectos > 0 %}
                 <div class="tarjeta-datos-institucionales-estadistica">
                     <div class="tarjeta-datos-institucionales-estadistica-numero">{{ total_proyectos }}</div>
                     <div class="tarjeta-datos-institucionales-estadistica-etiqueta">Proyectos</div>
                 </div>
-                </div>
-        
+                {%endif%}
             </div>
             </div>
         </section>
@@ -75,8 +81,7 @@
                     <div class="tarjeta-contenido">
                         <div class="tarjeta-persona-avatar"><img src="{{ url_for('static', filename='uploads/' + instructor.foto) }}" alt="{{instructor.instructor_nombre}}"></div>
                         <h3>{{instructor.instructor_nombre}}</h3>
-                        <span class="tarjeta-persona-rol">Instructor</span>
-                        <p>{%if not instructor.perfi_profesional %} Instructor articulado con el SENA Arauca {% endif %}{%if  instructor.perfi_profesional %} {{instructor.perfi_profesional}} {% endif %}</p>
+                        <p>{%if not instructor.perfi_profesional%}Instructor articulado con el SENA{%endif%}{%if  instructor.perfi_profesional%}{{ instructor.perfi_profesional|truncate(120, end="...[Leer más]" ) }}{% endif %}</p>
                     </div>
                 </div>
             </a>
@@ -123,7 +128,7 @@
                     <div class="tarjeta-etiqueta"><span>Proyecto</span></div>
                     <div class="tarjeta-contenido">
                         <h3>{{p.proyecto}}</h3>
-                        <p>{{p.descripcion}}</p>
+                        <p>{{p.descripcion|truncate(125, end="...  [Leer más]" ) }}</p>
                         <div class="tarjeta-proyecto-meta">
                             <span class="etiqueta-chip">Proyecto</span>
                             <span class="etiqueta-chip etiqueta-chip-activo">{%if p.activo == 1%}En curso{%endif%}</span>

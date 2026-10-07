@@ -41,7 +41,7 @@ def colegios():
     # 1. Leer lo que viene en la URL (?q=...&pagina=...)
     busqueda = request.args.get('q', '').strip()
     pagina = request.args.get('pagina', 1, type=int)
-    por_pagina = 4  # tarjetas por página
+    por_pagina = 6  # tarjetas por página
 
     # 2. Tu consulta de siempre
     query = 'SELECT c.id_colegios AS id,c.slogan AS slogan, c.nombre AS colegio, c.logo AS logo, m.nombre AS municipio FROM municipios m INNER JOIN colegios c ON m.id_municipios = c.id_municipios '
