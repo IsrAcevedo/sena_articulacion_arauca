@@ -1,172 +1,171 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section id="hero">
-    <h1>{{colegio.nombre}}</h1>
-    <a href="#nuestros-tecnicos" class="button">
-        Nuestros Tecnicos
-    </a>
-</section>
-<!-- INFO-COLEGIO -->
-<div id="info-colegio">
-    <div class="container">
-        <div class="img-colegio">
-            <img src="{{url_for('static', filename='uploads/'+ colegio.logo)}}" alt="logo del colegio">
-            <h2>Institucion educativa <span class="color-acento">la frontera</span></h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum debitis eos repellendus cupiditate
-                id, molestias deserunt molestiae officia ex amet repudiandae aliquam commodi rerum. Porro omnis
-                assumenda nobis aperiam accusamus, sunt explicabo! Laudantium ipsum odit nihil id tenetur similique
-                nesciunt temporibus nisi inventore incidunt aut repudiandae, rem saepe? Aperiam, labore quia
-                cupiditate aliquam, natus consequatur eos culpa earum similique iste ipsam dolorem nam nihil, eum
-                blanditiis expedita enim est qui. Impedit eos iusto quod expedita ex dolores perspiciatis
-                exercitationem repellat quas, unde amet velit. Molestiae officia dolore, vel repudiandae voluptates,
-                esse soluta nam, saepe iste mollitia ipsa necessitatibus veniam? Recusandae qui quidem perferendis
-                pariatur, odit reprehenderit deleniti consequuntur? Ipsam odio est totam dolorem similique eaque
-                nihil pariatur. Excepturi itaque optio est consequuntur commodi quas. Molestias fuga, aperiam
-                officiis impedit enim quibusdam incidunt obcaecati excepturi assumenda ducimus accusamus, porro
-                ullam architecto praesentiu.</p>
-        </div>
-    </div>
-</div>
 
-<!-- INFO-TECNICO -->
-<section id="nuestros-tecnicos">
-    <div class="container">
-        <h2>Nuestros <span class="color-acento">Técnicos</span></h2>
-        <div class="tecnicos">
-            <div class="carta-tecnico">
-                <h3>Programación Software</h3>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis cum corrupti eos accusantium
-                    veniam dolore quibusdam eum impedit. Voluptatem vero velit unde doloribus fuga labore natus
-                    exercitationem deleniti aperiam animi?</p>
-                <a href="" class="button">+Info</a>
+
+<body>
+    
+    <header class="hero-colegio">
+        <div class="hero-colegio-esquina-abajo-izq"></div>
+        <div class="hero-colegio-esquina-abajo-der"></div>
+        <div class="hero-colegio-contenido">
+            <div class="hero-colegio-logo">
+            <img src="{{ url_for('static', filename='uploads/' + colegio.logo) }}" alt="Logo del colegio {{ colegio.colegio }}">
             </div>
-            <div class="carta-tecnico">
-                <h3>Programación de Veterinaria</h3>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis cum corrupti eos accusantium
-                    veniam dolore quibusdam eum impedit. Voluptatem vero velit unde doloribus fuga labore natus
-                    exercitationem deleniti aperiam animi?</p>
-                <a href="" class="button">+Info</a>
-            </div>
-            <div class="carta-tecnico">
-                <h3>Programación de Enfermería</h3>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis cum corrupti eos accusantium
-                    veniam dolore quibusdam eum impedit. Voluptatem vero velit unde doloribus fuga labore natus
-                    exercitationem deleniti aperiam animi?</p>
-                <a href="" class="button">+Info</a>
+            <div class="hero-colegio-texto">
+            <h1>{{ colegio.colegio }}</h1>
+            <p class="hero-colegio-eslogan">{{ colegio.slogan if colegio.slogan else 'Institución educativa articulada con el SENA' }}</p>
             </div>
         </div>
-    </div>
-</section>
+    </header>
+    
+    <main>
+    
+    <!-- INFORMACIÓN BÁSICA -->
+        <section class="seccion" id="informacion">
+            <div class="seccion-encabezado">
+            <h2>Información básica</h2>
+            <span class="seccion-encabezado-codigo">FICHA · INST-01</span>
+            </div>
+            <div class="tarjeta tarjeta-datos-institucionales">
+            <div class="tarjeta-contenido">
+        
+                <div class="tarjeta-datos-institucionales-identidad">
+                <span class="tarjeta-datos-institucionales-municipio">{{ colegio.municipio }}, Arauca</span>
+                </div>
+        
+                <div class="tarjeta-datos-institucionales-estadisticas">
+                {%if estudiantes%}
+                <div class="tarjeta-datos-institucionales-estadistica">
+                    <div class="tarjeta-datos-institucionales-estadistica-numero">{{ estudiantes | length }}</div>
+                    <div class="tarjeta-datos-institucionales-estadistica-etiqueta">Estudiantes</div>
+                </div>
+                {%endif%}
+                {%if total_instructores > 0 %}
+                <div class="tarjeta-datos-institucionales-estadistica">
+                    <div class="tarjeta-datos-institucionales-estadistica-numero">{{ total_instructores }}</div>
+                    <div class="tarjeta-datos-institucionales-estadistica-etiqueta">Instructores</div>
+                </div>
+                {%endif%}
+                {%if total_tecnicos > 0 %}
+                <div class="tarjeta-datos-institucionales-estadistica">
+                    <div class="tarjeta-datos-institucionales-estadistica-numero">{{ total_tecnicos }}</div>
+                    <div class="tarjeta-datos-institucionales-estadistica-etiqueta">Técnicos</div>
+                </div>
+                {%endif%}
+                {%if total_proyectos > 0 %}
+                <div class="tarjeta-datos-institucionales-estadistica">
+                    <div class="tarjeta-datos-institucionales-estadistica-numero">{{ total_proyectos }}</div>
+                    <div class="tarjeta-datos-institucionales-estadistica-etiqueta">Proyectos</div>
+                </div>
+                {%endif%}
+            </div>
+            </div>
+        </section>
+        
+        <!-- INSTRUCTORES -->
 
-<!-- CARRUSEL 2026 -->
-<div class="cartelera">
-    <h2><span class="color-acento">Proyectos</span> 2026</h2>
-    <div class="carrucel">
-        <div class="proyectos">
-            <a href="#">
-                <img src="./static/img/brands-people-Ax8IA8GAjVg-unsplash (1).jpg" alt="">
-            </a>
-        </div>
-        <div class="proyectos">
-            <a href="#">
-                <img src="./static/img/brands-people-Ax8IA8GAjVg-unsplash (1).jpg" alt="">
-            </a>
-        </div>
-        <div class="proyectos">
-            <a href="#">
-                <img src="./static/img/brands-people-Ax8IA8GAjVg-unsplash (1).jpg" alt="">
-            </a>
-        </div>
-        <div class="proyectos">
-            <a href="#">
-                <img src="./static/img/brands-people-Ax8IA8GAjVg-unsplash (1).jpg" alt="">
-            </a>
-        </div>
-        <div class="proyectos">
-            <a href="#">
-                <img src="./static/img/brands-people-Ax8IA8GAjVg-unsplash (1).jpg" alt="">
-            </a>
-        </div>
-        <div class="proyectos">
-            <a href="#">
-                <img src="./static/img/brands-people-Ax8IA8GAjVg-unsplash (1).jpg" alt="">
-            </a>
-        </div>
-        <div class="proyectos">
-            <a href="#">
-                <img src="./static/img/brands-people-Ax8IA8GAjVg-unsplash (1).jpg" alt="">
-            </a>
-        </div>
-    </div>
-</div>
+        
+        <section class="seccion" id="instructores">    
 
-<!-- CARRUSEL 2025 -->
-<div class="cartelera">
-    <h2><span class="color-acento">Proyectos</span> 2025</h2>
-    <div class="carrucel">
-        <div class="proyectos">
-            <a href="#">
-                <img src="./static/img/scott-graham-5fNmWej4tAA-unsplash (1).jpg" alt="">
-            </a>
-        </div>
-        <div class="proyectos">
-            <a href="#">
-                <img src="./static/img/scott-graham-5fNmWej4tAA-unsplash (1).jpg" alt="">
-            </a>
-        </div>
-        <div class="proyectos">
-            <a href="#">
-                <img src="./static/img/scott-graham-5fNmWej4tAA-unsplash (1).jpg" alt="">
-            </a>
-        </div>
-        <div class="proyectos">
-            <a href="#">
-                <img src="./static/img/scott-graham-5fNmWej4tAA-unsplash (1).jpg" alt="">
-            </a>
-        </div>
-        <div class="proyectos">
-            <a href="#">
-                <img src="./static/img/scott-graham-5fNmWej4tAA-unsplash (1).jpg" alt="">
-            </a>
-        </div>
-        <div class="proyectos">
-            <a href="#">
-                <img src="./static/img/scott-graham-5fNmWej4tAA-unsplash (1).jpg" alt="">
-            </a>
-        </div>
-        <div class="proyectos">
-            <a href="#">
-                <img src="./static/img/scott-graham-5fNmWej4tAA-unsplash (1).jpg" alt="">
-            </a>
-        </div>
-    </div>
-</div>
 
-<!-- INSTRUCTORES -->
+            <div class="seccion-encabezado">
+            <h2>Instructores</h2>
 
-<section id="instructores">
-    <h2>Nuestros <span class="color-acento">instructores</span> </h2>
-    <div class="instructores-container">
+            </div>
+            <div class="cuadricula cuadricula-3">
+            {%for instructor in instructores%}
+            <a href="{{ url_for('main.instructor', id=instructor.id_instructor) }}">
+            <div class="tarjeta tarjeta-persona">
+                <div class="tarjeta-etiqueta"><span>Instructor</span></div>
+                    <div class="tarjeta-contenido">
+                        <div class="tarjeta-persona-avatar"><img src="{{ url_for('static', filename='uploads/' + instructor.foto) }}" alt="{{instructor.instructor_nombre}}"></div>
+                        <h3>{{instructor.instructor_nombre}}</h3>
+                        <p>{%if not instructor.perfi_profesional%}Instructor articulado con el SENA{%endif%}{%if  instructor.perfi_profesional%}{{ instructor.perfi_profesional|truncate(120, end="...[Leer más]" ) }}{% endif %}</p>
+                    </div>
+                </div>
+            </a>
 
-        <div class="carta-instructor">
-            <img src="./static/img/jurica-koletic-7YVZYZeITc8-unsplash (1).jpg" alt="Instructor">
-            <h3>Israel Acevedo</h3>
-            <p>Instructor de Técnico en Programación</p>
-            <p>Ingeniero en sistemas.</p>
-            <p>Email: israelacevedo@gmail.com</p>
-            <a href="" class="button">+Info</a>
-        </div>
+            {%endfor%}            
+        
+            </div>
 
-        <div class="carta-instructor">
-            <img src="./static/img/jurica-koletic-7YVZYZeITc8-unsplash (1).jpg" alt="Instructor">
-            <h3>Josue Angarita</h3>
-            <p>Instructora de Técnico en Contabilidad</p>
-            <p>Profesional en ...</p>
-            <p>Email: josue@gmail.com</p>
-            <a href="" class="button">+Info</a>
-        </div>
-    </div>
-</section>
+        </section>
+        
+        <!-- TÉCNICOS -->
+        <section class="seccion" id="tecnicos">
+            <div class="seccion-encabezado">
+            <h2>Técnicos</h2>
+            </div>
+            <div class="cuadricula cuadricula-3">
+        
+        {%for t in tecnicos%}
+        <a href="#">
+            <div class="tarjeta tarjeta-persona">
+                <div class="tarjeta-etiqueta"><span>Tecnico</span></div>
+                <div class="tarjeta-contenido">
+                    <div class="tarjeta-persona-avatar"><img src="{{ url_for('static', filename='uploads/' + t.fotoTecnico) }}" alt="{{t.tecnico}}"></div>
+                    <h3>{{t.tecnico}}</h3>
+                    <span class="tarjeta-persona-rol">Ficha: {{t.ficha}}</span>
+                    <p>Area: {{t.modalidad}}</p>
+                </div>
+            </div>
+        </a>
+        {%endfor%}
+        
+            </div>
+        </section>
+        
+        <!-- PROYECTOS -->
+        <section class="seccion" id="proyecto">
+            <div class="seccion-encabezado">
+            <h2>Proyectos</h2>
+            </div>
+            <div class="cuadricula cuadricula-3">
+            {%for p in proyectos%}
+            <a href="{{ url_for('main.proyecto', id=p.id) }}">
+                <div class="tarjeta tarjeta-persona">
+                    <div class="tarjeta-etiqueta"><span>Proyecto</span></div>
+                    <div class="tarjeta-contenido">
+                        <h3>{{p.proyecto}}</h3>
+                        <p>{{p.descripcion|truncate(125, end="...  [Leer más]" ) }}</p>
+                        <div class="tarjeta-proyecto-meta">
+                            <span class="etiqueta-chip">Proyecto</span>
+                            <span class="etiqueta-chip etiqueta-chip-activo">{%if p.activo == 1%}En curso{%endif%}</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            {%endfor%}
+        
+            
+        
+            </div>
+        </section>
+
+
+
+
+        <section class="seccion-ver-mas">
+            <div class="seccion-ver-mas-contenido">
+                <span class="seccion-ver-mas-etiqueta">Galería y más contenido</span>
+                <h2>¿Quieres ver más colegios?</h2>
+                <p>Ver mas colegios articulados con el SENA Arauca</p>
+                <a href="{{url_for('main.colegios')}}" class="seccion-ver-mas-boton">
+                Click aquí
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                </a>
+            </div>
+        </section>
+
+        
+    </main>
+    
+
+
+</body>
 
 {% endblock %}

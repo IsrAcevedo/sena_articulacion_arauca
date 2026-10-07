@@ -1,3 +1,8 @@
+.container {
+    max-width: 1400px;
+    margin: auto;
+}
+
 /* Layout General */
 .proyectos {
     padding: 90px 0;
@@ -138,7 +143,7 @@
     line-height: 1.5;
     margin-bottom: 15px;
     display: -webkit-box;
-    -webkit-line-clamp: 4;
+
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -245,7 +250,7 @@
     .collage-card .state-hover p {
         font-size: 13px;
         line-height: 1.5;
-        -webkit-line-clamp: 5;
+
     }
 }
 
@@ -426,7 +431,7 @@
     min-height: 42px;
     /* Alineación uniforme */
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -651,7 +656,8 @@
 }
 
 .municipios .card-content {
-    padding: 25px;
+    padding: 0px;
+    margin-bottom: 25px;
 }
 
 .municipios .card-content h3 {
@@ -898,6 +904,285 @@
     }
 }
 
+
+/* municipios html y municipio  */
+
+/* =============================================
+   MUNICIPIOS - CSS COMPLETO
+   ============================================= */
+
+/* Estadísticas */
+.stats-global {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 25px;
+    margin-bottom: 60px;
+}
+
+.stat-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(57, 169, 0, 0.08);
+}
+
+.stat-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 18px 40px rgba(57, 169, 0, 0.12);
+}
+
+.stat-number {
+    font-size: 42px;
+    font-weight: 800;
+    color: #39a900;
+    line-height: 1;
+    margin-bottom: 8px;
+}
+
+.stat-label {
+    font-size: 15px;
+    color: #555;
+    font-weight: 500;
+}
+
+/* Mapa por imagen */
+.mapa-container {
+    max-width: 920px;
+    margin: 0 auto 60px auto;
+    text-align: center;
+}
+
+.mapa-img {
+    width: 100%;
+    max-width: 900px;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    transition: transform 0.3s ease;
+}
+
+.mapa-img:hover {
+    transform: scale(1.015);
+}
+
+.mapa-container p {
+    margin-top: 14px;
+    color: #666;
+    font-size: 15px;
+}
+
+/* Cards */
+.municipios .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.municipios .cards a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.municipios .card {
+    overflow: hidden;
+    background: #ffffff;
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.35s ease;
+}
+
+.municipios .card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.12);
+}
+
+.municipio-image {
+    overflow: hidden;
+}
+
+.municipio-image img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.municipios .card:hover .municipio-image img {
+    transform: scale(1.08);
+}
+
+.municipios .card-content {
+    padding: 28px 25px 30px;
+}
+
+.municipios .card-content h3 {
+    margin-bottom: 12px;
+    font-size: 22px;
+    color: #1a1a1a;
+    font-weight: 700;
+}
+
+.municipios .card-button {
+    color: #39a900;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+/* Detalle */
+.municipio-detalle .hero-card {
+    overflow: hidden;
+    border-radius: 24px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    margin-bottom: 50px;
+    background: #fff;
+}
+
+.municipio-detalle .hero-image img {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+}
+
+.municipio-detalle .hero-content {
+    padding: 40px 45px;
+}
+
+.municipio-detalle .hero-content h1 {
+    font-size: 46px;
+    margin: 12px 0 18px;
+    color: #1a1a1a;
+}
+
+.municipio-detalle .hero-content p {
+    font-size: 18px;
+    color: #555;
+    line-height: 1.7;
+    max-width: 700px;
+}
+
+.detalle-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 50px;
+    align-items: start;
+}
+
+.detalle-info h3 {
+    font-size: 26px;
+    margin-bottom: 18px;
+    color: #1a1a1a;
+}
+
+.detalle-info p {
+    color: #555;
+    line-height: 1.75;
+    margin-bottom: 18px;
+    font-size: 16.5px;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .municipios {
+        padding: 80px 0;
+    }
+
+    .municipios .section-header h2 {
+        font-size: 40px;
+    }
+
+    .detalle-grid {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+
+    .municipio-detalle .hero-image img {
+        height: 340px;
+    }
+
+    .municipio-detalle .hero-content {
+        padding: 30px;
+    }
+
+    .municipio-detalle .hero-content h1 {
+        font-size: 36px;
+    }
+}
+
+@media (max-width: 768px) {
+    .municipios .section-header h2 {
+        font-size: 34px;
+    }
+
+    .municipios .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .municipio-image img {
+        height: 230px;
+    }
+
+    .municipio-detalle .hero-image img {
+        height: 280px;
+    }
+
+    .municipio-detalle .hero-content h1 {
+        font-size: 32px;
+    }
+
+    .stats-global {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+    }
+
+    .stat-number {
+        font-size: 34px;
+    }
+}
+
+@media (max-width: 480px) {
+    .municipios {
+        padding: 60px 0;
+    }
+
+    .municipios .section-header h2 {
+        font-size: 28px;
+    }
+
+    .municipio-detalle .hero-content {
+        padding: 25px 20px;
+    }
+
+    .municipio-detalle .hero-content h1 {
+        font-size: 28px;
+    }
+
+    .stats-global {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .stat-card {
+        padding: 22px 15px;
+    }
+
+    .stat-number {
+        font-size: 30px;
+    }
+}
+
+/* fin de css de municipios html  */
+
+
+.container {
+    width: 100%;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    box-sizing: border-box;
+}
+
+
 .instructores {
     padding: 100px 0;
     background: #ffffff;
@@ -931,7 +1216,7 @@
 
 .instructores .cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 450px), 1fr));
     gap: 30px;
 }
 
@@ -945,8 +1230,9 @@
     display: flex;
     flex-direction: row;
     align-items: stretch;
+    min-height: 365px;
+    /* Asegura un alto uniforme para todas las tarjetas */
     padding: 0;
-    /* Remueve el padding del contenedor para que la foto llegue a las orillas */
     overflow: hidden;
     background: #ffffff;
     border-radius: 24px;
@@ -954,38 +1240,67 @@
     transition: transform 0.3s ease;
 }
 
+.instructores .instructor-image {
+    width: 40%;
+    height: auto;
+    min-height: 250px;
+    flex-shrink: 0;
+    overflow: hidden;
+    position: relative;
+    background-color: #f4f5f7;
+    /* Fondo neutro uniforme */
+}
+
+.instructores .instructor-image img {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    object-fit: cover;
+    object-position: center 15%;
+    /* Mantiene enfocado el rostro (cabeza/ojos) */
+}
+
 .instructores .card:hover {
     transform: translateY(-10px);
 }
 
-/* Imagen a la izquierda (40% de ancho) */
-.instructor-image {
+/* Imagen a la izquierda */
+.instructores .instructor-image {
     width: 40%;
     min-height: 220px;
     flex-shrink: 0;
+    overflow: hidden;
+    /* Evita que la imagen sobresalga del borde redondeado */
 }
 
-.instructor-image img {
+.instructores .instructor-image img {
     width: 100%;
     height: 100%;
     border-radius: 0;
-    /* Remueve la forma circular */
     object-fit: cover;
-    object-position: top center;
+    /* Adapta la foto (vertical o horizontal) llenando todo el contenedor */
+    object-position: center;
+    /* Centra el contenido relevante tanto en retrato como paisaje */
 }
 
 /* Contenido a la derecha (60% de ancho) */
 .instructores .card-content {
     width: 60%;
-    padding: 25px;
+    padding: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
+    text-transform: capitalize;
+    margin-top: 50px;
 }
+
+
 
 .instructores .card-button {
     color: #39a900;
     font-weight: 600;
+    margin-top: auto;
+    margin-bottom: 20px;
 }
 
 h4 {
@@ -994,6 +1309,13 @@ h4 {
 
 /* TABLET */
 @media (max-width: 992px) {
+
+    .container {
+        width: 100%;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        box-sizing: border-box;
+    }
 
     .instructores {
         padding: 80px 0;
@@ -1045,6 +1367,13 @@ h4 {
 /* CELULAR */
 @media (max-width: 600px) {
 
+    .container {
+        width: 100%;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        box-sizing: border-box;
+    }
+
     .instructores {
         padding: 60px 0;
     }
@@ -1064,31 +1393,46 @@ h4 {
     }
 
     .instructores .cards {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
         gap: 25px;
     }
 
     .instructores .card {
+        display: flex;
         flex-direction: column;
         border-radius: 20px;
-    }
-
-    .instructor-image {
-        width: 100%;
-        height: 240px;
+        height: auto;
         min-height: 0;
     }
 
-    .instructor-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: top center;
+    .instructores .instructor-image {
+        width: 100% !important;
+        height: 340px !important;
+        /* Mismo alto exacto para TODAS las imágenes en celular */
+        min-height: 440px !important;
+        max-height: 440px !important;
+        flex-shrink: 0;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .instructores .instructor-image img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        /* Llena el cuadro completo */
+        object-position: center 25% !important;
+        /* Ajusta el encuadre verticalmente para mostrar la cara */
     }
 
     .instructores .card-content {
-        width: 100%;
-        padding: 22px;
+        width: 100% !important;
+        padding: 12px 20px;
+        margin-top: 8px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
 
     .instructores .card-content h3 {
@@ -1119,6 +1463,13 @@ h4 {
 
 /* CELULAR PEQUEÑO */
 @media (max-width: 400px) {
+
+    .container {
+        width: 100%;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        box-sizing: border-box;
+    }
 
     .instructores .section-header h2 {
         font-size: 28px;
@@ -1383,6 +1734,7 @@ h4 {
     justify-content: space-between;
     align-items: center;
     text-decoration: none;
+    padding: 15px 30px;
 }
 
 
@@ -1606,6 +1958,28 @@ h4 {
     color: var(--text-primary);
 }
 
+.footer-credits {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    margin-left: 1.5rem;
+}
+
+.footer-credits span {
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+}
+
+.footer-credits a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.footer-credits a:hover {
+    color: var(--accent-color);
+}
 
 @media(max-width:992px) {
 
@@ -1685,5 +2059,354 @@ h4 {
         display: flex !important;
         align-items: center;
         gap: 15px;
+    }
+}
+
+@media(max-width:768px) {
+    .header {
+        padding: 18px 6%;
+    }
+
+    .logo img {
+        width: 45px;
+    }
+
+    .btn-login {
+        display: none;
+    }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    nav ul {
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: #1a1a1a;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        padding: 15px 0;
+        display: none;
+        opacity: 0;
+        transform: translateY(-20px);
+        transition: all 0.3s ease-in-out;
+    }
+
+    nav ul li a:hover {
+        background: none;
+    }
+
+    nav ul.show {
+        display: flex;
+        opacity: 1;
+        transform: translateY(0);
+        /* 👈 animación al bajar */
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+}
+
+
+/* =========================================
+   PÁGINA DE CRÉDITOS
+========================================= */
+
+.creditos-page {
+    padding: 100px 0;
+    background: #f8faf8;
+    min-height: 100vh;
+}
+
+.creditos-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* Encabezado */
+
+.creditos-header {
+    margin-bottom: 70px;
+}
+
+.creditos-badge {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 50px;
+    background: rgba(57, 169, 0, 0.1);
+    color: #39a900;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.creditos-header h1 {
+    margin: 20px 0;
+    font-size: 52px;
+    line-height: 1.1;
+    color: #111;
+}
+
+.creditos-header p {
+    max-width: 700px;
+    color: #666;
+    line-height: 1.8;
+    font-size: 17px;
+}
+
+
+/* =========================================
+   SECCIONES
+========================================= */
+
+.creditos-grupo {
+    margin-bottom: 65px;
+}
+
+.creditos-titulo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.creditos-titulo>span {
+    width: 8px;
+    height: 35px;
+    background: #39a900;
+    border-radius: 10px;
+}
+
+.creditos-titulo h2 {
+    margin: 0;
+    font-size: 30px;
+    color: #111;
+}
+
+
+/* =========================================
+   TARJETAS
+========================================= */
+
+.persona-card {
+    background: #ffffff;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.persona-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+}
+
+
+/* Tarjetas de coordinador, líder e instructor */
+
+.persona-card-individual {
+    max-width: 700px;
+    padding: 35px;
+}
+
+
+/* =========================================
+   APRENDICES
+========================================= */
+
+.aprendices-grid {
+    display: grid;
+
+    /* 3 tarjetas por fila */
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 30px;
+}
+
+.aprendices-grid .persona-card {
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* =========================================
+   FOTOS
+========================================= */
+
+.persona-foto {
+    width: 100%;
+    height: 260px;
+    overflow: hidden;
+    background: #f1f5f1;
+}
+
+.persona-foto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.persona-card:hover .persona-foto img {
+    transform: scale(1.05);
+}
+
+
+/* =========================================
+   INFORMACIÓN
+========================================= */
+
+.persona-info {
+    padding: 25px;
+}
+
+.persona-info h3 {
+    margin: 0 0 10px;
+    font-size: 22px;
+    line-height: 1.3;
+    color: #111;
+}
+
+.persona-rol {
+    display: inline-block;
+    margin-bottom: 15px;
+    padding: 6px 13px;
+    border-radius: 30px;
+    background: rgba(57, 169, 0, 0.1);
+    color: #39a900;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.persona-info p {
+    margin: 0;
+    color: #666;
+    line-height: 1.7;
+    font-size: 15px;
+}
+
+
+/* =========================================
+   RESPONSIVE - TABLET
+========================================= */
+
+@media (max-width: 1000px) {
+
+    .aprendices-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+/* =========================================
+   RESPONSIVE - CELULAR
+========================================= */
+
+@media (max-width: 768px) {
+
+    .creditos-page {
+        padding: 70px 0;
+    }
+
+    .creditos-header {
+        margin-bottom: 50px;
+    }
+
+    .creditos-header h1 {
+        font-size: 38px;
+    }
+
+    .creditos-header p {
+        font-size: 15px;
+    }
+
+    .creditos-titulo h2 {
+        font-size: 25px;
+    }
+
+    .aprendices-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .persona-foto {
+        height: 280px;
+    }
+
+    .persona-card-individual {
+        padding: 25px;
+    }
+
+}
+
+
+/* =========================================
+   CELULARES PEQUEÑOS
+========================================= */
+
+@media (max-width: 480px) {
+
+    .creditos-container {
+        width: 88%;
+    }
+
+    .creditos-header h1 {
+        font-size: 34px;
+    }
+
+    .creditos-titulo h2 {
+        font-size: 22px;
+    }
+
+    .persona-foto {
+        height: 250px;
+    }
+
+    .persona-info {
+        padding: 22px;
+    }
+
+    .persona-info h3 {
+        font-size: 20px;
+    }
+
+}
+
+.persona-card-instructor {
+    max-width: 850px;
+    display: flex;
+    align-items: center;
+}
+
+.persona-card-instructor .persona-foto {
+    width: 280px;
+    min-width: 280px;
+    height: 280px;
+}
+
+.persona-card-instructor .persona-info {
+    padding: 35px;
+}
+
+
+@media (max-width: 768px) {
+
+    .persona-card-instructor {
+        flex-direction: column;
+        max-width: 100%;
+    }
+
+    .persona-card-instructor .persona-foto {
+        width: 100%;
+        height: 300px;
+    }
+
+    .persona-card-instructor .persona-info {
+        padding: 25px;
     }
 }

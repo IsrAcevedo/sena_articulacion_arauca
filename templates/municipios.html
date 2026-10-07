@@ -1,48 +1,72 @@
 {% extends "base.html" %}
 {% block content %}
-    <header>
-        <h1>Portal de Municipios del Departamento de Arauca</h1>
-    </header>
 
-    <main>
-        <section class="contenedor-modulos">
+<main>
+    <section class="section municipios">
+        <div class="container">
 
-            <div class="modulo">
-                <h2>Arauca</h2>
-                <a href="arauca.html" class="btn">Entrar</a>
+            <!-- Header -->
+            <div class="section-header">
+                <span class="section-badge">MUNICIPIOS</span>
+                <h2>Municipios que hacen parte de Articulación</h2>
+                <p>
+                    El programa Articulación con la Media del SENA Regional Arauca llega a los municipios 
+                    del departamento, impulsando la formación técnica y el desarrollo de proyectos productivos.
+                </p>
             </div>
 
-            <div class="modulo">
-                <h2>Tame</h2>
-                <a href="tame.html" class="btn">Entrar</a>
+            <!-- Estadísticas globales -->
+            <div class="stats-global">
+                <div class="stat-card">
+                    <div class="stat-number">{{ total_municipios }}</div>
+                    <div class="stat-label">Municipios</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">{{ total_colegios }}</div>
+                    <div class="stat-label">Colegios aliados</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">{{ total_proyectos }}</div>
+                    <div class="stat-label">Proyectos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">{{ total_instructores }}</div>
+                    <div class="stat-label">Instructores</div>
+                </div>
             </div>
 
-            <div class="modulo">
-                <h2>Saravena</h2>
-                <a href="saravena.html" class="btn">Entrar</a>
+        <!-- Mapa de Arauca (imagen) -->
+        <div class="mapa-container">
+            <img src="{{ url_for('static', filename='img/mapa-arauca.png') }}" 
+                 alt="Mapa de los municipios de Arauca"
+                class="mapa-img">
+            <p>Mapa de los municipios del departamento de Arauca</p>
+        </div>
+
+            <!-- Grid de municipios -->
+            <div class="cards">
+                {% for municipio in municipios %}
+                <a href="{{ url_for('main.municipio', id=municipio.id_municipios) }}">
+                    <article class="card">
+                        <div class="municipio-image">
+                            <img src="{{ url_for('static', filename='uploads/' + municipio.foto) }}"
+                                 alt="{{ municipio.nombre }}">
+                        </div>
+                        <div class="card-content">
+                            <h3>{{ municipio.nombre }}</h3>
+                            <div class="card-button">Explorar municipio →</div>
+                        </div>
+                    </article>
+                </a>
+                {% else %}
+                <p style="grid-column: 1/-1; text-align:center; color:#888; padding: 40px;">
+                    No hay municipios registrados.
+                </p>
+                {% endfor %}
             </div>
 
-            <div class="modulo">
-                <h2>Arauquita</h2>
-                <a href="arauquita.html" class="btn">Entrar</a>
-            </div>
-
-            <div class="modulo">
-                <h2>Fortul</h2>
-                <a href="fortul.html" class="btn">Entrar</a>
-            </div>
-
-            <div class="modulo">
-                <h2>Cravo Norte</h2>
-                <a href="cravo_norte.html" class="btn">Entrar</a>
-            </div>
-
-            <div class="modulo">
-                <h2>Puerto Rondón</h2>
-                <a href="puerto_rondon.html" class="btn">Entrar</a>
-            </div>
-
-        </section>
-    </main>
+        </div>
+    </section>
+</main>
 
 {% endblock %}

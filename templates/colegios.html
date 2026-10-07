@@ -1,41 +1,125 @@
 {% extends "base.html" %}
 {% block content %}
 
-<!-- HERO -->
-<header class="hero-colegios" id="hero-colegios">
-    <div class="contenido-hero"></div>
-    <h1>Colegios de Arauca</h1>
-    <p>Conoce las instituciones educativas vinculadas con los programas del Sena.</p>
-    <a href="#colegios" class="btn-colegio">Ver Colegios</a>
-    </div>
-</header>
+    <main class="hero">
+        <div class="hero-contenido">
+            <h1><span>Instituciones</span> que conectan a <span>Arauca</span> con su futuro</h1>
+            <p>Explora las instituciones educativas que colaboran con el SENA en Arauca.</p>
+            <a href="#seccion-tarjetas" class="boton-impacto">Ver instituciones</a>
+        </div>
+    </main>
 
-<!-- CONTENIDO -->
-<section id="colegios" class="colegios">
-    <h2>Instituciones Educativas</h2>
+    <!-- ===================================================== -->
+    <!-- SECCIÓN 1: CARRUSEL DE INSTITUCIONES -->
+    <!-- ===================================================== -->
 
-    <h3>Saravena</h3>
-    <div class="colegios-grid">
+    <section id="impacto-articulacion">
 
-        {%if colegios%}
-        {%for colegio in colegios%}
-        <a href="{{url_for('main.colegio',id=colegio.id)}}">
-            <div class="tarjeta-colegio">
-                <img src="{{url_for('static', filename='uploads/'+ colegio.logo)}}" alt="logo del colegio">
-                <h3>{{colegio.colegio}}</h3>
-                <p>{{colegio.municipio}}</p>
+        <div class="fila-impacto">
+            <div class="texto-impacto">
+                <span class="eyebrow-institucional">Cobertura regional</span>
+                <h3 class="titulo-impacto">Decenas de colegios conectados con la educación técnica.</h3>
+                <p class="descripcion-impacto">Instituciones de todo Arauca articuladas con el SENA, ampliando las oportunidades de formación para sus estudiantes desde el colegio.</p>
             </div>
-        </a>
+            <div class="imagen-impacto">
+                <img src="{{ url_for('static', filename='img/estudiantes1.jpg') }}" alt="Estudiantes articulados con el SENA">
+            </div>
+        </div>
 
-        {%endfor%}
-        {%endif%}
+        <div class="fila-impacto fila-impacto-invertida">
+            <div class="texto-impacto">
+                <span class="eyebrow-institucional">Impacto formativo</span>
+                <h3 class="titulo-impacto">Miles de estudiantes formándose gracias a nuestros técnicos.</h3>
+                <p class="descripcion-impacto">Programas técnicos que preparan a los aprendices para el mundo laboral, con docentes y proyectos reales detrás de cada articulación.</p>
+                <a href="#seccion-tarjetas" class="boton-impacto">Conocer programas →</a>
+            </div>
+            <div class="imagen-impacto">
+                <img src="{{ url_for('static', filename='img/estudiantes2.jpg') }}" alt="Aprendices SENA en formación técnica">
+            </div>
+        </div>
+
+    </section>
+
+
+
+            <div class="seccion-tarjetas" id="seccion-tarjetas">
+                <h2>Colegios</h2>
+
+            
+
+                <form method="get" action="{{ url_for('main.colegios') }}#seccion-tarjetas" class="buscador-colegios">
+                    <input type="search" name="q" value="{{ busqueda }}"
+                    placeholder="Buscar por colegio o municipio..." class="buscador-campo">
+                    <button type="submit"class="buscador-boton">Buscar</button>
+                    {% if busqueda %}
+                        <a href="{{ url_for('main.colegios') }}#seccion-tarjetas" class="buscador-limpiar">Limpiar</a>
+                    {% endif %}
+                </form>
+
+                <p class="resultados-info">
+                    {{ total }} colegio{{ '' if total == 1 else 's' }} encontrado{{ '' if total == 1 else 's' }}
+                    {% if busqueda %} para "<strong>{{ busqueda }}</strong>"{% endif %}
+                </p>
+
+                <!-- Tarjetas -->
+                <div class="cuadricula-tarjetas">
+                    {% for colegio in colegios %}
+                    <a href="{{ url_for('main.colegio', id=colegio.id) }}">
+                        <div class="tarjeta tarjeta-persona">
+                            <div class="tarjeta-etiqueta"><span>Colegio</span></div>
+                            <div class="tarjeta-contenido">
+                                <h3>{{ colegio.colegio }}</h3>
+                                <span class="tarjeta-persona-rol">{{ colegio.municipio }}</span>
+                                <p>{% if colegio.slogan %}{{ colegio.slogan|truncate(120, end="...[Leer más]" ) }}{% else %}Colegio articulado con el SENA Arauca{% endif %}</p>
+                            </div>
+                        </div>
+                    </a>
+                    {% else %}
+                    <p class="sin-resultados">No se encontraron colegios.</p>
+                    {% endfor %}
+                </div>
+
+                <!-- Paginador -->
+                {% if total_paginas > 1 %}
+                <nav class="paginador">
+                    {% if pagina > 1 %}
+                        <a class="paginador-enlace" href="{{ url_for('main.colegios', pagina=pagina-1, q=busqueda) }}#seccion-tarjetas">« Anterior</a>
+                    {% endif %}
+
+                    {% for numero in range(1, total_paginas + 1) %}
+                        {% if numero == pagina %}
+                            <span class="paginador-enlace paginador-activo">{{ numero }}</span>
+                        {% else %}
+                            <a class="paginador-enlace" href="{{ url_for('main.colegios', pagina=numero, q=busqueda) }}#seccion-tarjetas">{{ numero }}</a>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if pagina < total_paginas %}
+                        <a class="paginador-enlace" href="{{ url_for('main.colegios', pagina=pagina+1, q=busqueda) }}#seccion-tarjetas">Siguiente »</a>
+                    {% endif %}
+                </nav>
+                {% endif %}
+            </div>
 
 
 
 
-    </div>
+    <section class="banner">
+        <div class="banner-imagen">
+        </div>
+        <div class="banner-texto">
+            <h2>
+                “Formación que transforma vidas,<br>
+                articulación que construye futuro.”
+            </h2>
+            <p>SENA Arauca, conectando educación<br>con oportunidades.</p>
+            <span></span>
+        </div>
+    </section>
 
 
 
-</section>
+
+
+</body>
 {%endblock%}
