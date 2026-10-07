@@ -1,4 +1,4 @@
-from flask import Flask, abort, render_template, session, url_for, redirect, flash, request, Blueprint
+from flask import abort, render_template, url_for, request, Blueprint
 from math import ceil
 from consultas import consulta,insertar
 
@@ -10,7 +10,7 @@ main_bp = Blueprint('main', __name__)
 
 @main_bp.route('/')
 def inicio():
-    query1 = "SELECT id_proyectos AS id, nombre, descripcion_corta AS descripcion, foto_principal AS foto FROM proyectos limit 3"
+    query1 = "SELECT id_proyectos AS id, nombre, descripcion_corta AS descripcion, foto_principal AS foto FROM proyectos WHERE activo = 1 ORDER BY fecha_inicio DESC, id_proyectos DESC LIMIT 3"
     query2 = "SELECT id_colegios AS id, nombre, slogan, logo FROM colegios WHERE activo = 1 AND es_destacado = 1 limit 3"
     query3 = "SELECT id_municipios AS id, nombre, foto FROM municipios WHERE activo = 1"
     query4 = "SELECT i.id_instructor AS id, i.nombres, i.apellidos, p.nombre_profesion as profesion, i.foto FROM instructor i INNER JOIN profesiones p ON i.id_profesion=p.id_profesion limit 4"
@@ -24,7 +24,19 @@ def inicio():
 #ruta para la pagina con lista de proyectos
 @main_bp.route('/proyectos')
 def proyectos():
-    query = "SELECT id_proyectos AS id, nombre, descripcion_corta AS descripcion, foto_principal AS foto FROM proyectos"
+    query = """
+        SELECT p.id_proyectos AS id, p.nombre,
+               p.descripcion_corta AS descripcion,
+               p.foto_principal AS foto,
+               t.nombre AS tecnico, c.nombre AS colegio,
+               m.nombre AS modalidad
+        FROM proyectos p
+        LEFT JOIN tecnicos t ON t.id_tecnicos = p.id_tecnico
+        LEFT JOIN colegios c ON c.id_colegios = t.id_colegio
+        LEFT JOIN modalidad m ON m.id_modalidad = t.id_modalidad
+        WHERE p.activo = 1
+        ORDER BY p.fecha_inicio DESC, p.id_proyectos DESC
+    """
     proyectos = consulta(query)
     return render_template('proyectos.html', proyectos=proyectos)
 
@@ -52,11 +64,11 @@ def proyecto(id):
             mo.nombre AS modalidad_nombre,
             CONCAT(i.nombres, ' ', i.apellidos) AS instructor_nombre
         FROM proyectos p
-        INNER JOIN tecnicos t
+        LEFT JOIN tecnicos t
             ON p.id_tecnico = t.id_tecnicos
-        INNER JOIN colegios c
+        LEFT JOIN colegios c
             ON t.id_colegio = c.id_colegios
-        INNER JOIN modalidad mo
+        LEFT JOIN modalidad mo
             ON t.id_modalidad = mo.id_modalidad
         LEFT JOIN instructor i
             ON t.id_instructor = i.id_instructor
@@ -67,8 +79,7 @@ def proyecto(id):
     proyecto = consulta(query, (id,))
 
     if not proyecto:
-        flash("El proyecto no existe.", "error")
-        return redirect(url_for("main.inicio"))
+        abort(404)
 
     proyecto = proyecto[0]
 
@@ -87,38 +98,10 @@ def proyecto(id):
 
     aprendices = consulta(query_aprendices, (id,))
 
-    # GALERÍA DEL PROYECTO
-    query_galeria = """
-        SELECT
-            url_imagen,
-            descripcion,
-            orden
-        FROM proyecto_galeria
-        WHERE id_proyecto = %s
-        ORDER BY orden ASC
-    """
-
-    galeria = consulta(query_galeria, (id,))
-
-    # VIDEOS DEL PROYECTO
-    query_videos = """
-        SELECT
-            url_video,
-            titulo,
-            orden
-        FROM proyecto_videos
-        WHERE id_proyecto = %s
-        ORDER BY orden ASC
-    """
-
-    videos = consulta(query_videos, (id,))
-
     return render_template(
         'proyecto.html',
         proyecto=proyecto,
-        aprendices=aprendices,
-        galeria=galeria,
-        videos=videos
+        aprendices=aprendices
     )
 
 

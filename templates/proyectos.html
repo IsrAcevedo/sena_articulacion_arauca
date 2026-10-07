@@ -13,7 +13,7 @@
             {% for proyecto in proyectos %}
             <a class="collage-card" href="{{ url_for('main.proyecto', id=proyecto.id) }}">
                 <div class="card-bg">
-                    {% if proyecto.foto %}
+                    {% if proyecto.foto and proyecto.foto != 'imagen.webp' %}
                     <img src="{{ url_for('static', filename='uploads/' + proyecto.foto) }}" alt="{{ proyecto.nombre }}" loading="lazy">
                     {% else %}
                     <div class="sin-imagen" role="img" aria-label="Sin imagen disponible">SENA · Arauca</div>

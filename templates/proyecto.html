@@ -15,7 +15,7 @@
 
         <section class="proyecto-principal" aria-label="Información del proyecto">
             <div class="proyecto-imagen">
-                {% if proyecto.foto_principal %}
+                {% if proyecto.foto_principal and proyecto.foto_principal != 'imagen.webp' %}
                 <img src="{{ url_for('static', filename='uploads/' + proyecto.foto_principal) }}" alt="{{ proyecto.nombre }}">
                 {% else %}
                 <div class="sin-imagen"><span>Proyecto de formación SENA</span></div>
@@ -73,38 +73,6 @@
         </section>
         {% endif %}
 
-        {% if galeria %}
-        <section class="proyecto-seccion">
-            <h2>Galería</h2>
-            <div class="galeria-proyecto">
-                {% for imagen in galeria %}
-                {% set url_imagen = imagen.url_imagen or '' %}
-                <figure class="imagen-galeria">
-                    {% if url_imagen.startswith('http://') or url_imagen.startswith('https://') %}
-                    <img src="{{ url_imagen }}" alt="{{ imagen.descripcion or ('Fotografía de ' + proyecto.nombre) }}" loading="lazy">
-                    {% else %}
-                    <img src="{{ url_for('static', filename='uploads/' + url_imagen) }}" alt="{{ imagen.descripcion or ('Fotografía de ' + proyecto.nombre) }}" loading="lazy">
-                    {% endif %}
-                    {% if imagen.descripcion %}<figcaption>{{ imagen.descripcion }}</figcaption>{% endif %}
-                </figure>
-                {% endfor %}
-            </div>
-        </section>
-        {% endif %}
-
-        {% if videos %}
-        <section class="proyecto-seccion">
-            <h2>Más videos</h2>
-            <div class="videos-proyecto">
-                {% for video in videos %}
-                <div class="video-proyecto">
-                    <h3>{{ video.titulo or 'Video del proyecto' }}</h3>
-                    <a class="boton-video" href="{{ video.url_video }}" target="_blank" rel="noopener noreferrer">Ver video ↗</a>
-                </div>
-                {% endfor %}
-            </div>
-        </section>
-        {% endif %}
     </article>
 </main>
 

@@ -19,7 +19,7 @@
                 <a href="#municipios" class="btn3 btn-primary3">
                     Explorar Municipios
                 </a>
-                <a href="#" class="btn3 btn-secondary3">
+                <a href="#proyectos2" class="btn3 btn-secondary3">
                     Ver proyectos
                 </a>
             </div>
@@ -43,8 +43,12 @@
             <a href="{{ url_for('main.proyecto', id=proyecto.id) }}" class="collage-card">
                 <!-- Imagen de Fondo -->
                 <div class="card-bg">
+                    {% if proyecto.foto and proyecto.foto != 'imagen.webp' %}
                     <img src="{{ url_for('static', filename='uploads/' + proyecto.foto) }}"
-                        alt="Foto {{ proyecto.nombre }}">
+                        alt="Foto {{ proyecto.nombre }}" loading="lazy">
+                    {% else %}
+                    <div class="sin-imagen" role="img" aria-label="Sin imagen disponible">SENA · Arauca</div>
+                    {% endif %}
                 </div>
 
                 <!-- Estado Inicial: Título con pastilla sutil -->
