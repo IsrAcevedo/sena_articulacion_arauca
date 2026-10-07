@@ -1,9 +1,43 @@
 {% extends "base.html" %}
-
 {% block content %}
+<main class="proyectos" id="proyectos">
+    <div class="container">
+        <header class="section-header">
+            <span class="section-badge">SENA · Arauca</span>
+            <h1>Proyectos que convierten ideas en oportunidades</h1>
+            <p>Conoce las iniciativas creadas por aprendices e instructores de los programas articulados con las instituciones educativas del departamento.</p>
+        </header>
 
-<main>
-    <p>Esta pagina se encuentra en construcción</p>
+        {% if proyectos %}
+        <section class="collage-grid" aria-label="Proyectos de articulación">
+            {% for proyecto in proyectos %}
+            <a class="collage-card" href="{{ url_for('main.proyecto', id=proyecto.id) }}">
+                <div class="card-bg">
+                    {% if proyecto.foto and proyecto.foto != 'imagen.webp' %}
+                    <img src="{{ url_for('static', filename='uploads/' + proyecto.foto) }}" alt="{{ proyecto.nombre }}" loading="lazy">
+                    {% else %}
+                    <div class="sin-imagen" role="img" aria-label="Sin imagen disponible">SENA · Arauca</div>
+                    {% endif %}
+                </div>
+                <div class="state-default"><h2>{{ proyecto.nombre }}</h2></div>
+                <div class="state-hover">
+                    <span class="card-tag">Proyecto de formación</span>
+                    <h2>{{ proyecto.nombre }}</h2>
+                    <p>{{ proyecto.descripcion or 'Una iniciativa de formación técnica desarrollada en Arauca.' }}</p>
+                    {% if proyecto.modalidad or proyecto.colegio %}
+                    <p>{% if proyecto.modalidad %}{{ proyecto.modalidad }}{% endif %}{% if proyecto.colegio and proyecto.modalidad %} · {% endif %}{% if proyecto.colegio %}{{ proyecto.colegio }}{% endif %}</p>
+                    {% endif %}
+                    <span class="card-link-text">Conocer el proyecto →</span>
+                </div>
+            </a>
+            {% endfor %}
+        </section>
+        {% else %}
+        <div class="sin-resultados" role="status">
+            <h2>Pronto encontrarás proyectos aquí</h2>
+            <p>Estamos preparando las iniciativas de formación desarrolladas por la comunidad educativa.</p>
+        </div>
+        {% endif %}
+    </div>
 </main>
-
 {% endblock %}
