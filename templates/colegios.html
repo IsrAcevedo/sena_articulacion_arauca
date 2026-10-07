@@ -69,8 +69,8 @@
                             <div class="tarjeta-etiqueta"><span>Colegio</span></div>
                             <div class="tarjeta-contenido">
                                 <h3>{{ colegio.colegio }}</h3>
-                                <span class="tarjeta-persona-rol">{{ colegio.municipio }}</span>
-                                <p>{% if colegio.slogan %}{{ colegio.slogan|truncate(120, end="...[Leer más]" ) }}{% else %}Colegio articulado con el SENA Arauca{% endif %}</p>
+                                <span class="tarjeta-persona-rol">{{colegio.municipio}}</span>
+                                <p>{% if colegio.slogan %}{{ colegio.slogan|truncate(80, end="...[Leer más]" ) }}{% else %}Colegio articulado con el SENA Arauca{% endif %}</p>
                             </div>
                         </div>
                     </a>

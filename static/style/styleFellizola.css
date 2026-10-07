@@ -720,19 +720,11 @@ SECCIÓN 1: CARRUSEL
     font-weight: 700;
 }
 
-/* Cuadrícula de tarjetas */
-.cuadricula-tarjetas {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
-    margin: 100px 60px;
 
-}
 
 .cuadricula-tarjetas a {
     width: 100%;
-    min-height: 300px;
-    max-height: 300px;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -835,6 +827,56 @@ SECCIÓN 1: CARRUSEL
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     gap: 1.5rem;
+}
+
+/* Cuadrícula de tarjetas */
+.cuadricula-tarjetas {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1.5rem;
+    text-transform: capitalize;
+}
+
+/* Pantalla estándar */
+@media (max-width: 1480px) {
+    .cuadricula-tarjetas {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+    .cuadricula-tarjetas {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+}
+
+/* Móvil */
+@media (max-width: 600px) {
+    .cuadricula-tarjetas {
+        grid-template-columns: repeat(2, 1fr);
+
+    }
+        .cuadricula-tarjetas p {
+        display: none;
+    }
+    .tarjeta-persona::before {
+        height: 40px;
+    }
+    .tarjeta-etiqueta {
+        display: none;
+    }
+    .tarjeta-persona {
+        padding-top: 0;
+    }
+    .tarjeta-persona-rol{
+        position: absolute;
+        bottom: 12px;
+    }
+    span.tarjeta-persona-rol{
+        text-transform: capitalize;
+    }
 }
 
 .cuadricula-tarjetas > a {
