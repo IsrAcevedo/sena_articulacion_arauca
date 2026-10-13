@@ -2112,301 +2112,343 @@ h4 {
 
 
 /* =========================================
-   PÁGINA DE CRÉDITOS
+   PÁGINA DE CRÉDITOS - DISEÑO DENSO E IMPACTANTE
 ========================================= */
 
 .creditos-page {
-    padding: 100px 0;
-    background: #f8faf8;
+    padding: 36px 0 56px;
+    background: linear-gradient(160deg, #f0f7f0 0%, #f7faf7 45%, #eef5ee 100%);
     min-height: 100vh;
 }
 
 .creditos-container {
-    width: 90%;
-    max-width: 1200px;
-    margin: auto;
+    width: 96%;
+    max-width: 1440px;          /* mucho más ancho */
+    margin: 0 auto;
 }
 
-/* Encabezado */
-
+/* ---------- Encabezado compacto ---------- */
 .creditos-header {
-    margin-bottom: 70px;
+    margin-bottom: 28px;
 }
 
 .creditos-badge {
     display: inline-block;
-    padding: 10px 20px;
+    padding: 5px 14px;
     border-radius: 50px;
-    background: rgba(57, 169, 0, 0.1);
-    color: #39a900;
-    font-size: 14px;
+    background: rgba(57, 169, 0, 0.15);
+    color: #2a8000;
+    font-size: 12px;
     font-weight: 600;
+    letter-spacing: 0.3px;
 }
 
 .creditos-header h1 {
-    margin: 20px 0;
-    font-size: 52px;
-    line-height: 1.1;
+    margin: 8px 0 6px;
+    font-size: 34px;
+    line-height: 1.15;
     color: #111;
+    font-weight: 700;
 }
 
 .creditos-header p {
-    max-width: 700px;
-    color: #666;
-    line-height: 1.8;
-    font-size: 17px;
+    max-width: 720px;
+    color: #555;
+    line-height: 1.55;
+    font-size: 15px;
+    margin: 0;
 }
 
-
-/* =========================================
-   SECCIONES
-========================================= */
-
+/* ---------- Títulos de sección ---------- */
 .creditos-grupo {
-    margin-bottom: 65px;
+    margin-bottom: 28px;
 }
 
 .creditos-titulo {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 30px;
+    gap: 10px;
+    margin-bottom: 14px;
 }
 
-.creditos-titulo>span {
-    width: 8px;
-    height: 35px;
+.creditos-titulo > span {
+    width: 5px;
+    height: 20px;
     background: #39a900;
-    border-radius: 10px;
+    border-radius: 6px;
+    flex-shrink: 0;
 }
 
 .creditos-titulo h2 {
     margin: 0;
-    font-size: 30px;
+    font-size: 19px;
     color: #111;
+    font-weight: 650;
 }
 
-
-/* =========================================
-   TARJETAS
-========================================= */
-
+/* ---------- Tarjetas base ---------- */
 .persona-card {
     background: #ffffff;
-    border-radius: 24px;
+    border-radius: 14px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.persona-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
-}
-
-
-/* Tarjetas de coordinador, líder e instructor */
-
-.persona-card-individual {
-    max-width: 700px;
-    padding: 35px;
-}
-
-
-/* =========================================
-   APRENDICES
-========================================= */
-
-.aprendices-grid {
-    display: grid;
-
-    /* 3 tarjetas por fila */
-    grid-template-columns: repeat(3, 1fr);
-
-    gap: 30px;
-}
-
-.aprendices-grid .persona-card {
+    box-shadow: 0 3px 14px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.045);
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+    height: 100%;
     display: flex;
     flex-direction: column;
 }
 
+.persona-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.11);
+}
 
-/* =========================================
-   FOTOS
-========================================= */
+/* ---------- Grid liderazgo ---------- */
+.destacados-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
 
+.persona-card-destacada .persona-foto {
+    height: 500px;                 /* más alto → se ve más de la persona */
+    flex-shrink: 0;
+}
+
+/* ---------- Grid aprendices ---------- */
+.aprendices-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+}
+
+/* ---------- Fotos (la clave para que se vean bien) ---------- */
 .persona-foto {
     width: 100%;
-    height: 260px;
+    height: 200px;                 /* altura generosa */
     overflow: hidden;
-    background: #f1f5f1;
+    background: #e4ede4;
+    position: relative;
+    flex-shrink: 0;
 }
 
 .persona-foto img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center 15%;   /* prioriza la cara sin cortar tanto la cabeza */
     display: block;
-    transition: transform 0.5s ease;
+    transition: transform 0.35s ease;
 }
 
 .persona-card:hover .persona-foto img {
     transform: scale(1.05);
 }
 
+/* Versión específica para las tarjetas destacadas */
+.persona-card-destacada .persona-foto img {
+    object-position: center 20%;
+}
 
-/* =========================================
-   INFORMACIÓN
-========================================= */
+/* ---------- Grid aprendices (5 columnas densas) ---------- */
+.aprendices-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+}
 
+/* ---------- Fotos (aspecto controlado) ---------- */
+.persona-foto {
+    width: 100%;
+    height: 280px;
+    overflow: hidden;
+    background: #e4ede4;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.persona-foto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;   /* prioriza la cara */
+    display: block;
+    transition: transform 0.35s ease;
+}
+
+.persona-card:hover .persona-foto img {
+    transform: scale(1.06);
+}
+
+/* ---------- Información compacta ---------- */
 .persona-info {
-    padding: 25px;
+    padding: 14px 15px 16px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .persona-info h3 {
-    margin: 0 0 10px;
-    font-size: 22px;
+    margin: 0 0 5px;
+    font-size: 14.5px;
     line-height: 1.3;
     color: #111;
+    font-weight: 650;
 }
 
 .persona-rol {
     display: inline-block;
-    margin-bottom: 15px;
-    padding: 6px 13px;
-    border-radius: 30px;
-    background: rgba(57, 169, 0, 0.1);
-    color: #39a900;
-    font-size: 13px;
+    margin-bottom: 8px;
+    padding: 3px 9px;
+    border-radius: 20px;
+    background: rgba(57, 169, 0, 0.13);
+    color: #2a8000;
+    font-size: 11px;
     font-weight: 600;
+    width: fit-content;
 }
 
 .persona-info p {
     margin: 0;
-    color: #666;
-    line-height: 1.7;
+    color: #555;
+    line-height: 1.5;
     font-size: 15px;
+    flex: 1;
 }
 
-
 /* =========================================
-   RESPONSIVE - TABLET
+   RESPONSIVE
 ========================================= */
 
-@media (max-width: 1000px) {
+/* Laptops / tablets grandes */
+@media (max-width: 1280px) {
+    .creditos-container {
+        width: 95%;
+    }
+
+    .aprendices-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+    }
+
+    .persona-foto {
+        height: 190px;
+    }
+
+    .persona-card-destacada .persona-foto {
+        height: 220px;
+    }
+}
+
+/* Tablets */
+@media (max-width: 900px) {
+    .creditos-header h1 {
+        font-size: 28px;
+    }
+
+    .destacados-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    /* En tablet las tarjetas destacadas se vuelven horizontales para aprovechar espacio */
+    .persona-card-destacada {
+        flex-direction: row;
+        align-items: stretch;
+    }
+
+    .persona-card-destacada .persona-foto {
+        width: 220px;
+        min-width: 220px;
+        height: auto;
+        min-height: 200px;
+    }
+
+    .persona-card-destacada .persona-info {
+        padding: 16px 18px;
+    }
 
     .aprendices-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
     }
 
+    .persona-foto {
+        height: 190px;
+    }
 }
 
-
-/* =========================================
-   RESPONSIVE - CELULAR
-========================================= */
-
-@media (max-width: 768px) {
-
+/* Móviles */
+@media (max-width: 640px) {
     .creditos-page {
-        padding: 70px 0;
+        padding: 28px 0 44px;
+    }
+
+    .creditos-container {
+        width: 92%;
     }
 
     .creditos-header {
-        margin-bottom: 50px;
+        margin-bottom: 22px;
     }
 
     .creditos-header h1 {
-        font-size: 38px;
+        font-size: 25px;
     }
 
     .creditos-header p {
-        font-size: 15px;
+        font-size: 14px;
     }
 
     .creditos-titulo h2 {
-        font-size: 25px;
+        font-size: 17px;
+    }
+
+    .creditos-grupo {
+        margin-bottom: 24px;
+    }
+
+    .persona-card-destacada {
+        flex-direction: column;
+    }
+
+    .persona-card-destacada .persona-foto {
+        width: 100%;
+        min-width: 100%;
+        height: 380px;
     }
 
     .aprendices-grid {
         grid-template-columns: 1fr;
-        gap: 25px;
+        gap: 12px;
     }
 
     .persona-foto {
-        height: 280px;
-    }
-
-    .persona-card-individual {
-        padding: 25px;
-    }
-
-}
-
-
-/* =========================================
-   CELULARES PEQUEÑOS
-========================================= */
-
-@media (max-width: 480px) {
-
-    .creditos-container {
-        width: 88%;
-    }
-
-    .creditos-header h1 {
-        font-size: 34px;
-    }
-
-    .creditos-titulo h2 {
-        font-size: 22px;
-    }
-
-    .persona-foto {
-        height: 250px;
+        height: 360px;
     }
 
     .persona-info {
-        padding: 22px;
+        padding: 14px 14px 16px;
     }
 
     .persona-info h3 {
-        font-size: 20px;
+        font-size: 15px;
     }
 
+    .persona-info p {
+        font-size: 13px;
+    }
 }
 
-.persona-card-instructor {
-    max-width: 850px;
-    display: flex;
-    align-items: center;
-}
-
-.persona-card-instructor .persona-foto {
-    width: 280px;
-    min-width: 280px;
-    height: 280px;
-}
-
-.persona-card-instructor .persona-info {
-    padding: 35px;
-}
-
-
-@media (max-width: 768px) {
-
-    .persona-card-instructor {
-        flex-direction: column;
-        max-width: 100%;
+/* Móviles pequeños */
+@media (max-width: 400px) {
+    .creditos-header h1 {
+        font-size: 23px;
     }
 
-    .persona-card-instructor .persona-foto {
-        width: 100%;
-        height: 300px;
-    }
-
-    .persona-card-instructor .persona-info {
-        padding: 25px;
+    .persona-foto,
+    .persona-card-destacada .persona-foto {
+        height: 190px;
     }
 }
