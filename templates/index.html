@@ -125,23 +125,6 @@
 </section>
 {% endif %}
 
-<!-- BANNER CRÉDITOS -->
-<section class="creditos-banner">
-    <div class="creditos-banner-inner">
-        <div class="creditos-banner-content">
-            <span class="creditos-banner-badge">Nuestro equipo</span>
-            <h2>Detrás de esta plataforma hay un equipo que lo hizo posible</h2>
-            <p>
-                Coordinadores, instructores y aprendices del programa Articulación con la Media
-                trabajaron juntos para crear esta solución tecnológica para la Regional Arauca.
-            </p>
-            <a href="{{ url_for('main.creditos') }}" class="creditos-banner-btn">
-                Ver créditos del equipo
-                <span>→</span>
-            </a>
-        </div>
-    </div>
-</section>
 
 <!-- MUNICIPIOS (DISEÑO GRIS/AZUL) -->
 {% if municipios %}
@@ -236,6 +219,25 @@
         </div>
     </div>
 </section>
+
+<!-- BANNER CRÉDITOS -->
+<section class="creditos-banner">
+    <div class="creditos-banner-inner">
+        <div class="creditos-banner-content">
+            <span class="creditos-banner-badge">Nuestro equipo</span>
+            <h2>Detrás de esta plataforma hay un equipo que lo hizo posible</h2>
+            <p>
+                Coordinadores, instructores y aprendices del programa Articulación con la Media
+                trabajaron juntos para crear esta solución tecnológica para la Regional Arauca.
+            </p>
+            <a href="{{ url_for('main.creditos') }}" class="creditos-banner-btn">
+                Ver créditos del equipo
+                <span>→</span>
+            </a>
+        </div>
+    </div>
+</section>
+
 {% endif %}
 
 {% endblock %}
