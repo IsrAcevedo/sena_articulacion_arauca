@@ -33,10 +33,23 @@
             {% endfor %}
         </section>
         {% else %}
-        <div class="sin-resultados" role="status">
-            <h2>Pronto encontrarás proyectos aquí</h2>
-            <p>Estamos preparando las iniciativas de formación desarrolladas por la comunidad educativa.</p>
-        </div>
+        <section class="proyectos-presentacion" aria-label="Ecosistema de proyectos">
+            <article class="presentacion-card">
+                <span class="presentacion-icon" aria-hidden="true">01</span>
+                <h2>Formación con propósito</h2>
+                <p>La articulación conecta la educación media con programas técnicos para que los aprendices transformen sus conocimientos en soluciones para su entorno.</p>
+            </article>
+            <article class="presentacion-card">
+                <span class="presentacion-icon" aria-hidden="true">02</span>
+                <h2>Trabajo colaborativo</h2>
+                <p>Instituciones educativas, instructores y aprendices construyen experiencias de aprendizaje que fortalecen las capacidades del territorio.</p>
+            </article>
+            <article class="presentacion-card">
+                <span class="presentacion-icon" aria-hidden="true">03</span>
+                <h2>Impacto territorial</h2>
+                <p>El propósito es impulsar iniciativas pertinentes para Arauca, con formación técnica, creatividad y compromiso con la comunidad.</p>
+            </article>
+        </section>
         {% endif %}
     </div>
 </main>

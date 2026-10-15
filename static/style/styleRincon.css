@@ -55,6 +55,64 @@
   margin-bottom: 1rem;
 }
 
+/* Presentación de Proyectos cuando el catálogo aún no tiene registros. */
+.proyectos-presentacion {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.presentacion-card {
+  min-height: 290px;
+  padding: 34px;
+  border-radius: 20px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, .08);
+}
+
+.presentacion-card:nth-child(2) {
+  background: linear-gradient(135deg, #1c5535, #39a900);
+  border-color: transparent;
+}
+
+.presentacion-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  margin-bottom: 28px;
+  border-radius: 50%;
+  background: rgba(57, 169, 0, .12);
+  color: #278000;
+  font-weight: 800;
+}
+
+.presentacion-card h2 {
+  margin: 0 0 14px;
+  color: #14213d;
+  font-size: 25px;
+  line-height: 1.2;
+}
+
+.presentacion-card p {
+  margin: 0;
+  color: #52606d;
+  line-height: 1.7;
+}
+
+.presentacion-card:nth-child(2) .presentacion-icon {
+  background: rgba(255, 255, 255, .2);
+  color: #fff;
+}
+
+.presentacion-card:nth-child(2) h2,
+.presentacion-card:nth-child(2) p {
+  color: #fff;
+}
+
 
 /* ================================
    DETALLE DE PROYECTOS
@@ -278,6 +336,10 @@
 /* CELULAR */
 
 @media (max-width: 768px) {
+
+    .proyectos-presentacion {
+        grid-template-columns: 1fr;
+    }
 
     .proyecto-detalle {
         padding: 35px 15px;
