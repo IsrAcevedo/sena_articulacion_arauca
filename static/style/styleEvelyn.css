@@ -1832,7 +1832,6 @@
 .pagina-instructores .instructor-link {
     display: flex;
     flex-direction: column;
-    height: 25rem;
     overflow: hidden;
     border: 1px solid #e1e7e5;
     border-radius: 18px;
@@ -1850,7 +1849,7 @@
 
 .pagina-instructores .instructor-photo {
     position: relative;
-    height: 220px;
+    height: 240px;
     background:
         radial-gradient(circle at 70% 20%, rgba(255, 255, 255, .8), transparent 25%),
         linear-gradient(145deg, #dff1ed, #bcded7);
@@ -2143,7 +2142,7 @@
 /* cuando pasas el mouse */
 
 .paginacion-instructores .flecha:hover {
-    background:  #1e5900;
+    background: #1e5900;
     color: #ffffff;
     transform: scale(1.08);
 }
@@ -2286,21 +2285,51 @@
 
 @media (max-width: 900px) {
 
+    .pagina-instructores .hero-instructores {
+        background-position: center bottom;
+        background-size: 100% auto;
+        background-repeat: no-repeat;
+    }
+
+    .pagina-instructores .container_instructores {
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    .pagina-instructores .hero-grid {
+        display: block;
+        text-align: left;
+        max-width: 48%;
+        margin-left: 4%;
+    }
+
+    .pagina-instructores .hero-instructores .pag {
+        font-size: 19px;
+        margin-bottom: 20px;
+    }
+
+    .pagina-instructores .hero-instructores h1 {
+        font-size: 3rem;
+        text-align: left;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .pagina-instructores .hero-instructores p {
+        text-align: left;
+        margin-left: 0;
+        margin-right: 0;
+        max-width: 100%;
+        font-size: 1rem;
+    }
+
     .container_instructores {
         width: calc(100% - 32px);
         max-width: 720px;
         margin: 0 auto;
     }
 
-    /* HERO */
-    .pagina-instructores .hero-grid {
-        grid-template-columns: 1fr;
-        gap: 25px;
-    }
-
-    .pagina-instructores .hero-instructores {
-        padding-top: 45px;
-    }
 
     .pagina-instructores .hero-visual {
         min-height: 300px;
@@ -2326,6 +2355,7 @@
     .pagina-instructores .instructor-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 15px;
+        padding: 1rem;
     }
 
     .pagina-instructores .instructor-photo {
@@ -2345,9 +2375,71 @@
    ========================================================= */
 @media (max-width: 680px) {
 
-    /* =====================================================
-       CONTENEDOR
-       ===================================================== */
+    .pagina-instructores .container_instructores {
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+    }
+
+    .pagina-instructores .hero-grid {
+        width: 100%;
+        display: block;
+        text-align: center;
+    }
+
+
+    .pagina-instructores .container_instructores {
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+        margin: 0 auto;
+    }
+
+    .pagina-instructores .hero-grid {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        text-align: center;
+    }
+
+    .pagina-instructores .hero-instructores .pag {
+        font-size: 14px;
+        letter-spacing: 1.5px;
+        line-height: 1.4;
+        margin: 0 auto 24px;
+        text-align: center;
+    }
+
+    .pagina-instructores .hero-instructores h1 {
+        width: 100%;
+        max-width: 100%;
+        font-size: 3rem;
+        letter-spacing: 0.1rem;
+        line-height: 1.1;
+        text-align: center;
+        overflow-wrap: normal;
+        word-break: normal;
+        margin: 0 auto 20px;
+    }
+
+    .pagina-instructores .hero-instructores h1 span {
+        display: block;
+        font-size: 0.95em;
+        line-height: 1.2;
+        margin-top: 0;
+    }
+
+    .pagina-instructores .hero-instructores p {
+        width: 100%;
+        max-width: 340px;
+        font-size: 16px;
+        line-height: 1.55;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+
 
     .container_instructores {
         width: calc(100% - 24px);
@@ -2356,29 +2448,22 @@
     }
 
 
-    /* =====================================================
-       HERO
-       ===================================================== */
+   
 
     .pagina-instructores .hero-instructores {
-        padding: 35px 0 25px;
-    }
-
-    .pagina-instructores .hero h1 {
-        font-size: 38px;
-        line-height: 1.05;
-        letter-spacing: -1.5px;
-    }
-
-    .pagina-instructores .hero p {
-        font-size: 14px;
-        line-height: 1.6;
+        box-sizing: border-box;
+        width: 100%;
+        min-height: 0;
+        padding: 35px 15px 280px;
+        background-image: url(../img/fondoinst-telefono.png);
+        background-size: 100% auto;
+        background-position: center bottom;
+        background-repeat: no-repeat;
+        overflow: hidden;
     }
 
 
-    /* =====================================================
-       FILTROS
-       ===================================================== */
+
 
     .filt_instructores {
         grid-template-columns: 1fr;
@@ -2400,10 +2485,6 @@
     }
 
 
-    /* =====================================================
-       TÍTULOS
-       ===================================================== */
-
     .pagina-instructores .section {
         padding-top: 35px;
     }
@@ -2420,11 +2501,6 @@
         line-height: 1.2;
     }
 
-
-    /* =====================================================
-       CARRUSEL
-       ===================================================== */
-
     .pagina-instructores .instructor-grid {
 
         display: flex !important;
@@ -2433,7 +2509,7 @@
         width: 100%;
         gap: 12px;
         overflow-x: auto;
-
+        padding: 1rem;
         overflow-y: hidden;
 
         scroll-snap-type: x mandatory;
@@ -2448,16 +2524,10 @@
     }
 
 
-    /* quitar barra de desplazamiento */
-
     .pagina-instructores .instructor-grid::-webkit-scrollbar {
         display: none;
     }
 
-
-    /* =====================================================
-       CADA TARJETA OCUPA TODA LA PANTALLA
-       ===================================================== */
 
     .pagina-instructores .instructor-link {
 
@@ -2522,10 +2592,6 @@
     }
 
 
-    /* =====================================================
-       CONTENIDO
-       ===================================================== */
-
     .pagina-instructores .tarj_inst {
 
         flex: 1;
@@ -2552,10 +2618,6 @@
     }
 
 
-    /* =====================================================
-       NOMBRE
-       ===================================================== */
-
     .pagina-instructores .tarj_inst h3 {
 
         margin: 0 0 7px;
@@ -2568,9 +2630,6 @@
     }
 
 
-    /* =====================================================
-       PROFESIÓN
-       ===================================================== */
 
     .pagina-instructores .profesion {
 
@@ -2583,10 +2642,6 @@
         margin: 5px 0 12px;
     }
 
-
-    /* =====================================================
-       BOTÓN VER PERFIL
-       ===================================================== */
 
     .pagina-instructores .profile-btn {
 
@@ -2680,11 +2735,10 @@
     .pagina-instructores .instructor-grid {
         grid-template-columns: 1fr;
         gap: 15px;
+        padding: 1rem;
     }
 
-    .pagina-instructores .instructor-photo {
-        height: 230px;
-    }
+
 
     .pagina-instructores .card-content {
         padding: 15px;
