@@ -1,56 +1,140 @@
 {% extends "base.html" %}
+
 {% block content %}
 <main class="proyectos" id="proyectos">
     <div class="container">
+
         <header class="section-header">
-            <span class="section-badge">SENA · Arauca</span>
-            <h1>Proyectos que convierten ideas en oportunidades</h1>
-            <p>Conoce las iniciativas creadas por aprendices e instructores de los programas articulados con las instituciones educativas del departamento.</p>
+            <span class="section-badge">SENA · ARAUCA</span>
+
+            <h1>Proyectos que transforman ideas en oportunidades</h1>
+
+            <p>
+                Conoce las iniciativas desarrolladas por aprendices e instructores
+                de los programas de articulación con las instituciones educativas
+                del departamento de Arauca.
+            </p>
         </header>
 
         {% if proyectos %}
-        <section class="collage-grid" aria-label="Proyectos de articulación">
+
+        <section class="proyectos-grid" aria-label="Lista de proyectos">
+
             {% for proyecto in proyectos %}
-            <a class="collage-card" href="{{ url_for('main.proyecto', id=proyecto.id) }}">
-                <div class="card-bg">
+
+            <a class="proyecto-card"
+               href="{{ url_for('main.proyecto', id=proyecto.id) }}">
+
+                <div class="proyecto-card-imagen">
+
                     {% if proyecto.foto and proyecto.foto != 'imagen.webp' %}
-                    <img src="{{ url_for('static', filename='uploads/' + proyecto.foto) }}" alt="{{ proyecto.nombre }}" loading="lazy">
+
+                    <img
+                        src="{{ url_for('static', filename='uploads/' + proyecto.foto) }}"
+                        alt="{{ proyecto.nombre }}"
+                        loading="lazy"
+                    >
+
                     {% else %}
-                    <div class="sin-imagen" role="img" aria-label="Sin imagen disponible">SENA · Arauca</div>
+
+                    <div class="proyecto-sin-imagen">
+                        <span>SENA · Arauca</span>
+                    </div>
+
                     {% endif %}
+
                 </div>
-                <div class="state-default"><h2>{{ proyecto.nombre }}</h2></div>
-                <div class="state-hover">
-                    <span class="card-tag">Proyecto de formación</span>
+
+                <div class="proyecto-card-contenido">
+
+                    <span class="proyecto-card-etiqueta">
+                        Proyecto de formación
+                    </span>
+
                     <h2>{{ proyecto.nombre }}</h2>
-                    <p>{{ proyecto.descripcion or 'Una iniciativa de formación técnica desarrollada en Arauca.' }}</p>
+
+                    <p>
+                        {{ proyecto.descripcion or
+                        'Una iniciativa de formación técnica desarrollada en Arauca.' }}
+                    </p>
+
                     {% if proyecto.modalidad or proyecto.colegio %}
-                    <p>{% if proyecto.modalidad %}{{ proyecto.modalidad }}{% endif %}{% if proyecto.colegio and proyecto.modalidad %} · {% endif %}{% if proyecto.colegio %}{{ proyecto.colegio }}{% endif %}</p>
+
+                    <div class="proyecto-card-datos">
+
+                        {% if proyecto.modalidad %}
+                        <span>{{ proyecto.modalidad }}</span>
+                        {% endif %}
+
+                        {% if proyecto.colegio %}
+                        <span>{{ proyecto.colegio }}</span>
+                        {% endif %}
+
+                    </div>
+
                     {% endif %}
-                    <span class="card-link-text">Conocer el proyecto →</span>
+
+                    <span class="proyecto-card-enlace">
+                        Conocer proyecto <span aria-hidden="true">→</span>
+                    </span>
+
                 </div>
+
             </a>
+
             {% endfor %}
+
         </section>
+
         {% else %}
-        <section class="proyectos-presentacion" aria-label="Ecosistema de proyectos">
-            <article class="presentacion-card">
-                <span class="presentacion-icon" aria-hidden="true">01</span>
-                <h2>Formación con propósito</h2>
-                <p>La articulación conecta la educación media con programas técnicos para que los aprendices transformen sus conocimientos en soluciones para su entorno.</p>
-            </article>
-            <article class="presentacion-card">
-                <span class="presentacion-icon" aria-hidden="true">02</span>
-                <h2>Trabajo colaborativo</h2>
-                <p>Instituciones educativas, instructores y aprendices construyen experiencias de aprendizaje que fortalecen las capacidades del territorio.</p>
-            </article>
-            <article class="presentacion-card">
-                <span class="presentacion-icon" aria-hidden="true">03</span>
-                <h2>Impacto territorial</h2>
-                <p>El propósito es impulsar iniciativas pertinentes para Arauca, con formación técnica, creatividad y compromiso con la comunidad.</p>
-            </article>
+
+        <section class="proyectos-vacio">
+
+            <div class="proyectos-vacio-encabezado">
+                <span>ARTICULACIÓN SENA</span>
+                <h2>Formación que genera oportunidades</h2>
+                <p>
+                    La articulación entre el SENA y las instituciones educativas
+                    permite desarrollar conocimientos, habilidades e iniciativas
+                    que aportan al crecimiento de la región.
+                </p>
+            </div>
+
+            <div class="proyectos-vacio-grid">
+
+                <article class="proyectos-vacio-card">
+                    <span class="proyectos-numero">01</span>
+                    <h3>Aprendizaje práctico</h3>
+                    <p>
+                        Los aprendices aplican sus conocimientos en experiencias
+                        relacionadas con su formación técnica.
+                    </p>
+                </article>
+
+                <article class="proyectos-vacio-card">
+                    <span class="proyectos-numero">02</span>
+                    <h3>Trabajo colaborativo</h3>
+                    <p>
+                        Aprendices, instructores e instituciones trabajan
+                        conjuntamente para desarrollar nuevas ideas.
+                    </p>
+                </article>
+
+                <article class="proyectos-vacio-card">
+                    <span class="proyectos-numero">03</span>
+                    <h3>Impacto regional</h3>
+                    <p>
+                        La formación impulsa iniciativas que contribuyen
+                        al desarrollo de las comunidades de Arauca.
+                    </p>
+                </article>
+
+            </div>
+
         </section>
+
         {% endif %}
+
     </div>
 </main>
 {% endblock %}
