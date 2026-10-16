@@ -27,7 +27,7 @@
 }
 
 .colegio-list, .project-grid {
-  display: flex;
+  display: flex;    
   flex-wrap: wrap;
   justify-content: center;
   gap: 2rem;

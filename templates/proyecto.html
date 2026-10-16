@@ -1,9 +1,79 @@
 {% extends "base.html" %}
-
 {% block content %}
 
-<main>
-    <p>Esta pagina se encuentra en construcción</p>
+<main class="proyecto-detalle">
+    <article class="proyecto-contenedor">
+        <a class="volver-proyectos" href="{{ url_for('main.proyectos') }}">← Volver a proyectos</a>
+
+        <header class="proyecto-encabezado">
+            <span class="proyecto-etiqueta">Proyecto de formación · SENA Arauca</span>
+            <h1>{{ proyecto.nombre }}</h1>
+            {% if proyecto.descripcion_corta %}
+            <p class="proyecto-descripcion-corta">{{ proyecto.descripcion_corta }}</p>
+            {% endif %}
+        </header>
+
+        <section class="proyecto-principal" aria-label="Información del proyecto">
+            <div class="proyecto-imagen">
+                {% if proyecto.foto_principal and proyecto.foto_principal != 'imagen.webp' %}
+                <img src="{{ url_for('static', filename='uploads/' + proyecto.foto_principal) }}" alt="{{ proyecto.nombre }}">
+                {% else %}
+                <div class="sin-imagen"><span>Proyecto de formación SENA</span></div>
+                {% endif %}
+            </div>
+            <div class="proyecto-datos">
+                <div class="dato-proyecto"><strong>Programa técnico</strong><span>{{ proyecto.tecnico_nombre or 'No especificado' }}</span></div>
+                {% if proyecto.ficha %}<div class="dato-proyecto"><strong>Ficha</strong><span>{{ proyecto.ficha }}</span></div>{% endif %}
+                <div class="dato-proyecto"><strong>Institución educativa</strong><span>{{ proyecto.colegio_nombre or 'No especificada' }}</span></div>
+                <div class="dato-proyecto"><strong>Modalidad</strong><span>{{ proyecto.modalidad_nombre or 'No especificada' }}</span></div>
+                {% if proyecto.instructor_nombre %}<div class="dato-proyecto"><strong>Instructor</strong><span>{{ proyecto.instructor_nombre }}</span></div>{% endif %}
+                {% if proyecto.fecha_inicio or proyecto.fecha_fin %}
+                <div class="dato-proyecto"><strong>Periodo</strong><span>{{ proyecto.fecha_inicio or 'Por definir' }}{% if proyecto.fecha_fin %} – {{ proyecto.fecha_fin }}{% endif %}</span></div>
+                {% endif %}
+            </div>
+        </section>
+
+        {% if proyecto.descripcion_larga %}
+        <section class="proyecto-seccion">
+            <h2>Sobre el proyecto</h2>
+            <p>{{ proyecto.descripcion_larga }}</p>
+        </section>
+        {% endif %}
+
+        {% if proyecto.objetivo %}
+        <section class="proyecto-seccion">
+            <h2>Objetivo</h2>
+            <p>{{ proyecto.objetivo }}</p>
+        </section>
+        {% endif %}
+
+        {% if proyecto.resultado %}
+        <section class="proyecto-seccion">
+            <h2>Resultados</h2>
+            <p>{{ proyecto.resultado }}</p>
+        </section>
+        {% endif %}
+
+        {% if proyecto.video_intro %}
+        <section class="proyecto-seccion">
+            <h2>Video del proyecto</h2>
+            <p>Conoce más sobre esta iniciativa.</p>
+            <a class="boton-video" href="{{ proyecto.video_intro }}" target="_blank" rel="noopener noreferrer">Ver video de presentación ↗</a>
+        </section>
+        {% endif %}
+
+        {% if aprendices %}
+        <section class="proyecto-seccion">
+            <h2>Aprendices participantes</h2>
+            <div class="aprendices-proyecto">
+                {% for aprendiz in aprendices %}
+                <div class="aprendiz"><span class="icono-aprendiz" aria-hidden="true">👤</span><span>{{ aprendiz.nombres }} {{ aprendiz.apellidos }}</span></div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+    </article>
 </main>
 
 {% endblock %}
