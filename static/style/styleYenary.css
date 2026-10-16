@@ -2261,7 +2261,7 @@ h4 {
 /* ---------- Fotos (aspecto controlado) ---------- */
 .persona-foto {
     width: 100%;
-    height: 280px;
+    height: 320px;
     overflow: hidden;
     background: #e4ede4;
     position: relative;
